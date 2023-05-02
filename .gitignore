@@ -1,3 +1,4 @@
 *
 !.gitignore
+!.zshrc
 !.config/lvim/config.lua
