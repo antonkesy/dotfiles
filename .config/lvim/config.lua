@@ -171,6 +171,11 @@ lvim.builtin.which_key.mappings["S"] = {
   Q = { "<cmd>lua require('persistence').stop()<cr>", "Quit without saving session" },
 }
 
+-- lvim.builtin.nvimtree.setup.update_cwd = false
+-- lvim.builtin.nvimtree.setup.update_focused_file.update_root = false
+-- dont open root directory
+lvim.builtin.project.manual_mode = true
+
 -- -- Change theme settings
 -- lvim.colorscheme = "carbonfox"
 local dashboardHeader = {
