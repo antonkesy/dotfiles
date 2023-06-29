@@ -3,6 +3,11 @@ vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.relativenumber = true
 
+-- spelling
+-- TODO: activate + set hotkeys
+vim.opt.spell = false
+vim.opt.spelllang = { "en", "de" }
+
 -- disable comment next line
 -- https://vimdoc.sourceforge.net/htmldoc/change.html#fo-table
 vim.cmd [[autocmd BufNewFile,BufRead,BufEnter * setlocal formatoptions-=cro]]
