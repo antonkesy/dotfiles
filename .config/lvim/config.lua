@@ -372,6 +372,22 @@ lvim.plugins = {
   },
   {
     "EdenEast/nightfox.nvim"
+  },
+  {
+    "lervag/vimtex"
+  },
+  {
+    "ellisonleao/glow.nvim", config = true, cmd = "Glow"
+  },
+  {
+    "Exafunction/codeium.vim",
+    config = function()
+      vim.keymap.set('i', '<m-o>', function() return vim.fn['codeium#Complete']() end, { expr = true })
+      vim.keymap.set('i', '<m-y>', function() return vim.fn['codeium#Accept']() end, { expr = true })
+      vim.keymap.set('i', '<m-l>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
+      vim.keymap.set('i', '<m-h>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
+      vim.keymap.set('i', '<m-n>', function() return vim.fn['codeium#Clear']() end, { expr = true })
+    end
   }
 }
 
