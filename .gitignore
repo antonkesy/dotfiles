@@ -1,6 +1,0 @@
-*
-!.gitignore
-!.zshrc
-!.config/lvim/config.lua
-!test.sh
-!test/dockerfile
