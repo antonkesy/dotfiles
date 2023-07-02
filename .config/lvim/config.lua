@@ -185,12 +185,6 @@ lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 
 -- lvim.keys.normal_mode["<leader>an"] = ":ChatGPT<CR>"
 -- lvim.keys.normal_mode["<leader>aa"] = ":ChatGPTActAs<CR>"
-lvim.builtin.which_key.mappings["a"] = {
-  name = "AI",
-  n = { "<cmd>:ChatGPT<cr>", "Open new ChatGPT window" },
-  a = { "<cmd>:ChatGPTActAs<CR>", "Act as ..." },
-}
-
 
 -- -- Use which-key to add extra bindings with the leader-key prefix
 -- lvim.builtin.which_key.mappings["W"] = { "<cmd>noautocmd w<cr>", "Save without formatting" }
@@ -418,15 +412,35 @@ lvim.plugins = {
 
   },
   {
-    "Exafunction/codeium.vim",
+    "github/copilot.vim",
     config = function()
-      vim.keymap.set('i', '<m-o>', function() return vim.fn['codeium#Complete']() end, { expr = true })
-      vim.keymap.set('i', '<m-y>', function() return vim.fn['codeium#Accept']() end, { expr = true })
-      vim.keymap.set('i', '<m-l>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
-      vim.keymap.set('i', '<m-h>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
-      vim.keymap.set('i', '<m-n>', function() return vim.fn['codeium#Clear']() end, { expr = true })
+      vim.g.copilot_no_tab_map = true
+
+      lvim.builtin.which_key.mappings["a"] = {
+        name = "AI",
+        e = { "<cmd>::Copilot enable<cr>", "Enable Copilot" },
+        d = { "<cmd>::Copilot disable<cr>", "Disable Copilot" },
+        s = { "<cmd>:Copilot status<CR>", "Copilot status" },
+        p = { "<cmd>:Copilot panel<CR>", "Copilot panel" },
+      }
+
+      vim.api.nvim_set_keymap('i', '<m-g>', '<Plug>(copilot-suggest)', { silent = true })
+      vim.api.nvim_set_keymap('i', '<m-h>', '<Plug>(copilot-previous)', { silent = true })
+      vim.api.nvim_set_keymap('i', '<m-n>', '<Plug>(copilot-dismiss)', { silent = true })
+      vim.api.nvim_set_keymap('i', '<m-p>', '<cmd>:Copilot panel<CR>', { silent = true })
+      vim.keymap.set('i', '<m-y>', function() return vim.fn['copilot#Accept']() end, { expr = true })
     end
   },
+  -- {
+  --   "Exafunction/codeium.vim",
+  --   config = function()
+  --     vim.keymap.set('i', '<m-o>', function() return vim.fn['codeium#Complete']() end, { expr = true })
+  --     vim.keymap.set('i', '<m-y>', function() return vim.fn['codeium#Accept']() end, { expr = true })
+  --     vim.keymap.set('i', '<m-l>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
+  --     vim.keymap.set('i', '<m-h>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
+  --     vim.keymap.set('i', '<m-n>', function() return vim.fn['codeium#Clear']() end, { expr = true })
+  --   end
+  -- },
   -- {
   --   "jackMort/ChatGPT.nvim",
   --   event = "VeryLazy",
@@ -439,6 +453,8 @@ lvim.plugins = {
   --     "nvim-telescope/telescope.nvim"
   --   }
   -- }
+  -- TODO: waiting for fixing of https://github.com/OmniSharp/omnisharp-roslyn/issues/2483
+  { "OmniSharp/omnisharp-vim" }
 }
 
 -- -- Autocommands (`:help autocmd`) <https://neovim.io/doc/user/autocmd.html>
@@ -450,3 +466,37 @@ lvim.plugins = {
 --   end,
 -- })
 --
+
+-- copilot
+
+
+
+
+-- vim.api.nvim_set_keymap('i', '<m-o>', '<Plug>(copilot-dismiss)', { silent = true })
+-- vim.keymap.set('i', '<m-o>', function() return vim.fn['codeium#Complete']() end, { expr = true })
+-- vim.keymap.set('i', '<m-l>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
+-- vim.keymap.set('i', '<m-h>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
+-- vim.keymap.set('i', '<m-n>', function() return vim.fn['codeium#Clear']() end, { expr = true })
+
+
+
+-- https://github.com/OmniSharp/omnisharp-roslyn/issues/2483#issuecomment-1539809155
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(ev)
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    local function toSnakeCase(str)
+      return string.gsub(str, "%s*[- ]%s*", "_")
+    end
+
+    if client.name == 'omnisharp' then
+      local tokenModifiers = client.server_capabilities.semanticTokensProvider.legend.tokenModifiers
+      for i, v in ipairs(tokenModifiers) do
+        tokenModifiers[i] = toSnakeCase(v)
+      end
+      local tokenTypes = client.server_capabilities.semanticTokensProvider.legend.tokenTypes
+      for i, v in ipairs(tokenTypes) do
+        tokenTypes[i] = toSnakeCase(v)
+      end
+    end
+  end,
+})
