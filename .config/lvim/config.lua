@@ -366,10 +366,24 @@ lvim.plugins = {
 
       vim.api.nvim_set_keymap('i', '<m-g>', '<Plug>(copilot-suggest)', { silent = true })
       vim.api.nvim_set_keymap('i', '<m-h>', '<Plug>(copilot-previous)', { silent = true })
+      vim.api.nvim_set_keymap('i', '<m-l>', '<Plug>(copilot-next)', { silent = true })
       vim.api.nvim_set_keymap('i', '<m-n>', '<Plug>(copilot-dismiss)', { silent = true })
       vim.api.nvim_set_keymap('i', '<m-p>', '<cmd>:Copilot panel<CR>', { silent = true })
       vim.keymap.set('i', '<m-y>', function() return vim.fn['copilot#Accept']() end,
         { noremap = true, silent = true, expr = true, replace_keycodes = false })
+
+      -- Workaround for "Multiple different client offset_encodings detected"
+      -- https://www.reddit.com/r/neovim/comments/12qbcua/multiple_different_client_offset_encodings/
+      local cmp_nvim_lsp = require "cmp_nvim_lsp"
+
+      require("lspconfig").clangd.setup {
+        on_attach = on_attach,
+        capabilities = cmp_nvim_lsp.default_capabilities(),
+        cmd = {
+          "clangd",
+          "--offset-encoding=utf-16",
+        },
+      }
     end
   },
   -- {
