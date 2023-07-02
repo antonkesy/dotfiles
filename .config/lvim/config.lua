@@ -1,12 +1,33 @@
--- vim options
+-- vim option
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.relativenumber = true
+
+-- code folding
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldmethod = "expr"
+-- unfold all on open
+vim.cmd("autocmd BufWinEnter,FileReadPost,BufRead * silent! :normal! zR")
+lvim.builtin.which_key.mappings["f"] = {
+  name = "Fold",
+  o = { "<cmd>:foldopen<CR>", "Open" },
+  c = { "<cmd>:foldclose<CR>", "Close" },
+}
 
 -- spelling
 -- TODO: activate + set hotkeys
 vim.opt.spell = false
 vim.opt.spelllang = { "en", "de" }
+
+-- TODO spelling shortcuts
+lvim.builtin.which_key.mappings["z"] = {
+  name = "Zpelling :)",
+  t = { "<cmd>:set spell!<cr>", "Toggle spelling" },
+  -- g = { "<cmd>:set spell!<cr>", "Add word as good word" },
+  -- b = { "<cmd>:set spell!<cr>", "Add word as bad word" },
+  -- u = { "<cmd>:set spell!<cr>", "Undo add word to list" },
+  -- l = { "<cmd>:set spell!<cr>", "List word suggestions" },
+}
 
 -- disable comment next line
 -- https://vimdoc.sourceforge.net/htmldoc/change.html#fo-table
@@ -160,6 +181,16 @@ lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 
 lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
+
+
+-- lvim.keys.normal_mode["<leader>an"] = ":ChatGPT<CR>"
+-- lvim.keys.normal_mode["<leader>aa"] = ":ChatGPTActAs<CR>"
+lvim.builtin.which_key.mappings["a"] = {
+  name = "AI",
+  n = { "<cmd>:ChatGPT<cr>", "Open new ChatGPT window" },
+  a = { "<cmd>:ChatGPTActAs<CR>", "Act as ..." },
+}
+
 
 -- -- Use which-key to add extra bindings with the leader-key prefix
 -- lvim.builtin.which_key.mappings["W"] = { "<cmd>noautocmd w<cr>", "Save without formatting" }
@@ -380,6 +411,13 @@ lvim.plugins = {
     "ellisonleao/glow.nvim", config = true, cmd = "Glow"
   },
   {
+    "ggandor/leap.nvim",
+    config = function()
+      require('leap').set_default_keymaps()
+    end
+
+  },
+  {
     "Exafunction/codeium.vim",
     config = function()
       vim.keymap.set('i', '<m-o>', function() return vim.fn['codeium#Complete']() end, { expr = true })
@@ -388,7 +426,19 @@ lvim.plugins = {
       vim.keymap.set('i', '<m-h>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
       vim.keymap.set('i', '<m-n>', function() return vim.fn['codeium#Clear']() end, { expr = true })
     end
-  }
+  },
+  -- {
+  --   "jackMort/ChatGPT.nvim",
+  --   event = "VeryLazy",
+  --   config = function()
+  --     require("chatgpt").setup()
+  --   end,
+  --   dependencies = {
+  --     "MunifTanjim/nui.nvim",
+  --     "nvim-lua/plenary.nvim",
+  --     "nvim-telescope/telescope.nvim"
+  --   }
+  -- }
 }
 
 -- -- Autocommands (`:help autocmd`) <https://neovim.io/doc/user/autocmd.html>
