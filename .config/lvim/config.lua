@@ -453,50 +453,37 @@ lvim.plugins = {
   --     "nvim-telescope/telescope.nvim"
   --   }
   -- }
-  -- TODO: waiting for fixing of https://github.com/OmniSharp/omnisharp-roslyn/issues/2483
-  { "OmniSharp/omnisharp-vim" }
+  {
+    "OmniSharp/omnisharp-vim",
+    config = function()
+      vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(ev)
+          local client = vim.lsp.get_client_by_id(ev.data.client_id)
+          local function toSnakeCase(str)
+            return string.gsub(str, "%s*[- ]%s*", "_")
+          end
+
+          if client.name == 'omnisharp' then
+            local tokenModifiers = client.server_capabilities.semanticTokensProvider.legend.tokenModifiers
+            for i, v in ipairs(tokenModifiers) do
+              tokenModifiers[i] = toSnakeCase(v)
+            end
+            local tokenTypes = client.server_capabilities.semanticTokensProvider.legend.tokenTypes
+            for i, v in ipairs(tokenTypes) do
+              tokenTypes[i] = toSnakeCase(v)
+            end
+          end
+        end,
+      })
+    end
+  }
 }
 
 -- -- Autocommands (`:help autocmd`) <https://neovim.io/doc/user/autocmd.html>
--- vim.api.nvim_create_autocmd("FileType", {
---   pattern = "zsh",
---   callback = function()
---     -- let treesitter use bash highlight for zsh files as well
---     require("nvim-treesitter.highlight").attach(0, "bash")
---   end,
--- })
---
-
--- copilot
-
-
-
-
--- vim.api.nvim_set_keymap('i', '<m-o>', '<Plug>(copilot-dismiss)', { silent = true })
--- vim.keymap.set('i', '<m-o>', function() return vim.fn['codeium#Complete']() end, { expr = true })
--- vim.keymap.set('i', '<m-l>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
--- vim.keymap.set('i', '<m-h>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
--- vim.keymap.set('i', '<m-n>', function() return vim.fn['codeium#Clear']() end, { expr = true })
-
-
-
--- https://github.com/OmniSharp/omnisharp-roslyn/issues/2483#issuecomment-1539809155
-vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function(ev)
-    local client = vim.lsp.get_client_by_id(ev.data.client_id)
-    local function toSnakeCase(str)
-      return string.gsub(str, "%s*[- ]%s*", "_")
-    end
-
-    if client.name == 'omnisharp' then
-      local tokenModifiers = client.server_capabilities.semanticTokensProvider.legend.tokenModifiers
-      for i, v in ipairs(tokenModifiers) do
-        tokenModifiers[i] = toSnakeCase(v)
-      end
-      local tokenTypes = client.server_capabilities.semanticTokensProvider.legend.tokenTypes
-      for i, v in ipairs(tokenTypes) do
-        tokenTypes[i] = toSnakeCase(v)
-      end
-    end
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "zsh",
+  callback = function()
+    -- let treesitter use bash highlight for zsh files as well
+    require("nvim-treesitter.highlight").attach(0, "bash")
   end,
 })
