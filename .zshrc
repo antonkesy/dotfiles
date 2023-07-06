@@ -2,7 +2,7 @@
 # zmodload zsh/zprof
 #
 # Homebrew
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # Antigen
 source ~/.repos/antigen/antigen.zsh
