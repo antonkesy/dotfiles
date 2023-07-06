@@ -11,3 +11,6 @@
 	path = .repos/netcoredbg
 	url = git@github.com:Samsung/netcoredbg.git
 
+[submodule ".repos/neovim"]
+	path = .repos/neovim
+	url = git@github.com:neovim/neovim.git
