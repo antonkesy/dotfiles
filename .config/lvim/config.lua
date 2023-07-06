@@ -7,12 +7,12 @@ vim.opt.relativenumber = true
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldmethod = "expr"
 -- unfold all on open
-vim.cmd("autocmd BufWinEnter,FileReadPost,BufRead * silent! :normal! zR")
-lvim.builtin.which_key.mappings["f"] = {
-  name = "Fold",
-  o = { "<cmd>:foldopen<CR>", "Open" },
-  c = { "<cmd>:foldclose<CR>", "Close" },
-}
+-- vim.cmd("autocmd BufWinEnter,FileReadPost,BufRead * silent! :normal! zR")
+-- lvim.builtin.which_key.mappings["f"] = {
+--   name = "Fold",
+--   o = { "<cmd>:foldopen<CR>", "Open" },
+--   c = { "<cmd>:foldclose<CR>", "Close" },
+-- }
 
 -- spelling
 -- TODO: activate + set hotkeys
@@ -291,17 +291,17 @@ lvim.plugins = {
   --     })
   --   end
   -- },
-  {
-    'wfxr/minimap.vim',
-    build = "cargo install --locked code-minimap",
-    lazy = false,
-    cmd = { "Minimap", "MinimapClose", "MinimapToggle", "MinimapRefresh", "MinimapUpdateHighlight" },
-    init = function()
-      vim.g.minimap_width = 10
-      vim.g.minimap_auto_start = 1
-      vim.g.minimap_auto_start_win_enter = 1
-    end,
-  },
+  -- {
+  --   'wfxr/minimap.vim',
+  --   build = "cargo install --locked code-minimap",
+  --   lazy = false,
+  --   cmd = { "Minimap", "MinimapClose", "MinimapToggle", "MinimapRefresh", "MinimapUpdateHighlight" },
+  --   init = function()
+  --     vim.g.minimap_width = 10
+  --     vim.g.minimap_auto_start = 1
+  --     vim.g.minimap_auto_start_win_enter = 1
+  --   end,
+  -- },
   {
     "kevinhwang91/nvim-bqf",
     event = { "BufRead", "BufNew" },
