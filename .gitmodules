@@ -1,0 +1,13 @@
+[submodule ".repos/antigen"]
+	path = .repos/antigen
+	url = https://github.com/zsh-users/antigen
+[submodule ".repos/gnome-shell-extension-clipboard-indicator"]
+	path = .repos/gnome-shell-extension-clipboard-indicator
+	url = git@github.com:Tudmotu/gnome-shell-extension-clipboard-indicator.git
+[submodule ".repos/gnome-shell-extension-freon"]
+	path = .repos/gnome-shell-extension-freon
+	url = git@github.com:UshakovVasilii/gnome-shell-extension-freon.git
+[submodule ".repos/netcoredbg"]
+	path = .repos/netcoredbg
+	url = git@github.com:Samsung/netcoredbg.git
+

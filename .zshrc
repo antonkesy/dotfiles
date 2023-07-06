@@ -5,7 +5,7 @@
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # Antigen
-source ~/workspace/git/antigen/antigen.zsh
+source ~/.repos/antigen/antigen.zsh
 antigen init ~/.antigenrc
 
 path+=(/bin)
@@ -35,11 +35,10 @@ eval "$(starship init zsh)"
 # ALIAS
 alias g="lazygit"
 #alias cat="bat"
-alias ls="exa"
-alias du="dust"
-alias find="fdfind"
+# alias ls="exa"
+# alias du="dust"
+# alias find="fdfind"
 # alias ps="procs -t"
-alias ssh_hpc="ssh kesy@hpcvl-login.emi.hs-offenburg.de"
 alias lvim="/home/ak/.local/bin/lvim"
 alias vim="lvim"
 alias neovim="lvim"
