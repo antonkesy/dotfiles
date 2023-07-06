@@ -67,8 +67,11 @@ def copyFromTo(src_prefix, dest_prefix, files):
     for file in files:
         src_path = pathlib.Path(src_prefix).joinpath(file)
         dest_path = pathlib.Path(dest_prefix).joinpath(file)
-        print(f"Copying {src_path}")
-        shutil.copy2(src_path, dest_path)
+        print(f"Copying {src_path} to {dest_path}")
+        try:
+            shutil.copy2(src_path, dest_path)
+        except Exception:
+            print("Failed!")
 
 
 def copyToRepo():
