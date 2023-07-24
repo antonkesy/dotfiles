@@ -17,4 +17,15 @@ rm packages-microsoft-prod.deb
 sudo apt update
 
 
-sudo apt install dotnet-sdk-7.0 dotnet-runtime-7.0 -y
+# sudo apt install dotnet-sdk-6.0 dotnet-runtime-6.0 dotnet-sdk-7.0 dotnet-runtime-7.0 dotnet6 dotnet7 aspnetcore-runtime-6.0 aspnetcore-runtime-7.0 -y
+
+# https://stackoverflow.com/questions/73312785/dotnet-sdk-is-installed-but-not-recognized-linux-ubuntu-popos-22-04
+# clean install
+sudo snap remove dotnet-sdk
+sudo apt remove 'dotnet*'
+sudo apt remove 'aspnetcore*'
+sudo apt remove 'netstandard*'
+sudo rm /etc/apt/sources.list.d/microsoft-prod.list
+sudo rm /etc/apt/sources.list.d/microsoft-prod.list.save
+sudo apt update
+sudo apt install dotnet6 dotnet7 -y
