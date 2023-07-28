@@ -4,8 +4,8 @@ vim.opt.tabstop = 2
 vim.opt.relativenumber = true
 
 -- code folding
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt.foldmethod = "expr"
+-- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+-- vim.opt.foldmethod = "expr"
 -- unfold all on open
 -- vim.cmd("autocmd BufWinEnter,FileReadPost,BufRead * silent! :normal! zR")
 -- lvim.builtin.which_key.mappings["f"] = {
@@ -32,6 +32,9 @@ lvim.builtin.which_key.mappings["z"] = {
 -- disable comment next line
 -- https://vimdoc.sourceforge.net/htmldoc/change.html#fo-table
 vim.cmd [[autocmd BufNewFile,BufRead,BufEnter * setlocal formatoptions-=cro]]
+
+-- overwrite because it was broken :/
+-- lvim.keys.normal_mode["gd"] = vim.lsp.buf.definition()
 
 -- general
 lvim.builtin.dap.active = true
@@ -219,6 +222,7 @@ lvim.builtin.nvimtree.setup.renderer.icons.show.git = true
 
 -- Automatically install missing parsers when entering buffer
 lvim.builtin.treesitter.auto_install = true
+lvim.builtin.nvimtree.setup.view.width = 70
 
 lvim.plugins = {
   {
@@ -374,16 +378,16 @@ lvim.plugins = {
 
       -- Workaround for "Multiple different client offset_encodings detected"
       -- https://www.reddit.com/r/neovim/comments/12qbcua/multiple_different_client_offset_encodings/
-      local cmp_nvim_lsp = require "cmp_nvim_lsp"
+      -- local cmp_nvim_lsp = require "cmp_nvim_lsp"
 
-      require("lspconfig").clangd.setup {
-        on_attach = on_attach,
-        capabilities = cmp_nvim_lsp.default_capabilities(),
-        cmd = {
-          "clangd",
-          "--offset-encoding=utf-16",
-        },
-      }
+      -- require("lspconfig").clangd.setup {
+      --   on_attach = on_attach,
+      --   capabilities = cmp_nvim_lsp.default_capabilities(),
+      --   cmd = {
+      --     "clangd",
+      --     "--offset-encoding=utf-16",
+      --   },
+      -- }
     end
   },
   -- {
@@ -408,30 +412,39 @@ lvim.plugins = {
   --     "nvim-telescope/telescope.nvim"
   --   }
   -- }
-  {
-    "OmniSharp/omnisharp-vim",
-    config = function()
-      vim.api.nvim_create_autocmd("LspAttach", {
-        callback = function(ev)
-          local client = vim.lsp.get_client_by_id(ev.data.client_id)
-          local function toSnakeCase(str)
-            return string.gsub(str, "%s*[- ]%s*", "_")
-          end
+  -- {
+  -- -- check if ~/.cache/omnisharp-vim/omnisharp-roslyn/run has X rights!
+  --   "OmniSharp/omnisharp-vim",
+  --   config = function()
+  --     vim.api.nvim_create_autocmd("LspAttach", {
+  --       callback = function(ev)
+  --         local client = vim.lsp.get_client_by_id(ev.data.client_id)
+  --         local function toSnakeCase(str)
+  --           return string.gsub(str, "%s*[- ]%s*", "_")
+  --         end
 
-          if client.name == 'omnisharp' then
-            local tokenModifiers = client.server_capabilities.semanticTokensProvider.legend.tokenModifiers
-            for i, v in ipairs(tokenModifiers) do
-              tokenModifiers[i] = toSnakeCase(v)
-            end
-            local tokenTypes = client.server_capabilities.semanticTokensProvider.legend.tokenTypes
-            for i, v in ipairs(tokenTypes) do
-              tokenTypes[i] = toSnakeCase(v)
-            end
-          end
-        end,
-      })
+  --         if client.name == 'omnisharp' then
+  --           local tokenModifiers = client.server_capabilities.semanticTokensProvider.legend.tokenModifiers
+  --           for i, v in ipairs(tokenModifiers) do
+  --             tokenModifiers[i] = toSnakeCase(v)
+  --           end
+  --           local tokenTypes = client.server_capabilities.semanticTokensProvider.legend.tokenTypes
+  --           for i, v in ipairs(tokenTypes) do
+  --             tokenTypes[i] = toSnakeCase(v)
+  --           end
+  --         end
+  --       end,
+  --     })
+  --   end
+  -- },
+  {
+    "mbbill/undotree",
+    config = function()
+      -- misc - history
+      vim.keymap.set('n', '<leader>mh', vim.cmd.UndotreeToggle)
     end
   }
+
 }
 
 -- -- Autocommands (`:help autocmd`) <https://neovim.io/doc/user/autocmd.html>
