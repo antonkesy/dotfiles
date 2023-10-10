@@ -49,7 +49,7 @@ alias vim="lvim"
 alias neovim="lvim"
 alias nvim="lvim"
 alias n="nvim"
-alias n.="nvim ."
+# alias n.="nvim ."
 alias python=python3
 alias py=python
 alias py3=python3
@@ -65,7 +65,9 @@ alias .ros="
 source /opt/ros/humble/setup.zsh
 source /home/ak/workspace/taco/install/setup.zsh
 source /opt/ros/humble/share/ros2cli/environment/ros2-argcomplete.zsh
+source /home/ak/workspace/git/bachelor-thesis/example/install/setup.zsh
 "
+
 alias tacodev="
 cd /home/ak/workspace/git/taco/
 ./build.sh &&
@@ -86,6 +88,8 @@ export LD_LIBRARY_PATH=$WEBOTS_HOME/lib/controller:$LD_LIBRARY_PATH
 # END_BENCHMARK_STARTUP
 # zprof
 
+# Groot
+alias groot=/home/ak/workspace/git/Groot/build/Groot
 
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
