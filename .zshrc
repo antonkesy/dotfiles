@@ -16,7 +16,7 @@ SAVEHIST=1000
 # End of lines configured by zsh-newuser-install
 
 # local user path
-export JAVA_HOME="/usr/lib/jvm/java-18-openjdk-amd64"
+# export JAVA_HOME="/usr/lib/jvm/java-18-openjdk-amd64"
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
@@ -27,10 +27,12 @@ export PATH="$HOME/.cabal/bin:$PATH"
 export PATH="$HOME/workspace/git/netcoredbg/build/src:$PATH"
 # SDKMan
 source "/home/ak/.sdkman/bin/sdkman-init.sh"
+# anaconda
+export PATH="$HOME/anaconda3/bin:$PATH"
 
 #flatpak
-export PATH="/var/lib/flatpak/exports/share$PATH"
-export PATH="$HOME/.local/share/flatpak/exports/share$PATH"
+export PATH="/var/lib/flatpak/exports/share:$PATH"
+export PATH="$HOME/.local/share/flatpak/exports/share:$PATH"
 
 
 # THEME (antigen broken)
