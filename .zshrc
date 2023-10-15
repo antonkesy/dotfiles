@@ -1,3 +1,4 @@
+# [[ $TERM != "screen" ]] && exec tmux
 # zmodload zsh/zprof
 #
 # Homebrew
@@ -55,6 +56,7 @@ alias n="nvim"
 alias python=python3
 alias py=python
 alias py3=python3
+alias tilix=tilix --full-screen
 
 # Rust
 . "$HOME/.cargo/env"
