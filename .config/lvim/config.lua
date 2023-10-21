@@ -254,9 +254,6 @@ lvim.plugins = {
 
       }
     end,
-    require("todo-comments").setup {
-      log_level = 'info',
-    }
   },
   {
     "ethanholz/nvim-lastplace",
@@ -273,10 +270,7 @@ lvim.plugins = {
   },
   {
     "folke/todo-comments.nvim",
-    event = "BufRead",
-    config = function()
-      require("todo-comments").setup()
-    end,
+    dependencies = { "nvim-lua/plenary.nvim" },
   },
   -- {
   --   "karb94/neoscroll.nvim",
@@ -479,6 +473,7 @@ lvim.plugins = {
     'nvim-treesitter/nvim-treesitter-context',
     config = function()
       require('treesitter-context').setup {}
+      vim.cmd [[hi TreesitterContextBottom gui=underline guisp=Grey]]
     end
   },
   {
