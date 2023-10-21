@@ -3,16 +3,18 @@ vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.relativenumber = true
 
--- code folding
+-- TODO:
+-- -- code folding
 -- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 -- vim.opt.foldmethod = "expr"
 -- unfold all on open
 -- vim.cmd("autocmd BufWinEnter,FileReadPost,BufRead * silent! :normal! zR")
--- lvim.builtin.which_key.mappings["f"] = {
---   name = "Fold",
---   o = { "<cmd>:foldopen<CR>", "Open" },
---   c = { "<cmd>:foldclose<CR>", "Close" },
--- }
+
+lvim.builtin.which_key.mappings["f"] = {
+  name = "Fold",
+  o = { "<cmd>:foldopen<CR>", "Open" },
+  c = { "<cmd>:foldclose<CR>", "Close" },
+}
 
 -- spelling
 -- TODO: activate + set hotkeys
@@ -476,11 +478,12 @@ lvim.plugins = {
   {
     'nvim-treesitter/nvim-treesitter-context',
     config = function()
-      require('treesitter-context').setup {
-        enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-      }
+      require('treesitter-context').setup {}
     end
   },
+  {
+    "mechatroner/rainbow_csv"
+  }
 }
 
 -- -- Autocommands (`:help autocmd`) <https://neovim.io/doc/user/autocmd.html>
