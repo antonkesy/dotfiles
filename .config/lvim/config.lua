@@ -356,63 +356,41 @@ lvim.plugins = {
     end
 
   },
-  {
-    "github/copilot.vim",
-    config = function()
-      vim.g.copilot_no_tab_map = true
-
-      lvim.builtin.which_key.mappings["a"] = {
-        name = "AI",
-        e = { "<cmd>::Copilot enable<cr>", "Enable Copilot" },
-        d = { "<cmd>::Copilot disable<cr>", "Disable Copilot" },
-        s = { "<cmd>:Copilot status<CR>", "Copilot status" },
-        p = { "<cmd>:Copilot panel<CR>", "Copilot panel" },
-      }
-
-      vim.api.nvim_set_keymap('i', '<m-g>', '<Plug>(copilot-suggest)', { silent = true })
-      vim.api.nvim_set_keymap('i', '<m-h>', '<Plug>(copilot-previous)', { silent = true })
-      vim.api.nvim_set_keymap('i', '<m-l>', '<Plug>(copilot-next)', { silent = true })
-      vim.api.nvim_set_keymap('i', '<m-n>', '<Plug>(copilot-dismiss)', { silent = true })
-      vim.api.nvim_set_keymap('i', '<m-p>', '<cmd>:Copilot panel<CR>', { silent = true })
-      vim.keymap.set('i', '<m-y>', function() return vim.fn['copilot#Accept']() end,
-        { noremap = true, silent = true, expr = true, replace_keycodes = false })
-
-      -- Workaround for "Multiple different client offset_encodings detected"
-      -- https://www.reddit.com/r/neovim/comments/12qbcua/multiple_different_client_offset_encodings/
-      -- local cmp_nvim_lsp = require "cmp_nvim_lsp"
-
-      -- require("lspconfig").clangd.setup {
-      --   on_attach = on_attach,
-      --   capabilities = cmp_nvim_lsp.default_capabilities(),
-      --   cmd = {
-      --     "clangd",
-      --     "--offset-encoding=utf-16",
-      --   },
-      -- }
-    end
-  },
   -- {
-  --   "Exafunction/codeium.vim",
+  --   "github/copilot.vim",
   --   config = function()
-  --     vim.keymap.set('i', '<m-o>', function() return vim.fn['codeium#Complete']() end, { expr = true })
-  --     vim.keymap.set('i', '<m-y>', function() return vim.fn['codeium#Accept']() end, { expr = true })
-  --     vim.keymap.set('i', '<m-l>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true })
-  --     vim.keymap.set('i', '<m-h>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true })
-  --     vim.keymap.set('i', '<m-n>', function() return vim.fn['codeium#Clear']() end, { expr = true })
+  --     vim.g.copilot_no_tab_map = true
+
+  --     lvim.builtin.which_key.mappings["a"] = {
+  --       name = "AI",
+  --       e = { "<cmd>::Copilot enable<cr>", "Enable Copilot" },
+  --       d = { "<cmd>::Copilot disable<cr>", "Disable Copilot" },
+  --       s = { "<cmd>:Copilot status<CR>", "Copilot status" },
+  --       p = { "<cmd>:Copilot panel<CR>", "Copilot panel" },
+  --     }
+
+  --     vim.api.nvim_set_keymap('i', '<m-g>', '<Plug>(copilot-suggest)', { silent = true })
+  --     vim.api.nvim_set_keymap('i', '<m-h>', '<Plug>(copilot-previous)', { silent = true })
+  --     vim.api.nvim_set_keymap('i', '<m-l>', '<Plug>(copilot-next)', { silent = true })
+  --     vim.api.nvim_set_keymap('i', '<m-n>', '<Plug>(copilot-dismiss)', { silent = true })
+  --     vim.api.nvim_set_keymap('i', '<m-p>', '<cmd>:Copilot panel<CR>', { silent = true })
+  --     vim.keymap.set('i', '<m-y>', function() return vim.fn['copilot#Accept']() end,
+  --       { noremap = true, silent = true, expr = true, replace_keycodes = false })
+
+  --     -- Workaround for "Multiple different client offset_encodings detected"
+  --     -- https://www.reddit.com/r/neovim/comments/12qbcua/multiple_different_client_offset_encodings/
+  --     -- local cmp_nvim_lsp = require "cmp_nvim_lsp"
+
+  --     -- require("lspconfig").clangd.setup {
+  --     --   on_attach = on_attach,
+  --     --   capabilities = cmp_nvim_lsp.default_capabilities(),
+  --     --   cmd = {
+  --     --     "clangd",
+  --     --     "--offset-encoding=utf-16",
+  --     --   },
+  --     -- }
   --   end
   -- },
-  -- {
-  --   "jackMort/ChatGPT.nvim",
-  --   event = "VeryLazy",
-  --   config = function()
-  --     require("chatgpt").setup()
-  --   end,
-  --   dependencies = {
-  --     "MunifTanjim/nui.nvim",
-  --     "nvim-lua/plenary.nvim",
-  --     "nvim-telescope/telescope.nvim"
-  --   }
-  -- }
   -- {
   -- -- check if ~/.cache/omnisharp-vim/omnisharp-roslyn/run has X rights!
   --   "OmniSharp/omnisharp-vim",
@@ -444,8 +422,65 @@ lvim.plugins = {
       -- misc - history
       vim.keymap.set('n', '<leader>mh', vim.cmd.UndotreeToggle)
     end
-  }
+  },
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup({})
+    end,
+  },
+  {
+    "zbirenbaum/copilot-cmp",
+    config = function()
+      require("copilot_cmp").setup()
 
+      lvim.builtin.which_key.mappings["a"] = {
+        name = "AI",
+        e = { "<cmd>::Copilot enable<cr>", "Enable Copilot" },
+        d = { "<cmd>::Copilot disable<cr>", "Disable Copilot" },
+        s = { "<cmd>:Copilot status<CR>", "Copilot status" },
+        p = { "<cmd>:Copilot panel<CR>", "Copilot panel" },
+      }
+
+      -- TODO: fix keymaps - https://github.com/zbirenbaum/copilot.lua
+      -- vim.api.nvim_set_keymap('i', '<m-g>', '<Plug>(copilot.suggest)', { silent = true })
+      -- vim.api.nvim_set_keymap('i', '<m-h>', '<Plug>(copilot.previous)', { silent = true })
+      -- vim.api.nvim_set_keymap('i', '<m-l>', '<Plug>(copilot.suggestions)', { silent = true })
+      -- vim.api.nvim_set_keymap('i', '<m-n>', '<Plug>(copilot-dismiss)', { silent = true })
+      -- vim.api.nvim_set_keymap('i', '<m-p>', '<cmd>:Copilot panel<CR>', { silent = true })
+      -- vim.keymap.set('i', '<m-y>', function() return vim.fn['copilot#Accept']() end,
+      --   { noremap = true, silent = true, expr = true, replace_keycodes = false })
+    end
+  },
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "VeryLazy",
+    opts = {},
+    config = function(_, opts)
+      -- TODO config more - https://github.com/ray-x/lsp_signature.nvim
+      require 'lsp_signature'.setup(opts)
+    end
+  },
+  {
+    'rmagatti/goto-preview',
+    config = function()
+      require('goto-preview').setup {
+        default_mappings = true,
+        dismiss_on_move = true,
+        focus_on_open = false
+      }
+    end
+  },
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    config = function()
+      require('treesitter-context').setup {
+        enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+      }
+    end
+  },
 }
 
 -- -- Autocommands (`:help autocmd`) <https://neovim.io/doc/user/autocmd.html>
