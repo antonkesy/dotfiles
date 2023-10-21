@@ -29,7 +29,7 @@ export PATH="$HOME/workspace/git/netcoredbg/build/src:$PATH"
 # SDKMan
 source "/home/ak/.sdkman/bin/sdkman-init.sh"
 # anaconda
-export PATH="$HOME/anaconda3/bin:$PATH"
+# export PATH="$HOME/anaconda3/bin:$PATH"
 
 #flatpak
 export PATH="/var/lib/flatpak/exports/share:$PATH"
