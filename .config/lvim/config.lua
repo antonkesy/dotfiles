@@ -10,16 +10,17 @@ vim.opt.relativenumber = true
 -- unfold all on open
 -- vim.cmd("autocmd BufWinEnter,FileReadPost,BufRead * silent! :normal! zR")
 
-lvim.builtin.which_key.mappings["f"] = {
-  name = "Fold",
-  o = { "<cmd>:foldopen<CR>", "Open" },
-  c = { "<cmd>:foldclose<CR>", "Close" },
-}
+-- lvim.builtin.which_key.mappings["f"] = {
+--   name = "Fold",
+--   o = { "<cmd>:foldopen<CR>", "Open" },
+--   c = { "<cmd>:foldclose<CR>", "Close" },
+-- }
 
 -- spelling
 -- TODO: activate + set hotkeys
 vim.opt.spell = false
 vim.opt.spelllang = { "en", "de" }
+
 
 -- TODO spelling shortcuts
 lvim.builtin.which_key.mappings["z"] = {
@@ -48,6 +49,7 @@ lvim.format_on_save = {
 }
 
 -- LSP
+-- lvim.builtin.treesitter.ensure_installed = "all"
 
 -- TODO add config files for all languages with dap + LSP
 -- python
@@ -240,6 +242,7 @@ lvim.plugins = {
     end,
   },
   {
+    -- TODO: ignore nvvim tree + map
     "rmagatti/auto-session",
     config = function()
       require("auto-session").setup {
@@ -256,53 +259,9 @@ lvim.plugins = {
     end,
   },
   {
-    "ethanholz/nvim-lastplace",
-    event = "BufRead",
-    config = function()
-      require("nvim-lastplace").setup({
-        lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
-        lastplace_ignore_filetype = {
-          "gitcommit", "gitrebase", "svn", "hgcommit",
-        },
-        lastplace_open_folds = true,
-      })
-    end,
-  },
-  {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
   },
-  -- {
-  --   "karb94/neoscroll.nvim",
-  --   event = "WinScrolled",
-  --   config = function()
-  --     require('neoscroll').setup({
-  --       -- All these keys will be mapped to their corresponding default scrolling animation
-  --       mappings = { '<C-u>', '<C-d>', '<C-b>', '<C-f>',
-  --         '<C-y>', '<C-e>', 'zt', 'zz', 'zb' },
-  --       hide_cursor = true,          -- Hide cursor while scrolling
-  --       stop_eof = true,             -- Stop at <EOF> when scrolling downwards
-  --       use_local_scrolloff = false, -- Use the local scope of scrolloff instead of the global scope
-  --       respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
-  --       cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
-  --       easing_function = nil,       -- Default easing function
-  --       pre_hook = nil,              -- Function to run before the scrolling animation starts
-  --       post_hook = nil,             -- Function to run after the scrolling animation ends
-  --       -- performance_mode = false,
-  --     })
-  --   end
-  -- },
-  -- {
-  --   'wfxr/minimap.vim',
-  --   build = "cargo install --locked code-minimap",
-  --   lazy = false,
-  --   cmd = { "Minimap", "MinimapClose", "MinimapToggle", "MinimapRefresh", "MinimapUpdateHighlight" },
-  --   init = function()
-  --     vim.g.minimap_width = 10
-  --     vim.g.minimap_auto_start = 1
-  --     vim.g.minimap_auto_start_win_enter = 1
-  --   end,
-  -- },
   {
     "kevinhwang91/nvim-bqf",
     event = { "BufRead", "BufNew" },
@@ -330,6 +289,7 @@ lvim.plugins = {
     end,
   },
   {
+    -- TODO: how to use?
     "windwp/nvim-spectre",
     event = "BufRead",
     config = function()
@@ -341,9 +301,6 @@ lvim.plugins = {
   },
   {
     "lervag/vimtex"
-  },
-  {
-    "ellisonleao/glow.nvim", config = true, cmd = "Glow"
   },
   {
     "ggandor/leap.nvim",
@@ -424,7 +381,7 @@ lvim.plugins = {
     cmd = "Copilot",
     event = "InsertEnter",
     config = function()
-      require("copilot").setup({})
+      require("copilot").setup()
     end,
   },
   {
@@ -440,6 +397,10 @@ lvim.plugins = {
         p = { "<cmd>:Copilot panel<CR>", "Copilot panel" },
       }
 
+      -- lvim.lang.clangd = {
+      --   offsetEncoding = { "utf-16", "utf-8" },
+      -- }
+
       -- TODO: fix keymaps - https://github.com/zbirenbaum/copilot.lua
       -- vim.api.nvim_set_keymap('i', '<m-g>', '<Plug>(copilot.suggest)', { silent = true })
       -- vim.api.nvim_set_keymap('i', '<m-h>', '<Plug>(copilot.previous)', { silent = true })
@@ -450,15 +411,15 @@ lvim.plugins = {
       --   { noremap = true, silent = true, expr = true, replace_keycodes = false })
     end
   },
-  {
-    "ray-x/lsp_signature.nvim",
-    event = "VeryLazy",
-    opts = {},
-    config = function(_, opts)
-      -- TODO config more - https://github.com/ray-x/lsp_signature.nvim
-      require 'lsp_signature'.setup(opts)
-    end
-  },
+  -- {
+  --   "ray-x/lsp_signature.nvim",
+  --   event = "VeryLazy",
+  --   opts = {},
+  --   config = function(_, opts)
+  --     -- TODO config more - https://github.com/ray-x/lsp_signature.nvim
+  --     require 'lsp_signature'.setup(opts)
+  --   end
+  -- },
   {
     'rmagatti/goto-preview',
     config = function()
@@ -478,6 +439,110 @@ lvim.plugins = {
   },
   {
     "mechatroner/rainbow_csv"
+  },
+  -- {
+  --   -- TODO: configure more https://github.com/gelguy/wilder.nvim
+  --   "gelguy/wilder.nvim",
+  --   config = function()
+  --     local wilder = require('wilder')
+  --     -- TODO: use better search + replace plugin
+  --     wilder.setup({ modes = { ':', '/', '?' } })
+  --     wilder.set_option('renderer', wilder.popupmenu_renderer(
+  --       wilder.popupmenu_palette_theme({
+  --         -- 'single', 'double', 'rounded' or 'solid'
+  --         -- can also be a list of 8 characters, see :h wilder#popupmenu_palette_theme() for more details
+  --         border = 'rounded',
+  --         max_height = '75%',               -- max height of the palette
+  --         min_height = 0,                   -- set to the same as 'max_height' for a fixed height window
+  --         prompt_position = 'top',          -- 'top' or 'bottom' to set the location of the prompt
+  --         reverse = 0,                      -- set to 1 to reverse the order of the list, use in combination with 'prompt_position'
+  --         highlighter = {
+  --           wilder.lua_pcre2_highlighter(), -- requires `luarocks install pcre2`
+  --           wilder.lua_fzy_highlighter(),   -- requires fzy-lua-native vim plugin found
+  --           -- at https://github.com/romgrk/fzy-lua-native
+  --         },
+  --         highlights = {
+  --           accent = wilder.make_hl('WilderAccent', 'Pmenu', { { a = 1 }, { a = 1 }, { foreground = '#f4468f' } }),
+  --         },
+  --       })
+  --     ))
+  --   end,
+  -- },
+  -- {
+  --   "rcarriga/nvim-notify",
+  --   config = function()
+  --     vim.opt.termguicolors = true
+  --     vim.notify = require("notify")
+  --   end,
+  -- },
+  {
+    -- cargo install --locked code-minimap
+    "wfxr/minimap.vim",
+    config = function()
+      -- TODO: minimap auto session problem
+      vim.g.minimap_auto_start = 1
+    end,
+  },
+  {
+    "karb94/neoscroll.nvim",
+    config = function()
+      require('neoscroll').setup({
+        hide_cursor = false,
+        easing_function = "sine"
+        -- TODO: decrease time scale
+      })
+
+      local t    = {}
+      -- Syntax: t[keys] = {function, {function arguments}}
+      t['<C-u>'] = { 'scroll', { '-vim.wo.scroll', 'true', '50' } }
+      t['<C-d>'] = { 'scroll', { 'vim.wo.scroll', 'true', '50' } }
+      t['<C-b>'] = { 'scroll', { '-vim.api.nvim_win_get_height(0)', 'true', '150' } }
+      t['<C-f>'] = { 'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', '150' } }
+      t['<C-y>'] = { 'scroll', { '-0.10', 'false', '10' } }
+      t['<C-e>'] = { 'scroll', { '0.10', 'false', '10' } }
+      t['zt']    = { 'zt', { '50' } }
+      t['zz']    = { 'zz', { '50' } }
+      t['zb']    = { 'zb', { '50' } }
+
+      require('neoscroll.config').set_mappings(t)
+    end
+  },
+  {
+    -- TODO config: https://github.com/folke/noice.nvim
+    -- https://github.com/folke/noice.nvim/wiki/Configuration-Recipes
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      -- add any options here
+    },
+    dependencies = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      "MunifTanjim/nui.nvim",
+      -- OPTIONAL:
+      --   `nvim-notify` is only needed, if you want to use the notification view.
+      --   If not available, we use `mini` as the fallback
+      "rcarriga/nvim-notify",
+    },
+    config = function()
+      require("noice").setup({
+        lsp = {
+          -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+          override = {
+            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+            ["vim.lsp.util.stylize_markdown"] = true,
+            ["cmp.entry.get_documentation"] = true,
+          },
+        },
+        -- you can enable a preset for easier configuration
+        presets = {
+          bottom_search = true,         -- use a classic bottom cmdline for search
+          command_palette = true,       -- position the cmdline and popupmenu together
+          long_message_to_split = true, -- long messages will be sent to a split
+          inc_rename = false,           -- enables an input dialog for inc-rename.nvim
+          lsp_doc_border = false,       -- add a border to hover docs and signature help
+        },
+      })
+    end
   }
 }
 
