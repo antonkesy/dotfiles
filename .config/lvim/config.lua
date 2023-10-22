@@ -397,9 +397,32 @@ lvim.plugins = {
         p = { "<cmd>:Copilot panel<CR>", "Copilot panel" },
       }
 
-      -- lvim.lang.clangd = {
-      --   offsetEncoding = { "utf-16", "utf-8" },
-      -- }
+      local capabilities = require("lvim.lsp").common_capabilities()
+      capabilities.offsetEncoding = { "utf-16" }
+
+      local clangd_flags = {
+        capabilities = capabilities,
+        "--fallback-style=google",
+        "--background-index",
+        "-j=12",
+        "--all-scopes-completion",
+        "--pch-storage=disk",
+        "--clang-tidy",
+        "--log=error",
+        "--completion-style=detailed",
+        "--header-insertion=iwyu",
+        "--header-insertion-decorators",
+        "--enable-config",
+        "--offset-encoding=utf-16",
+        "--ranking-model=heuristics",
+        "--folding-ranges",
+      }
+
+      require("lspconfig").clangd.setup {
+        on_attach = on_attach,
+        capabilities = capabilities,
+        cmd = { "clangd", unpack(clangd_flags) },
+      }
 
       -- TODO: fix keymaps - https://github.com/zbirenbaum/copilot.lua
       -- vim.api.nvim_set_keymap('i', '<m-g>', '<Plug>(copilot.suggest)', { silent = true })
