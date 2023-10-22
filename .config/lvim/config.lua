@@ -50,6 +50,7 @@ lvim.format_on_save = {
 
 -- LSP
 -- lvim.builtin.treesitter.ensure_installed = "all"
+-- lvim.builtin.treesitter.ignore_install = "csv"
 
 -- TODO add config files for all languages with dap + LSP
 -- python
@@ -310,41 +311,6 @@ lvim.plugins = {
 
   },
   -- {
-  --   "github/copilot.vim",
-  --   config = function()
-  --     vim.g.copilot_no_tab_map = true
-
-  --     lvim.builtin.which_key.mappings["a"] = {
-  --       name = "AI",
-  --       e = { "<cmd>::Copilot enable<cr>", "Enable Copilot" },
-  --       d = { "<cmd>::Copilot disable<cr>", "Disable Copilot" },
-  --       s = { "<cmd>:Copilot status<CR>", "Copilot status" },
-  --       p = { "<cmd>:Copilot panel<CR>", "Copilot panel" },
-  --     }
-
-  --     vim.api.nvim_set_keymap('i', '<m-g>', '<Plug>(copilot-suggest)', { silent = true })
-  --     vim.api.nvim_set_keymap('i', '<m-h>', '<Plug>(copilot-previous)', { silent = true })
-  --     vim.api.nvim_set_keymap('i', '<m-l>', '<Plug>(copilot-next)', { silent = true })
-  --     vim.api.nvim_set_keymap('i', '<m-n>', '<Plug>(copilot-dismiss)', { silent = true })
-  --     vim.api.nvim_set_keymap('i', '<m-p>', '<cmd>:Copilot panel<CR>', { silent = true })
-  --     vim.keymap.set('i', '<m-y>', function() return vim.fn['copilot#Accept']() end,
-  --       { noremap = true, silent = true, expr = true, replace_keycodes = false })
-
-  --     -- Workaround for "Multiple different client offset_encodings detected"
-  --     -- https://www.reddit.com/r/neovim/comments/12qbcua/multiple_different_client_offset_encodings/
-  --     -- local cmp_nvim_lsp = require "cmp_nvim_lsp"
-
-  --     -- require("lspconfig").clangd.setup {
-  --     --   on_attach = on_attach,
-  --     --   capabilities = cmp_nvim_lsp.default_capabilities(),
-  --     --   cmd = {
-  --     --     "clangd",
-  --     --     "--offset-encoding=utf-16",
-  --     --   },
-  --     -- }
-  --   end
-  -- },
-  -- {
   -- -- check if ~/.cache/omnisharp-vim/omnisharp-roslyn/run has X rights!
   --   "OmniSharp/omnisharp-vim",
   --   config = function()
@@ -369,13 +335,6 @@ lvim.plugins = {
   --     })
   --   end
   -- },
-  {
-    "mbbill/undotree",
-    config = function()
-      -- misc - history
-      vim.keymap.set('n', '<leader>mh', vim.cmd.UndotreeToggle)
-    end
-  },
   {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
@@ -418,11 +377,11 @@ lvim.plugins = {
         "--folding-ranges",
       }
 
-      require("lspconfig").clangd.setup {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        cmd = { "clangd", unpack(clangd_flags) },
-      }
+      -- require("lspconfig").clangd.setup {
+      --   on_attach = on_attach,
+      --   capabilities = capabilities,
+      --   cmd = { "clangd", unpack(clangd_flags) },
+      -- }
 
       -- TODO: fix keymaps - https://github.com/zbirenbaum/copilot.lua
       -- vim.api.nvim_set_keymap('i', '<m-g>', '<Plug>(copilot.suggest)', { silent = true })
@@ -434,15 +393,15 @@ lvim.plugins = {
       --   { noremap = true, silent = true, expr = true, replace_keycodes = false })
     end
   },
-  -- {
-  --   "ray-x/lsp_signature.nvim",
-  --   event = "VeryLazy",
-  --   opts = {},
-  --   config = function(_, opts)
-  --     -- TODO config more - https://github.com/ray-x/lsp_signature.nvim
-  --     require 'lsp_signature'.setup(opts)
-  --   end
-  -- },
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "VeryLazy",
+    opts = {},
+    config = function(_, opts)
+      -- TODO config more - https://github.com/ray-x/lsp_signature.nvim
+      require 'lsp_signature'.setup(opts)
+    end
+  },
   {
     'rmagatti/goto-preview',
     config = function()
@@ -463,34 +422,34 @@ lvim.plugins = {
   {
     "mechatroner/rainbow_csv"
   },
-  -- {
-  --   -- TODO: configure more https://github.com/gelguy/wilder.nvim
-  --   "gelguy/wilder.nvim",
-  --   config = function()
-  --     local wilder = require('wilder')
-  --     -- TODO: use better search + replace plugin
-  --     wilder.setup({ modes = { ':', '/', '?' } })
-  --     wilder.set_option('renderer', wilder.popupmenu_renderer(
-  --       wilder.popupmenu_palette_theme({
-  --         -- 'single', 'double', 'rounded' or 'solid'
-  --         -- can also be a list of 8 characters, see :h wilder#popupmenu_palette_theme() for more details
-  --         border = 'rounded',
-  --         max_height = '75%',               -- max height of the palette
-  --         min_height = 0,                   -- set to the same as 'max_height' for a fixed height window
-  --         prompt_position = 'top',          -- 'top' or 'bottom' to set the location of the prompt
-  --         reverse = 0,                      -- set to 1 to reverse the order of the list, use in combination with 'prompt_position'
-  --         highlighter = {
-  --           wilder.lua_pcre2_highlighter(), -- requires `luarocks install pcre2`
-  --           wilder.lua_fzy_highlighter(),   -- requires fzy-lua-native vim plugin found
-  --           -- at https://github.com/romgrk/fzy-lua-native
-  --         },
-  --         highlights = {
-  --           accent = wilder.make_hl('WilderAccent', 'Pmenu', { { a = 1 }, { a = 1 }, { foreground = '#f4468f' } }),
-  --         },
-  --       })
-  --     ))
-  --   end,
-  -- },
+  {
+    -- TODO: configure more https://github.com/gelguy/wilder.nvim
+    "gelguy/wilder.nvim",
+    config = function()
+      local wilder = require('wilder')
+      -- TODO: use better search + replace plugin
+      wilder.setup({ modes = { ':', '/', '?' } })
+      wilder.set_option('renderer', wilder.popupmenu_renderer(
+        wilder.popupmenu_palette_theme({
+          -- 'single', 'double', 'rounded' or 'solid'
+          -- can also be a list of 8 characters, see :h wilder#popupmenu_palette_theme() for more details
+          border = 'rounded',
+          max_height = '75%',               -- max height of the palette
+          min_height = 0,                   -- set to the same as 'max_height' for a fixed height window
+          prompt_position = 'top',          -- 'top' or 'bottom' to set the location of the prompt
+          reverse = 0,                      -- set to 1 to reverse the order of the list, use in combination with 'prompt_position'
+          highlighter = {
+            wilder.lua_pcre2_highlighter(), -- requires `luarocks install pcre2`
+            wilder.lua_fzy_highlighter(),   -- requires fzy-lua-native vim plugin found
+            -- at https://github.com/romgrk/fzy-lua-native
+          },
+          highlights = {
+            accent = wilder.make_hl('WilderAccent', 'Pmenu', { { a = 1 }, { a = 1 }, { foreground = '#f4468f' } }),
+          },
+        })
+      ))
+    end,
+  },
   -- {
   --   "rcarriga/nvim-notify",
   --   config = function()
@@ -498,20 +457,21 @@ lvim.plugins = {
   --     vim.notify = require("notify")
   --   end,
   -- },
-  {
-    -- cargo install --locked code-minimap
-    "wfxr/minimap.vim",
-    config = function()
-      -- TODO: minimap auto session problem
-      vim.g.minimap_auto_start = 1
-    end,
-  },
+  -- {
+  --   -- cargo install --locked code-minimap
+  --   "wfxr/minimap.vim",
+  --   config = function()
+  --     -- TODO: minimap auto session problem
+  --     vim.g.minimap_auto_start = 1
+  --   end,
+  -- },
   {
     "karb94/neoscroll.nvim",
     config = function()
       require('neoscroll').setup({
         hide_cursor = false,
-        easing_function = "sine"
+        easing_function = "sine",
+        perfomance_mode = true,
         -- TODO: decrease time scale
       })
 
@@ -530,42 +490,48 @@ lvim.plugins = {
       require('neoscroll.config').set_mappings(t)
     end
   },
+  -- {
+  --   -- TODO config: https://github.com/folke/noice.nvim
+  --   -- https://github.com/folke/noice.nvim/wiki/Configuration-Recipes
+  --   "folke/noice.nvim",
+  --   event = "VeryLazy",
+  --   opts = {
+  --     -- add any options here
+  --   },
+  --   dependencies = {
+  --     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+  --     "MunifTanjim/nui.nvim",
+  --     -- OPTIONAL:
+  --     --   `nvim-notify` is only needed, if you want to use the notification view.
+  --     --   If not available, we use `mini` as the fallback
+  --     "rcarriga/nvim-notify",
+  --   },
+  --   config = function()
+  --     require("noice").setup({
+  --       lsp = {
+  --         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+  --         override = {
+  --           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+  --           ["vim.lsp.util.stylize_markdown"] = true,
+  --           ["cmp.entry.get_documentation"] = true,
+  --         },
+  --       },
+  --       -- you can enable a preset for easier configuration
+  --       presets = {
+  --         bottom_search = true,         -- use a classic bottom cmdline for search
+  --         command_palette = true,       -- position the cmdline and popupmenu together
+  --         long_message_to_split = true, -- long messages will be sent to a split
+  --         inc_rename = false,           -- enables an input dialog for inc-rename.nvim
+  --         lsp_doc_border = false,       -- add a border to hover docs and signature help
+  --       },
+  --     })
+  --   end
+  -- },
   {
-    -- TODO config: https://github.com/folke/noice.nvim
-    -- https://github.com/folke/noice.nvim/wiki/Configuration-Recipes
-    "folke/noice.nvim",
-    event = "VeryLazy",
-    opts = {
-      -- add any options here
-    },
-    dependencies = {
-      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-      "MunifTanjim/nui.nvim",
-      -- OPTIONAL:
-      --   `nvim-notify` is only needed, if you want to use the notification view.
-      --   If not available, we use `mini` as the fallback
-      "rcarriga/nvim-notify",
-    },
-    config = function()
-      require("noice").setup({
-        lsp = {
-          -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-          override = {
-            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-            ["vim.lsp.util.stylize_markdown"] = true,
-            ["cmp.entry.get_documentation"] = true,
-          },
-        },
-        -- you can enable a preset for easier configuration
-        presets = {
-          bottom_search = true,         -- use a classic bottom cmdline for search
-          command_palette = true,       -- position the cmdline and popupmenu together
-          long_message_to_split = true, -- long messages will be sent to a split
-          inc_rename = false,           -- enables an input dialog for inc-rename.nvim
-          lsp_doc_border = false,       -- add a border to hover docs and signature help
-        },
-      })
-    end
+    "microsoft/python-type-stubs",
+    cond = false
+    -- https://github.com/microsoft/pyright/issues/4878
+    -- TODO: "stubPath = vim.fn.stdpath("data") .. "/lazy/python-type-stubs""
   }
 }
 
