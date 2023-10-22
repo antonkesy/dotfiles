@@ -10,6 +10,8 @@ def get_all_files() -> list[str]:
     ignore_directories = [
         ".git",
         "test",
+        ".packages",
+        ".repos", # TODO for tests only
     ]
 
     ignore_files = [
@@ -17,6 +19,7 @@ def get_all_files() -> list[str]:
         "sync.py",
         ".gitignore",
         "test.sh",
+        "keys.sh",
     ]
 
     all_files = [
