@@ -1,9 +1,23 @@
 #!/bin/bash
 
-root_files_to_link=(".config/lvim/config.lua" ".config/Cyberbotics" ".repos" ".antigenrc" ".tmux.conf" ".zshrc")
-for item in ${root_files_to_link[@]}; do
+mkdir -p "$HOME/.tmux/plugins"
 
-  full_item_path="$(pwd)/$item"
-  echo "$full_item_path"
-  ln --symbolic --force --directory "$full_item_path" "$HOME/$item"
+dirs_to_link=(".repos" ".tmux/plugins/tpm")
+for item in ${dirs_to_link[@]}; do
+  from="$(pwd)/$item"
+  to=$HOME/$item
+
+  filename=$(basename "$from")
+
+  echo "DIRECTORY: $from -> $to"
+  ln --symbolic "$from" --target-directory="$to" &&
+  rm -rf $from/$filename
 done
+
+# files_to_link=(".config/lvim/config.lua" ".antigenrc" ".tmux.conf" ".zshrc")
+# for item in ${files_to_link[@]}; do
+#   from="$(pwd)/$item"
+#   to=$HOME/$item
+#   echo "FILE: $from -> $to"
+#   ln --symbolic --force "$from" "$to"
+# done
