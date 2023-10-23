@@ -14,3 +14,6 @@
 [submodule ".repos/neovim"]
 	path = .repos/neovim
 	url = git@github.com:neovim/neovim.git
+[submodule ".tmux/plugins/tpm"]
+	path = .tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm
