@@ -473,6 +473,9 @@ lvim.plugins = {
   },
   {
     "christoomey/vim-tmux-navigator"
+  },
+  {
+    'andymass/vim-matchup'
   }
 }
 
