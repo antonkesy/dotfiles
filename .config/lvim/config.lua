@@ -7,6 +7,9 @@ vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.relativenumber = true
 
+--# split with (h)orizontal
+vim.cmd [[nnoremap <C-W>h :split<CR>]]
+
 -- TODO:
 -- -- code folding
 -- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
