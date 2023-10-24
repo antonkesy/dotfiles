@@ -13,9 +13,3 @@
 [submodule "built_from_source/neovim/neovim"]
 	path = built_from_source/neovim/neovim
 	url = git@github.com:neovim/neovim.git
-[submodule "built_from_source/alacritty/alacritty"]
-	path = built_from_source/alacritty/alacritty
-	url = git@github.com:alacritty/alacritty.git
-[submodule "built_from_source/alacritty/--force"]
-	path = built_from_source/alacritty/--force
-	url = git@github.com:alacritty/alacritty.git
