@@ -1,3 +1,7 @@
+-- # Tmux hide status bar
+-- # TODO: not great if other panes are open
+-- vim.cmd [[autocmd VimEnter,VimLeave * silent !tmux set status]]
+
 -- vim option
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
@@ -352,11 +356,11 @@ lvim.plugins = {
         "--folding-ranges",
       }
 
-      -- require("lspconfig").clangd.setup {
-      --   on_attach = on_attach,
-      --   capabilities = capabilities,
-      --   cmd = { "clangd", unpack(clangd_flags) },
-      -- }
+      require("lspconfig").clangd.setup {
+        on_attach = on_attach,
+        capabilities = capabilities,
+        cmd = { "clangd", unpack(clangd_flags) },
+      }
 
       -- TODO: fix keymaps - https://github.com/zbirenbaum/copilot.lua
       -- vim.api.nvim_set_keymap('i', '<m-g>', '<Plug>(copilot.suggest)', { silent = true })
