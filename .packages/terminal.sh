@@ -8,7 +8,7 @@ gsettings set org.gnome.desktop.wm.keybindings activate-window-menu "[]"
 gsettings set org.gnome.desktop.wm.keybindings switch-group "[]"
 gsettings set org.gnome.desktop.wm.keybindings switch-group-backward "[]"
 
-cargo install alacritty
+# Requires built_from_source/alacritty/install.sh
 sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator $(which alacritty) 50
 sudo update-alternatives --config x-terminal-emulator
 
