@@ -1,16 +1,5 @@
 #!/bin/bash
 
-# neovim
-# https://github.com/neovim/neovim
-# use .9 for lunarvim (might be fixed now)
-sudo apt-get install ninja-build gettext cmake unzip curl
-sudo apt install cmake
-cd neovim
-make CMAKE_BUILD_TYPE=RelWithDebInfo
-sudo make install
-cd ..
-
-
 # sensor
 sudo apt install lm-sensors
 

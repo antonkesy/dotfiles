@@ -3,6 +3,7 @@
 mkdir -p "$HOME/.tmux/plugins"
 
 dirs_to_link=(".repos" ".tmux/plugins/tpm")
+
 for item in ${dirs_to_link[@]}; do
   from="$(pwd)/$item"
   to=$HOME/$item
@@ -14,10 +15,13 @@ for item in ${dirs_to_link[@]}; do
   rm -rf $from/$filename
 done
 
-# files_to_link=(".config/lvim/config.lua" ".antigenrc" ".tmux.conf" ".zshrc")
-# for item in ${files_to_link[@]}; do
-#   from="$(pwd)/$item"
-#   to=$HOME/$item
-#   echo "FILE: $from -> $to"
-#   ln --symbolic --force "$from" "$to"
-# done
+# ----------------------------------------------------------------------------------------------------
+
+files_to_link=(".config/lvim/config.lua" ".antigenrc" ".tmux.conf" ".zshrc")
+
+for item in ${files_to_link[@]}; do
+  from="$(pwd)/$item"
+  to=$HOME/$item
+  echo "FILE: $from -> $to"
+  ln --symbolic --force "$from" "$to"
+done
