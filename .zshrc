@@ -21,6 +21,7 @@ SAVEHIST=1000
 # export JAVA_HOME="/usr/lib/jvm/java-18-openjdk-amd64"
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/local/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 # Haskell
 export PATH="$HOME/.ghcup/bin:$PATH"

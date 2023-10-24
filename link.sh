@@ -1,6 +1,7 @@
 #!/bin/bash
 
 mkdir -p "$HOME/.tmux/plugins"
+mkdir -p "$HOME/.config/alacritty"
 
 dirs_to_link=(".repos" ".tmux/plugins/tpm")
 
@@ -17,7 +18,7 @@ done
 
 # ----------------------------------------------------------------------------------------------------
 
-files_to_link=(".config/lvim/config.lua" ".antigenrc" ".tmux.conf" ".zshrc")
+files_to_link=(".config/alacritty/alacritty.toml" ".config/lvim/config.lua" ".antigenrc" ".tmux.conf" ".zshrc")
 
 for item in ${files_to_link[@]}; do
   from="$(pwd)/$item"
