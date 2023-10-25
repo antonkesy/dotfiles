@@ -1,6 +1,16 @@
-# [[ $TERM != "screen" ]] && exec tmux
-# zmodload zsh/zprof
-#
+[[ -r ~/.repos/znap/znap.zsh ]] ||
+    git clone --depth 1 -- https://github.com/marlonrichert/zsh-snap.git ~/.repos/znap
+source ~/.repos/znap/znap.zsh
+
+znap prompt sindresorhus/pure
+znap source marlonrichert/zsh-autocomplete
+znap eval iterm2 'curl -fsSL https://iterm2.com/shell_integration/zsh'
+
+# TODO znap autoload ros
+
+znap install ael-code/zsh-colored-man-pages
+znap install momo-lab/zsh-abbrev-alias
+
 # Homebrew
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
@@ -11,14 +21,11 @@ antigen init ~/.antigenrc
 
 path+=(/bin)
 
-# Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
-# End of lines configured by zsh-newuser-install
+HISTSIZE=5000
+SAVEHIST=5000
 
 # local user path
-# export JAVA_HOME="/usr/lib/jvm/java-18-openjdk-amd64"
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/local/bin:$PATH"
@@ -26,21 +33,12 @@ export PATH="$HOME/go/bin:$PATH"
 # Haskell
 export PATH="$HOME/.ghcup/bin:$PATH"
 export PATH="$HOME/.cabal/bin:$PATH"
-# NetCoreDebugger
-export PATH="$HOME/workspace/git/netcoredbg/build/src:$PATH"
-# SDKMan
-source "/home/ak/.sdkman/bin/sdkman-init.sh"
 # anaconda
 # export PATH="$HOME/anaconda3/bin:$PATH"
 
 #flatpak
 export PATH="/var/lib/flatpak/exports/share:$PATH"
 export PATH="$HOME/.local/share/flatpak/exports/share:$PATH"
-
-
-# THEME (antigen broken)
-eval "$(starship init zsh)"
-
 
 # ALIAS
 alias g="lazygit"
@@ -63,7 +61,7 @@ alias tilix=tilix --full-screen
 alias rm="trash-put"
 
 # Rust
-. "$HOME/.cargo/env"
+source "$HOME/.cargo/env"
 
 # TACO
 alias audissh="ssh audi@192.168.1.102"
@@ -93,17 +91,8 @@ export LD_LIBRARY_PATH=$WEBOTS_HOME/lib/controller:$LD_LIBRARY_PATH
 # Haskell
 [ -f "/home/ak/.ghcup/env" ] && source "/home/ak/.ghcup/env" # ghcup-env
 
-# END_BENCHMARK_STARTUP
-# zprof
-
 # Groot
 alias groot=/home/ak/workspace/git/Groot/build/Groot
-
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
 
 # Load Angular CLI autocompletion.
 source <(ng completion script)
