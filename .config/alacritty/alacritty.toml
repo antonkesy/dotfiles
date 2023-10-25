@@ -25,6 +25,11 @@ program = "tmux"
 [mouse]
 hide_when_typing = true
 
+[keyboard]
+bindings = [
+    { key = "F11", mods = "Alt", action = "ToggleFullscreen" },
+]
+
 
 # Theme light blue
 [colors]
