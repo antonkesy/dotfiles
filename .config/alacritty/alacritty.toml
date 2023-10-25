@@ -13,14 +13,17 @@ history = 50000
 normal = { family = "Hack Nerd Font", style = "Regular" }
 size = 15
 
-[bell]
-duration= 100
+# [bell]
+# duration = 5
 
 [terminal]
 osc52 = "CopyPaste"
 
 [shell]
 program = "tmux"
+
+[mouse]
+hide_when_typing = true
 
 
 # Theme light blue
