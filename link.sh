@@ -2,12 +2,13 @@
 
 mkdir -p "$HOME/.tmux/plugins"
 mkdir -p "$HOME/.config/alacritty"
+mkdir -p "$HOME/.repos"
 
-dirs_to_link=(".repos" ".tmux/plugins/tpm")
+dirs_to_link=(".repos/antigen/" ".repos/gnome-shell-extension-clipboard-indicator/" ".tmux/plugins/tpm/")
 
 for item in ${dirs_to_link[@]}; do
   from="$(pwd)/$item"
-  to=$HOME/$item
+  to="$HOME/.repos/"
 
   filename=$(basename "$from")
 
