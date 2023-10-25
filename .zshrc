@@ -102,8 +102,7 @@ source <(ng completion script)
 export EDITOR='nvim'
 export VISUAL='nvim'
 
-# create tmux main session 
-if [ -z "$TMUX" ] && [ ${UID} != 0 ]
-then
-    tmux new-session -A -s main
+# create tmux main session
+if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
+  tmux new-session -A -s main
 fi
