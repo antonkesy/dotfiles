@@ -446,6 +446,28 @@ lvim.plugins = {
     },
     config = function()
       require("noice").setup({
+        -- enable macro recording
+        routes = {
+          {
+            view = "mini",
+            filter = { event = "msg_showmode" },
+          },
+        },
+        -- clean cmdline_popup
+        views = {
+          cmdline_popup = {
+            border = {
+              style = "none",
+              padding = { 1, 1 },
+            },
+            filter_options = {},
+            win_options = {
+              winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+            },
+          },
+        },
+
+
         lsp = {
           -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
           override = {
@@ -454,10 +476,16 @@ lvim.plugins = {
             ["cmp.entry.get_documentation"] = true,
           },
         },
-        -- you can enable a preset for easier configuration
+
+        messages = {
+          view = "mini",
+          view_error = "mini",
+          view_warn = "mini",
+        },
+
         presets = {
-          bottom_search = true,         -- use a classic bottom cmdline for search
-          command_palette = true,       -- position the cmdline and popupmenu together
+          bottom_search = false,        -- use a classic bottom cmdline for search
+          command_palette = false,      -- position the cmdline and popupmenu together
           long_message_to_split = true, -- long messages will be sent to a split
           inc_rename = false,           -- enables an input dialog for inc-rename.nvim
           lsp_doc_border = false,       -- add a border to hover docs and signature help
