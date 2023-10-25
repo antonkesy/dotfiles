@@ -21,6 +21,7 @@ osc52 = "CopyPaste"
 
 [shell]
 program = "tmux"
+args = ["new", "-A", "-s", "main"]
 
 [mouse]
 hide_when_typing = true
