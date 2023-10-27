@@ -41,6 +41,7 @@ export PATH="/var/lib/flatpak/exports/share:$PATH"
 export PATH="$HOME/.local/share/flatpak/exports/share:$PATH"
 
 # ALIAS
+alias htop=btop
 alias g="lazygit"
 # alias cat="bat"
 alias la="exa -la"

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt install tmux fzf xsel exa fd-find
+sudo apt install tmux fzf xsel exa fd-find atop btop
 pip install trash-cli
 
 # unbind alt to avoaid conflict with tmux
