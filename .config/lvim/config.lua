@@ -25,8 +25,18 @@ vim.cmd [[nnoremap <C-W>h :split<CR>]]
 
 -- spelling
 -- TODO: activate + set hotkeys
-vim.opt.spell = false
+vim.opt.spell = true
 vim.opt.spelllang = { "en", "de" }
+
+-- vim.cmd([[hi clear SpellBad]])
+-- vim.cmd([[hi SpellBad ctermfg=red guifg=red]])
+-- workaround for spelling highlighting not set
+vim.api.nvim_exec([[
+  augroup MySpellBadHighlight
+    autocmd!
+    autocmd ColorScheme * hi SpellBad ctermfg=red guifg=red
+  augroup END
+]], false)
 
 
 -- TODO spelling shortcuts
@@ -258,7 +268,7 @@ lvim.plugins = {
         auto_session_enable_last_session = false,
         auto_session_root_dir = vim.fn.stdpath('data') .. "/sessions/",
         auto_session_enabled = true,
-        auto_save_enabled = nil,
+        auto_save_enabled = true,
         auto_restore_enabled = true,
         auto_session_suppress_dirs = nil,
         auto_session_use_git_branch = nil,
