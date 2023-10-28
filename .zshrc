@@ -99,7 +99,7 @@ alias groot=/home/ak/workspace/git/Groot/build/Groot
 # Load Angular CLI autocompletion.
 source <(ng completion script)
 
-# TMUX
+# tmux 
 export EDITOR='nvim'
 export VISUAL='nvim'
 
