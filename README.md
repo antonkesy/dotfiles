@@ -1,5 +1,3 @@
 # dotfiles
 
-All files in this repository are relative to the home directory.
-
-The is is here
+All files in this repository sit relative to the home directory.
