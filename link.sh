@@ -34,6 +34,7 @@ files_to_link=(
   ".local/share/lunarvim/site/pack/lazy/opt/nvim-treesitter/spell/en.utf-8.add"
   ".local/share/lunarvim/site/pack/lazy/opt/nvim-treesitter/spell/en.utf-8.add.spl"
   ".antigenrc"
+  ".vale.ini"
   ".tmux.conf"
   ".zshrc"
 )
