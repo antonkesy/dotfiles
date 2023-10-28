@@ -30,7 +30,6 @@ lvim.builtin.project.manual_mode = true
 -- keep active for lazygit
 lvim.builtin.terminal.active = true
 
-require("user.alpha")
 require("user.colorscheme")
 require("user.dap")
 require("user.fold")
