@@ -37,7 +37,6 @@ return { {
         "--enable-config",
         "--offset-encoding=utf-16",
         "--ranking-model=heuristics",
-        "--folding-ranges",
       }
 
       require("lspconfig").clangd.setup {
