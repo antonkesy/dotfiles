@@ -219,6 +219,7 @@ lvim.plugins = {
     config = function()
       require("noice").setup({
         -- enable macro recording
+        -- TODO: nvim-tree + mason still show pop-ups
         routes = {
           {
             view = "mini",
