@@ -212,6 +212,7 @@ lvim.builtin.nvimtree.setup.update_focused_file.update_root = false
 lvim.builtin.project.manual_mode = true
 
 -- -- Change theme settings
+-- https://github.com/catppuccin/nvim
 -- lvim.colorscheme = "carbonfox"
 local dashboardHeader = {
   [[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡠⠴⠒⠒⠲⠤⠤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
@@ -260,7 +261,7 @@ lvim.plugins = {
     end,
   },
   {
-    -- TODO: ignore nvvim tree + map
+    -- TODO: ignore nvim tree + map
     "rmagatti/auto-session",
     config = function()
       require("auto-session").setup {
@@ -273,6 +274,16 @@ lvim.plugins = {
         auto_session_suppress_dirs = nil,
         auto_session_use_git_branch = nil,
 
+      }
+
+      -- workaround nvim tree empty buffer after session restore
+      local function restore_nvim_tree()
+        require("nvim-tree.api").tree.open({ focus = false })
+        require("nvim-tree.api").tree.close()
+      end
+
+      require('auto-session').setup {
+        post_restore_cmds = { restore_nvim_tree }
       }
     end,
   },
