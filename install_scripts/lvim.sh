@@ -8,8 +8,9 @@ bash ~/.local/share/lunarvim/lvim/utils/installer/uninstall.sh
 bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh) --yes
 pip install neovim
 
-# vale (https://github.com/errata-ai/vale)
-pip install vale
-cd ~
-vale sync
-cd -
+ # -> installed through mason vale-ls?
+# # vale (https://github.com/errata-ai/vale)
+# pip install vale
+# cd ~
+# vale sync
+# cd -

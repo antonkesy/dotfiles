@@ -2,7 +2,7 @@
 
 mkdir -p "$HOME/.config/alacritty"
 mkdir -p "$HOME/.config/lvim/spell"
-# mkdir -p "$HOME/.config/lvim/lua"
+mkdir -p "$HOME/.config/vale"
 mkdir -p "$HOME/.local/share/lunarvim/site/pack/lazy/opt/nvim-treesitter/spell"
 mkdir -p "$HOME/.repos"
 mkdir -p "$HOME/.tmux/plugins"
@@ -35,10 +35,10 @@ files_to_link=(
   ".config/lvim/config.lua"
   ".config/lvim/spell/de.utf-8.spl"
   ".config/lvim/spell/de.utf-8.sug"
+  ".config/vale/.vale.ini"
   ".local/share/lunarvim/site/pack/lazy/opt/nvim-treesitter/spell/en.utf-8.add"
   ".local/share/lunarvim/site/pack/lazy/opt/nvim-treesitter/spell/en.utf-8.add.spl"
   ".antigenrc"
-  ".vale.ini"
   ".tmux.conf"
   ".zshrc"
 )
