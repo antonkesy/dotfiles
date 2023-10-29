@@ -17,10 +17,10 @@ local dashboardHeader = {
   [[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀]],
 }
 
-lvim.builtin.alpha.active = false
+lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
+lvim.builtin.alpha.dashboard.section.buttons.val = {}
 lvim.builtin.alpha.dashboard.section.header.val = dashboardHeader
 lvim.builtin.alpha.dashboard.section.footer.val = "Simplicity, carried to the extreme, becomes elegance."
-
 
 return {}
