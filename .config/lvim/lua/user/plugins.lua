@@ -13,6 +13,7 @@ local plugin_configs = {
   require("user.plugins.rainbow-csv"),
   require("user.plugins.spectre"),
   require("user.plugins.themes"),
+  require("user.plugins.thesaurus"),
   require("user.plugins.tmux"),
   require("user.plugins.todo-comments"),
   require("user.plugins.treesitter-context"),
