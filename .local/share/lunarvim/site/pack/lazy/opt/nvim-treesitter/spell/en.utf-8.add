@@ -19,3 +19,8 @@ config
 github
 ros
 navigation2
+Signifikanzanalyse
+Selectionsstrategie
+Rekombinationsstrategie
+Mutationsstrategie
+csv
