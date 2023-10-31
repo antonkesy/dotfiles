@@ -30,7 +30,7 @@ lvim.builtin.terminal.active = true
 
 lvim.builtin.which_key.mappings["v"] = {
   name = "Visual",
-  t = { "<cmd>:set wrap!<cr>", "Toggle text wrap" },
+  b = { "<cmd>:set wrap!<cr>", "Toggle text wrap" },
 }
 
 vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = true })

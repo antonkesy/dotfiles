@@ -1,7 +1,8 @@
 -- spelling
 -- TODO: activate + set hotkeys
 vim.opt.spell = true
-vim.opt.spelllang = { "en", "de" }
+vim.opt.spelllang = { "en" }
+-- vim.opt.spelllang = { "en", "de" }
 
 -- vim.cmd([[hi clear SpellBad]])
 -- vim.cmd([[hi SpellBad ctermfg=red guifg=red]])
