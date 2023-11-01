@@ -1,8 +1,5 @@
--- spelling
--- TODO: activate + set hotkeys
 vim.opt.spell = true
 vim.opt.spelllang = { "en" }
--- vim.opt.spelllang = { "en", "de" }
 
 -- vim.cmd([[hi clear SpellBad]])
 -- vim.cmd([[hi SpellBad ctermfg=red guifg=red]])
@@ -17,6 +14,8 @@ vim.api.nvim_exec([[
 lvim.builtin.which_key.mappings["z"] = {
   name = "Zpelling :)",
   t = { "<cmd>:set spell!<cr>", "Toggle spelling" },
+  e = { "<cmd>:setlocal spelllang=en<CR><cr>", "Enable English spelling" },
+  g = { "<cmd>:setlocal spelllang=de<CR><cr>", "Enable German spelling" },
   -- g = { "<cmd>:set spell!<cr>", "Add word as good word" },
   -- b = { "<cmd>:set spell!<cr>", "Add word as bad word" },
   -- u = { "<cmd>:set spell!<cr>", "Undo add word to list" },
