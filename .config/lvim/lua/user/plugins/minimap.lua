@@ -1,10 +1,14 @@
 return {
-  -- {
-  --   -- cargo install --locked code-minimap
-  --   "wfxr/minimap.vim",
-  --   config = function()
-  --     -- TODO: minimap auto session problem
-  --     vim.g.minimap_auto_start = 1
-  --   end,
-  -- }
+  {
+    "wfxr/minimap.vim",
+    build = "cargo install --locked code-minimap",
+    init = function()
+      vim.g.minimap_auto_start = 0
+      vim.g.minimap_highlight_search = 1
+
+      lvim.builtin.which_key.mappings["v"].m = {
+        "[[:MinimapToggle<CR>]]", "Toggle MiniMap",
+      }
+    end,
+  }
 }
