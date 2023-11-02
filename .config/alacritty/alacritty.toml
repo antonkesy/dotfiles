@@ -11,7 +11,7 @@ history = 50000
 
 [font]
 normal = { family = "Hack Nerd Font", style = "Regular" }
-size = 15
+size = 10
 
 # [bell]
 # duration = 5
