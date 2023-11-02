@@ -17,5 +17,11 @@ return {
   },
   {
     "marko-cerovac/material.nvim"
+  },
+  {
+    "lunarvim/horizon.nvim"
+  },
+  {
+    "lunarvim/Onedarker.nvim"
   }
 }
