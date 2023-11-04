@@ -4,15 +4,10 @@ vim.opt.relativenumber = true
 
 -- disable comment jump to next line
 -- https://vimdoc.sourceforge.net/htmldoc/change.html#fo-table
-vim.cmd [[autocmd BufNewFile,BufRead,BufEnter * setlocal formatoptions-=cro]]
+vim.cmd([[autocmd BufNewFile,BufRead,BufEnter * setlocal formatoptions-=cro]])
 
 -- general
 lvim.log.level = "info"
-lvim.format_on_save = {
-  enabled = true,
-  pattern = "*.lua",
-  timeout = 1000,
-}
 
 -- key mappings <https://www.lunarvim.org/docs/configuration/keybindings>
 lvim.leader = "space"
@@ -35,3 +30,5 @@ lvim.builtin.which_key.mappings["v"] = {
 
 vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
+
+print("1")
