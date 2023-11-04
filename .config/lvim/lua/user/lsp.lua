@@ -1,5 +1,21 @@
 vim.lsp.log_levels = 0
 lvim.builtin.mason.on_config_done = function()
+  require("mason-lspconfig").setup {
+    automatic_installation = true,
+    -- TODO: add all
+    ensure_installed = {
+      "buf",
+      "buildifier",
+      "checkstyle",
+      "cmake",
+      "flake8",
+      "jsonlint",
+      "shellcheck",
+      "lua_ls",
+      "rust_analyzer"
+    },
+  }
+
   local lspconfig = require("lspconfig")
   lspconfig.vale_ls.setup({
     single_file_support = true,
@@ -10,6 +26,8 @@ lvim.builtin.mason.on_config_done = function()
     -- },
   })
 end
+
+
 
 require("mason-lspconfig").setup_handlers({
   ["pyright"] = function()
