@@ -1,10 +1,10 @@
-return { {
-  "zbirenbaum/copilot.lua",
-  cmd = "Copilot",
-  event = "InsertEnter",
-  config = function()
-    require("copilot").setup(
-      {
+return {
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup({
         suggestion = {
           enabled = true,
           auto_trigger = true,
@@ -15,19 +15,18 @@ return { {
             next = "<M-l>",
             prev = "<M-h>",
             dismiss = "<C-]>",
-          }
-        }
+          },
+        },
+      })
+      lvim.builtin.which_key.mappings["a"] = {
+        name = "AI",
+        e = { "<cmd>::Copilot enable<cr>", "Enable Copilot" },
+        d = { "<cmd>::Copilot disable<cr>", "Disable Copilot" },
+        s = { "<cmd>:Copilot status<CR>", "Copilot status" },
+        p = { "<cmd>:Copilot panel<CR>", "Copilot panel" },
       }
-    )
-    lvim.builtin.which_key.mappings["a"] = {
-      name = "AI",
-      e = { "<cmd>::Copilot enable<cr>", "Enable Copilot" },
-      d = { "<cmd>::Copilot disable<cr>", "Disable Copilot" },
-      s = { "<cmd>:Copilot status<CR>", "Copilot status" },
-      p = { "<cmd>:Copilot panel<CR>", "Copilot panel" },
-    }
-  end,
-},
+    end,
+  },
   -- {
   --   "zbirenbaum/copilot-cmp",
   --   config = function()
@@ -59,7 +58,6 @@ return { {
   --       capabilities = capabilities,
   --       cmd = { "clangd", unpack(clangd_flags) },
   --     }
-
 
   --     -- Tab Completion Configuration from https://github.com/zbirenbaum/copilot-cmp
   --     local has_words_before = function()
