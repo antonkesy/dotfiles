@@ -22,12 +22,13 @@ return {
         -- vim.cmd("Minimap")
       end
 
-      -- local function close_minimap()
-      --   vim.cmd("MinimapClose")
-      -- end
+      local function close_unsaved()
+        --   vim.cmd("MinimapClose")
+        vim.cmd("SymbolsOutlineClose")
+      end
 
       require('auto-session').setup {
-        -- pre_save_cmds = { close_minimap },
+        pre_save_cmds = { close_unsaved },
         post_restore_cmds = { restore_nvim_tree }
       }
     end,
