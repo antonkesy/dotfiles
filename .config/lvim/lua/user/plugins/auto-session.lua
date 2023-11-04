@@ -25,6 +25,7 @@ return {
       local function close_unsaved()
         --   vim.cmd("MinimapClose")
         vim.cmd("SymbolsOutlineClose")
+        vim.cmd("OverseerClose")
       end
 
       require('auto-session').setup {
