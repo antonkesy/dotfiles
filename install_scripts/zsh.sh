@@ -4,7 +4,7 @@ sudo apt install unzip
 
 # hack font
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Hack.zip
-sudo unzip ./Hack.zip -d /usr/share/fonts/truetype/
+sudo unzip ./Hack.zip -d /usr/share/fonts/truetype/hack/
 sudo fc-cache -f -v
 rm ./Hack.zip
 
