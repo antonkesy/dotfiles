@@ -1,5 +1,7 @@
 local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup({
-  { exe = "black",     filetypes = { "python" } },
-  { name = "beautysh", filetypes = { "sh", "bash" } },
+  { exe = "black" },
+  { name = "beautysh" },
+  { name = "cbfmt" },
+  { name = "prettier" },
 })
