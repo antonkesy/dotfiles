@@ -19,13 +19,17 @@ return {
       local function restore_nvim_tree()
         require("nvim-tree.api").tree.open({ focus = false })
         require("nvim-tree.api").tree.close()
+        -- require("edgy").open()
+        -- vim.cmd("Neotree")
         -- vim.cmd("Minimap")
       end
 
       local function close_unsaved()
         --   vim.cmd("MinimapClose")
-        vim.cmd("SymbolsOutlineClose")
+        -- vim.cmd("SymbolsOutlineClose")
+        require("nvim-tree.api").tree.close()
         vim.cmd("OverseerClose")
+        -- require("edgy").close()
       end
 
       require('auto-session').setup {

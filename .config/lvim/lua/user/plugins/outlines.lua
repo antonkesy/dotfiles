@@ -40,7 +40,8 @@ return {
           }
         }
       )
-      lvim.builtin.which_key.mappings["s"] = { "<cmd>SymbolsOutline<cr>", "Symbols Outline" }
+      lvim.builtin.which_key.mappings["o"] = { "<cmd>SymbolsOutline<cr>", "Symbols Outline" }
+      -- lvim.builtin.which_key.mappings["o"] = { "<cmd>SymbolsOutlineOpen<cr>", "Symbols Outline" }
     end,
   }
 }

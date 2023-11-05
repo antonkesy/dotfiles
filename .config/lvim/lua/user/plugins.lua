@@ -3,6 +3,7 @@ local plugin_configs = {
   require("user.plugins.auto-session"),
   require("user.plugins.better-escape"),
   require("user.plugins.copilot"),
+  require("user.plugins.edgy"),
   require("user.plugins.goto-preview"),
   require("user.plugins.leap"),
   require("user.plugins.minimap"),
