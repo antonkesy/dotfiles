@@ -11,6 +11,7 @@ history = 50000
 
 [font]
 normal = { family = "Hack Nerd Font Mono", style = "Regular" }
+# normal = { family = "Monaspace Argon", style = "Regular" }
 size = 10
 
 # [bell]
