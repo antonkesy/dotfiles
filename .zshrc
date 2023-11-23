@@ -95,7 +95,7 @@ export LD_LIBRARY_PATH=$WEBOTS_HOME/lib/controller:$LD_LIBRARY_PATH
 [ -f "/home/ak/.ghcup/env" ] && source "/home/ak/.ghcup/env" # ghcup-env
 
 # Groot
-alias groot=~/workspace/git/bachelor-thesis/example/tools/Groot/build/Groot
+alias groot=~/workspace/git/bachelor-thesis/example/ros2_ws/src/tools/Groot/build/Groot
 
 # Load Angular CLI autocompletion.
 source <(ng completion script)
