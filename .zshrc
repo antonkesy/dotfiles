@@ -70,12 +70,6 @@ source "$HOME/.cargo/env"
 alias audissh="ssh audi@192.168.1.102"
 export VISION_WEIGHT_PATH="/home/ak/workspace/taco/data/weights/best.pt"
 export VISION_CLASSES_PATH="/home/ak/workspace/taco/data/classes.yaml"
-alias .ros="
-source /opt/ros/humble/setup.zsh
-source /home/ak/workspace/taco/install/setup.zsh
-source /opt/ros/humble/share/ros2cli/environment/ros2-argcomplete.zsh
-source /home/ak/workspace/git/bachelor-thesis/example/install/setup.zsh
-"
 
 alias tacodev="
 cd /home/ak/workspace/git/taco/
