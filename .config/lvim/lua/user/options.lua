@@ -30,3 +30,7 @@ lvim.builtin.which_key.mappings["v"] = {
 
 vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
+
+-- Trigger `autoread` when files change on disk
+vim.cmd([[set autoread]])
+vim.cmd([[autocmd FocusGained * silent! checktime]])
