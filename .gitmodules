@@ -16,3 +16,6 @@
 [submodule "built_from_source/shell/shell"]
 	path = built_from_source/shell/shell
 	url = git@github.com:pop-os/shell.git
+[submodule ".config/lvim"]
+	path = .config/lvim
+	url = git@github.com:antonkesy/nvim-config.git
