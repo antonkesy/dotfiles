@@ -1,5 +1,6 @@
 #!/bin/bash
 
-sudo apt install curl
 # https://www.rust-lang.org/tools/install
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+sudo apt install curl && \
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --no-modify-path --profile=default
+# Add cargo to path!
