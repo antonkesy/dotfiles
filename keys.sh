@@ -1,3 +1,3 @@
 #!/bin/bash
 
-# TODO generate ssh/gpg keys
+# TODO auto generate ssh/gpg keys if non existent
