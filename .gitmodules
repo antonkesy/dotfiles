@@ -13,9 +13,6 @@
 [submodule "built_from_source/alacritty/alacritty"]
 	path = built_from_source/alacritty/alacritty
 	url = git@github.com:alacritty/alacritty.git
-[submodule "built_from_source/shell/shell"]
-	path = built_from_source/shell/shell
-	url = git@github.com:pop-os/shell.git
 [submodule ".config/lvim"]
 	path = .config/lvim
 	url = git@github.com:antonkesy/nvim-config.git
