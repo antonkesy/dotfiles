@@ -12,8 +12,8 @@ dirs_to_link=(
     ".tmux/plugins/tpm/"
 )
 
-# why not wokring with lua dir?
-ln --symbolic "$(pwd)/.config/lvim/lua/" --target-directory="${HOME}/.config/lvim/" &&
+# TODO: fix this in function below
+ln --symbolic "$(pwd)/.repos/antigen/" "${HOME}/.repos"
 
 for item in ${dirs_to_link[@]}; do
     from="$(pwd)/$item"
@@ -22,6 +22,7 @@ for item in ${dirs_to_link[@]}; do
     filename=$(basename "$from")
 
     echo "DIRECTORY: $from -> $to"
+    # TODO: remove dir name from "to" -> 
     ln --symbolic "$from" --target-directory="$to" &&
     rm -rf $from/$filename
 done
