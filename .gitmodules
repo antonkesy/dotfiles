@@ -10,9 +10,6 @@
 [submodule ".tmux/plugins/tpm"]
 	path = .tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
-[submodule "built_from_source/alacritty/alacritty"]
-	path = built_from_source/alacritty/alacritty
-	url = git@github.com:alacritty/alacritty.git
 [submodule ".config/lvim"]
 	path = .config/lvim
 	url = git@github.com:antonkesy/nvim-config.git
