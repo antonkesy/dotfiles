@@ -1,12 +1,6 @@
 [submodule ".repos/antigen"]
 	path = .repos/antigen
 	url = https://github.com/zsh-users/antigen
-[submodule ".repos/gnome-shell-extension-clipboard-indicator"]
-	path = .repos/gnome-shell-extension-clipboard-indicator
-	url = git@github.com:Tudmotu/gnome-shell-extension-clipboard-indicator.git
-[submodule ".repos/netcoredbg"]
-	path = .repos/netcoredbg
-	url = git@github.com:Samsung/netcoredbg.git
 [submodule ".tmux/plugins/tpm"]
 	path = .tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
