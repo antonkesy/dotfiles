@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# TODO: fix path
-git clone git@github.com:alacritty/alacritty.git
 sudo apt install cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev python3 &&
 rustup override set stable &&
 rustup update stable &&
