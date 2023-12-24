@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo apt install -y bieber latexmk
+sudo apt install -y latexmk plantuml
