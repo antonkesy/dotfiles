@@ -7,3 +7,4 @@ pip install pre-commit
 
 sudo apt-get install exfat-fuse ntfs-3g -y # disk format support
 sudo apt install flatpak
+sudo apt-get -y ibwebkit2gtk-4.0-37 # Cisco AnyConnect
