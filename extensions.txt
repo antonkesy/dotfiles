@@ -1,5 +1,9 @@
+TODO: clone into ubuntu dir
+
+sudo apt-get install gnome-browser-connector
+
 https://extensions.gnome.org/extension/779/clipboard-indicator/
 https://extensions.gnome.org/extension/28/gtile/
-https://extensions.gnome.org/extension/1476/unlock-dialog-background/
 https://extensions.gnome.org/extension/5575/power-profile-switcher/
-https://github.com/zhrexl/DrawOnYourScreen2
+https://extensions.gnome.org/extension/36/lock-keys/
+https://extensions.gnome.org/extension/4937/draw-on-you-screen-2/ # https://github.com/zhrexl/DrawOnYourScreen2
