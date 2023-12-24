@@ -6,3 +6,4 @@ sudo snap install krita postman obs-studio
 pip install pre-commit
 
 sudo apt-get install exfat-fuse ntfs-3g -y # disk format support
+sudo apt install flatpak
