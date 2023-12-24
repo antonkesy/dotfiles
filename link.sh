@@ -3,29 +3,34 @@
 mkdir -p "$HOME/.config/alacritty"
 mkdir -p "$HOME/.config/lvim/spell"
 mkdir -p "$HOME/.local/share/lunarvim/site/pack/lazy/opt/nvim-treesitter/spell"
-mkdir -p "$HOME/.repos"
-mkdir -p "$HOME/.tmux/plugins"
 
-dirs_to_link=(
-    ".config/lvim/lua/"
-    ".repos/antigen/"
-    ".tmux/plugins/tpm/"
-)
+# dirs_to_link=(
+#     ".config/lvim/lua/"
+#     ".repos/antigen/"
+#     ".tmux/plugins/tpm/"
+# )
 
 # TODO: fix this in function below
+mkdir -p "${HOME}/.config/lvim/"
+ln --symbolic "$(pwd)/.config/lvim/lua/" "${HOME}/.config/lvim/"
+
+mkdir -p "$HOME/.repos"
 ln --symbolic "$(pwd)/.repos/antigen/" "${HOME}/.repos"
 
-for item in ${dirs_to_link[@]}; do
-    from="$(pwd)/$item"
-    to="$HOME/$item"
+mkdir -p "$HOME/.tmux/plugins"
+ln --symbolic "$(pwd)/.tmux/plugins/tpm/" "${HOME}/.tmux/plugins"
 
-    filename=$(basename "$from")
+# for item in ${dirs_to_link[@]}; do
+#     from="$(pwd)/$item"
+#     to="$HOME/$item"
 
-    echo "DIRECTORY: $from -> $to"
-    # TODO: remove dir name from "to" -> 
-    ln --symbolic "$from" --target-directory="$to" &&
-    rm -rf $from/$filename
-done
+#     filename=$(basename "$from")
+
+#     echo "DIRECTORY: $from -> $to"
+#     # TODO: remove dir name from "to" -> 
+#     ln --symbolic "$from" --target-directory="$to" &&
+#     rm -rf $from/$filename
+# done
 
 # ----------------------------------------------------------------------------------------------------
 
