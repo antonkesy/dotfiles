@@ -1,6 +1,6 @@
 # dotfiles
 
-## TL:DR / OneLine
+## TL:DR
 
 `git clone --recursive https://github.com/antonkesy/dotfiles.git && cd dotfiles && ./link.sh && ./all.sh`
 
@@ -25,7 +25,6 @@ https://github.com/zellij-org/zellij
 ### Auto install GNOME Extensions
 
 ### Add gitless install
-
 
 ### Rename repository to config?
 
