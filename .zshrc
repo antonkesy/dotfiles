@@ -46,7 +46,7 @@ alias exa="exa -la"
 # alias du="dust"
 # alias find="fdfind"
 # alias ps="procs -t"
-alias lvim="/home/ak/.local/bin/lvim"
+alias lvim="${HOME}/.local/bin/lvim"
 alias vim="lvim"
 alias neovim="lvim"
 alias nvim="lvim"
@@ -70,7 +70,7 @@ export WEBOTS_HOME=/usr/local/webots
 export LD_LIBRARY_PATH=$WEBOTS_HOME/lib/controller:$LD_LIBRARY_PATH
 
 # Haskell
-[ -f "/home/ak/.ghcup/env" ] && source "/home/ak/.ghcup/env" # ghcup-env
+[ -f "${HOME}/.ghcup/env" ] && source "${HOME}/.ghcup/env" # ghcup-env
 
 # tmux
 export EDITOR='nvim'
