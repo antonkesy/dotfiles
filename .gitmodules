@@ -13,3 +13,6 @@
 [submodule ".config/lvim"]
 	path = .config/lvim
 	url = https://github.com/antonkesy/nvim-config
+[submodule ".config/alacritty/themes"]
+	path = .config/alacritty/themes
+	url = https://github.com/alacritty/alacritty-theme.git
