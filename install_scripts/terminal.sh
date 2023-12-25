@@ -3,10 +3,6 @@
 sudo apt install tmux fzf xsel exa fd-find atop btop
 pip install trash-cli
 
-# Tmux Plugin: https://github.com/arl/gitmux
-go install github.com/arl/gitmux@latest
-sudo snap install yq
-
 # unbind alt to avoaid conflict with tmux
 pip install libtmux
 gsettings set org.gnome.desktop.wm.keybindings activate-window-menu "[]" && \
