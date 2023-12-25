@@ -1,3 +1,6 @@
+import = [ "~/.config/alacritty/themes/themes/iterm.toml" ]
+# import = [ "~/.config/alacritty/themes/themes/github_dark_colorblind.toml" ]
+
 # https://github.com/alacritty/alacritty/blob/master/extra/man/alacritty.5.scd
 [env]
 TERM="xterm-256color"
@@ -31,35 +34,3 @@ hide_when_typing = true
 bindings = [
     { key = "F11", mods = "Alt", action = "ToggleFullscreen" },
 ]
-
-
-# Theme light blue
-[colors]
-  [colors.primary]
-    background = '0x202331'
-    # background = '0x292C3E'
-    foreground = '0xEBEBEB'
-
-  [colors.cursor]
-    text = '0xEBEBEB'
-    cursor = '0xFF261E'
-
-  [colors.normal]
-    black = '0x0d0d0d'
-    red = '0xFF301B'
-    green = '0xA0E521'
-    yellow = '0xFFC620'
-    blue = '0x1BA6FA'
-    magenta = '0x8763B8'
-    cyan = '0x21DEEF'
-    white = '0xEBEBEB'
-
-  [colors.bright]
-    black = '0x6D7070'
-    red = '0xFF4352'
-    green = '0xB8E466'
-    yellow = '0xFFD750'
-    blue = '0x1BA6FA'
-    magenta = '0xA578EA'
-    cyan = '0x73FBF1'
-    white = '0xFEFEF8'
