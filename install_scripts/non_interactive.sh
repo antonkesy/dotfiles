@@ -11,6 +11,7 @@ fi
 for script_file in "$NON_INTERACTIVE"*.sh; do
     if [ -f "$script_file" ]; then
         echo "Running script: $script_file"
-        bash "$script_file"
+        apt --fix-broken install
+        bash "$script_file" # TODO: cancel all install if error
     fi
 done
