@@ -21,3 +21,5 @@ https://github.com/zellij-org/zellij
 ### Hide Ubuntu/GNOME Top Bar
 
 ### Auto install GNOME Extensions
+
+### Add gitless install
