@@ -1,5 +1,4 @@
-[[ -r ~/.repos/znap/znap.zsh ]] ||
-    git clone --depth 1 -- https://github.com/marlonrichert/zsh-snap.git ~/.repos/znap
+[[ -r ~/.repos/znap/znap.zsh ]] || git clone --depth 1 -- https://github.com/marlonrichert/zsh-snap.git ~/.repos/znap
 source ~/.repos/znap/znap.zsh
 
 znap prompt sindresorhus/pure
@@ -73,13 +72,13 @@ export LD_LIBRARY_PATH=$WEBOTS_HOME/lib/controller:$LD_LIBRARY_PATH
 # Haskell
 [ -f "/home/ak/.ghcup/env" ] && source "/home/ak/.ghcup/env" # ghcup-env
 
-# tmux 
+# tmux
 export EDITOR='nvim'
 export VISUAL='nvim'
 
 # create tmux main session
 if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
-  tmux new-session -A -s main
+    tmux new-session -A -s main
 fi
 
 export NVM_DIR="$HOME/.config/nvm"
