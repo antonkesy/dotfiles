@@ -1,6 +1,7 @@
 TODO: clone into ubuntu dir
 
 sudo apt-get install gnome-browser-connector
+sudo apt install gnome-shell-extension-manager
 
 https://extensions.gnome.org/extension/779/clipboard-indicator/
 https://extensions.gnome.org/extension/28/gtile/
