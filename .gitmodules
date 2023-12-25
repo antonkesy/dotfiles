@@ -6,10 +6,10 @@
 	url = https://github.com/tmux-plugins/tpm
 [submodule "built_from_source/neovim/neovim"]
 	path = built_from_source/neovim/neovim
-	url = git@github.com:neovim/neovim.git
+	url = https://github.com/neovim/neovim
 [submodule "built_from_source/alacritty/alacritty"]
 	path = built_from_source/alacritty/alacritty
-	url = git@github.com:alacritty/alacritty.git
+	url = https://github.com/alacritty/alacritty
 [submodule ".config/lvim"]
 	path = .config/lvim
-	url = git@github.com:antonkesy/nvim-config.git
+	url = https://github.com/antonkesy/nvim-config
