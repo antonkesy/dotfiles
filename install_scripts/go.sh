@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo apt install -y golang-go
+apt install -y golang-go

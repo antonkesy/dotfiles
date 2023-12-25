@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo snap install discord
+snap install discord
