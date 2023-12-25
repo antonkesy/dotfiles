@@ -25,3 +25,8 @@ https://github.com/zellij-org/zellij
 ### Auto install GNOME Extensions
 
 ### Add gitless install
+
+
+### Rename repository to config?
+
+not only dotfiles saved here ... move dotfiles into `/home/` subdir?
