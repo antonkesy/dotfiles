@@ -8,3 +8,4 @@ https://extensions.gnome.org/extension/28/gtile/
 https://extensions.gnome.org/extension/5575/power-profile-switcher/
 https://extensions.gnome.org/extension/36/lock-keys/
 https://extensions.gnome.org/extension/4937/draw-on-you-screen-2/ # https://github.com/zhrexl/DrawOnYourScreen2
+https://extensions.gnome.org/extension/545/hide-top-bar/
