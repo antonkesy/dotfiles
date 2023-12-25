@@ -7,6 +7,6 @@ WORKDIR /home/root/
 
 RUN mkdir -p ~/.ssh/
 RUN ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-RUN git clone --recursive https://github.com/antonkesy/dotfiles.git && cd dotfiles && ./link.sh && ./install_scripts/non_interactive.sh
+RUN git clone --recursive https://github.com/antonkesy/dotfiles.git # && cd dotfiles && ./link.sh && ./install_scripts/non_interactive.sh
 
 CMD ["bash"]
