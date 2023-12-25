@@ -2,7 +2,7 @@
 
 ## TL:DR / OneLine
 
-`git clone --recursive https://github.com/antonkesy/dotfiles.git && cd dotfiles && ./link.sh && ./all.sh`
+`git clone --recursive https://github.com/antonkesy/dotfiles.git && cd dotfiles && ./link.sh && ./install_scripts/non_interactive.sh`
 
 You might need to run it with elevated privileges: `sudo`
 
