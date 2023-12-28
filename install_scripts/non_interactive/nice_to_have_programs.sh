@@ -8,3 +8,5 @@ pip install pre-commit
 
 apt-get install -y exfat-fuse ntfs-3g # disk format support
 apt-get -y ibwebkit2gtk-4.0-37 # Cisco AnyConnect
+
+flatpak -y install flathub io.missioncenter.MissionCenter # https://missioncenter.io
