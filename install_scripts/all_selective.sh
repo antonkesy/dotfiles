@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-NON_INTERACTIVE="${SCRIPT_DIR}/non_interactive/"
+NON_INTERACTIVE="${SCRIPT_DIR}/selective/"
 
 if [ ! -d "$NON_INTERACTIVE" ]; then
     echo "Directory '$NON_INTERACTIVE' does not exist."

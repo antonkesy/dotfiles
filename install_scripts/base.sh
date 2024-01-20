@@ -13,3 +13,4 @@ ${SCRIPT_DIR}/base/go.sh
 ${SCRIPT_DIR}/base/homebrew.sh
 ${SCRIPT_DIR}/base/rust.sh
 ${SCRIPT_DIR}/base/bazel.sh
+${SCRIPT_DIR}/base/haskell.sh
