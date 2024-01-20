@@ -8,4 +8,4 @@ ${SOURCE_ANY_SHELL}
 ./built_from_source/neovim/install.sh &&
 ./built_from_source/alacritty/install.sh &&
 ${SOURCE_ANY_SHELL}
-./install_scripts/non_interactive.sh
+./install_scripts/all_selective.sh

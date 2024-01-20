@@ -16,7 +16,8 @@ apt-get install -y \
     latexmk  \
     texstudio  \
     texlive-full  \
-    ubuntu-restricted-extras
+    ubuntu-restricted-extras \
+    libreoffice
 
 snap install krita postman obs-studio
 pip install pre-commit
