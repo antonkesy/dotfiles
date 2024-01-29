@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sudo apt-get install git-lfs -y
+
 git config --global user.name "Anton Kesy" &&
 git config --global user.email "antonkesy@gmail.com" &&
 git config --global core.editor lvim &&
