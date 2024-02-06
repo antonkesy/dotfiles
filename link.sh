@@ -24,6 +24,7 @@ mkdir -p "$HOME/.config/lvim/spell"
 
 files_to_link=(
     ".config/lvim/config.lua"
+    ".config/gSnap/layouts.json"
     ".antigenrc"
     ".tmux.conf"
     ".zshrc"
