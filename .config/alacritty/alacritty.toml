@@ -6,7 +6,7 @@ import = [ "~/.config/alacritty/themes/themes/iterm.toml" ]
 TERM="xterm-256color"
 
 [window]
-decorations = "none"
+decorations = "Full"
 startup_mode = "Maximized"
 
 [scrolling]
