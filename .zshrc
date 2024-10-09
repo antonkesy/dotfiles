@@ -37,6 +37,7 @@ export PATH="/var/lib/flatpak/exports/share:$PATH"
 export PATH="$HOME/.local/share/flatpak/exports/share:$PATH"
 
 # ALIAS
+alias m="make"
 alias htop=btop
 alias g="lazygit"
 # alias cat="bat"
@@ -90,3 +91,7 @@ export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 # Load Angular CLI autocompletion.
 source <(ng completion script)
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
