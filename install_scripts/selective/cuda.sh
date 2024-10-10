@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=550 # TODO: increase due to theme bug
+VERSION=535 # TODO: increase due to theme bug
 
 # working nvidia driver with 24.04.1 Ubuntu and Razer Core X Chroma
 sudo add-apt-repository ppa:graphics-drivers/ppa -y
