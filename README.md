@@ -13,19 +13,3 @@ You might need to run it with elevated privileges: `sudo`
 2. run `./link.sh` to link all dotfiles
 3. run `./ubuntu/link.sh` to link all Ubuntu sepcific files
 4. select _modules_ from `install_scripts` -> some or `built_from_source` may depend on specific _modules_
-
-## TODOs
-
-### Switch from TMUX to zellij
-
-https://github.com/zellij-org/zellij
-
-### Hide Ubuntu/GNOME Top Bar
-
-### Auto install GNOME Extensions
-
-### Add gitless install
-
-### Rename repository to config?
-
-not only dotfiles saved here ... move dotfiles into `/home/` subdir?
