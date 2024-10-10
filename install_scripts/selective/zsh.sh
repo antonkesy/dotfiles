@@ -1,20 +1,20 @@
 #!/bin/bash
 
-apt install unzip
+sudo apt install unzip
 
 # hack font
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Hack.zip
-unzip ./Hack.zip -d -f /usr/share/fonts/truetype/hack/
+sudo mkdir /usr/share/fonts/truetype/hack/ -p
+sudo unzip ./Hack.zip -d /usr/share/fonts/truetype/hack/
 fc-cache -f -v
-rm ./Hack.zip
 
 # starship theme
 # https://starship.rs/
 curl -sS https://starship.rs/install.sh | sh -- --yes
 
-apt install -y zsh
+sudo apt install -y zsh
 # set zsh as default shell
-chsh -s $(which zsh)
+sudo hsh -s $(which zsh)
 
 
 # https://github.com/ohmyzsh/ohmyzsh

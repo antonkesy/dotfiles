@@ -1,3 +1,3 @@
 #!/bin/bash
 
-apt install -y libreoffice
+sudo apt install -y libreoffice

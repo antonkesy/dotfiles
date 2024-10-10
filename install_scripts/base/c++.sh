@@ -1,3 +1,3 @@
 #!/bin/bash
 
-apt-get install -y google-mock googletest cppcheck libboost-all-dev valgrind
+sudo apt-get install -y google-mock googletest cppcheck libboost-all-dev valgrind libgtest-dev
