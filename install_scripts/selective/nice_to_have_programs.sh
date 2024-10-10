@@ -11,21 +11,27 @@ sudo apt-get install -y \
     gimp  \
     baobab  \
     curl  \
+    qtbase5-dev \
     qt6-base-dev  \
-    python3-distutils  \
     latexmk  \
     texstudio  \
     texlive-full  \
     ubuntu-restricted-extras \
     libreoffice
 
-sudo snap install krita postman obs-studio
-pip install pre-commit
+sudo snap install krita postman obs-studio amberol
+pip install pre-commit screenpen
 
-sudo apt-get install -y exfat-fuse ntfs-3g # disk format support
-sudo apt-get -y ibwebkit2gtk-4.0-37 # Cisco AnyConnect
+ # disk format support
+sudo apt-get install -y exfat-fuse ntfs-3g
 
-sudo flatpak -y install flathub io.missioncenter.MissionCenter # https://missioncenter.io
+ # Cisco AnyConnect
+sudo add-apt-repository deb http://gb.archive.ubuntu.com/ubuntu jammy main -y
+sudo apt update -y
+sudo apt install -y libwebkit2gtk-4.0-dev
+
+# https://missioncenter.io
+sudo flatpak -y install flathub io.missioncenter.MissionCenter
 sudo flatpak install flathub net.ankiweb.Anki
 
-cargo install exa bat ripgrep fd-find procs btm bottom
+cargo install exa bat ripgrep fd-find procs bottom
