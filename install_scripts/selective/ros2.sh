@@ -1,12 +1,6 @@
 #!/bin/bash
 
-# nomachine
-wget https://download.nomachine.com/download/8.6/Linux/nomachine_8.6.1_3_amd64.deb
-sudo apt install ./nomachine*
-rm ./nomachine*
-
-# webots 
-# https://cyberbotics.com/doc/guide/installation-procedure#installing-the-debian-package-with-the-advanced-packaging-tool-apt
+# webots: https://cyberbotics.com/doc/guide/installation-procedure#installing-the-debian-package-with-the-advanced-packaging-tool-apt
 sudo mkdir -p /etc/apt/keyrings
 cd /etc/apt/keyrings
 sudo wget -q https://cyberbotics.com/Cyberbotics.asc
