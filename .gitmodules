@@ -16,3 +16,12 @@
 [submodule ".config/alacritty/themes"]
 	path = .config/alacritty/themes
 	url = https://github.com/alacritty/alacritty-theme.git
+[submodule "extensions/gSnap"]
+	path = extensions/gSnap
+	url = https://github.com/GnomeSnapExtensions/gSnap.git
+[submodule "extensions/gnome-shell-extension-lockkeys"]
+	path = extensions/gnome-shell-extension-lockkeys
+	url = https://github.com/kazysmaster/gnome-shell-extension-lockkeys.git
+[submodule "extensions/gnome-shell-extension-clipboard-indicator"]
+	path = extensions/gnome-shell-extension-clipboard-indicator
+	url = https://github.com/Tudmotu/gnome-shell-extension-clipboard-indicator.git
