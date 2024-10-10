@@ -19,7 +19,7 @@ sudo apt-get install -y \
     ubuntu-restricted-extras \
     libreoffice
 
-sudo snap install krita postman obs-studio amberol
+sudo snap install krita postman obs-studio amberol vlc gimp
 pip install pre-commit screenpen
 
  # disk format support
