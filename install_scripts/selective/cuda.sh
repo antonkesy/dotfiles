@@ -1,9 +1,11 @@
 #!/bin/bash
 
-# working nvidia driver with 22.10 Ubuntu and Razer Core X Chroma
-add-apt-repository ppa:graphics-drivers/ppa -y
-apt update -y
-apt upgrade -y
-apt remove 'nvidia-*' -y
-apt-get install nvidia-driver-535-open nvidia-utils-535 nvidia-cuda-toolkit -y
-prime-select nvidia
+VERSION=550 # TODO: increase due to theme bug
+
+# working nvidia driver with 24.04.1 Ubuntu and Razer Core X Chroma
+sudo add-apt-repository ppa:graphics-drivers/ppa -y
+sudo apt update -y
+sudo apt upgrade -y
+sudo apt remove 'nvidia-*' -y
+sudo apt-get install nvidia-driver-${VERSION}-open nvidia-utils-${VERSION} nvidia-cuda-toolkit -y
+sudo prime-select nvidia

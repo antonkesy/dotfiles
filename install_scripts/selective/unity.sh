@@ -1,6 +1,6 @@
 #!/bin/bash
 
-apt-get install libssl1.1
+sudo apt-get install libssl1.1
 
 #unityhub
 # sh -c 'echo "deb https://hub.unity3d.com/linux/repos/deb stable main" > /etc/apt/sources.list.d/unityhub.list'

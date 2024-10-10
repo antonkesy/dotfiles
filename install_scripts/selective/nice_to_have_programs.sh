@@ -1,8 +1,8 @@
 #!/bin/bash
 # all small packages without grouping
 
-apt-get install git -y
-apt-get install -y \
+sudo apt-get install git -y
+sudo apt-get install -y \
     ffmpeg \
     flex  \
     pandoc  \
@@ -19,11 +19,13 @@ apt-get install -y \
     ubuntu-restricted-extras \
     libreoffice
 
-snap install krita postman obs-studio
+sudo snap install krita postman obs-studio
 pip install pre-commit
 
-apt-get install -y exfat-fuse ntfs-3g # disk format support
-apt-get -y ibwebkit2gtk-4.0-37 # Cisco AnyConnect
+sudo apt-get install -y exfat-fuse ntfs-3g # disk format support
+sudo apt-get -y ibwebkit2gtk-4.0-37 # Cisco AnyConnect
 
-flatpak -y install flathub io.missioncenter.MissionCenter # https://missioncenter.io
-flatpak install flathub net.ankiweb.Anki
+sudo flatpak -y install flathub io.missioncenter.MissionCenter # https://missioncenter.io
+sudo flatpak install flathub net.ankiweb.Anki
+
+cargo install exa bat ripgrep fd-find procs btm bottom

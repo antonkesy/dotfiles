@@ -1,6 +1,6 @@
 #!/bin/bash
 
-snap install flutter --classic
+sudo snap install flutter --classic
 flutter doctor
 
 # TODO: add dart install
