@@ -31,6 +31,8 @@ files_to_link=(
     ".zshrc"
 )
 
+mkdir ${HOME}/.config/gSnap/
+
 for item in ${files_to_link[@]}; do
     from="$(pwd)/$item"
     to=$HOME/$item
