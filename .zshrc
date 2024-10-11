@@ -5,8 +5,6 @@ znap prompt sindresorhus/pure
 znap source marlonrichert/zsh-autocomplete
 znap eval iterm2 'curl -fsSL https://iterm2.com/shell_integration/zsh'
 
-# TODO znap autoload ros
-
 znap install ael-code/zsh-colored-man-pages
 znap install momo-lab/zsh-abbrev-alias
 
