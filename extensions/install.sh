@@ -7,8 +7,14 @@ sudo apt-get install -y gnome-browser-connector gnome-terminal gnome-shell-exten
 INSTALL_DIR=~/.local/share/gnome-shell/extensions
 
 # https://github.com/GnomeSnapExtensions/gSnap
-cp -rf ./gSnap ${INSTALL_DIR}/gSnap@micahosborne
-gnome-extensions enable gSnap@micahosborne
+GSNAP=gSnap@micahosborn
+cp -rf ./gSnap ${INSTALL_DIR}/${GSNAP}
+cd ${INSTALL_DIR}/${GSNAP} || exit
+# https://github.com/GnomeSnapExtensions/gSnap/blob/releases/23/DEVELOPING.md
+npm ci
+npm run install-extension
+gnome-extensions enable ${GSNAP}
+cd - || exit
 
 # https://extensions.gnome.org/extension/779/clipboard-indicator/
 cp -rf ./gnome-shell-extension-clipboard-indicator ${INSTALL_DIR}/clipboard-indicator@tudmotu.com
