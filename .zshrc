@@ -56,7 +56,6 @@ alias n="nvim"
 alias python=python3
 alias py=python
 alias py3=python3
-alias tilix=tilix --full-screen
 # use trash-cli instead of rm
 alias rm="trash-put"
 
@@ -65,10 +64,6 @@ source "$HOME/.cargo/env"
 
 # TACO
 alias audissh="ssh audi@192.168.1.102"
-
-# Webots
-export WEBOTS_HOME=/usr/local/webots
-export LD_LIBRARY_PATH=$WEBOTS_HOME/lib/controller:$LD_LIBRARY_PATH
 
 # Haskell
 [ -f "${HOME}/.ghcup/env" ] && source "${HOME}/.ghcup/env" # ghcup-env
