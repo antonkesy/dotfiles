@@ -9,7 +9,4 @@ bash <(curl -s https://raw.githubusercontent.com/ChristianChiarulli/LunarVim/mas
 pip install neovim
 
 # LSP Dependencies
-sudo apt install nodejs npm -y
-sudo apt-get install ruby-dev -y
-sudo apt install r-base -y
-sudo apt install php libapache2-mod-php php-cli php-cgi unzip -y
+sudo apt-get install -y nodejs npm ruby-dev r-base php libapache2-mod-php php-cli php-cgi unzip llvm-14 lldb-14
