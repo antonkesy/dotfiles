@@ -35,3 +35,6 @@ sudo flatpak -y install flathub io.missioncenter.MissionCenter
 sudo flatpak install flathub net.ankiweb.Anki
 
 cargo install exa bat ripgrep fd-find procs bottom
+
+# https://github.com/flameshot-org/flameshot
+sudo apt install -y flameshot
