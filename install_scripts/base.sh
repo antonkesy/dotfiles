@@ -2,8 +2,8 @@
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-add-apt-repository universe
 
+${SCRIPT_DIR}/base/repositories.sh
 ${SCRIPT_DIR}/base/python.sh
 ${SCRIPT_DIR}/base/misc.sh
 ${SCRIPT_DIR}/base/java.sh
