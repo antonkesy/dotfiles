@@ -17,9 +17,10 @@ sudo apt-get install -y \
     texstudio  \
     texlive-full  \
     ubuntu-restricted-extras \
-    libreoffice
+    libreoffice \
+    obs-studio
 
-sudo snap install krita postman obs-studio amberol vlc gimp
+sudo snap install krita postman amberol vlc gimp
 pip install pre-commit screenpen
 
  # disk format support
