@@ -39,3 +39,6 @@ cargo install exa bat ripgrep fd-find procs bottom
 
 # https://github.com/flameshot-org/flameshot
 sudo apt install -y flameshot
+
+# Battery
+sudo apt install -y tlp tlp-rdw
