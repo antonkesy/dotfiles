@@ -18,9 +18,10 @@ sudo apt-get install -y \
     texlive-full  \
     ubuntu-restricted-extras \
     libreoffice \
-    obs-studio
+    obs-studio \
+    pdftk
 
-sudo snap install krita postman amberol vlc gimp
+sudo snap install krita postman amberol vlc gimp drawio
 pip install pre-commit screenpen
 
  # disk format support
@@ -41,4 +42,4 @@ cargo install exa bat ripgrep fd-find procs bottom
 sudo apt install -y flameshot
 
 # Battery
-sudo apt install -y tlp tlp-rdw
+sudo apt install -y tlp tlp-rdw power-profiles-daemon
