@@ -1,6 +1,7 @@
 # Load oh-my-zsh library
 antigen use ohmyzsh/ohmyzsh
 
+
 # Load bundles from the default repo (oh-my-zsh)
 antigen bundle git
 antigen bundle command-not-found
@@ -12,7 +13,7 @@ antigen bundle pip
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle jeffreytse/zsh-vi-mode
+# antigen bundle jeffreytse/zsh-vi-mode # breaks auto complete in insert mode
 antigen bundle thetic/extract
 
 # TODO currently not working :(
