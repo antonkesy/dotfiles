@@ -55,9 +55,12 @@ alias n="nvim"
 alias python=python3
 alias py=python
 alias py3=python3
+
 # use trash-cli instead of rm
 compdef rm=trash-put
 alias rm="trash-put"
+# force rm zsh completion
+zstyle ':completion:*:*:rm:*' file-patterns '*'
 
 # Rust
 source "$HOME/.cargo/env"
