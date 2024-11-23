@@ -3,7 +3,6 @@
 dirs_to_link=(
     ".config/lvim/lua/"
     ".config/alacritty/"
-    ".repos/antigen/"
     ".tmux/plugins/tpm/"
 )
 
@@ -27,9 +26,9 @@ files_to_link=(
     ".config/starship.toml"
     ".config/lvim/config.lua"
     ".config/gSnap/layouts.json"
-    ".antigenrc"
     ".tmux.conf"
     ".zshrc"
+    ".zinit.zsh"
 )
 
 mkdir ${HOME}/.config/gSnap/

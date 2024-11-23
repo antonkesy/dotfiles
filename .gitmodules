@@ -1,6 +1,3 @@
-[submodule ".repos/antigen"]
-	path = .repos/antigen
-	url = https://github.com/zsh-users/antigen
 [submodule ".tmux/plugins/tpm"]
 	path = .tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
