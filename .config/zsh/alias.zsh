@@ -20,9 +20,4 @@ alias py=python
 alias py3=python3
 
 # use trash-cli instead of rm
-compdef rm=trash-put
-alias rm="trash-put"
-# force rm zsh completion
-zstyle ':completion:*:*:rm:*' file-patterns '*'
-zstyle ':completion:*' rehash true
-autoload -Uz compinit && compinit -C
+# alias rm="trash-put" # rather lose files than no auto-complete TODO: fix auto-complete
