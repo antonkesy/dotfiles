@@ -19,7 +19,9 @@ sudo apt-get install -y \
     ubuntu-restricted-extras \
     libreoffice \
     obs-studio \
-    pdftk
+    pdftk \
+    libpulse-dev \
+    bison
 
 sudo snap install krita postman amberol vlc gimp drawio
 pip install pre-commit screenpen
