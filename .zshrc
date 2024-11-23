@@ -1,12 +1,9 @@
+# benchmark
+# zmodload zsh/zprof
+
 ZSH_DISABLE_COMPFIX=true
 [[ -r ~/.repos/znap/znap.zsh ]] || git clone --depth 1 -- https://github.com/marlonrichert/zsh-snap.git ~/.repos/znap
 source ~/.repos/znap/znap.zsh
-
-# znap source marlonrichert/zsh-autocomplete
-# znap eval iterm2 'curl -fsSL https://iterm2.com/shell_integration/zsh'
-
-znap install ael-code/zsh-colored-man-pages
-znap install momo-lab/zsh-abbrev-alias
 
 # Homebrew
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
@@ -14,9 +11,8 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # https://github.com/starship/starship
 eval "$(starship init zsh)"
 
-# Antigen
-source ~/.repos/antigen/antigen.zsh
-antigen init ~/.antigenrc
+# zinit
+source ~/.zinit.zsh
 
 path+=(/bin)
 
@@ -63,6 +59,8 @@ compdef rm=trash-put
 alias rm="trash-put"
 # force rm zsh completion
 zstyle ':completion:*:*:rm:*' file-patterns '*'
+zstyle ':completion:*' rehash true
+autoload -Uz compinit && compinit -C
 
 # Rust
 source "$HOME/.cargo/env"
@@ -82,9 +80,8 @@ if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
     tmux new-session -A -s main
 fi
 
-export NVM_DIR="$HOME/.nvm"
-  [ -s "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh" ] && \. "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+# https://github.com/Schniz/fnm
+eval "$(fnm env --use-on-cd --shell zsh)"
 
 # dart
 export PATH="$PATH":"$HOME/.pub-cache/bin"
@@ -95,3 +92,14 @@ source <(ng completion script)
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+# zprof
