@@ -3,8 +3,11 @@
 dirs_to_link=(
     ".config/lvim/lua/"
     ".config/alacritty/"
+    ".config/zsh/"
     ".tmux/plugins/tpm/"
 )
+
+rm ~/.config/zsh -rf
 
 for item in ${dirs_to_link[@]}; do
     from="$(pwd)/$item"
@@ -28,7 +31,6 @@ files_to_link=(
     ".config/gSnap/layouts.json"
     ".tmux.conf"
     ".zshrc"
-    ".zinit.zsh"
 )
 
 mkdir ${HOME}/.config/gSnap/
@@ -39,3 +41,6 @@ for item in ${files_to_link[@]}; do
     echo "FILE: $from -> $to"
     ln --symbolic --force "$from" "$to"
 done
+
+
+zcompile ~/.zshrc
