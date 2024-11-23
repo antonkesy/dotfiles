@@ -15,8 +15,5 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle jeffreytse/zsh-vi-mode # breaks auto complete in insert mode
 antigen bundle thetic/extract
 
-# TODO currently not working :(
-# antigen bundle hadenlabs/zsh-starship
-
 # Tell Antigen that you're done
 antigen apply
