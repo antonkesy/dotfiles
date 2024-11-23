@@ -1,7 +1,14 @@
 #!/bin/bash
 
 sudo apt install tmux fzf xsel fd-find atop btop
-pip install trash-cli
+pipx install trash-cli 'trash-cli[completion]'
+cmds=(trash-empty trash-list trash-restore trash-put trash)
+for cmd in ${cmds[@]}; do
+  $cmd --print-completion bash | sudo tee /usr/share/bash-completion/completions/"$cmd"
+  $cmd --print-completion zsh | sudo tee /usr/share/zsh/site-functions/_"$cmd"
+  $cmd --print-completion tcsh | sudo tee /etc/profile.d/"$cmd".completion.csh
+done
+
 cargo install exa
 sudo apt install nodejs
 sudo npm install -g @angular/cli
