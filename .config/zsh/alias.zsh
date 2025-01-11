@@ -1,6 +1,6 @@
 # ALIAS
 alias m="make"
-alias htop=btop
+# alias htop=btop
 alias g="lazygit"
 # alias cat="bat"
 alias l="exa -lah"
