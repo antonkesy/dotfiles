@@ -5,4 +5,4 @@ curl -fsSL https://ollama.com/install.sh | sh
 
 ollama pull llama3.2
 ollama pull codellama
-ollama pull phi3
+ollama pull phi4
