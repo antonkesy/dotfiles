@@ -34,4 +34,7 @@ starship preset nerd-font-symbols -o ~/.config/starship.toml
 # https://github.com/zdharma-continuum/zinit?tab=readme-ov-file#automatic
 bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
 
+# https://github.com/atuinsh/atuin
+curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
+
 zcompile ~/.zshrc

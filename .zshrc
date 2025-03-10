@@ -32,4 +32,10 @@ source ~/.config/zsh/taco.zsh
 
 source ~/.config/zsh/sdkman.zsh
 
+
+#atuin
+. "$HOME/.atuin/bin/env"
+
+eval "$(atuin init zsh)"
+
 # zprof
