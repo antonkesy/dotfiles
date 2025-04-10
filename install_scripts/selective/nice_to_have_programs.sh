@@ -22,7 +22,8 @@ sudo apt-get install -y \
     pdftk \
     libpulse-dev \
     bison \
-    pympress
+    pympress \
+    xournalpp
 
 sudo snap install krita postman amberol vlc gimp drawio
 pip install pre-commit screenpen
