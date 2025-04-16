@@ -11,7 +11,6 @@ done
 
 cargo install exa
 sudo apt install nodejs
-sudo npm install -g @angular/cli
 
 # unbind alt to avoaid conflict with tmux
 pip install libtmux

@@ -14,7 +14,6 @@ source ~/.config/zsh/zinit.zsh
 source ~/.config/zsh/homebrew.zsh
 source ~/.config/zsh/path.zsh
 source ~/.config/zsh/tmux.zsh
-source ~/.config/zsh/angular.zsh
 source ~/.config/zsh/dart.zsh
 source ~/.config/zsh/flatpack.zsh
 source ~/.config/zsh/go.zsh
