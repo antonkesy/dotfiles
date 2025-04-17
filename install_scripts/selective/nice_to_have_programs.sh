@@ -21,7 +21,9 @@ sudo apt-get install -y \
     obs-studio \
     pdftk \
     libpulse-dev \
-    bison
+    bison \
+    pympress \
+    xournalpp
 
 sudo snap install krita postman amberol vlc gimp drawio
 pip install pre-commit screenpen
