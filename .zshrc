@@ -6,12 +6,12 @@ HISTFILE=~/.histfile
 HISTSIZE=500000
 SAVEHIST=500000
 
+source ~/.config/zsh/homebrew.zsh
 source ~/.config/zsh/fnm.zsh
 source ~/.config/zsh/alias.zsh
 source ~/.config/zsh/znap.zsh
 source ~/.config/zsh/starship.zsh
 source ~/.config/zsh/zinit.zsh
-source ~/.config/zsh/homebrew.zsh
 source ~/.config/zsh/path.zsh
 source ~/.config/zsh/tmux.zsh
 source ~/.config/zsh/dart.zsh
