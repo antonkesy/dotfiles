@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Create non-tracked zsh config file for device-specific settings
+touch ./.config/zsh/untracked.zsh
+
 dirs_to_link=(
     ".config/lvim/lua/"
     ".config/alacritty/"
