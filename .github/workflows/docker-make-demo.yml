@@ -1,12 +1,12 @@
-name: Make Demo
+name: Base Install Test
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
 
 jobs:
-  run-make-demo:
+  run-make-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,5 +16,5 @@ jobs:
       - name: Install build dependencies
         run: sudo apt-get update && sudo apt-get install -y make
 
-      - name: Run make demo
-        run: make demo
+      - name: Run make test
+        run: make test
