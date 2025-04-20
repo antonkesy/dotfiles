@@ -44,6 +44,3 @@ for item in "${files_to_link[@]}"; do
     echo "FILE: $from -> $to"
     ln --symbolic --force "$from" "$to"
 done
-
-
-zcompile ~/.zshrc

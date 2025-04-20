@@ -1,8 +1,8 @@
 .PHONY: install_base install_all demo fresh_docker test demo
 
 install_base:
-	./install_scripts/base.sh
 	./link.sh
+	./install_scripts/base.sh
 	./built_from_source/neovim/install.sh
 	./built_from_source/alacritty/install.sh
 
