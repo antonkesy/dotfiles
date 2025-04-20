@@ -9,7 +9,7 @@ dirs_to_link=(
 
 rm ~/.config/zsh -rf
 
-for item in ${dirs_to_link[@]}; do
+for item in "${dirs_to_link[@]}"; do
     from="$(pwd)/$item"
     to="$HOME/$(dirname "$item")"
     dirname=$(basename "$from")
@@ -33,9 +33,9 @@ files_to_link=(
     ".zshrc"
 )
 
-mkdir ${HOME}/.config/gSnap/
+mkdir "${HOME}"/.config/gSnap/
 
-for item in ${files_to_link[@]}; do
+for item in "${files_to_link[@]}"; do
     from="$(pwd)/$item"
     to=$HOME/$item
     echo "FILE: $from -> $to"
