@@ -1,4 +1,4 @@
-.PHONY: install_base install_all demo fresh_docker test demo
+.PHONY: install_base install_all build_docker clean_docker demo test
 
 install_base:
 	./link.sh
@@ -9,12 +9,14 @@ install_base:
 install_all: install_base
 	./install_scripts/all_selective.sh
 
-fresh_docker:
-	docker image rm dotfiles_test --force
+build_docker:
 	docker build -t dotfiles_test .
 
-demo: fresh_docker
-	docker run -it dotfiles_test bash -c "cd /home/root/dotfiles && make install_base"
+clean_docker:
+	docker image rm dotfiles_test --force
 
-test: fresh_docker
+demo: build_docker
+	docker run -it dotfiles_test -c "cd /home/root/dotfiles && make install_base"
+
+test: clean_docker build_docker
 	docker run dotfiles_test bash -c "cd /home/root/dotfiles && make install_base"
