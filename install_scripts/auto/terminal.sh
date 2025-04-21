@@ -16,7 +16,7 @@ cargo install exa
 sudo apt install nodejs
 
 # unbind alt to avoaid conflict with tmux
-pip install libtmux
+pipx install libtmux
 sudo gsettings set org.gnome.desktop.wm.keybindings activate-window-menu "[]" && \
     gsettings set org.gnome.desktop.wm.keybindings switch-group "[]" && \
     gsettings set org.gnome.desktop.wm.keybindings switch-group-backward "[]"
