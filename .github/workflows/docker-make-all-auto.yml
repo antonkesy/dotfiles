@@ -1,4 +1,4 @@
-name: Base Install Test
+name: All Install Test
 
 on:
   push:
@@ -17,4 +17,4 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y make
 
       - name: Run make test
-        run: make test
+        run: make test_all_auto

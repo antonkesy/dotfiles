@@ -1,0 +1,20 @@
+name: Base Install Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  run-make-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install build dependencies
+        run: sudo apt-get update && sudo apt-get install -y make
+
+      - name: Run make test
+        run: make test_base
