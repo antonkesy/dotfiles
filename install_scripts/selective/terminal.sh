@@ -1,6 +1,9 @@
 #!/bin/bash
 
 sudo apt install tmux fzf xsel fd-find atop btop
+
+~/.tmux/plugins/tpm/bin/install_plugins
+
 pipx install trash-cli 'trash-cli[completion]'
 cmds=(trash-empty trash-list trash-restore trash-put trash)
 for cmd in ${cmds[@]}; do
