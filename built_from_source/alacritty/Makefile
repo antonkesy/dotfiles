@@ -7,7 +7,6 @@ dependencies:
 
 build: dependencies
 	cd alacritty && \
-	sudo chown -R $(whoami) . && \
 	sudo rm -rf target && \
 	sudo cargo build --release && \
 	chmod +x ./target/release/alacritty && \
