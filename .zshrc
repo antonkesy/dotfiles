@@ -21,5 +21,6 @@ source ~/.config/zsh/haskell.zsh
 source ~/.config/zsh/taco.zsh
 source ~/.config/zsh/sdkman.zsh
 source ~/.config/zsh/atuin.zsh
+source ~/.config/zsh/scripts.zsh
 
 # zprof # benchmark 2/2
