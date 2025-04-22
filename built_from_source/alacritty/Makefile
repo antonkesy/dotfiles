@@ -7,7 +7,9 @@ dependencies:
 
 build: dependencies
 	cd alacritty && \
-	cargo build --release && \
-	chmod +x target/release/alacritty && \
+	sudo chown -R $(whoami) . && \
+	sudo rm -rf target && \
+	sudo cargo build --release && \
+	chmod +x ./target/release/alacritty && \
 	sudo cp ./target/release/alacritty /usr/local/bin && \
 	tic -xe alacritty,alacritty-direct extra/alacritty.info
