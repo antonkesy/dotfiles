@@ -47,3 +47,6 @@ sudo apt install -y flameshot
 
 # Battery
 sudo apt install -y tlp tlp-rdw power-profiles-daemon
+
+# Nextcloud
+sudo apt-get -y install nextcloud-desktop
