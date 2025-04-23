@@ -15,7 +15,7 @@ USER ${USERNAME}
 WORKDIR /home/${USERNAME}
 
 FROM dev AS base
-COPY . /home/${USERNAME}/dotfiles
+COPY --chown=${USERNAME} . /home/${USERNAME}/dotfiles
 
 FROM base AS test
 CMD ["bash"]
