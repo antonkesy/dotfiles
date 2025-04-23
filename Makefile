@@ -2,10 +2,12 @@
 	install_base
 	install_all_auto
 	install_all
+	dev
 	demo
 	test
 	clean_test_docker
 	test_build
+	test_dev
 	test_base
 	test_all_auto
 
@@ -22,7 +24,7 @@ install_all: install_all_auto
 	${MAKE} -C ./install_scripts/manual
 
 dev:
-	docker build --build-arg USERNAME=$(whoami) --target dev -t dotfiles_dev .
+	docker build --build-arg USERNAME=ak --target dev -t dotfiles_dev .
 	docker run -it --mount type=bind,source="$(PWD)",target=/home/ak/dotfiles dotfiles_dev
 
 demo:
@@ -41,6 +43,9 @@ clean_test_docker:
 
 test_build:
 	docker build --build-arg USERNAME=ak --target test -t dotfiles_test .
+
+test_dev: test_build
+	docker run -it dotfiles_test bash
 
 test_base: clean_test_docker test_build
 	docker run dotfiles_test bash -c "cd /home/ak/dotfiles && make install_base"
