@@ -11,6 +11,4 @@ export BOOTSTRAP_HASKELL_NONINTERACTIVE=1
 source ~/.config/zsh/haskell.zsh
 cabal update
 ghcup install hls 1.4.0
-ghcup install ghc 8.10.3
-ghcup compile hls --git-ref 1.4.0 --ghc 8.10.3
 ghcup install ghc --set recommended
