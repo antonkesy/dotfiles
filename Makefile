@@ -34,7 +34,7 @@ demo:
 	else \
 		echo "Image 'dotfiles_demo' already exists. Skipping build."; \
 	fi
-	docker run -it --build-arg USERNAME=$(whoami) dotfiles_demo bash
+	docker run -it dotfiles_demo bash
 
 test: test_base test_all_auto
 
