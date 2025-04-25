@@ -16,7 +16,7 @@ update_manager() {
 }
 
 # Ordered list of managers
-ordered_managers=("apt" "brew" "snap" "flatpak" "cargo" "pipx")
+ordered_managers=("apt" "brew" "snap" "flatpak" "cargo" "pipx" "rust" "stack" "omz")
 
 # Commands map
 typeset -A managers
@@ -29,6 +29,7 @@ managers=(
     "pipx"    "pipx upgrade-all"
     "rust"    "rustup update && rustup upgrade"
     "stack"   "stack update && stack upgrade"
+    "omz"     "omz update"
 )
 
 # Run updates in order
