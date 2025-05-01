@@ -24,6 +24,7 @@ sudo apt-get -y update && sudo apt-get -y install git locales tzdata sudo build-
 - `install_base`: install all base packages
 - `install_all_auto`: install all packages which are able to be installed automatically
 - `install_all`: install all packages
+- `install_after_reboot`: install stuff which requires a reboot
 - `dev`: mount current directory for changes
 - `demo`: play around with all automatically installed packages
 - `test`: run all tests

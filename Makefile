@@ -23,6 +23,9 @@ install_all_auto: install_base
 install_all: install_all_auto
 	${MAKE} -C ./install_scripts/manual
 
+install_after_reboot:
+	${MAKE} -C ./install_scripts/after_reboot
+
 dev:
 	docker build --build-arg USERNAME=ak --target dev -t dotfiles_dev .
 	docker run -it --mount type=bind,source="$(PWD)",target=/home/ak/dotfiles dotfiles_dev
