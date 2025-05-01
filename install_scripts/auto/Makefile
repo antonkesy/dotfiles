@@ -18,7 +18,6 @@ basic:
 	./opencv.sh
 	./ros2.sh
 	./terminal.sh
-	./zsh.sh
 	./thunderbird.sh
 	./unity.sh
 	./vm.sh
