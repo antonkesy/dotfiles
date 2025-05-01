@@ -16,3 +16,4 @@ all:
 	./rust.sh
 	./bazel.sh
 	./haskell.sh
+	./zsh.sh
