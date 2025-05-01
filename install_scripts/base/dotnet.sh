@@ -9,9 +9,9 @@ sudo apt update -y
 # https://stackoverflow.com/questions/73312785/dotnet-sdk-is-installed-but-not-recognized-linux-ubuntu-popos-22-04
 # clean install
 sudo snap remove dotnet-sdk
-sudo apt remove 'dotnet*'
-sudo apt remove 'aspnetcore*'
-sudo apt remove 'netstandard*'
+sudo apt -y remove 'dotnet*'
+sudo apt -y remove 'aspnetcore*'
+sudo apt -y remove 'netstandard*'
 sudo rm /etc/apt/sources.list.d/microsoft-prod.list
 sudo rm /etc/apt/sources.list.d/microsoft-prod.list.save
 sudo apt update -y

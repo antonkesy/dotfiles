@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt install tmux fzf xsel fd-find atop btop
+sudo apt install -y tmux fzf xsel fd-find atop btop
 
 ~/.tmux/plugins/tpm/bin/install_plugins
 
@@ -13,7 +13,6 @@ for cmd in ${cmds[@]}; do
 done
 
 cargo install exa
-sudo apt install nodejs
 
 # unbind alt to avoaid conflict with tmux
 pipx install libtmux
@@ -24,19 +23,22 @@ sudo gsettings set org.gnome.desktop.wm.keybindings activate-window-menu "[]" &&
 
 # Requires built_from_source/alacritty/install.sh
 sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator $(which alacritty) 50
-sudo update-alternatives --config x-terminal-emulator
+sudo update-alternatives --set x-terminal-emulator
 
 pip install nautilus
-sudo apt install python3-nautilus
+sudo apt -y install python3-nautilus
 
 # https://github.com/starship/starship
-curl -sS https://starship.rs/install.sh | sh
+curl -sS https://starship.rs/install.sh | sh -s -- --yes
 starship preset nerd-font-symbols -o ~/.config/starship.toml
 
 # https://github.com/zdharma-continuum/zinit?tab=readme-ov-file#automatic
-bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
+export ZINIT_INSTALL_SILENT=1
+export ZINIT_INSTALL_NO_ANNEX_PROMPT=1
+bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)" <<< "n"
 
 # https://github.com/atuinsh/atuin
 curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
 
-zcompile ~/.zshrc
+# TODO: this is a shell command -> not in zsh for building
+# zcompile ~/.zshrc

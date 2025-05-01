@@ -4,12 +4,14 @@
 	install_all
 	dev
 	demo
+	clean_demo_docker
 	test
 	clean_test_docker
 	test_build
 	test_dev
 	test_base
 	test_all_auto
+	clean
 
 install_base:
 	./link.sh
@@ -26,6 +28,9 @@ install_all: install_all_auto
 install_after_reboot:
 	${MAKE} -C ./install_scripts/after_reboot
 
+install_device_specific:
+	${MAKE} -C ./install_scripts/auto device_specific
+
 dev:
 	docker build --build-arg USERNAME=ak --target dev -t dotfiles_dev .
 	docker run -it --mount type=bind,source="$(PWD)",target=/home/ak/dotfiles dotfiles_dev
@@ -38,6 +43,9 @@ demo:
 		echo "Image 'dotfiles_demo' already exists. Skipping build."; \
 	fi
 	docker run -it dotfiles_demo bash
+
+clean_demo_docker:
+	docker image rm dotfiles_demo --force
 
 test: test_base test_all_auto
 
@@ -55,3 +63,5 @@ test_base: clean_test_docker test_build
 
 test_all_auto: clean_test_docker test_build
 	docker run dotfiles_test bash -c "cd /home/ak/dotfiles && make install_all_auto"
+
+clean: clean_demo_docker clean_test_docker

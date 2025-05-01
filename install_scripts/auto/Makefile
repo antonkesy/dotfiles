@@ -1,4 +1,4 @@
-.PHONY: all
+.PHONY: all basic device_specific
 
 all: basic
 
@@ -25,7 +25,6 @@ basic:
 	./vpn.sh
 	./vscode.sh
 	./youtube.sh
-	./zsh.sh
 
 device_specific:
 	./dell_laptop.sh

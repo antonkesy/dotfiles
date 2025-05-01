@@ -25,7 +25,9 @@ sudo apt-get install -y \
     pympress \
     xournalpp
 
-sudo snap install krita postman amberol vlc gimp drawio
+
+sudo snap install krita postman amberol vlc gimp drawio || echo "Error Okay; Snap not working in Docker"
+
 pip install pre-commit screenpen
 
  # disk format support
@@ -38,7 +40,7 @@ sudo apt install -y libwebkit2gtk-4.0-dev
 
 # https://missioncenter.io
 sudo flatpak -y install flathub io.missioncenter.MissionCenter
-sudo flatpak install flathub net.ankiweb.Anki
+sudo flatpak -y install flathub net.ankiweb.Anki
 
 cargo install exa bat ripgrep fd-find procs bottom
 
