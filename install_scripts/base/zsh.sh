@@ -10,7 +10,7 @@ fc-cache -f -v
 
 sudo apt install -y zsh
 # set zsh as default shell
-sudo hsh -s "$(which zsh)"
+sudo chsh -s "$(which zsh)"
 
 # https://github.com/ohmyzsh/ohmyzsh
 export RUNZSH=no
