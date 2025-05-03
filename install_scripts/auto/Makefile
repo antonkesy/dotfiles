@@ -19,7 +19,6 @@ basic:
 	./ros2.sh
 	./terminal.sh
 	./thunderbird.sh
-	./unity.sh
 	./vm.sh
 	./vpn.sh
 	./vscode.sh
