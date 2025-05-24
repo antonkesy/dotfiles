@@ -2,8 +2,9 @@
 
 - Ubuntu 24.04.2 LTS
 - Nvidia RTX 4070 with Razer Core X Chrome eGPU
-- tmux + zsh
-- LunarVim
+- [tmux](https://github.com/tmux/tmux/wiki) + [zsh](https://ohmyz.sh/)
+- [LunarVim](https://www.lunarvim.org/)
+- [Spacemacs](https://www.spacemacs.org/)
 
 ## TL:DR
 
@@ -17,7 +18,7 @@ sudo apt-get -y update && sudo apt-get -y install git locales tzdata sudo build-
 
 ### Limitations
 
-- snap not working
+- snap not working in docker/demo/CI
 
 ## Makefile Targets
 
