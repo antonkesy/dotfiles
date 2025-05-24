@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Create non-tracked zsh config file for device-specific settings
-touch ./.config/zsh/untracked.zsh
+touch ./home/.config/zsh/untracked.zsh
 
 dirs_to_link=(
     ".config/lvim/lua/"
@@ -13,7 +13,7 @@ dirs_to_link=(
 rm ~/.config/zsh -rf
 
 for item in "${dirs_to_link[@]}"; do
-    from="$(pwd)/$item"
+    from="$(pwd)/home/$item"
     to="$HOME/$(dirname "$item")"
     dirname=$(basename "$from")
 
@@ -32,6 +32,7 @@ files_to_link=(
     ".config/starship.toml"
     ".config/lvim/config.lua"
     ".config/gSnap/layouts.json"
+    ".spacemacs"
     ".tmux.conf"
     ".zshrc"
 )
@@ -39,7 +40,7 @@ files_to_link=(
 mkdir "${HOME}"/.config/gSnap/
 
 for item in "${files_to_link[@]}"; do
-    from="$(pwd)/$item"
+    from="$(pwd)/home/$item"
     to=$HOME/$item
     echo "FILE: $from -> $to"
     ln --symbolic --force "$from" "$to"

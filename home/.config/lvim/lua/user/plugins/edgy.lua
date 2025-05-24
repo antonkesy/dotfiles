@@ -1,0 +1,66 @@
+return {
+  -- {
+  --   "nvim-neo-tree/neo-tree.nvim",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+  --     "MunifTanjim/nui.nvim",
+  --     "3rd/image.nvim",              -- Optional image support in preview window: See `# Preview Mode` for more information
+  --   },
+  --   config = function()
+  --     require("neo-tree").paste_default_config()
+  --   end,
+  --   init = function()
+  --     lvim.builtin.which_key.mappings["e"] = { "<cmd>Neotree focus<CR>", "Focus Neotree" }
+  --   end,
+  -- },
+  -- {
+  --   "folke/edgy.nvim",
+  --   event = "VeryLazy",
+  --   init = function()
+  --     vim.opt.laststatus = 3
+  --     vim.opt.splitkeep = "screen"
+  --     lvim.builtin.which_key.mappings["u"] = { ":lua require(\"edgy\").toggle()<CR>", "Toggle Edgy Sidebar" }
+  --     lvim.builtin.nvimtree.active = false
+  --   end,
+  --   opts = {
+  --     left = {
+  --       -- Neo-tree filesystem always takes half the screen height
+  --       {
+  --         title = "Neo-Tree",
+  --         ft = "neo-tree",
+  --         filter = function(buf)
+  --           return vim.b[buf].neo_tree_source == "filesystem"
+  --         end,
+  --         size = { height = 0.5 },
+  --       },
+  --       -- TODO: enable (you can already tab between using <>)
+  --       -- {
+  --       --   title = "Neo-Tree Git",
+  --       --   ft = "neo-tree",
+  --       --   filter = function(buf)
+  --       --     return vim.b[buf].neo_tree_source == "git_status"
+  --       --   end,
+  --       --   pinned = true,
+  --       --   open = "Neotree position=right git_status",
+  --       -- },
+  --       -- {
+  --       --   title = "Neo-Tree Buffers",
+  --       --   ft = "neo-tree",
+  --       --   filter = function(buf)
+  --       --     return vim.b[buf].neo_tree_source == "buffers"
+  --       --   end,
+  --       --   pinned = true,
+  --       --   open = "Neotree position=top buffers",
+  --       -- },
+  --       {
+  --         ft = "Outline",
+  --         pinned = true,
+  --         open = "SymbolsOutlineOpen",
+  --       },
+  --       -- any other neo-tree windows
+  --       "neo-tree",
+  --     },
+  --   },
+  -- }
+}

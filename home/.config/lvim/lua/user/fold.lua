@@ -1,0 +1,12 @@
+-- TODO:
+-- -- code folding
+-- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+-- vim.opt.foldmethod = "expr"
+-- unfold all on open
+-- vim.cmd("autocmd BufWinEnter,FileReadPost,BufRead * silent! :normal! zR")
+
+-- lvim.builtin.which_key.mappings["f"] = {
+--   name = "Fold",
+--   o = { "<cmd>:foldopen<CR>", "Open" },
+--   c = { "<cmd>:foldclose<CR>", "Close" },
+-- }
