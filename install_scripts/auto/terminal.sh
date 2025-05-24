@@ -25,7 +25,7 @@ sudo gsettings set org.gnome.desktop.wm.keybindings activate-window-menu "[]" &&
 sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator $(which alacritty) 50
 sudo update-alternatives --set x-terminal-emulator
 
-pip install nautilus
+pipx install nautilus
 sudo apt -y install python3-nautilus
 
 # https://github.com/starship/starship
