@@ -28,7 +28,7 @@ sudo apt-get install -y \
 
 sudo snap install krita postman amberol vlc gimp drawio || echo "Error Okay; Snap not working in Docker"
 
-pip install pre-commit screenpen
+pipx install pre-commit screenpen
 
  # disk format support
 sudo apt-get install -y exfat-fuse ntfs-3g
