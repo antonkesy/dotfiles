@@ -31,6 +31,10 @@ install_after_reboot:
 install_device_specific:
 	${MAKE} -C ./install_scripts/auto device_specific
 
+ubuntu:
+	${MAKE} -C ./ubuntu/etc
+	${MAKE} -C ./ubuntu/extensions
+
 dev:
 	docker build --build-arg USERNAME=ak --target dev -t dotfiles_dev .
 	docker run -it --mount type=bind,source="$(PWD)",target=/home/ak/dotfiles dotfiles_dev
