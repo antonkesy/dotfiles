@@ -28,10 +28,6 @@ sudo update-alternatives --set x-terminal-emulator
 pipx install nautilus
 sudo apt -y install python3-nautilus
 
-# https://github.com/starship/starship
-curl -sS https://starship.rs/install.sh | sh -s -- --yes
-starship preset nerd-font-symbols -o ~/.config/starship.toml
-
 # https://github.com/zdharma-continuum/zinit?tab=readme-ov-file#automatic
 export ZINIT_INSTALL_SILENT=1
 export ZINIT_INSTALL_NO_ANNEX_PROMPT=1
