@@ -23,6 +23,7 @@ basic:
 	./vpn.sh
 	./vscode.sh
 	./youtube.sh
+	./racket.sh
 
 device_specific:
 	./dell_laptop.sh
