@@ -9,7 +9,9 @@ source ~/.zinit/bin/zinit.zsh
 # Load oh-my-zsh framework
 zinit light ohmyzsh/ohmyzsh
 
-# even lazier loading
+# zsh theme
+zinit light romkatv/powerlevel10k
+
 zinit wait lucid for \
     zdharma-continuum/fast-syntax-highlighting \
     zsh-users/zsh-autosuggestions \
