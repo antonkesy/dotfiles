@@ -11,8 +11,8 @@ fi
 ZSH_DISABLE_COMPFIX=true
 
 HISTFILE=~/.histfile
-HISTSIZE=500000
-SAVEHIST=500000
+HISTSIZE=50000000
+SAVEHIST=50000000
 
 source ~/.config/zsh/homebrew.zsh
 source ~/.config/zsh/fnm.zsh
