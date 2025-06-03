@@ -3,14 +3,14 @@
 UBUNTU_VERSION=$(lsb_release -rs)
 
 case "$UBUNTU_VERSION" in
-    "20.04")
-        VERSION="3.8"
-        ;;
     "22.04")
         VERSION="3.10"
         ;;
     "24.04")
         VERSION="3.12"
+        ;;
+    "25.04")
+        VERSION="3.13"
         ;;
     *)
         echo "Unkown Ubuntu version: $UBUNTU_VERSION; Falling back to Python 3.12"

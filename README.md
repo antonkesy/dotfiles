@@ -1,11 +1,5 @@
 # dotfiles
 
-- Ubuntu 24.04.2 LTS
-- Nvidia RTX 4070 with Razer Core X Chrome eGPU
-- [tmux](https://github.com/tmux/tmux/wiki) + [zsh](https://ohmyz.sh/)
-- [LunarVim](https://www.lunarvim.org/)
-- [Spacemacs](https://www.spacemacs.org/)
-
 ## TL:DR
 
 ```
@@ -18,11 +12,19 @@ or for full installation:
 ... make install_all_auto
 ```
 
+## Currently used with ...
+
+- Ubuntu 24.04.1 LTS
+- Nvidia RTX 4070 with Razer Core X Chrome eGPU
+- [tmux](https://github.com/tmux/tmux/wiki) + [zsh](https://ohmyz.sh/)
+- [LunarVim](https://www.lunarvim.org/)
+- [Spacemacs](https://www.spacemacs.org/)
+
 ## Running on Ubuntu Version
 
+- 25.04 - [![Ubuntu 25.04 Test Status](https://github.com/antonkesy/dotfiles/actions/workflows/docker-test-25-04.yml/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/docker-test-25-04.yml)
 - 24.04 - [![Ubuntu 24.04 Test Status](https://github.com/antonkesy/dotfiles/actions/workflows/docker-test-24-04.yml/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/docker-test-24-04.yml)
 - 22.04 - [![Ubuntu 22.04 Test Status](https://github.com/antonkesy/dotfiles/actions/workflows/docker-test-22-04.yml/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/docker-test-22-04.yml)
-- 20.04 - [![Ubuntu 20.04 Test Status](https://github.com/antonkesy/dotfiles/actions/workflows/docker-test-20-04.yml/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/docker-test-20-04.yml)
 
 ## Demo
 
