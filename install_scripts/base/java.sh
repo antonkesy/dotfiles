@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt install -y maven openjdk-21-jdk unzip zip
+sudo apt install -y maven openjdk-21-jdk unzip zip curl
 
 # gradle
 curl -s "https://get.sdkman.io" | bash
