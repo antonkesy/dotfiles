@@ -1,4 +1,4 @@
-name: Base Install Test
+name: Test base install on Ubuntu 24.04
 
 on:
   push:
@@ -19,4 +19,4 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y make
 
       - name: Run make test
-        run: make test_base
+        run: make test_ubuntu_22_04

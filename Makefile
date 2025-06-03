@@ -9,8 +9,12 @@
 	clean_test_docker
 	test_build
 	test_dev
-	test_base
+	test_current
 	test_all_auto
+	test_ubuntu_20_04
+	test_ubuntu_22_04
+	test_ubuntu_24_04
+	test_ubuntu_versions
 	clean
 
 install_base:
@@ -51,7 +55,7 @@ demo:
 clean_demo_docker:
 	docker image rm dotfiles_demo --force
 
-test: test_base test_all_auto
+test: test_current test_all_auto
 
 clean_test_docker:
 	docker image rm dotfiles_test --force
@@ -62,10 +66,26 @@ test_build:
 test_dev: test_build
 	docker run -it dotfiles_test bash
 
-test_base: clean_test_docker test_build
-	docker run dotfiles_test bash -c "cd /home/ak/dotfiles && make install_base"
+test_current: clean_test_docker
+	$(call test_ubuntu_version,24.04)
 
 test_all_auto: clean_test_docker test_build
 	docker run dotfiles_test bash -c "cd /home/ak/dotfiles && make install_all_auto"
+
+define test_ubuntu_version
+	docker build --build-arg BASE_IMAGE=ubuntu:$(1) --build-arg USERNAME=ak --target test -t dotfiles_test_ubuntu_$(1) .
+	docker run dotfiles_test_ubuntu_$(1) bash -c "cd /home/ak/dotfiles && make install_base"
+endef
+
+test_ubuntu_20_04:
+	$(call test_ubuntu_version,20.04)
+
+test_ubuntu_22_04:
+	$(call test_ubuntu_version,22.04)
+
+test_ubuntu_24_04:
+	$(call test_ubuntu_version,24.04)
+
+test_ubuntu_versions: test_ubuntu_24_04 test_ubuntu_20_04 test_ubuntu_22_04
 
 clean: clean_demo_docker clean_test_docker

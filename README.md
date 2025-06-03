@@ -12,6 +12,18 @@
 sudo apt-get -y update && sudo apt-get -y install git locales tzdata sudo build-essential && git clone --recursive https://github.com/antonkesy/dotfiles.git && cd dotfiles && make install_base
 ```
 
+or for full installation:
+
+```
+... make install_all_auto
+```
+
+## Running on Ubuntu Version
+
+- 24.04 - [![Ubuntu 24.04 Test Status](https://github.com/antonkesy/dotfiles/actions/workflows/docker-test-24-04.yml/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/docker-test-24-04.yml)
+- 22.04 - [![Ubuntu 22.04 Test Status](https://github.com/antonkesy/dotfiles/actions/workflows/docker-test-22-04.yml/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/docker-test-22-04.yml)
+- 20.04 - [![Ubuntu 20.04 Test Status](https://github.com/antonkesy/dotfiles/actions/workflows/docker-test-20-04.yml/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/docker-test-20-04.yml)
+
 ## Demo
 
 `make demo`
@@ -19,18 +31,3 @@ sudo apt-get -y update && sudo apt-get -y install git locales tzdata sudo build-
 ### Limitations
 
 - snap not working in docker/demo/CI
-
-## Makefile Targets
-
-- `install_base`: install all base packages
-- `install_all_auto`: install all packages which are able to be installed automatically
-- `install_all`: install all packages
-- `install_after_reboot`: install stuff which requires a reboot
-- `dev`: mount current directory for changes
-- `demo`: play around with all automatically installed packages
-- `test`: run all tests
-- `clean_test_docker`
-- `test_build`
-- `test_dev`: copy current directory to docker container
-- `test_base`: base install test
-- `test_all_auto`: all auto install test

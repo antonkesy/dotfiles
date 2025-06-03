@@ -1,4 +1,5 @@
-FROM ubuntu:latest AS dev
+ARG BASE_IMAGE=ubuntu:latest
+FROM ${BASE_IMAGE} AS base
 
 ARG USERNAME=ak
 ARG IS_DOCKER_BUILD=true
@@ -15,11 +16,11 @@ USER ${USERNAME}
 
 WORKDIR /home/${USERNAME}
 
-FROM dev AS base
+FROM base AS minimum
 COPY --chown=${USERNAME} . /home/${USERNAME}/dotfiles
 
-FROM base AS test
+FROM minimum AS test
 CMD ["bash"]
 
-FROM base AS demo
+FROM minimum AS demo
 RUN bash -c "cd /home/${USERNAME}/dotfiles && make install_all_auto && zsh"
