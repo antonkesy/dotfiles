@@ -31,4 +31,7 @@ source ~/.config/zsh/atuin.zsh
 source ~/.config/zsh/scripts.zsh
 source ~/.config/zsh/p10k.zsh
 
+# aliases have to be last to avoid conflicts with OMZ defaults
+source ~/.config/zsh/alias.zsh
+
 # zprof # benchmark 2/2
