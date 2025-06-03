@@ -11,7 +11,6 @@
 	test_dev
 	test_current
 	test_all_auto
-	test_ubuntu_22_04
 	test_ubuntu_24_04
 	test_ubuntu_25_04
 	test_ubuntu_versions
@@ -77,15 +76,12 @@ define test_ubuntu_version
 	docker run dotfiles_test_ubuntu_$(1) bash -c "cd /home/ak/dotfiles && make install_base"
 endef
 
-test_ubuntu_22_04:
-	$(call test_ubuntu_version,22.04)
-
 test_ubuntu_24_04:
 	$(call test_ubuntu_version,24.04)
 
 test_ubuntu_25_04:
 	$(call test_ubuntu_version,25.04)
 
-test_ubuntu_versions: test_ubuntu_25_04 test_ubuntu_24_04 test_ubuntu_22_04
+test_ubuntu_versions: test_ubuntu_25_04 test_ubuntu_24_04
 
 clean: clean_demo_docker clean_test_docker
