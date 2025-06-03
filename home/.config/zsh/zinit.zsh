@@ -11,7 +11,6 @@ zinit light ohmyzsh/ohmyzsh
 
 # zsh theme
 zinit light romkatv/powerlevel10k
-zinit light fdellwing/zsh-bat
 
 zinit wait lucid for \
     zdharma-continuum/fast-syntax-highlighting \
