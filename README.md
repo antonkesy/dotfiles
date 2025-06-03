@@ -24,7 +24,6 @@ or for full installation:
 
 - 25.04 - [![Ubuntu 25.04 Test Status](https://github.com/antonkesy/dotfiles/actions/workflows/docker-test-25-04.yml/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/docker-test-25-04.yml)
 - 24.04 - [![Ubuntu 24.04 Test Status](https://github.com/antonkesy/dotfiles/actions/workflows/docker-test-24-04.yml/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/docker-test-24-04.yml)
-- 22.04 - [![Ubuntu 22.04 Test Status](https://github.com/antonkesy/dotfiles/actions/workflows/docker-test-22-04.yml/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/docker-test-22-04.yml)
 
 ## Demo
 
