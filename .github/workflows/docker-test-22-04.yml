@@ -1,0 +1,22 @@
+name: Test base install on Ubuntu 22.04
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  run-make-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Install build dependencies
+        run: sudo apt-get update && sudo apt-get install -y make
+
+      - name: Run make test
+        run: make test_ubuntu_22_04
