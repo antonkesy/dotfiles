@@ -7,9 +7,6 @@
 [submodule "built_from_source/alacritty/alacritty"]
 	path = built_from_source/alacritty/alacritty
 	url = https://github.com/alacritty/alacritty
-[submodule "home/.config/lvim"]
-	path = home/.config/lvim
-	url = https://github.com/antonkesy/nvim-config
 [submodule "home/.config/alacritty/themes"]
 	path = .config/alacritty/themes
 	url = https://github.com/alacritty/alacritty-theme.git
@@ -22,3 +19,6 @@
 [submodule "ubuntu/extensions/gnome-shell-extension-clipboard-indicator"]
 	path = ubuntu/extensions/gnome-shell-extension-clipboard-indicator
 	url = https://github.com/Tudmotu/gnome-shell-extension-clipboard-indicator.git
+[submodule "home/.config/submodule"]
+	path = home/.config/submodule
+	url = https://github.com/antonkesy/nvim-config.git
