@@ -22,10 +22,10 @@ install_base:
 	${MAKE} -C ./built_from_source/neovim
 	${MAKE} -C ./built_from_source/alacritty
 
-install_all_auto: install_base
+install_auto:
 	${MAKE} -C ./install_scripts/auto
 
-install_all: install_all_auto
+install_manual:
 	${MAKE} -C ./install_scripts/manual
 
 install_after_reboot:
@@ -69,7 +69,7 @@ test_current: clean_test_docker
 	$(call test_ubuntu_version,24.04)
 
 test_all_auto: clean_test_docker test_build
-	docker run dotfiles_test bash -c "cd /home/ak/dotfiles && make install_all_auto"
+	docker run dotfiles_test bash -c "cd /home/ak/dotfiles && make install_base install_auto"
 
 define test_ubuntu_version
 	docker build --build-arg BASE_IMAGE=ubuntu:$(1) --build-arg USERNAME=ak --target test -t dotfiles_test_ubuntu_$(1) .

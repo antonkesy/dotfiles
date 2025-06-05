@@ -23,4 +23,4 @@ FROM minimum AS test
 CMD ["bash"]
 
 FROM minimum AS demo
-RUN bash -c "cd /home/${USERNAME}/dotfiles && make install_all_auto && zsh"
+RUN bash -c "cd /home/${USERNAME}/dotfiles && make install_base install_auto && zsh"

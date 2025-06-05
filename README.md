@@ -9,7 +9,7 @@ sudo apt-get -y update && sudo apt-get -y install git locales tzdata sudo build-
 or for full installation:
 
 ```
-... make install_all_auto
+... make install_base install_auto
 ```
 
 ## Currently used with ...
