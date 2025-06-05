@@ -3,37 +3,36 @@
 
 sudo apt-get install git -y
 sudo apt-get install -y \
-    ffmpeg \
-    flex  \
-    pandoc  \
-    pdfarranger  \
-    thunderbird  \
-    gimp  \
-    baobab  \
-    curl  \
-    qtbase5-dev \
-    qt6-base-dev  \
-    latexmk  \
-    texstudio  \
-    texlive-full  \
-    ubuntu-restricted-extras \
-    libreoffice \
-    obs-studio \
-    pdftk \
-    libpulse-dev \
-    bison \
-    pympress \
-    xournalpp
-
+	ffmpeg \
+	flex \
+	pandoc \
+	pdfarranger \
+	thunderbird \
+	gimp \
+	baobab \
+	curl \
+	qtbase5-dev \
+	qt6-base-dev \
+	latexmk \
+	texstudio \
+	texlive-full \
+	ubuntu-restricted-extras \
+	libreoffice \
+	obs-studio \
+	pdftk \
+	libpulse-dev \
+	bison \
+	pympress \
+	xournalpp
 
 sudo snap install krita postman amberol vlc gimp drawio || echo "Error Okay; Snap not working in Docker"
 
 pipx install pre-commit screenpen
 
- # disk format support
+# disk format support
 sudo apt-get install -y exfat-fuse ntfs-3g
 
- # Cisco AnyConnect
+# Cisco AnyConnect
 sudo add-apt-repository deb http://gb.archive.ubuntu.com/ubuntu jammy main -y
 sudo apt update -y
 sudo apt install -y libwebkit2gtk-4.0-dev

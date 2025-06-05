@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 path+=(/bin)
 
 # local user path
