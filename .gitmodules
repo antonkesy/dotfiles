@@ -1,24 +1,24 @@
 [submodule ".tmux/plugins/tpm"]
 	path = .tmux/plugins/tpm
-	url = https://github.com/tmux-plugins/tpm
+	url = ../../tmux-plugins/tpm
 [submodule "built_from_source/neovim/neovim"]
 	path = built_from_source/neovim/neovim
-	url = https://github.com/neovim/neovim
+	url = ../../neovim/neovim
 [submodule "built_from_source/alacritty/alacritty"]
 	path = built_from_source/alacritty/alacritty
-	url = https://github.com/alacritty/alacritty
+	url = ../../alacritty/alacritty
 [submodule "ubuntu/extensions/gSnap"]
 	path = ubuntu/extensions/gSnap
-	url = https://github.com/GnomeSnapExtensions/gSnap.git
+	url = ../../GnomeSnapExtensions/gSnap
 [submodule "ubuntu/extensions/gnome-shell-extension-lockkeys"]
 	path = ubuntu/extensions/gnome-shell-extension-lockkeys
-	url = https://github.com/kazysmaster/gnome-shell-extension-lockkeys.git
+	url = ../../kazysmaster/gnome-shell-extension-lockkeys
 [submodule "ubuntu/extensions/gnome-shell-extension-clipboard-indicator"]
 	path = ubuntu/extensions/gnome-shell-extension-clipboard-indicator
-	url = https://github.com/Tudmotu/gnome-shell-extension-clipboard-indicator.git
+	url = ../../Tudmotu/gnome-shell-extension-clipboard-indicator
 [submodule "home/.config/lvim"]
 	path = home/.config/lvim
-	url = https://github.com/antonkesy/nvim-config.git
+	url = ../../antonkesy/nvim-config
 [submodule "home/.config/alacritty/themes"]
 	path = home/.config/alacritty/themes
-	url = https://github.com/alacritty/alacritty-theme.git
+	url = ../../alacritty/alacritty-theme
