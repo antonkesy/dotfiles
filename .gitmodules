@@ -7,10 +7,10 @@
 [submodule "built_from_source/alacritty/alacritty"]
 	path = built_from_source/alacritty/alacritty
 	url = https://github.com/alacritty/alacritty
-[submodule ".config/lvim"]
-	path = .config/lvim
+[submodule "home/.config/lvim"]
+	path = home/.config/lvim
 	url = https://github.com/antonkesy/nvim-config
-[submodule ".config/alacritty/themes"]
+[submodule "home/.config/alacritty/themes"]
 	path = .config/alacritty/themes
 	url = https://github.com/alacritty/alacritty-theme.git
 [submodule "ubuntu/extensions/gSnap"]
