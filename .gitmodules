@@ -16,8 +16,8 @@
 [submodule "ubuntu/extensions/gnome-shell-extension-clipboard-indicator"]
 	path = ubuntu/extensions/gnome-shell-extension-clipboard-indicator
 	url = https://github.com/Tudmotu/gnome-shell-extension-clipboard-indicator.git
-[submodule "home/.config/submodule"]
-	path = home/.config/submodule
+[submodule "home/.config/lvim"]
+	path = home/.config/lvim
 	url = https://github.com/antonkesy/nvim-config.git
 [submodule "home/.config/alacritty/themes"]
 	path = home/.config/alacritty/themes
