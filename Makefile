@@ -1,7 +1,8 @@
 .PHONY:
 	install_base
-	install_all_auto
-	install_all
+	install_auto
+	install_manual
+	ubuntu
 	dev
 	demo
 	clean_demo_docker
