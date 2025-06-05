@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 
 HOME_IMG_PATH=${SCRIPT_DIR}/../res/images/nature_minimalist.png
 LOCK_IMG_PATH=${SCRIPT_DIR}/../res/images/XPPeepo_M4x_Day.png

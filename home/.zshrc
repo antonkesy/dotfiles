@@ -1,3 +1,4 @@
+#!/bin/zsh
 # zmodload zsh/zprof # benchmark 1/2
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -8,30 +9,30 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 
-ZSH_DISABLE_COMPFIX=true
+export ZSH_DISABLE_COMPFIX=true
 
-HISTFILE=~/.histfile
-HISTSIZE=50000000
-SAVEHIST=50000000
+export HISTFILE=~/.histfile
+export HISTSIZE=50000000
+export SAVEHIST=50000000
 
-source ~/.config/zsh/homebrew.zsh
-source ~/.config/zsh/fnm.zsh
-source ~/.config/zsh/alias.zsh
-source ~/.config/zsh/znap.zsh
-source ~/.config/zsh/zinit.zsh
-source ~/.config/zsh/path.zsh
-source ~/.config/zsh/tmux.zsh
-source ~/.config/zsh/dart.zsh
-source ~/.config/zsh/flatpack.zsh
-source ~/.config/zsh/go.zsh
-source ~/.config/zsh/haskell.zsh
-source ~/.config/zsh/taco.zsh
-source ~/.config/zsh/sdkman.zsh
-source ~/.config/zsh/atuin.zsh
-source ~/.config/zsh/scripts.zsh
-source ~/.config/zsh/p10k.zsh
+source ${HOME}/.config/zsh/homebrew.zsh
+source ${HOME}/.config/zsh/fnm.zsh
+source ${HOME}/.config/zsh/alias.zsh
+source ${HOME}/.config/zsh/znap.zsh
+source ${HOME}/.config/zsh/zinit.zsh
+source ${HOME}/.config/zsh/path.zsh
+source ${HOME}/.config/zsh/tmux.zsh
+source ${HOME}/.config/zsh/dart.zsh
+source ${HOME}/.config/zsh/flatpack.zsh
+source ${HOME}/.config/zsh/go.zsh
+source ${HOME}/.config/zsh/haskell.zsh
+source ${HOME}/.config/zsh/taco.zsh
+source ${HOME}/.config/zsh/sdkman.zsh
+source ${HOME}/.config/zsh/atuin.zsh
+source ${HOME}/.config/zsh/scripts.zsh
+source ${HOME}/.config/zsh/p10k.zsh
 
 # aliases have to be last to avoid conflicts with OMZ defaults
-source ~/.config/zsh/alias.zsh
+source ${HOME}/.config/zsh/alias.zsh
 
 # zprof # benchmark 2/2

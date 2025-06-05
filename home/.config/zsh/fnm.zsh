@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 # fnm
 eval "$(fnm env)"
 

@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 export EDITOR='nvim'
 export VISUAL='nvim'
 
@@ -5,4 +7,3 @@ export VISUAL='nvim'
 if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
     tmux new-session -A -s main
 fi
-

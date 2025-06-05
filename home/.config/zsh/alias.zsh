@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 alias please="sudo"
 alias pls="sudo"
 
