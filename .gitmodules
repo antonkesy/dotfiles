@@ -7,9 +7,6 @@
 [submodule "built_from_source/alacritty/alacritty"]
 	path = built_from_source/alacritty/alacritty
 	url = https://github.com/alacritty/alacritty
-[submodule "home/.config/alacritty/themes"]
-	path = .config/alacritty/themes
-	url = https://github.com/alacritty/alacritty-theme.git
 [submodule "ubuntu/extensions/gSnap"]
 	path = ubuntu/extensions/gSnap
 	url = https://github.com/GnomeSnapExtensions/gSnap.git
@@ -22,3 +19,6 @@
 [submodule "home/.config/submodule"]
 	path = home/.config/submodule
 	url = https://github.com/antonkesy/nvim-config.git
+[submodule "home/.config/alacritty/themes"]
+	path = home/.config/alacritty/themes
+	url = https://github.com/alacritty/alacritty-theme.git
