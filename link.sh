@@ -19,7 +19,7 @@ for item in "${dirs_to_link[@]}"; do
 
 	echo "DIRECTORY: $from -> $to"
 	mkdir -p "${to}"
-	unlink "${to}"/"${dirname}"
+	unlink "${to}"/"${dirname}" || echo "skipped unlink"
 	ln --symbolic "${from}" --target-directory="${to}"
 done
 
@@ -36,7 +36,7 @@ files_to_link=(
 	".zshrc"
 )
 
-mkdir "${HOME}"/.config/gSnap/
+mkdir -p "${HOME}"/.config/gSnap/
 
 for item in "${files_to_link[@]}"; do
 	from="$(pwd)/home/$item"
