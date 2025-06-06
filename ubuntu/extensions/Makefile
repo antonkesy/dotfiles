@@ -1,3 +1,5 @@
+.PHONY: all dep gSnap clipboard-indicator lock-keys
+
 INSTALL_DIR=~/.local/share/gnome-shell/extensions
 
 all: gSnap clipboard-indicator lock-keys
@@ -5,15 +7,15 @@ all: gSnap clipboard-indicator lock-keys
 dep:
 	sudo apt-get install -y gnome-browser-connector gnome-terminal gnome-shell-extension-manager
 
+GSNAP_NAME=gSnap@micahosborn
 gSnap: dep
 	# https://github.com/GnomeSnapExtensions/gSnap
-	GSNAP=gSnap@micahosborn
-	cp -rf ./gSnap ${INSTALL_DIR}/${GSNAP}
-	cd ${INSTALL_DIR}/${GSNAP}
 	# https://github.com/GnomeSnapExtensions/gSnap/blob/releases/23/DEVELOPING.md
-	npm ci
+	cp -rf ./gSnap ${INSTALL_DIR}/${GSNAP_NAME}
+	cd ${INSTALL_DIR}/${GSNAP_NAME} && \
+	npm ci && \
 	npm run install-extension
-	gnome-extensions enable ${GSNAP}
+	gnome-extensions enable ${GSNAP_NAME}
 
 clipboard-indicator: dep
 	# https://extensions.gnome.org/extension/779/clipboard-indicator/
