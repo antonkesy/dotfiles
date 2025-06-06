@@ -22,3 +22,6 @@
 [submodule "home/.tmux/plugins/tpm"]
 	path = home/.tmux/plugins/tpm
 	url = ../../tmux-plugins/tpm.git
+[submodule "ubuntu/extensions/Draw-On-Gnome"]
+	path = ubuntu/extensions/Draw-On-Gnome
+	url = git@github.com:daveprowse/Draw-On-Gnome.git

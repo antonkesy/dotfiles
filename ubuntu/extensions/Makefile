@@ -1,8 +1,8 @@
-.PHONY: all dep gSnap clipboard-indicator lock-keys
+.PHONY: all dep gSnap clipboard-indicator lock-keys draw-on-screen
 
 INSTALL_DIR=~/.local/share/gnome-shell/extensions
 
-all: gSnap clipboard-indicator lock-keys
+all: gSnap clipboard-indicator lock-keys draw-on-screen
 
 dep:
 	sudo apt-get install -y gnome-browser-connector gnome-terminal gnome-shell-extension-manager
@@ -27,4 +27,7 @@ lock-keys: dep
 	cp -rf ./gnome-shell-extension-lockkeys/lockkeys@vaina.lt/ ${INSTALL_DIR}/lockkeys@vaina.lt
 	gnome-extensions enable lockkeys@vaina.lt
 
-# TODO: https://extensions.gnome.org/extension/4937/draw-on-you-screen-2
+draw-on-screen: dep
+	# https://github.com/daveprowse/Draw-On-Gnome
+	cp -rf ./Draw-On-Gnome ${INSTALL_DIR}/draw-on-gnome@daveprowse.github.io
+	gnome-extensions enable draw-on-gnome@daveprowse.github.io
