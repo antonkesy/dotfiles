@@ -36,3 +36,8 @@ display-config-switch: dep
 	# https://gitlab.com/knokelmaat/display-configuration-switcher-gnome-extension
 	cp -rf ./display-configuration-switcher-gnome-extension ${INSTALL_DIR}/display-configuration-switcher@knokelmaat.gitlab.com
 	gnome-extensions enable display-configuration-switcher@knokelmaat.gitlab.com
+
+activate-gnome: dep
+	# https://github.com/isjerryxiao/gnome-shell-extension-activate-gnome
+	cp -rf ./gnome-shell-extension-activate-gnome ${INSTALL_DIR}/activate_gnome@isjerryxiao
+	gnome-extensions enable activate_gnome@isjerryxiao
