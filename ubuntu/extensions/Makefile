@@ -31,3 +31,8 @@ draw-on-screen: dep
 	# https://github.com/daveprowse/Draw-On-Gnome
 	cp -rf ./Draw-On-Gnome ${INSTALL_DIR}/draw-on-gnome@daveprowse.github.io
 	gnome-extensions enable draw-on-gnome@daveprowse.github.io
+
+display-config-switch: dep
+	# https://gitlab.com/knokelmaat/display-configuration-switcher-gnome-extension
+	cp -rf ./display-configuration-switcher-gnome-extension ${INSTALL_DIR}/display-configuration-switcher@knokelmaat.gitlab.com
+	gnome-extensions enable display-configuration-switcher@knokelmaat.gitlab.com
