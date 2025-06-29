@@ -6,7 +6,7 @@ basic:
 	./ai.sh
 	./arduino.sh
 	./chrome.sh
-	./cuda.sh
+	./nvidia.sh
 	./discord.sh
 	./docker.sh
 	./flutter.sh
