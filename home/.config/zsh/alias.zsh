@@ -6,7 +6,7 @@ alias pls="sudo"
 # shortcuts
 alias m="make"
 alias g="lazygit"
-alias n="nvim"
+alias n="lvim"
 
 # replace common tools
 alias l="exa -lah"
@@ -17,9 +17,7 @@ alias mr="trash-restore"
 
 # lvim
 alias lvim="${HOME}/.local/bin/lvim"
-alias vim="lvim"
 alias neovim="lvim"
-alias nvim="lvim"
 
 # python
 alias python=python3
