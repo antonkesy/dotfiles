@@ -2,7 +2,7 @@
 
 INSTALL_DIR=~/.local/share/gnome-shell/extensions
 
-all: gSnap clipboard-indicator lock-keys draw-on-screen
+all: gSnap clipboard-indicator lock-keys draw-on-screen vitals
 
 dep:
 	sudo apt-get install -y gnome-browser-connector gnome-terminal gnome-shell-extension-manager
@@ -41,3 +41,9 @@ activate-gnome: dep
 	# https://github.com/isjerryxiao/gnome-shell-extension-activate-gnome
 	cp -rf ./gnome-shell-extension-activate-gnome ${INSTALL_DIR}/activate_gnome@isjerryxiao
 	gnome-extensions enable activate_gnome@isjerryxiao
+
+vitals: dep
+	# https://github.com/corecoding/Vitals#
+	sudo apt install -y gir1.2-gtop-2.0 lm-sensors
+	cp -rf ./Vitals ${INSTALL_DIR}/Vitals@CoreCoding.com
+	gnome-extensions enable Vitals@CoreCoding.com

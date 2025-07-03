@@ -30,4 +30,7 @@
 	url = https://gitlab.com/knokelmaat/display-configuration-switcher-gnome-extension.git
 [submodule "ubuntu/extensions/gnome-shell-extension-activate-gnome"]
 	path = ubuntu/extensions/gnome-shell-extension-activate-gnome
-	url = https://github.com/isjerryxiao/gnome-shell-extension-activate-gnome.git
+	url = ../../isjerryxiao/gnome-shell-extension-activate-gnome.git
+[submodule "ubuntu/extensions/Vitals"]
+	path = ubuntu/extensions/Vitals
+	url = ../../corecoding/Vitals.git
