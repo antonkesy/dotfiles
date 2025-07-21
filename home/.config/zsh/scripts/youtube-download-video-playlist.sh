@@ -2,7 +2,7 @@
 
 # check for arguments
 if [ $# -eq 0 ]; then
-    echo "Download YouTube Music Playlist: $0 <youtube-video-link>"
+    echo "Download YouTube Video Playlist: $0 <youtube-video-link>"
     exit 1
 fi
 youtube_link="$1"
@@ -24,14 +24,11 @@ cd "$playlist_title" || exit
 
 # download playlist
 yt-dlp \
-  --ignore-errors \
-  --format bestaudio \
-  --extract-audio \
-  --audio-format mp3 \
-  --audio-quality 160K \
-  --output "%(title)s.%(ext)s" \
-  --yes-playlist \
-  --restrict-filenames \
-  "${youtube_link}"
+    --ignore-errors \
+    --format "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" \
+    --output "%(title)s.%(ext)s" \
+    --yes-playlist \
+    --restrict-filenames \
+    "${youtube_link}"
 
 cd - || exit
