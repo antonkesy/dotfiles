@@ -23,7 +23,8 @@ sudo apt-get install -y \
 	libpulse-dev \
 	bison \
 	pympress \
-	xournalpp
+	xournalpp \
+	okular
 
 sudo snap install krita postman amberol vlc gimp drawio || echo "Error Okay; Snap not working in Docker"
 
