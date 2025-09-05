@@ -6,6 +6,24 @@
 sudo apt-get -y update && sudo apt-get -y install git locales tzdata sudo build-essential && git clone --recursive https://github.com/antonkesy/dotfiles.git && cd dotfiles && make install_base
 ```
 
+## Step by step
+
+```
+sudo apt-get -y update && sudo apt-get -y install git locales tzdata sudo build-essential
+```
+
+```
+git clone --recursive https://github.com/antonkesy/dotfiles.git
+```
+
+```
+git clone --recursive git@github.com:antonkesy/dotfiles.git
+```
+
+```
+cd dotfiles && make install_base
+```
+
 or for full installation:
 
 ```
@@ -14,8 +32,8 @@ or for full installation:
 
 ## Currently used with ...
 
-- Ubuntu 24.04.1 LTS
-- Nvidia RTX 4070 with Razer Core X Chrome eGPU
+- Ubuntu 24.04.3 LTS
+- Nvidia RTX 4070
 - [tmux](https://github.com/tmux/tmux/wiki) + [zsh](https://ohmyz.sh/)
 - [LunarVim](https://www.lunarvim.org/)
 - [Spacemacs](https://www.spacemacs.org/)
