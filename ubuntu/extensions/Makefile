@@ -6,6 +6,7 @@ all: gSnap clipboard-indicator lock-keys draw-on-screen vitals
 
 dep:
 	sudo apt-get install -y gnome-browser-connector gnome-terminal gnome-shell-extension-manager
+	mkdir ${INSTALL_DIR}
 
 GSNAP_NAME=gSnap@micahosborn
 gSnap: dep
