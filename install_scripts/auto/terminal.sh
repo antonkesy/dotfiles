@@ -1,6 +1,7 @@
 #!/bin/bash
 
 sudo apt install -y tmux fzf xsel fd-find atop btop
+pipx install shtab
 
 ~/.tmux/plugins/tpm/bin/install_plugins
 
@@ -15,7 +16,7 @@ done
 cargo install exa
 
 # unbind alt to avoaid conflict with tmux
-pipx install libtmux
+pip install libtmux --break-system-packages
 sudo gsettings set org.gnome.desktop.wm.keybindings activate-window-menu "[]" &&
 	gsettings set org.gnome.desktop.wm.keybindings switch-group "[]" &&
 	gsettings set org.gnome.desktop.wm.keybindings switch-group-backward "[]"
