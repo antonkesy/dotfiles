@@ -8,6 +8,7 @@ on:
 jobs:
   run-make-test:
     runs-on: ubuntu-latest
+    continue-on-error: true # Experimental Ubuntu version
 
     steps:
       - name: Checkout repository
