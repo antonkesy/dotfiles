@@ -3,15 +3,19 @@
 if [ -f /.dockerenv ] || [ "$IS_DOCKER_BUILD" = "true" ]; then
 	echo "Skipping cuda installation in Docker container."
 else
-	VERSION=575
+	VERSION=580
 
 	export DEBIAN_FRONTEND=noninteractive
 
 	sudo add-apt-repository ppa:graphics-drivers/ppa -y
+	# unhold to allow upgrade
+	sudo apt-mark unhold nvidia-driver-${VERSION} nvidia-utils-${VERSION} nvidia-cuda-toolkit
 	sudo apt update -y
 	sudo apt upgrade -y
 	sudo apt remove 'nvidia-*' -y
 	sudo apt-get --fix-broken install nvidia-driver-${VERSION} nvidia-utils-${VERSION} nvidia-cuda-toolkit -y
+	# dont auto upgrade/update
+	sudo apt-mark hold nvidia-driver-${VERSION} nvidia-utils-${VERSION} nvidia-cuda-toolkit
 	# only required for multiple GPUs
 	sudo prime-select nvidia || echo "Error Okay; Only required for multiple GPUs; Not Docker"
 
