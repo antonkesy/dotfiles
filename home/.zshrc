@@ -15,6 +15,7 @@ export HISTFILE=~/.histfile
 export HISTSIZE=50000000
 export SAVEHIST=50000000
 
+source ${HOME}/.config/zsh/untracked.zsh
 source ${HOME}/.config/zsh/homebrew.zsh
 source ${HOME}/.config/zsh/fnm.zsh
 source ${HOME}/.config/zsh/alias.zsh
