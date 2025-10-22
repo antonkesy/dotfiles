@@ -33,6 +33,7 @@ source ${HOME}/.config/zsh/atuin.zsh
 source ${HOME}/.config/zsh/scripts.zsh
 source ${HOME}/.config/zsh/p10k.zsh
 source ${HOME}/.config/zsh/opam.zsh
+source ${HOME}/.config/zsh/rust.zsh
 
 # aliases have to be last to avoid conflicts with OMZ defaults
 source ${HOME}/.config/zsh/alias.zsh

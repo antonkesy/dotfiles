@@ -27,5 +27,7 @@ sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python${VER
 pipx install jupyterlab
 pipx install notebook
 
+# package manager https://github.com/astral-sh/uv
+pipx install uv
 # allows to install system pip instead of pipx
 # sudo rm /usr/lib/python${VERSION}/EXTERNALLY-MANAGED -f
