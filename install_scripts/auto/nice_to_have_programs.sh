@@ -24,9 +24,10 @@ sudo apt-get install -y \
 	bison \
 	pympress \
 	xournalpp \
-	okular
+	okular \
+  krita
 
-sudo snap install krita postman amberol vlc gimp drawio || echo "Error Okay; Snap not working in Docker"
+sudo snap install postman amberol vlc gimp drawio || echo "Error Okay; Snap not working in Docker"
 
 pipx install pre-commit screenpen
 
