@@ -24,6 +24,7 @@ basic:
 	./vscode.sh
 	./youtube.sh
 	./racket.sh
+	./gdrive.sh
 
 device_specific:
 	./dell_laptop.sh
