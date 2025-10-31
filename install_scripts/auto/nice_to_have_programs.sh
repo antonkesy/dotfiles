@@ -25,7 +25,7 @@ sudo apt-get install -y \
 	pympress \
 	xournalpp \
 	okular \
-  krita
+	krita
 
 sudo snap install postman amberol vlc gimp drawio || echo "Error Okay; Snap not working in Docker"
 
