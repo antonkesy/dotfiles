@@ -24,6 +24,7 @@ source ${HOME}/.config/zsh/zinit.zsh
 source ${HOME}/.config/zsh/path.zsh
 source ${HOME}/.config/zsh/tmux.zsh
 source ${HOME}/.config/zsh/dart.zsh
+source ${HOME}/.config/zsh/flutter.zsh
 source ${HOME}/.config/zsh/flatpack.zsh
 source ${HOME}/.config/zsh/go.zsh
 source ${HOME}/.config/zsh/haskell.zsh
