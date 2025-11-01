@@ -17,4 +17,5 @@ all:
 	./bazel.sh
 	./haskell.sh
 	./dart.sh
+	./lua.sh
 	./zsh.sh
