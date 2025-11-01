@@ -20,9 +20,9 @@ esac
 
 echo "Using Python $VERSION for Ubuntu $UBUNTU_VERSION"
 
+# install full python for current ubuntu version
 sudo apt install -y python3-pip pipx python${VERSION}-full python${VERSION}-dev
 pipx install pre-commit
-sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python${VERSION} 1
 
 pipx install jupyterlab
 pipx install notebook
@@ -31,3 +31,13 @@ pipx install notebook
 pipx install uv
 # allows to install system pip instead of pipx
 # sudo rm /usr/lib/python${VERSION}/EXTERNALLY-MANAGED -f
+
+# install other python versions for development and venv support
+sudo apt install -y software-properties-common
+sudo add-apt-repository ppa:deadsnakes/ppa -y
+sudo apt install -y \
+	python3.12-dev python3.12-venv \
+	python3.11-dev python3.11-venv \
+	python3.10-dev python3.10-venv python3.9-dev python3.9-venv \
+	python3.8-dev python3.8-venv \
+	python3.7-dev python3.7-venv
