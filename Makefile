@@ -22,6 +22,7 @@ install_base:
 	${MAKE} -C ./install_scripts/base
 	${MAKE} -C ./built_from_source/neovim
 	${MAKE} -C ./built_from_source/alacritty
+	${MAKE} -C ./built_from_source/CMake
 
 install_auto:
 	${MAKE} -C ./install_scripts/auto
