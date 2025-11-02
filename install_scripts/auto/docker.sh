@@ -24,4 +24,7 @@ else
 	sudo groupadd docker
 	sudo usermod -aG docker "$USER"
 	sudo newgrp docker
+
+	# lazydocker
+	go install github.com/jesseduffield/lazydocker@latest
 fi

@@ -7,6 +7,7 @@ alias pls="sudo"
 alias m="make"
 alias g="lazygit"
 alias n="lvim"
+alias d="lazydocker"
 
 # replace common tools
 alias l="exa -lah"
