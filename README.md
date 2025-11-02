@@ -38,10 +38,10 @@ or for full installation:
 - [LunarVim](https://www.lunarvim.org/)
 - [Spacemacs](https://www.spacemacs.org/)
 
-## Running on Ubuntu Version
+## Tests
 
-- 25.04 - [![Ubuntu 25.04 Test Status](https://github.com/antonkesy/dotfiles/actions/workflows/docker-test-25-04.yml/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/docker-test-25-04.yml)
-- 24.04 - [![Ubuntu 24.04 Test Status](https://github.com/antonkesy/dotfiles/actions/workflows/docker-test-24-04.yml/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/docker-test-24-04.yml)
+- `make test_ubuntu_24_04`
+- `make test_ubuntu_25_04`
 
 ## Demo
 
