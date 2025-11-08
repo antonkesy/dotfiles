@@ -1,5 +1,7 @@
 # dotfiles
 
+WIP: migration from Ubuntu to Arch Linux
+
 ## TL:DR
 
 ```
