@@ -27,8 +27,10 @@ RUN ln -sf /usr/share/zoneinfo/$TZ /etc/localtime
 RUN sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
     && locale-gen
 
-# Create user
-RUN groupadd -g ${GID} ${USERNAME} \
+# Create user (handle existing GID/UID)
+RUN (groupdel $(getent group ${GID} | cut -d: -f1) 2>/dev/null || true) \
+    && (userdel $(getent passwd ${UID} | cut -d: -f1) 2>/dev/null || true) \
+    && groupadd -g ${GID} ${USERNAME} \
     && useradd -m -u ${UID} -g ${GID} -s /bin/bash ${USERNAME} \
     && echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
