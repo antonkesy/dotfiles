@@ -31,17 +31,17 @@ UID:= $(id -u)
 GID= $(id -g)
 
 ubuntu_dev:
-	docker build -f ./docker/Ubuntu --build-arg USERNAME=ak --build-arg HOST_UID=$(HOST_UID) --build-arg HOST_GID=$(HOST_GID) --target test -t dotfiles_dev_ubuntu .
+	docker build -f ./docker/Ubuntu.Dockerfile --build-arg USERNAME=ak --build-arg HOST_UID=$(HOST_UID) --build-arg HOST_GID=$(HOST_GID) --target test -t dotfiles_dev_ubuntu .
 	docker run -it --mount type=bind,source="$(PWD)",target=/home/ak/dotfiles dotfiles_dev_ubuntu
 
 arch_dev:
-	docker build -f ./docker/Arch --build-arg USERNAME=ak --build-arg HOST_UID=$(HOST_UID) --build-arg HOST_GID=$(HOST_GID) --target test -t dotfiles_dev_arch .
+	docker build -f ./docker/Arch.Dockerfile --build-arg USERNAME=ak --build-arg HOST_UID=$(HOST_UID) --build-arg HOST_GID=$(HOST_GID) --target test -t dotfiles_dev_arch .
 	docker run -it --mount type=bind,source="$(PWD)",target=/home/ak/dotfiles dotfiles_dev_arch
 
 demo:
 	@if [ -z "$$(docker images -q dotfiles_demo)" ]; then \
 		echo "Image 'dotfiles_demo' not found. Building..."; \
-		docker build -f ./docker/Ubuntu --target demo -t dotfiles_demo .; \
+		docker build -f ./docker/Ubuntu.Dockerfile --target demo -t dotfiles_demo .; \
 	else \
 		echo "Image 'dotfiles_demo' already exists. Skipping build."; \
 	fi
@@ -60,7 +60,7 @@ clean_test_docker:
 	docker image rm dotfiles_test --force
 
 test_build:
-	docker build -f ./docker/Ubuntu --build-arg USERNAME=ak --target test -t dotfiles_test .
+	docker build -f ./docker/Ubuntu.Dockerfile --build-arg USERNAME=ak --target test -t dotfiles_test .
 
 test_dev: test_build
 	docker run -it dotfiles_test bash
@@ -72,7 +72,7 @@ test_all_auto: clean_test_docker test_build
 	docker run dotfiles_test bash -c "cd /home/ak/dotfiles && make ubuntu_base ubuntu_auto"
 
 define test_ubuntu_version
-	docker build -f ./docker/Ubuntu --build-arg BASE_IMAGE=ubuntu:$(1) --build-arg USERNAME=ak --target test -t dotfiles_test_ubuntu_$(1) .
+	docker build -f ./docker/Ubuntu.Dockerfile --build-arg BASE_IMAGE=ubuntu:$(1) --build-arg USERNAME=ak --target test -t dotfiles_test_ubuntu_$(1) .
 	docker run dotfiles_test_ubuntu_$(1) bash -c "cd /home/ak/dotfiles && make ubuntu_base"
 endef
 
