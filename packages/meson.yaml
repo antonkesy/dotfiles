@@ -1,0 +1,6 @@
+package: # https://mesonbuild.com/SimpleStart.html
+  hint: "Meson build system"
+  ubuntu:
+    - "sudo apt install meson ninja-build"
+  arch:
+    - "sudo pacman -S --noconfirm meson"
