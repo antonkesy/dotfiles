@@ -1,6 +1,9 @@
 package:
   hint: "Development and daily use tools"
   ubuntu:
+    # accept mscorefonts license
+    - "echo \"ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true\" | sudo debconf-set-selections"
+    - "sudo apt-get install -y ttf-mscorefonts-installer"
     - "sudo apt-get install -y git ffmpeg pandoc pdfarranger curl qt6-base-dev ubuntu-restricted-extras build-essential snapd vim"
     - "sudo apt-get install -y exfat-fuse ntfs-3g"
   arch:
