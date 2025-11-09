@@ -53,6 +53,7 @@ clean_demo_docker:
 test: test_current test_all_auto
 
 test_packages:
+	pipx install pytest
 	pytest packages/test.py -vvv
 	# pytest packages/test.py -k "git" -v
 
