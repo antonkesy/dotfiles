@@ -1,6 +1,8 @@
 ARG BASE_IMAGE=ubuntu:latest
 FROM ${BASE_IMAGE} AS base
 
+ARG UID=1000
+ARG GID=1000
 ARG USERNAME=ak
 ARG IS_DOCKER_BUILD=true
 
@@ -9,8 +11,10 @@ ENV TZ=Etc/UTC
 
 RUN apt-get update -y && apt-get install -y git locales tzdata sudo build-essential
 
-RUN groupadd -r ${USERNAME} && useradd -m -r -g ${USERNAME} ${USERNAME}
-RUN echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+# Create user
+RUN groupadd -g ${GID} ${USERNAME} \
+    && useradd -m -u ${UID} -g ${GID} -s /bin/bash ${USERNAME} \
+    && echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 USER ${USERNAME}
 

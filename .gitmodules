@@ -37,3 +37,9 @@
 [submodule "built_from_source/CMake/CMake"]
 	path = built_from_source/CMake/CMake
 	url = https://github.com/Kitware/CMake.git
+[submodule "arch/AUR_helpers/yay"]
+	path = arch/AUR_helpers/yay
+	url = https://aur.archlinux.org/yay.git
+[submodule "arch/AUR_helpers/paru"]
+	path = arch/AUR_helpers/paru
+	url = https://aur.archlinux.org/paru.git

@@ -15,29 +15,43 @@
 	test_ubuntu_versions
 	clean
 
-ubuntu_base:
+arch_base:
 	./link.sh
-	${MAKE} -C ./install_scripts/ubuntu/base
+	./install_scripts/base.sh Arch
 	${MAKE} -C ./built_from_source/neovim
 	${MAKE} -C ./built_from_source/alacritty
 	${MAKE} -C ./built_from_source/CMake
 
-install_auto:
+ubuntu_base:
+	./link.sh
+	./install_scripts/base.sh Ubuntu
+	${MAKE} -C ./built_from_source/neovim
+	${MAKE} -C ./built_from_source/alacritty
+	${MAKE} -C ./built_from_source/CMake
+
+ubuntu_auto:
 	${MAKE} -C ./install_scripts/auto
 
-install_manual:
+ubuntu_manual:
 	${MAKE} -C ./install_scripts/manual
 
-install_after_reboot:
+ubuntu_after_reboot:
 	${MAKE} -C ./install_scripts/after_reboot
 
 ubuntu:
 	${MAKE} -C ./ubuntu/etc
 	${MAKE} -C ./ubuntu/extensions
 
-dev:
-	docker build -f ./docker/Ubuntu --build-arg USERNAME=ak --target test -t dotfiles_dev .
-	docker run -it --mount type=bind,source="$(PWD)",target=/home/ak/dotfiles dotfiles_dev
+UID:= $(id -u)
+GID= $(id -g)
+
+ubuntu_dev:
+	docker build -f ./docker/Ubuntu --build-arg USERNAME=ak --build-arg HOST_UID=$(HOST_UID) --build-arg HOST_GID=$(HOST_GID) --target test -t dotfiles_dev_ubuntu .
+	docker run -it --mount type=bind,source="$(PWD)",target=/home/ak/dotfiles dotfiles_dev_ubuntu
+
+arch_dev:
+	docker build -f ./docker/Arch --build-arg USERNAME=ak --build-arg HOST_UID=$(HOST_UID) --build-arg HOST_GID=$(HOST_GID) --target test -t dotfiles_dev_arch .
+	docker run -it --mount type=bind,source="$(PWD)",target=/home/ak/dotfiles dotfiles_dev_arch
 
 demo:
 	@if [ -z "$$(docker images -q dotfiles_demo)" ]; then \
@@ -66,11 +80,11 @@ test_current: clean_test_docker
 	$(call test_ubuntu_version,24.04)
 
 test_all_auto: clean_test_docker test_build
-	docker run dotfiles_test bash -c "cd /home/ak/dotfiles && make install_base install_auto"
+	docker run dotfiles_test bash -c "cd /home/ak/dotfiles && make ubuntu_base ubuntu_auto"
 
 define test_ubuntu_version
 	docker build -f ./docker/Ubuntu --build-arg BASE_IMAGE=ubuntu:$(1) --build-arg USERNAME=ak --target test -t dotfiles_test_ubuntu_$(1) .
-	docker run dotfiles_test_ubuntu_$(1) bash -c "cd /home/ak/dotfiles && make install_base"
+	docker run dotfiles_test_ubuntu_$(1) bash -c "cd /home/ak/dotfiles && make ubuntu_base"
 endef
 
 test_ubuntu_24_04:
