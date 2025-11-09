@@ -4,4 +4,5 @@ package:
     - "python"
   ubuntu:
     - "pipx install gdown"
-  arch: []
+  arch:
+    - "pipx install gdown"

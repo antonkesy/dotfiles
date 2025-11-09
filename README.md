@@ -2,6 +2,8 @@
 
 WIP: migration from Ubuntu to Arch Linux
 
+TODO: why not ansible? Because!
+
 ## TL:DR
 
 ```
@@ -39,6 +41,13 @@ or for full installation:
 - [tmux](https://github.com/tmux/tmux/wiki) + [zsh](https://ohmyz.sh/)
 - [LunarVim](https://www.lunarvim.org/)
 - [Spacemacs](https://www.spacemacs.org/)
+
+## Packages
+
+- TODO: install packages depending on the OS (Ubuntu, Arch)
+- TODO: run specific package install with `python3 ./packages/package.py \[NAME\]+
+- TODO: test with `make test_packages`
+- TODO: test specific package with `pytest packages/test.py -vvv -k "NAME"`
 
 ## Tests
 

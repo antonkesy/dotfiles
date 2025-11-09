@@ -2,4 +2,7 @@ package:
   hint: "Snap"
   ubuntu:
     - "sudo apt-get install -y snapd"
-  arch: []
+  arch:
+    - "yay -S --noconfirm snapd"
+    - "sudo systemctl enable --now snapd.socket"
+    - "sudo ln -s /var/lib/snapd/snap /snap"

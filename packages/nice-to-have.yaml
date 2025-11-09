@@ -6,7 +6,7 @@ package:
   ubuntu:
     - "sudo apt-get install git -y"
     - "sudo apt-get install -y ffmpeg flex pandoc pdfarranger thunderbird gimp baobab curl qtbase5-dev qt6-base-dev latexmk texstudio texlive-full ubuntu-restricted-extras libreoffice obs-studio pdftk libpulse-dev bison pympress xournalpp okular krita"
-    - "sudo snap install postman amberol vlc gimp drawio || echo \"Error Okay; Snap not working in Docker\""
+    - 'sudo snap install postman amberol vlc gimp drawio || echo "Error Okay; Snap not working in Docker"'
     - "pipx install pre-commit screenpen"
     - "sudo apt-get install -y exfat-fuse ntfs-3g"
     - "sudo add-apt-repository deb http://gb.archive.ubuntu.com/ubuntu jammy main -y"
@@ -16,4 +16,11 @@ package:
     - "sudo flatpak -y install flathub net.ankiweb.Anki"
     - "cargo install exa bat ripgrep fd-find procs bottom"
     - "sudo apt install -y flameshot"
-  arch: []
+  arch:
+    - "sudo pacman -S --noconfirm --needed git ffmpeg flex pandoc gimp baobab curl qt5-base qt6-base libreoffice obs-studio pdftk pulseaudio bison xournalpp okular krita vlc drawio-desktop flameshot"
+    - "yay -S --noconfirm postman-bin pdfarranger amberol pympress"
+    - "pipx install pre-commit screenpen"
+    - "sudo pacman -S --noconfirm --needed exfat-utils ntfs-3g"
+    - "sudo flatpak -y install flathub io.missioncenter.MissionCenter"
+    - "sudo flatpak -y install flathub net.ankiweb.Anki"
+    - "cargo install exa bat ripgrep fd-find procs bottom"

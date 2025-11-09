@@ -4,4 +4,5 @@ package:
     - flatpak
   ubuntu:
     - "sudo flatpak install flathub org.mozilla.Thunderbird --noninteractive -y"
-  arch: []
+  arch:
+    - "sudo flatpak install flathub org.mozilla.Thunderbird --noninteractive -y"

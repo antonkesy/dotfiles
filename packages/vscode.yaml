@@ -9,4 +9,5 @@ package:
     - "sudo apt install -y apt-transport-https"
     - "sudo apt update"
     - "sudo apt install -y code"
-  arch: []
+  arch:
+    - "yay -S --noconfirm visual-studio-code-bin"
