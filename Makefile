@@ -16,11 +16,11 @@
 	clean
 
 arch_base:
-	./boostrap.sh
+	./bootstrap.sh
 	python3 ./setup/setup.py base
 
 ubuntu_base:
-	./boostrap.sh
+	./bootstrap.sh
 	python3 ./setup/setup.py base
 
 ubuntu:
