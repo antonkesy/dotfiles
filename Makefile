@@ -16,11 +16,11 @@
 	clean
 
 arch_base:
-	sudo pacman -S --noconfirm python python-yaml
+	./boostrap.sh
 	python3 ./setup/setup.py base
 
 ubuntu_base:
-	sudo apt install -y python3-yaml
+	./boostrap.sh
 	python3 ./setup/setup.py base
 
 ubuntu:
@@ -51,6 +51,10 @@ clean_demo_docker:
 	docker image rm dotfiles_demo --force
 
 test: test_current test_all_auto
+
+test_packages:
+	pytest packages/test.py -vvv
+	# pytest packages/test.py -k "git" -v
 
 clean_test_docker:
 	docker image rm dotfiles_test --force
