@@ -20,7 +20,7 @@ def packages_standalone(file_name: Path, distro: str) -> None:
 
     # Build Docker image if needed
     image_name = "packages_test"
-    dockerfile_path = f"./docker/{distro}"
+    dockerfile_path = f"./docker/{distro}.Dockerfile"
     username = "ak"
 
     print(f"\nTesting package: {package_name}")
