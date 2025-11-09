@@ -66,6 +66,7 @@ def install_package(package_name: str, os_type: str):
 
     if not commands:
         print(f"No commands found for package '{package_name}' on OS '{os_type}'")
+        sys.exit(1)
         return
 
     for cmd in commands:
