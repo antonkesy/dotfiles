@@ -1,0 +1,5 @@
+package:
+  hint: "OpenCV"
+  ubuntu:
+    - "sudo apt install -y libopencv-dev python3-opencv"
+  arch: []

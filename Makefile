@@ -16,27 +16,12 @@
 	clean
 
 arch_base:
-	./link.sh
-	./install_scripts/base.sh Arch
-	${MAKE} -C ./built_from_source/neovim
-	${MAKE} -C ./built_from_source/alacritty
-	${MAKE} -C ./built_from_source/CMake
+	sudo pacman -S --noconfirm python python-yaml
+	python3 ./setup/setup.py base
 
 ubuntu_base:
-	./link.sh
-	./install_scripts/base.sh Ubuntu
-	${MAKE} -C ./built_from_source/neovim
-	${MAKE} -C ./built_from_source/alacritty
-	${MAKE} -C ./built_from_source/CMake
-
-ubuntu_auto:
-	${MAKE} -C ./install_scripts/auto
-
-ubuntu_manual:
-	${MAKE} -C ./install_scripts/manual
-
-ubuntu_after_reboot:
-	${MAKE} -C ./install_scripts/after_reboot
+	sudo apt install -y python3-yaml
+	python3 ./setup/setup.py base
 
 ubuntu:
 	${MAKE} -C ./ubuntu/etc

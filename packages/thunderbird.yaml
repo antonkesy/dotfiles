@@ -1,0 +1,7 @@
+package:
+  hint: "Thunderbird email client"
+  depends_on:
+    - flatpak
+  ubuntu:
+    - "sudo flatpak install flathub org.mozilla.Thunderbird --noninteractive -y"
+  arch: []

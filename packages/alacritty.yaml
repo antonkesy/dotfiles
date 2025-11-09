@@ -1,0 +1,8 @@
+package:
+  hint: "Arduino CLI and tools"
+  depends_on:
+    - homebrew
+  ubuntu:
+    - "sudo apt install -y cmake g++ pkg-config libfreetype-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev python3"
+    - "cd alacritty && sudo rm -rf target && cargo build --release && chmod +x ./target/release/alacritty && sudo cp ./target/release/alacritty /usr/local/bin && tic -xe alacritty,alacritty-direct extra/alacritty.info"
+  arch: []

@@ -1,0 +1,14 @@
+package:
+  hint: "Font Hack Nerd Font"
+  ubuntu:
+    - "sudo apt install -y unzip wget"
+    - "wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Hack.zip"
+    - "sudo mkdir /usr/share/fonts/truetype/hack/ -p"
+    - "sudo unzip ./Hack.zip -d /usr/share/fonts/truetype/hack/"
+    - "fc-cache -f -v"
+  arch:
+    - "sudo pacman -S --noconfirm --needed unzip wget curl"
+    - "wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Hack.zip"
+    - "sudo mkdir /usr/share/fonts/truetype/hack/ -p"
+    - "sudo unzip ./Hack.zip -d /usr/share/fonts/truetype/hack/"
+    - "fc-cache -f -v"

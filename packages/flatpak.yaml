@@ -1,0 +1,9 @@
+package:
+  hint: "Flatpak application manager"
+  ubuntu: # https://flatpak.org/setup/Ubuntu
+    - "sudo apt install -y flatpak"
+    - "sudo apt install -y gnome-software-plugin-flatpak"
+    - "sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
+  arch: # https://flatpak.org/setup/Arch
+    - "sudo pacman -S --needed --noconfirm flatpak"
+    - "sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"

@@ -1,0 +1,10 @@
+package:
+  hint: "Arduino CLI and tools"
+  depends_on:
+    - homebrew
+  ubuntu:
+    - "brew update"
+    - "brew install arduino-cli"
+  arch:
+    - "brew update"
+    - "brew install arduino-cli"

@@ -1,0 +1,6 @@
+package:
+  hint: "VirtualBox"
+  ubuntu:
+    - "sudo apt-get install -y virtualbox"
+    - "sudo apt update -y"
+  arch: []
