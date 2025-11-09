@@ -4,7 +4,7 @@ package:
     - homebrew
   ubuntu:
     - "sudo apt-get install -y ninja-build gettext cmake unzip curl cmake"
-    - "cd ./built_from_source/neovim/neovim/ && sudo rm .deps build -rf && sudo make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install"
+    - "cd ./distros/ubuntu/built_from_source/neovim/ && sudo rm .deps build -rf && sudo make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install"
   arch:
     - "sudo pacman -S --noconfirm --needed ninja gettext cmake unzip curl base-devel"
-    - "cd ./built_from_source/neovim/neovim/ && sudo rm .deps build -rf && sudo make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install"
+    - "cd ./distros/arch/built_from_source/neovim/ && sudo rm .deps build -rf && sudo make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install"

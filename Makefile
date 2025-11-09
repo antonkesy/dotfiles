@@ -24,8 +24,8 @@ ubuntu_base:
 	python3 ./setup/setup.py base
 
 ubuntu:
-	${MAKE} -C ./ubuntu/etc
-	${MAKE} -C ./ubuntu/extensions
+	${MAKE} -C ./distros/ubuntu/etc
+	${MAKE} -C ./distros/ubuntu/extensions
 
 UID:= $(id -u)
 GID= $(id -g)
