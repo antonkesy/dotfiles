@@ -1,0 +1,6 @@
+package:
+  hint: "AUR helpers"
+  ubuntu: []
+  arch:
+    - "cd ./arch/AUR_helpers && make yay paru"
+    - "sudo pacman -S --noconfirm less"

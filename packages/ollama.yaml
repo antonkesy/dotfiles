@@ -1,0 +1,6 @@
+package:
+  hint: "Ollama AI tool"
+  ubuntu:
+    - "curl -fsSL https://ollama.com/install.sh | sh"
+  arch:
+    - "curl -fsSL https://ollama.com/install.sh | sh"

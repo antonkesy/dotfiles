@@ -1,0 +1,8 @@
+package:
+  hint: "Racket programming language"
+  depends_on:
+    - snap
+  ubuntu:
+    - "sudo snap install racket"
+    - "sudo apt install -y graphviz"
+  arch: []

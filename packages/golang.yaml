@@ -1,0 +1,6 @@
+package:
+  hint: "Go programming language"
+  ubuntu:
+    - "sudo apt install -y golang-go"
+  arch:
+    - "sudo pacman -S --needed --noconfirm go"

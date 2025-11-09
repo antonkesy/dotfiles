@@ -1,0 +1,8 @@
+package:
+  hint: "Arduino CLI and tools"
+  depends_on:
+    - homebrew
+  ubuntu:
+    - "sudo apt-get install -y ninja-build gettext cmake unzip curl cmake"
+    - "cd neovim && sudo rm .deps build -rf && sudo make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install"
+  arch: []

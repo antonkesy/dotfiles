@@ -1,0 +1,19 @@
+package:
+  hint: "Collection of useful programs and tools"
+  depends_on:
+    - flatpak
+    - rust
+  ubuntu:
+    - "sudo apt-get install git -y"
+    - "sudo apt-get install -y ffmpeg flex pandoc pdfarranger thunderbird gimp baobab curl qtbase5-dev qt6-base-dev latexmk texstudio texlive-full ubuntu-restricted-extras libreoffice obs-studio pdftk libpulse-dev bison pympress xournalpp okular krita"
+    - "sudo snap install postman amberol vlc gimp drawio || echo \"Error Okay; Snap not working in Docker\""
+    - "pipx install pre-commit screenpen"
+    - "sudo apt-get install -y exfat-fuse ntfs-3g"
+    - "sudo add-apt-repository deb http://gb.archive.ubuntu.com/ubuntu jammy main -y"
+    - "sudo apt update -y"
+    - "sudo apt install -y libwebkit2gtk-4.0-dev"
+    - "sudo flatpak -y install flathub io.missioncenter.MissionCenter"
+    - "sudo flatpak -y install flathub net.ankiweb.Anki"
+    - "cargo install exa bat ripgrep fd-find procs bottom"
+    - "sudo apt install -y flameshot"
+  arch: []

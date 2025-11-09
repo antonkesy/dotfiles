@@ -1,0 +1,8 @@
+package:
+  hint: "Development and daily use tools"
+  ubuntu:
+    - "sudo apt-get install -y git ffmpeg pandoc pdfarranger curl qt6-base-dev ubuntu-restricted-extras build-essential snapd vim"
+    - "sudo apt-get install -y exfat-fuse ntfs-3g"
+  arch:
+    - "sudo pacman -S --noconfirm --needed git ffmpeg pandoc pdfarranger curl qt6-base base-devel vim"
+    - "sudo pacman -S --noconfirm --needed exfat-utils ntfs-3g"

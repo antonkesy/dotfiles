@@ -1,0 +1,5 @@
+package:
+  hint: "Enable GNOME lockscreen"
+  ubuntu:
+    - "gsettings set org.gnome.desktop.lockdown disable-lock-screen false"
+  arch: []

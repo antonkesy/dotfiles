@@ -1,0 +1,10 @@
+package:
+  hint: "Oh My Zsh"
+  depends_on:
+    - "zsh"
+  ubuntu:
+    - "export RUNZSH=no"
+    - "sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\" \"\" --unattended --keep-zshrc"
+  arch:
+    - "export RUNZSH=no"
+    - "sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\" \"\" --unattended --keep-zshrc"

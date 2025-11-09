@@ -1,0 +1,6 @@
+setup:
+  hint: "Full desktop"
+  depends_on:
+    - "base"
+  packages:
+    - desktop

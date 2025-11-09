@@ -1,0 +1,13 @@
+package:
+  hint: "LunarVim IDE"
+  depends_on:
+    - lua
+    - node
+  ubuntu:
+    - "sudo apt install -y python3-pynvim"
+    - "bash ~/.local/share/lunarvim/lvim/utils/installer/uninstall.sh || true"
+    - "sudo apt-get -y install luarocks xclip curl"
+    - "bash <(curl -s https://raw.githubusercontent.com/ChristianChiarulli/LunarVim/master/utils/installer/install.sh) --no-interaction --yes"
+    - "pipx install neovim"
+    - "sudo apt-get install -y npm ruby-dev r-base php libapache2-mod-php php-cli php-cgi unzip llvm-14 lldb-14 libhunspell-dev"
+  arch: []

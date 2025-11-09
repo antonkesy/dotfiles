@@ -1,0 +1,8 @@
+package:
+  hint: "Lazygit"
+  depends_on:
+    - golang
+  ubuntu:
+    - "go install github.com/jesseduffield/lazygit@latest"
+  arch:
+    - "go install github.com/jesseduffield/lazygit@latest"
