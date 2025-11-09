@@ -1,5 +1,7 @@
 package: # https://github.com/astral-sh/uv
   hint: "Python development environment"
+  depends_on:
+    - aur-helpers
   ubuntu:
     - "sudo apt install -y python3-pip pipx python3-full python3-dev"
     - "pipx install pre-commit"
