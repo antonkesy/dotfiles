@@ -1,7 +1,7 @@
 package:
   hint: "Desktop environments"
   depends_on: [font, aur-helpers, cmake, meson]
-  ubuntu: []
+  ubuntu: ["true"]
   arch:
     # Ubuntu
     # Core

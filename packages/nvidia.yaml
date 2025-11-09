@@ -15,4 +15,8 @@ package:
     - "sudo apt-get update"
     - "sudo apt-get install -y nvidia-container-toolkit"
     - "sudo nvidia-ctk runtime configure --runtime=docker"
-  arch: []
+  arch:
+    - "sudo pacman -S --noconfirm --needed nvidia nvidia-utils nvidia-settings cuda"
+    - "sudo systemctl enable nvidia-persistenced.service"
+    - "yay -S --noconfirm nvidia-container-toolkit"
+    - "sudo nvidia-ctk runtime configure --runtime=docker"

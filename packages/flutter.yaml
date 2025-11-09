@@ -10,4 +10,7 @@ package:
     - "sudo mv flutter /opt/flutter"
     - "flutter doctor"
     - "dart pub global activate melos"
-  arch: []
+  arch:
+    - "yay -S --noconfirm flutter"
+    - "flutter doctor"
+    - "dart pub global activate melos"

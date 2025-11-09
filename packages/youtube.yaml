@@ -4,4 +4,5 @@ package:
     - "python"
   ubuntu:
     - "pipx install yt-dlp"
-  arch: []
+  arch:
+    - "pipx install yt-dlp"

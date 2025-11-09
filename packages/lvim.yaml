@@ -10,4 +10,10 @@ package:
     - "bash <(curl -s https://raw.githubusercontent.com/ChristianChiarulli/LunarVim/master/utils/installer/install.sh) --no-interaction --yes"
     - "pipx install neovim"
     - "sudo apt-get install -y npm ruby-dev r-base php libapache2-mod-php php-cli php-cgi unzip llvm-14 lldb-14 libhunspell-dev"
-  arch: []
+  arch:
+    - "sudo pacman -S --noconfirm --needed python-pynvim"
+    - "bash ~/.local/share/lunarvim/lvim/utils/installer/uninstall.sh || true"
+    - "sudo pacman -S --noconfirm --needed luarocks xclip curl"
+    - "bash <(curl -s https://raw.githubusercontent.com/ChristianChiarulli/LunarVim/master/utils/installer/install.sh) --no-interaction --yes"
+    - "pipx install neovim"
+    - "sudo pacman -S --noconfirm --needed npm ruby r php llvm lldb hunspell"

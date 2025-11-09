@@ -5,4 +5,6 @@ package:
   ubuntu:
     - "sudo apt-get install -y ninja-build gettext cmake unzip curl cmake"
     - "cd neovim && sudo rm .deps build -rf && sudo make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install"
-  arch: []
+  arch:
+    - "sudo pacman -S --noconfirm --needed ninja gettext cmake unzip curl base-devel"
+    - "cd neovim && sudo rm .deps build -rf && sudo make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install"

@@ -2,4 +2,5 @@ package:
   hint: "OpenCV"
   ubuntu:
     - "sudo apt install -y libopencv-dev python3-opencv"
-  arch: []
+  arch:
+    - "sudo pacman -S --noconfirm --needed opencv python-opencv hdf5 vtk glew"

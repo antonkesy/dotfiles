@@ -4,4 +4,6 @@ package:
     - "export DEBIAN_FRONTEND=noninteractive"
     - "sudo apt install -y emacs"
     - "git clone https://github.com/syl20bnr/spacemacs \"$HOME\"/.emacs.d"
-  arch: []
+  arch:
+    - "sudo pacman -S --noconfirm --needed emacs"
+    - "git clone https://github.com/syl20bnr/spacemacs \"$HOME\"/.emacs.d"

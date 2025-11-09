@@ -2,4 +2,5 @@ package:
   hint: "LaTeX document preparation system"
   ubuntu:
     - "sudo apt install -y latexmk plantuml pandoc latexmk texstudio texlive-full"
-  arch: []
+  arch:
+    - "sudo pacman -S --noconfirm --needed texlive-most texlive-lang plantuml pandoc texstudio"

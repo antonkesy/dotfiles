@@ -5,4 +5,5 @@ package:
   ubuntu:
     - "sudo snap install racket"
     - "sudo apt install -y graphviz"
-  arch: []
+  arch:
+    - "sudo pacman -S --noconfirm --needed racket graphviz"

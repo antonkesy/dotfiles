@@ -88,7 +88,7 @@ def packages_standalone(file_name: Path, distro: str) -> None:
     if run_result.returncode != 0:
         pytest.fail(
             f"Package '{package_name}' installation failed in Docker:\n"
-            f"STDOUT: {run_result.stdout}\n"
+            f"STDOUT: {run_result.stdout[:-300]}\n"
             f"STDERR: {run_result.stderr}"
         )
 
@@ -110,4 +110,4 @@ def test_packages_standalone_arch(file_name: Path) -> None:
     ids=lambda p: str(p),
 )
 def test_packages_standalone_ubuntu(file_name: Path) -> None:
-    packages_standalone(file_name, "Arch")
+    packages_standalone(file_name, "Ubuntu")
