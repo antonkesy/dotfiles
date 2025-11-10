@@ -37,12 +37,12 @@
 [submodule "built_from_source/CMake/CMake"]
 	path = distros/ubuntu/built_from_source/CMake
 	url = https://github.com/Kitware/CMake.git
-[submodule "arch/AUR_helpers/yay"]
+[submodule "distros/arch/built_from_source/yay"]
 	path = distros/arch/built_from_source/yay
 	url = https://aur.archlinux.org/yay.git
-[submodule "arch/AUR_helpers/paru"]
+[submodule "distros/arch/built_from_source/paru"]
 	path = distros/arch/built_from_source/paru
 	url = https://aur.archlinux.org/paru.git
-[submodule "distros/arch/build_from_source/neovim"]
+[submodule "distros/arch/built_from_source/neovim"]
 	path = distros/arch/built_from_source/neovim
 	url = https://github.com/neovim/neovim.git
