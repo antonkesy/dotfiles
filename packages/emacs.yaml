@@ -3,7 +3,9 @@ package:
   ubuntu:
     - "export DEBIAN_FRONTEND=noninteractive"
     - "sudo apt install -y emacs"
-    - "git clone https://github.com/syl20bnr/spacemacs \"$HOME\"/.emacs.d"
+    - "rm /home/ak/.emacs.d -rf"
+    - 'git clone https://github.com/syl20bnr/spacemacs "$HOME"/.emacs.d'
   arch:
     - "sudo pacman -S --noconfirm --needed emacs"
-    - "git clone https://github.com/syl20bnr/spacemacs \"$HOME\"/.emacs.d"
+    - "rm /home/ak/.emacs.d -rf"
+    - 'git clone https://github.com/syl20bnr/spacemacs "$HOME"/.emacs.d'

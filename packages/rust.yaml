@@ -7,8 +7,6 @@ package:
     - "sudo apt-get -y install libgit2-dev libcurl4-openssl-dev libssh-dev libssl-dev pkgconf"
     - "cargo install cargo-update"
   arch:
-    - "sudo pacman -S --noconfirm --needed rustup"
-    - "rustup default stable"
-    - "sudo rustup default stable"
+    - "sudo pacman -S --noconfirm --needed rust"
     - "sudo pacman -S --noconfirm --needed libgit2 libcurl-compat libssh2 openssl pkgconf"
     - "cargo install cargo-update"

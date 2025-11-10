@@ -19,7 +19,7 @@ package:
     - "cargo install exa bat ripgrep fd-find procs bottom"
     - "sudo apt install -y flameshot"
   arch:
-    - "sudo pacman -S --noconfirm --needed git ffmpeg flex pandoc gimp baobab curl qt5-base qt6-base libreoffice obs-studio pdftk pulseaudio bison xournalpp okular krita vlc drawio-desktop flameshot"
+    - "sudo pacman -S --noconfirm --needed git ffmpeg flex pandoc gimp baobab curl qt5-base qt6-base libreoffice obs-studio pdftk bison xournalpp okular krita vlc drawio-desktop flameshot"
     - "yay -S --noconfirm postman-bin pdfarranger amberol pympress"
     - "pipx install pre-commit screenpen"
     - "sudo pacman -S --noconfirm --needed exfat-utils ntfs-3g"

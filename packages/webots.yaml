@@ -7,4 +7,4 @@ package:
     - "sudo apt update -y"
     - "sudo apt install webots -y"
   arch:
-    - "yay -S --noconfirm webots"
+    - "yay -S --noconfirm webots-bin"
