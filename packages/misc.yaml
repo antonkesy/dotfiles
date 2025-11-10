@@ -1,16 +1,8 @@
 package:
-  hint: "Miscellaneous tools (LibreOffice, Haskell LSP)"
+  hint: "Miscellaneous tools"
   depends_on:
     - haskell
   ubuntu:
     - "sudo apt install -y libreoffice"
-    - "export BOOTSTRAP_HASKELL_NONINTERACTIVE=1"
-    - "source ~/.config/zsh/haskell.zsh"
-    - "ghcup install ghc 8.10.3"
-    - "ghcup compile hls --git-ref 1.4.0 --ghc 8.10.3"
   arch:
     - "sudo pacman -S --noconfirm --needed libreoffice"
-    - "export BOOTSTRAP_HASKELL_NONINTERACTIVE=1"
-    - "source ~/.config/zsh/haskell.zsh"
-    - "ghcup install ghc 8.10.3"
-    - "ghcup compile hls --git-ref 1.4.0 --ghc 8.10.3"
