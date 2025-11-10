@@ -46,3 +46,5 @@
 [submodule "distros/arch/built_from_source/neovim"]
 	path = distros/arch/built_from_source/neovim
 	url = https://github.com/neovim/neovim.git
+[submodule "distros.arch.built_from_source.paru"]
+	ignore = dirty
