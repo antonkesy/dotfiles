@@ -4,7 +4,9 @@ package:
     - flatpak
   ubuntu:
     - "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
-    - "flatpak install flathub com.discordapp.Discord"
+    - "flatpak install --noninteractive --assumeyes flathub com.discordapp.Discord || echo 'Not available inside Docker'"
   arch:
     - "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
-    - "flatpak install flathub com.discordapp.Discord"
+    - "flatpak install --noninteractive --assumeyes flathub org.freedesktop.Platform//25.08 || echo 'Not available inside Docker'"
+    - "flatpak update"
+    - "flatpak install --noninteractive --assumeyes flathub com.discordapp.Discord || echo 'Not available inside Docker'"

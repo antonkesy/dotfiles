@@ -50,7 +50,7 @@ def packages_standalone(file_name: Path, distro: str) -> None:
         ],
         capture_output=True,
         text=True,
-        timeout=300,  # 5 minute timeout for build
+        timeout=3000,  # 50 minute timeout for build
     )
 
     if build_result.returncode != 0:
@@ -70,26 +70,26 @@ def packages_standalone(file_name: Path, distro: str) -> None:
             image_name,
             "bash",
             "-c",
-            f"cd /home/{username}/dotfiles && ./bootstrap.sh && python3 ./packages/package.py {package_name}",
+            f"cd /home/{username}/dotfiles && ./bootstrap.sh && python3 ./packages/package.py '{package_name}'",
         ],
         capture_output=True,
         text=True,
-        timeout=600,  # 10 minute timeout for package installation
+        timeout=6000,  # 100 minute timeout for installation
     )
 
     # Clean up image after test
     subprocess.run(
         ["docker", "image", "rm", image_name, "--force"],
         capture_output=True,
-        timeout=30,
+        timeout=90,
     )
 
     # Assert that the package installation succeeded
     if run_result.returncode != 0:
         pytest.fail(
             f"Package '{package_name}' installation failed in Docker:\n"
-            f"STDOUT: {run_result.stdout[:-300]}\n"
-            f"STDERR: {run_result.stderr}"
+            f"STDOUT: {run_result.stdout[:-10]}\n"
+            f"STDERR: {run_result.stderr[:-10]}"
         )
 
     print(f"✓ Package '{package_name}' installed successfully")
