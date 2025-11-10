@@ -7,7 +7,8 @@ from typing import Dict, List, Set
 
 def get_package_info(package_name: str) -> Dict:
     """Get package information including dependencies and commands."""
-    package_file = Path("packages") / f"{package_name}.yaml"
+    script_dir = Path(__file__).parent
+    package_file = script_dir / f"{package_name}.yaml"
 
     if not package_file.exists():
         print(f"Package file not found: {package_file}", file=sys.stderr)
