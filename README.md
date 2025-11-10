@@ -54,10 +54,6 @@ or for full installation:
 - `make test_ubuntu_24_04`
 - `make test_ubuntu_25_04`
 
-## Demo
-
-`make demo`
-
 ### Limitations
 
-- snap not working in docker/demo/CI
+- snap not working in docker
