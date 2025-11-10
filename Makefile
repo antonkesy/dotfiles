@@ -1,25 +1,8 @@
-.PHONY:
-	ubuntu
-	test
-	dev
-	demo
-	clean_demo_docker
-	test
-	clean_test_docker
-	test_build
-	test_dev
-	test_current
-	test_all_auto
-	test_ubuntu_24_04
-	test_ubuntu_25_04
-	test_ubuntu_versions
-	clean
-
-arch_base:
+desktop:
 	./bootstrap.sh
-	python3 ./setup/setup.py base
+	python3 ./setup/setup.py desktop
 
-ubuntu_base:
+base:
 	./bootstrap.sh
 	python3 ./setup/setup.py base
 
@@ -27,6 +10,7 @@ ubuntu:
 	${MAKE} -C ./distros/ubuntu/etc
 	${MAKE} -C ./distros/ubuntu/extensions
 
+## Testing and Development targets
 UID:= $(id -u)
 GID= $(id -g)
 
@@ -37,18 +21,6 @@ ubuntu_dev:
 arch_dev:
 	docker build -f ./docker/Arch.Dockerfile --build-arg USERNAME=ak --build-arg HOST_UID=$(HOST_UID) --build-arg HOST_GID=$(HOST_GID) --target test -t dotfiles_dev_arch .
 	docker run -it --mount type=bind,source="$(PWD)",target=/home/ak/dotfiles dotfiles_dev_arch
-
-demo:
-	@if [ -z "$$(docker images -q dotfiles_demo)" ]; then \
-		echo "Image 'dotfiles_demo' not found. Building..."; \
-		docker build -f ./docker/Ubuntu.Dockerfile --target demo -t dotfiles_demo .; \
-	else \
-		echo "Image 'dotfiles_demo' already exists. Skipping build."; \
-	fi
-	docker run -it dotfiles_demo bash
-
-clean_demo_docker:
-	docker image rm dotfiles_demo --force
 
 test: test_current test_all_auto
 
@@ -85,4 +57,19 @@ test_ubuntu_25_04:
 
 test_ubuntu_versions: test_ubuntu_25_04 test_ubuntu_24_04
 
-clean: clean_demo_docker clean_test_docker
+clean: clean_test_docker
+
+.PHONY:
+	ubuntu
+	test
+	dev
+	test
+	clean_test_docker
+	test_build
+	test_dev
+	test_current
+	test_all_auto
+	test_ubuntu_24_04
+	test_ubuntu_25_04
+	test_ubuntu_versions
+	clean
