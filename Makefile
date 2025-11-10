@@ -54,8 +54,8 @@ test: test_current test_all_auto
 
 test_packages:
 	pipx install pytest
-	pytest packages/test.py -vvv
-	# pytest packages/test.py -k "git" -v
+	pytest ./test/packages.py -vvv
+	# pytest ./test/packages.py -k "git" -v
 
 clean_test_docker:
 	docker image rm dotfiles_test --force
