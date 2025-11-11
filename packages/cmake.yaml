@@ -1,7 +1,6 @@
 package:
   hint: "CMake build system"
-  depends_on:
-    - homebrew
+  depends_on: []
   skip_if_all_true:
     - "[[ $(which cmake) ]]"
   ubuntu:
