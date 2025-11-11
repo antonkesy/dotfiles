@@ -18,5 +18,5 @@ package:
     - "bash ~/.local/share/lunarvim/lvim/utils/installer/uninstall.sh || true"
     - "sudo pacman -S --noconfirm --needed xclip curl"
     - "bash <(curl -s https://raw.githubusercontent.com/ChristianChiarulli/LunarVim/master/utils/installer/install.sh) --no-interaction --yes"
-    - "pipx install neovim"
+    - "pipx install neovim --include-deps"
     - "sudo pacman -S --noconfirm --needed npm ruby r php llvm lldb hunspell"
