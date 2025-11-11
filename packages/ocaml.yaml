@@ -9,6 +9,6 @@ package:
   arch:
     - "sudo pacman -S --noconfirm --needed opam"
     - "opam init --auto-setup --disable-sandboxing -n"
-    - "opam switch remove 5.3.0 -y"
+    - "opam switch remove 5.3.0 -y || echo 'Switch does not exist, continuing...'"
     - "opam switch create 5.3.0"
     - "opam install ocaml-lsp-server odoc ocamlformat utop -y"
