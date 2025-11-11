@@ -31,4 +31,4 @@ package:
     - "export ZINIT_INSTALL_SILENT=1"
     - "export ZINIT_INSTALL_NO_ANNEX_PROMPT=1"
     - 'bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)" <<<"n"'
-    - "pacman -S atuin"
+    - "sudo pacman -S atuin --noconfirm --needed"
