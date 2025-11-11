@@ -24,6 +24,34 @@ def get_package_info(package_name: str) -> Dict:
     return data.get("package", {})
 
 
+def check_skip_conditions(package_info: Dict) -> bool:
+    skip_conditions = package_info.get("skip_if_all_true", [])
+
+    if not skip_conditions:
+        return False
+
+    print("Checking skip conditions...")
+
+    for condition in skip_conditions:
+        try:
+            result = subprocess.run(
+                condition,
+                shell=True,
+                capture_output=True,
+                text=True,
+                executable="/bin/bash",
+            )
+            if result.returncode != 0:
+                print(f"Skip condition failed: {condition}")
+                return False
+            print(f"Skip condition passed: {condition}")
+        except subprocess.CalledProcessError:
+            print(f"Skip condition failed: {condition}")
+            return False
+
+    return True
+
+
 def install_package(package_name: str):
     print("=" * 50)
     print(f"Installing package: {package_name}")
@@ -35,6 +63,12 @@ def install_package(package_name: str):
     print(f"Dependent setups: {depends_on_packages}")
     for pkg in depends_on_packages:
         install_package(pkg)
+
+    # Check if we should skip installation
+    if check_skip_conditions(package_info):
+        print(f"⏭ Skipping package '{package_name}' - all skip conditions are met")
+        print()
+        return
 
     commands = package_info.get(os_type, [])
 

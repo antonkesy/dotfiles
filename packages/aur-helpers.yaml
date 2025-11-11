@@ -1,6 +1,9 @@
 package:
   hint: "AUR helpers"
   ubuntu: ["true"]
+  skip_if_all_true:
+    - "[[ $(which paru) ]]"
+    - "[[ $(which yay) ]]"
   arch:
     - "sudo pacman -S --noconfirm --needed base-devel git"
     - "cd ./distros/arch/built_from_source/paru/ && makepkg -si --noconfirm"
