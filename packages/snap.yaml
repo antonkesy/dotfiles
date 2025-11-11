@@ -1,5 +1,7 @@
 package:
   hint: "Snap"
+  skip_if_all_true:
+    - "[[ $(which snap) ]]"
   ubuntu:
     - "sudo apt-get install -y snapd"
   arch:
