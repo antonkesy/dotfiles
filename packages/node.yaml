@@ -2,6 +2,9 @@ package:
   hint: "Node.js via fnm"
   depends_on:
     - "homebrew"
+  skip_if_all_true:
+    - "[[ $(which fnm) ]]"
+    - "[[ $(which node) ]]"
   ubuntu:
     - "sudo apt purge nodejs -y"
     - "sudo apt autoremove -y"

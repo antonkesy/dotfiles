@@ -2,6 +2,8 @@ package:
   hint: "Oh My Zsh"
   depends_on:
     - "zsh"
+  skip_if_all_true:
+    - "[[ -d ~/.oh-my-zsh ]]"
   ubuntu:
     - "rm -rf ~/.oh-my-zsh"
     - "export RUNZSH=no"

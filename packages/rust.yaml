@@ -1,5 +1,8 @@
 package:
   hint: "Rust programming language and tools"
+  skip_if_all_true:
+    - "[[ $(which rustc) ]]"
+    - "[[ $(which cargo) ]]"
   ubuntu:
     - "sudo apt-get install -y rustup"
     - "rustup default stable"

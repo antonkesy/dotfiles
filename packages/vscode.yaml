@@ -1,5 +1,7 @@
 package:
   hint: "Visual Studio Code"
+  skip_if_all_true:
+    - "[[ $(which code) ]]"
   ubuntu:
     - "sudo apt-get -y install wget gpg"
     - "wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >packages.microsoft.gpg"

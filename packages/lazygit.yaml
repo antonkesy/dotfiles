@@ -2,6 +2,8 @@ package:
   hint: "Lazygit"
   depends_on:
     - golang
+  skip_if_all_true:
+    - "[[ $(which lazygit) ]]"
   ubuntu:
     - "go install github.com/jesseduffield/lazygit@latest"
   arch:
