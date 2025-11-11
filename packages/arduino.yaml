@@ -1,5 +1,7 @@
 package:
   hint: "Arduino CLI and tools"
+  skip_if_all_true:
+    - 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && [[ $(which arduino-cli) ]]'
   depends_on:
     - homebrew
   ubuntu:
