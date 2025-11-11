@@ -1,5 +1,7 @@
 package: # https://brew.sh/
   hint: "Homebrew package manager"
+  skip_if_all_true:
+    - "[[ $(which brew) ]]"
   ubuntu:
     - "sudo apt-get install -y build-essential procps curl file git"
     - "/bin/bash -c \"NONINTERACTIVE=1 $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""

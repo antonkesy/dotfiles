@@ -2,6 +2,8 @@ package:
   hint: "Discord messaging app"
   depends_on:
     - flatpak
+  skip_if_all_true:
+    - "flatpak list | grep -q com.discordapp.Discord"
   ubuntu:
     - "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo"
     - "flatpak install --noninteractive --assumeyes flathub com.discordapp.Discord || echo 'Not available inside Docker'"

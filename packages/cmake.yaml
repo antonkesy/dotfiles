@@ -1,7 +1,9 @@
 package:
-  hint: "Arduino CLI and tools"
+  hint: "CMake build system"
   depends_on:
     - homebrew
+  skip_if_all_true:
+    - "[[ $(which cmake) ]]"
   ubuntu:
     - "sudo apt install build-essential checkinstall zlib1g-dev libssl-dev -y"
     - "cd ./distros/ubuntu/built_from_source/CMake/ && ./bootstrap -- -DCMAKE_BUILD_TYPE=Release && make && sudo make install"

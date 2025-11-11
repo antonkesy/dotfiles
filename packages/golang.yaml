@@ -1,5 +1,7 @@
 package:
   hint: "Go programming language"
+  skip_if_all_true:
+    - "[[ $(which go) ]]"
   ubuntu:
     - "sudo apt install -y golang-go"
   arch:
