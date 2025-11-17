@@ -6,8 +6,18 @@ TODO: why not ansible? Because!
 
 ## TL:DR
 
+### Arch
+
+For guided Arch install before applying dotfiles use:
+
+```bash
+archinstall --config https://github.com/antonkesy/dotfiles/tree/main/distros/arch/user_configuration.json
 ```
-sudo apt-get -y update && sudo apt-get -y install git locales tzdata sudo build-essential && git clone --recursive https://github.com/antonkesy/dotfiles.git && cd dotfiles && make install_base
+
+### Ubuntu
+
+```
+sudo apt-get -y update && sudo apt-get -y install git locales tzdata sudo build-essential && git clone --recursive https://github.com/antonkesy/dotfiles.git && cd dotfiles && make desktop
 ```
 
 ## Step by step
@@ -25,18 +35,12 @@ git clone --recursive git@github.com:antonkesy/dotfiles.git
 ```
 
 ```
-cd dotfiles && make install_base
-```
-
-or for full installation:
-
-```
-... make install_base install_auto
+cd dotfiles && make desktop
 ```
 
 ## Currently used with ...
 
-- Ubuntu 24.04.3 LTS
+- Arch/Ubuntu 24.04.3 LTS
 - Nvidia RTX 4070
 - [tmux](https://github.com/tmux/tmux/wiki) + [zsh](https://ohmyz.sh/)
 - [LunarVim](https://www.lunarvim.org/)
