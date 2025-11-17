@@ -1,0 +1,7 @@
+package:
+  hint: "Hyprland"
+  depends_on: []
+  ubuntu:
+    - "echo 'Not required, using Gnome'"
+  arch:
+    - "sudo pacman -S --noconfirm --needed dolphin dunst grim hyprland kitty polkit-kde-agent qt5-wayland qt6-wayland slurp uwsm wofi xdg-desktop-portal-hyprland"
