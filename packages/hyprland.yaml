@@ -1,6 +1,6 @@
 package:
   hint: "Hyprland"
-  depends_on: []
+  depends_on: [font]
   ubuntu:
     - "echo 'Not required, using Gnome'"
   arch:
