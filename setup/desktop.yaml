@@ -26,3 +26,4 @@ setup:
     - webots
     - youtube
     - hyprland
+    - keyring

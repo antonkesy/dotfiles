@@ -1,0 +1,8 @@
+package:
+  hint: "Keyring"
+  depends_on: []
+  ubuntu:
+    - ""
+  arch:
+    - "sudo pacman -S --noconfirm gnome-keyring gcr seahorse"
+    - "systemctl --user enable --now gcr-ssh-agent.socket"
