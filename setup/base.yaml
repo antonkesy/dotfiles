@@ -26,3 +26,4 @@ setup:
     - meson
     - lazygit
     - lvim
+    - keys
