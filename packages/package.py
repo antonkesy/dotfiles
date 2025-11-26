@@ -59,6 +59,21 @@ def install_package(package_name: str):
 
     package_info = get_package_info(package_name)
 
+    if "confirm" in package_info:
+        choice = input(f"Install {package_name}? (y)es (n)o (s)kip: ").strip().lower()
+
+        if choice == "y":
+            pass
+        elif choice == "n":
+            print("Aborting install")
+            exit(-1)
+        elif choice == "s":
+            print(f"Skipping package: {package_name}")
+            return
+        else:
+            print("Invalid input. Try again")
+            return install_package(package_name)
+
     depends_on_packages = get_package_info(package_name).get("depends_on", [])
     print(f"Dependent setups: {depends_on_packages}")
     for pkg in depends_on_packages:

@@ -1,5 +1,6 @@
 package:
   hint: "SSH and GPG keys"
+  confirm:
   ubuntu:
     # SSH key
     - "ssh-keygen -t ed25519 -C 'antonkesy@gmail.com' -f ~/.ssh/github"
