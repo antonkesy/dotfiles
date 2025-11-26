@@ -7,9 +7,11 @@ package:
     - "sudo unzip -o ./Hack.zip -d /usr/share/fonts/truetype/hack/"
     - "fc-cache -f -v"
   arch:
+    - rm -rf ~/.cache/fontconfig
     - "sudo pacman -S --noconfirm --needed unzip wget curl fontconfig"
     - "wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Hack.zip"
     - "sudo mkdir /usr/share/fonts/truetype/hack/ -p"
     - "sudo unzip -o ./Hack.zip -d /usr/share/fonts/truetype/hack/"
     - "fc-cache -f -v"
-    - sudo pacman -S --noconfirm --needed ttf-jetbrains-mono-nerd ttf-dejavu
+    - sudo pacman -S --noconfirm --needed ttf-jetbrains-mono-nerd ttf-dejavu ttf-nerd-fonts-symbols ttf-ubuntu-font-family noto-fonts noto-fonts-emoji noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-dejavu ttf-liberation
+    - "fc-cache -f -v"
