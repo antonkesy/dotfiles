@@ -25,7 +25,3 @@ package:
     - "sudo pacman -S --noconfirm --needed hyprland"
     # Optional dependencies for Hyprland plugins
     - "sudo pacman -S --noconfirm --needed cpio glaze hyprland-protocols uwsm"
-    # - "sudo pacman -S --noconfirm --needed xdg-desktop-portal xdg-desktop-portal-hyprland wlroots wayland wayland-protocols wayland-utils mesa vulkan-icd-loader"
-    # - "sudo pacman -S --noconfirm --needed wofi waybar grim slurp swappy wl-clipboard cliphist polkit-gnome brightnessctl pamixer pavucontrol networkmanager network-manager-applet"
-    # - "sudo pacman -S --noconfirm --needed pipewire pipewire-pulse wireplumber"
-    # - "sudo pacman -S --noconfirm --needed kitty fastfetch btop thunar thunar-archive-plugin"
