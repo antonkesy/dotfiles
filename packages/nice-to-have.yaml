@@ -26,4 +26,4 @@ package:
     - "sudo pacman -S --noconfirm --needed exfat-utils ntfs-3g"
     - "sudo flatpak -y install flathub io.missioncenter.MissionCenter"
     - "sudo flatpak -y install flathub net.ankiweb.Anki"
-    - "cargo install exa bat ripgrep fd-find procs bottom"
+    - "cargo install exa bat ripgrep fd-find procs bottom dysk"
