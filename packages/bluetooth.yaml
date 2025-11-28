@@ -1,0 +1,6 @@
+package:
+  hint: "Bluetooth tools"
+  ubuntu:
+    - "echo 'not required'"
+  arch:
+    - "sudo pacman -S --noconfirm bluez bluez-utils bluetui"
