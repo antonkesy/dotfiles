@@ -25,3 +25,5 @@ package:
     - "sudo pacman -S --noconfirm --needed hyprland"
     # Optional dependencies for Hyprland plugins
     - "sudo pacman -S --noconfirm --needed cpio glaze hyprland-protocols uwsm"
+    # Settings
+    - yay -S --noconfirm better-control-git
