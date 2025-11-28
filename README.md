@@ -58,6 +58,8 @@ cd dotfiles && make desktop
 - `make test_ubuntu_24_04`
 - `make test_ubuntu_25_04`
 
-### Limitations
+## Workarounds
 
-- snap not working in docker
+### Gnome Online Accounts on Hyprland
+
+- Just login through Gnome session :)
