@@ -4,14 +4,13 @@
 - name: Install Node.js
   become: true
   pacman:
-    name:
-      - nodejs
-      - npm
+    name: "{{ node_packages }}"
     state: present
 
 - name: Install global npm packages
   npm:
     name: "{{ item }}"
     global: true
-  loop: "{{ node_global_packages }}"
+  loop: "{{ node_npm_packages }}"
   become: true
+  when: node_npm_packages | length > 0

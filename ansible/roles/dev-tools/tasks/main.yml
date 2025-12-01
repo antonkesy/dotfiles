@@ -4,17 +4,5 @@
 - name: Install dev tools
   become: true
   pacman:
-    name:
-      - git
-      - ffmpeg
-      - pandoc
-      - pdfarranger
-      - curl
-      - qt6-base
-      - base-devel
-      - vim
-      - vi
-      - less
-      - exfat-utils
-      - ntfs-3g
+    name: "{{ dev_tools_packages }}"
     state: present

@@ -1,26 +1,5 @@
 ---
-# Neovim setup
-
-- name: Install neovim build dependencies
-  become: true
-  pacman:
-    name:
-      - ninja
-      - gettext
-      - cmake
-      - unzip
-      - curl
-      - base-devel
-    state: present
-
-- name: Install pipx tools for neovim
-  command: "pipx install {{ item }}"
-  loop:
-    - bandit
-    - flake8
-  register: pipx_result
-  changed_when: "'installed package' in pipx_result.stdout"
-  failed_when: false
+# Neovim setup (build from source - packages installed via packages role)
 
 - name: Clean neovim build directories
   become: true

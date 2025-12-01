@@ -16,24 +16,17 @@
       tags: always
 
   roles:
-    # Core setup
-    - { role: dotfiles, tags: ["base", "dotfiles"] }
+    # AUR helpers (must be first for yay)
     - { role: aur-helpers, tags: ["base", "aur"] }
-    - { role: base-packages, tags: ["base", "packages"] }
+
+    # All packages (pacman, aur, pipx, npm, systemd)
+    - { role: packages, tags: ["base", "packages"] }
+
+    # Configuration roles (no package installs)
+    - { role: dotfiles, tags: ["base", "dotfiles"] }
     - { role: zsh, tags: ["base", "zsh"] }
     - { role: oh-my-zsh, tags: ["base", "zsh", "oh-my-zsh"] }
     - { role: git, tags: ["base", "git"] }
-    - { role: dev-tools, tags: ["base", "dev"] }
-
-    # Programming languages
-    - { role: python, tags: ["base", "python", "lang"] }
-    - { role: node, tags: ["base", "node", "lang"] }
     - { role: rust, tags: ["base", "rust", "lang"] }
-    - { role: golang, tags: ["base", "golang", "lang"] }
-
-    # Editors
     - { role: neovim, tags: ["base", "neovim", "editor"] }
     - { role: lvim, tags: ["base", "lvim", "editor"] }
-
-    # Desktop (optional)
-    - { role: desktop, tags: ["desktop"] }

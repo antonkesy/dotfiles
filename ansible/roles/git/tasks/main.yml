@@ -1,13 +1,5 @@
 ---
-# Git setup
-
-- name: Install git packages
-  become: true
-  pacman:
-    name:
-      - git
-      - git-lfs
-    state: present
+# Git setup (configuration only - packages installed via packages role)
 
 - name: Configure git user
   git_config:

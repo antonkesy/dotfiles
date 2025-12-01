@@ -1,0 +1,10 @@
+---
+# Install all global npm packages
+
+- name: Install global npm packages
+  npm:
+    name: "{{ item }}"
+    global: true
+  loop: "{{ npm_packages }}"
+  become: true
+  when: npm_packages | length > 0
