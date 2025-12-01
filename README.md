@@ -13,6 +13,12 @@ git clone https://github.com/antonkesy/dotfiles.git
 make desktop
 ```
 
+## Targets
+
+- `make dotfiles` - Links only dotfiles
+- `make base` - Minimal setup (for example for WSL)
+- `make desktop` - Full desktop setup
+
 ## Currently Used With
 
 - Arch Linux
