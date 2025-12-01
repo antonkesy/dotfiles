@@ -32,3 +32,9 @@ make desktop
 ### Gnome Online Accounts on Hyprland
 
 - Just login through Gnome session :)
+
+## Tests
+
+```bash
+make test
+```

@@ -1,4 +1,4 @@
-.PHONY: all base desktop dotfiles install-ansible help test test-build test-shell clean
+.PHONY: all base desktop dotfiles install-ansible help test test-build test-shell test-dotfiles test-base test-desktop clean
 
 all: base
 
@@ -6,25 +6,20 @@ install-ansible:
 	sudo pacman -Syu --noconfirm
 	sudo pacman -S --noconfirm ansible
 
+dotfiles:
+	cd ansible && ansible-playbook site.yml --tags dotfiles -v
+
 base: install-ansible
-	cd ansible && ansible-playbook site.yml --tags base
+	cd ansible && ansible-playbook site.yml --tags base -v
 
 desktop: install-ansible
-	cd ansible && ansible-playbook site.yml
-
-dotfiles:
-	cd ansible && ansible-playbook site.yml --tags dotfiles
-
-role:
-	@echo "Usage: make role ROLE=<role-name>"
-	@echo "Example: make role ROLE=neovim"
-	cd ansible && ansible-playbook site.yml --tags $(ROLE)
+	cd ansible && ansible-playbook site.yml -v
 
 check:
-	cd ansible && ansible-playbook site.yml --check
+	cd ansible && ansible-playbook site.yml --check -v
 
-tags:
-	cd ansible && ansible-playbook site.yml --list-tags
+test: test-dotfiles test-base test-desktop
+	echo "All tests passed."
 
 test-build:
 	docker build -f ./docker/Arch.Dockerfile -t dotfiles-test .
@@ -32,8 +27,14 @@ test-build:
 test-shell: test-build
 	docker run -it --rm dotfiles-test bash
 
-test: test-build
-	docker run --rm dotfiles-test bash -c "cd ansible && ansible-playbook site.yml --tags base --skip-tags aur"
+test-dotfiles: test-build
+	docker run --rm dotfiles-test bash -c "make dotfiles"
+
+test-base: test-build
+	docker run --rm dotfiles-test bash -c "make base"
+
+test-desktop: test-build
+	docker run --rm dotfiles-test bash -c "make desktop"
 
 clean:
 	rm -rf ./build
