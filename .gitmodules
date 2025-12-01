@@ -1,9 +1,3 @@
-[submodule "built_from_source/neovim/neovim"]
-	path = distros/ubuntu/built_from_source/neovim
-	url = ../../neovim/neovim
-[submodule "built_from_source/alacritty/alacritty"]
-	path = distros/ubuntu/built_from_source/alacritty
-	url = ../../alacritty/alacritty
 [submodule "ubuntu/extensions/gSnap"]
 	path = distros/ubuntu/extensions/gSnap
 	url = ../../GnomeSnapExtensions/gSnap
@@ -34,9 +28,6 @@
 [submodule "ubuntu/extensions/Vitals"]
 	path = distros/ubuntu/extensions/Vitals
 	url = ../../corecoding/Vitals.git
-[submodule "built_from_source/CMake/CMake"]
-	path = distros/ubuntu/built_from_source/CMake
-	url = https://github.com/Kitware/CMake.git
 [submodule "distros/arch/built_from_source/yay"]
 	path = distros/arch/built_from_source/yay
 	url = https://aur.archlinux.org/yay.git
