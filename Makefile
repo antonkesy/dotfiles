@@ -1,19 +1,19 @@
+IN_DOCKER ?= 0
+BECOME_FLAG := $(if $(filter 1,$(IN_DOCKER)),, --ask-become-pass)
+
 .PHONY: all base desktop dotfiles install-ansible help test test-build test-shell test-dotfiles test-base test-desktop clean
 
-all: base
-
-install-ansible:
-	sudo pacman -Syu --noconfirm
-	sudo pacman -S --noconfirm ansible
+all:
+	echo "Select a target: dotfiles, base, desktop, test, clean"
 
 dotfiles:
 	cd ansible && ansible-playbook site.yml --tags dotfiles -v
 
-base: install-ansible
-	cd ansible && ansible-playbook site.yml --tags base -v
+base:
+	cd ansible && ansible-playbook $(BECOME_FLAG) site.yml --tags base -v
 
-desktop: install-ansible
-	cd ansible && ansible-playbook site.yml -v
+desktop:
+	cd ansible && ansible-playbook $(BECOME_FLAG) site.yml -v
 
 check:
 	cd ansible && ansible-playbook site.yml --check -v
@@ -27,14 +27,14 @@ test-build:
 test-shell: test-build
 	docker run -it --rm dotfiles-test bash
 
-test-dotfiles: test-build
-	docker run --rm dotfiles-test bash -c "make dotfiles"
-
 test-base: test-build
-	docker run --rm dotfiles-test bash -c "make base"
+	docker run --rm dotfiles-test bash -c "./prerequisites.sh && IN_DOCKER=1 make base"
 
 test-desktop: test-build
-	docker run --rm dotfiles-test bash -c "make desktop"
+	docker run --rm dotfiles-test bash -c "./prerequisites.sh && IN_DOCKER=1 make desktop"
+
+test-dotfiles: test-build
+	docker run --rm dotfiles-test bash -c "./prerequisites.sh && IN_DOCKER=1 make dotfiles"
 
 clean:
 	rm -rf ./build

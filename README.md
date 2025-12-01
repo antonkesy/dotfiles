@@ -4,12 +4,16 @@ Arch Linux dotfiles and system setup using Ansible.
 
 ## Fresh Arch Install
 
+- Ensure `sudo` is available for the user
+  - `pacman -S --noconfirm --needed sudo` as `root`/`su`
+
 ```bash
 curl https://github.com/antonkesy/dotfiles/blob/main/arch_install_config.json
 # setup all missing parts like partitioning, users, etc.
 archinstall --config arch_install_config.json
 mkdir -p ~/workspace && cd ~/workspace
 git clone --recursive https://github.com/antonkesy/dotfiles.git
+./prerequisites.sh
 make desktop
 ```
 
