@@ -1,7 +1,5 @@
 # dotfiles
 
-WIP: migration from Ubuntu to Arch Linux
-
 TODO: why not ansible? Because!
 
 ## TL:DR
@@ -14,33 +12,9 @@ For guided Arch install before applying dotfiles use:
 archinstall --config https://github.com/antonkesy/dotfiles/tree/main/distros/arch/user_configuration.json
 ```
 
-### Ubuntu
-
-```
-sudo apt-get -y update && sudo apt-get -y install git locales tzdata sudo build-essential && git clone --recursive https://github.com/antonkesy/dotfiles.git && cd dotfiles && make desktop
-```
-
-## Step by step
-
-```
-sudo apt-get -y update && sudo apt-get -y install git locales tzdata sudo build-essential
-```
-
-```
-git clone --recursive https://github.com/antonkesy/dotfiles.git
-```
-
-```
-git clone --recursive git@github.com:antonkesy/dotfiles.git
-```
-
-```
-cd dotfiles && make desktop
-```
-
 ## Currently used with ...
 
-- Arch/Ubuntu 24.04.3 LTS
+- Arch
 - Nvidia RTX 4070
 - [tmux](https://github.com/tmux/tmux/wiki) + [zsh](https://ohmyz.sh/)
 - [LunarVim](https://www.lunarvim.org/)
