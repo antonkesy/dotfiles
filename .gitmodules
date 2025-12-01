@@ -7,16 +7,6 @@
 [submodule "home/.tmux/plugins/tpm"]
 	path = home/.tmux/plugins/tpm
 	url = ../../tmux-plugins/tpm.git
-[submodule "distros/arch/built_from_source/yay"]
-	path = distros/arch/built_from_source/yay
-	url = https://aur.archlinux.org/yay.git
-[submodule "distros/arch/built_from_source/paru"]
-	path = distros/arch/built_from_source/paru
-	url = https://aur.archlinux.org/paru.git
-	ignore = dirty
-[submodule "distros/arch/built_from_source/neovim"]
-	path = distros/arch/built_from_source/neovim
-	url = https://github.com/neovim/neovim.git
 [submodule "home/keypocalypse-now"]
 	path = home/keypocalypse-now
 	url = https://github.com/antonkesy/keypocalypse-now.git
