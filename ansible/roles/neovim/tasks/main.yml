@@ -1,0 +1,45 @@
+---
+# Neovim setup
+
+- name: Install neovim build dependencies
+  become: true
+  pacman:
+    name:
+      - ninja
+      - gettext
+      - cmake
+      - unzip
+      - curl
+      - base-devel
+    state: present
+
+- name: Install pipx tools for neovim
+  command: "pipx install {{ item }}"
+  loop:
+    - bandit
+    - flake8
+  register: pipx_result
+  changed_when: "'installed package' in pipx_result.stdout"
+  failed_when: false
+
+- name: Clean neovim build directories
+  become: true
+  file:
+    path: "{{ dotfiles_dir }}/distros/arch/built_from_source/neovim/{{ item }}"
+    state: absent
+  loop:
+    - .deps
+    - build
+
+- name: Build neovim
+  become: true
+  make:
+    chdir: "{{ dotfiles_dir }}/distros/arch/built_from_source/neovim"
+    params:
+      CMAKE_BUILD_TYPE: RelWithDebInfo
+
+- name: Install neovim
+  become: true
+  make:
+    chdir: "{{ dotfiles_dir }}/distros/arch/built_from_source/neovim"
+    target: install

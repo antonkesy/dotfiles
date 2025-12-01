@@ -1,0 +1,17 @@
+---
+# Node.js setup
+
+- name: Install Node.js
+  become: true
+  pacman:
+    name:
+      - nodejs
+      - npm
+    state: present
+
+- name: Install global npm packages
+  npm:
+    name: "{{ item }}"
+    global: true
+  loop: "{{ node_global_packages }}"
+  become: true

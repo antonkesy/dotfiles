@@ -1,0 +1,14 @@
+---
+# Global variables - customize here
+
+# Git configuration
+git_user_name: "Anton Kesy"
+git_user_email: "antonkesy@gmail.com"
+git_editor: "lvim"
+
+# Node.js global packages to install
+node_global_packages: []
+
+# Additional base packages
+extra_packages: []
+extra_aur_packages: []

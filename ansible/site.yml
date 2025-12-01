@@ -1,0 +1,43 @@
+---
+# Main playbook - run with: ansible-playbook site.yml
+# Or specific tags: ansible-playbook site.yml --tags "base"
+#                   ansible-playbook site.yml --tags "dotfiles"
+
+- name: Setup Arch Linux workstation
+  hosts: local
+  become: false
+
+  vars:
+    dotfiles_dir: "{{ playbook_dir | dirname }}"
+    user_name: "{{ ansible_user_id }}"
+    user_home: "{{ ansible_env.HOME }}"
+
+  pre_tasks:
+    - name: Update pacman cache
+      become: true
+      pacman:
+        update_cache: true
+      tags: always
+
+  roles:
+    # Core setup
+    - { role: dotfiles, tags: ["base", "dotfiles"] }
+    - { role: aur-helpers, tags: ["base", "aur"] }
+    - { role: base-packages, tags: ["base", "packages"] }
+    - { role: zsh, tags: ["base", "zsh"] }
+    - { role: oh-my-zsh, tags: ["base", "zsh", "oh-my-zsh"] }
+    - { role: git, tags: ["base", "git"] }
+    - { role: dev-tools, tags: ["base", "dev"] }
+
+    # Programming languages
+    - { role: python, tags: ["base", "python", "lang"] }
+    - { role: node, tags: ["base", "node", "lang"] }
+    - { role: rust, tags: ["base", "rust", "lang"] }
+    - { role: golang, tags: ["base", "golang", "lang"] }
+
+    # Editors
+    - { role: neovim, tags: ["base", "neovim", "editor"] }
+    - { role: lvim, tags: ["base", "lvim", "editor"] }
+
+    # Desktop (optional)
+    - { role: desktop, tags: ["desktop"] }
