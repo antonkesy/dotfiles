@@ -1,8 +1,4 @@
 ---
-# Main playbook - run with: ansible-playbook site.yml
-# Or specific tags: ansible-playbook site.yml --tags "base"
-#                   ansible-playbook site.yml --tags "dotfiles"
-
 - name: Setup Arch Linux workstation
   hosts: local
   become: false
