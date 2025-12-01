@@ -1,0 +1,25 @@
+---
+# Git setup
+
+- name: Install git packages
+  become: true
+  pacman:
+    name:
+      - git
+      - git-lfs
+    state: present
+
+- name: Configure git user
+  git_config:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    scope: global
+  loop:
+    - { name: "user.name", value: "{{ git_user_name }}" }
+    - { name: "user.email", value: "{{ git_user_email }}" }
+    - { name: "core.editor", value: "{{ git_editor }}" }
+    - { name: "init.defaultBranch", value: "main" }
+    - { name: "help.autocorrect", value: "10" }
+    - { name: "bash.showDirtyState", value: "true" }
+    - { name: "bash.showUntrackedFiles", value: "true" }
+    - { name: "pull.rebase", value: "true" }

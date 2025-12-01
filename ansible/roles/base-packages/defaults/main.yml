@@ -1,0 +1,26 @@
+---
+base_packages:
+  # Core tools
+  - git
+  - vim
+  - vi
+  - less
+  - curl
+  - wget
+  - unzip
+  - base-devel
+
+  # Development
+  - cmake
+  - ninja
+  - meson
+  - ffmpeg
+  - pandoc
+  - pdfarranger
+  - qt6-base
+
+  # Filesystem
+  - exfat-utils
+  - ntfs-3g
+
+aur_packages: []

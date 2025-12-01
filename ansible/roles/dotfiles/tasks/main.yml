@@ -1,0 +1,60 @@
+---
+# Dotfiles linking role
+
+- name: Create config directories
+  file:
+    path: "{{ user_home }}/{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - .config/alacritty
+    - .config/zsh
+    - .config/lvim/lua
+    - .config/lvim/spell
+    - .config/gSnap
+    - .tmux/plugins/tpm
+
+- name: Create untracked zsh config
+  file:
+    path: "{{ dotfiles_dir }}/home/.config/zsh/untracked.zsh"
+    state: touch
+    mode: "0644"
+    modification_time: preserve
+    access_time: preserve
+
+- name: Remove existing zsh config directory
+  file:
+    path: "{{ user_home }}/.config/zsh"
+    state: absent
+
+- name: Link config directories
+  file:
+    src: "{{ dotfiles_dir }}/home/{{ item }}"
+    dest: "{{ user_home }}/{{ item }}"
+    state: link
+    force: true
+  loop:
+    - .config/alacritty
+    - .config/zsh
+    - .config/lvim/lua
+    - .tmux/plugins/tpm
+
+- name: Link config files
+  file:
+    src: "{{ dotfiles_dir }}/home/{{ item }}"
+    dest: "{{ user_home }}/{{ item }}"
+    state: link
+    force: true
+  loop:
+    - .config/monitors.xml
+    - .config/lvim/config.lua
+    - .config/gSnap/layouts.json
+    - .spacemacs
+    - .tmux.conf
+    - .zshrc
+
+- name: Run keypocalypse-now link script
+  command: ./link.sh
+  args:
+    chdir: "{{ dotfiles_dir }}/home/keypocalypse-now"
+  changed_when: false

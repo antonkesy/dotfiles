@@ -37,8 +37,11 @@ RUN (groupdel $(getent group ${GID} | cut -d: -f1) 2>/dev/null || true) \
 USER ${USERNAME}
 WORKDIR /home/${USERNAME}
 
-FROM base AS minimum
-COPY --chown=${USERNAME}:${USERNAME} . /home/${USERNAME}/dotfiles
+FROM base AS test
+# Install ansible
+RUN sudo pacman -S --noconfirm ansible
 
-FROM minimum AS test
+COPY --chown=${USERNAME}:${USERNAME} . /home/${USERNAME}/dotfiles
+WORKDIR /home/${USERNAME}/dotfiles
+
 CMD ["bash"]

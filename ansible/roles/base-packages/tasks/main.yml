@@ -1,0 +1,13 @@
+---
+# Base packages for Arch Linux
+
+- name: Install base packages
+  become: true
+  pacman:
+    name: "{{ base_packages }}"
+    state: present
+
+- name: Install AUR packages
+  command: "yay -S --noconfirm --needed {{ item }}"
+  loop: "{{ aur_packages }}"
+  changed_when: false

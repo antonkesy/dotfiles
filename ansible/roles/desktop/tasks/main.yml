@@ -1,0 +1,88 @@
+---
+# Desktop environment (GNOME + Hyprland)
+
+- name: Install GNOME
+  become: true
+  pacman:
+    name:
+      - gnome
+      - gnome-extra
+      - gnome-tweaks
+      - gnome-shell-extensions
+    state: present
+
+- name: Install GNOME utilities
+  become: true
+  pacman:
+    name:
+      - baobab
+      - file-roller
+      - sushi
+      - gnome-calculator
+      - gnome-system-monitor
+      - gnome-disk-utility
+      - gnome-font-viewer
+      - simple-scan
+      - evince
+    state: present
+
+- name: Enable GDM
+  become: true
+  systemd:
+    name: gdm
+    enabled: true
+    state: started
+  failed_when: false
+
+- name: Install network and bluetooth
+  become: true
+  pacman:
+    name:
+      - networkmanager
+      - bluez
+      - bluez-utils
+      - cups
+      - cups-pdf
+    state: present
+
+- name: Enable network services
+  become: true
+  systemd:
+    name: "{{ item }}"
+    enabled: true
+    state: started
+  loop:
+    - NetworkManager
+    - bluetooth
+    - cups
+  failed_when: false
+
+- name: Install media codecs
+  become: true
+  pacman:
+    name:
+      - gst-libav
+      - gst-plugins-good
+      - gst-plugins-bad
+      - gst-plugins-ugly
+      - ffmpeg
+    state: present
+
+- name: Install Hyprland
+  become: true
+  pacman:
+    name:
+      - hyprland
+      - cpio
+      - glaze
+      - hyprland-protocols
+      - uwsm
+    state: present
+
+- name: Install AUR desktop packages
+  command: "yay -S --noconfirm --needed {{ item }}"
+  loop:
+    - yaru-theme
+    - better-control-git
+  changed_when: false
+  failed_when: false

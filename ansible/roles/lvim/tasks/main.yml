@@ -1,0 +1,39 @@
+---
+# LunarVim setup
+
+- name: Install LunarVim dependencies
+  become: true
+  pacman:
+    name:
+      - python-pynvim
+      - xclip
+      - curl
+      - npm
+      - ruby
+      - r
+      - php
+      - llvm
+      - lldb
+      - hunspell
+    state: present
+
+- name: Uninstall existing LunarVim
+  shell: bash ~/.local/share/lunarvim/lvim/utils/installer/uninstall.sh
+  args:
+    removes: "{{ user_home }}/.local/share/lunarvim"
+  failed_when: false
+
+- name: Install LunarVim
+  shell: |
+    source {{ user_home }}/.cargo/env 2>/dev/null || true
+    export PATH="{{ user_home }}/.cargo/bin:{{ user_home }}/.local/bin:$PATH"
+    bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.4/neovim-0.9/utils/installer/install.sh) --no-install-dependencies
+  args:
+    executable: /bin/bash
+    creates: "{{ user_home }}/.local/bin/lvim"
+
+- name: Install neovim via pipx
+  command: pipx install neovim --include-deps
+  register: pipx_result
+  changed_when: "'installed package' in pipx_result.stdout"
+  failed_when: false
