@@ -10,29 +10,29 @@ install-ansible:
 
 # Run full base setup
 base: install-ansible
-	cd ansible && ansible-playbook site.yml --tags base
+	ansible-playbook site.yml --tags base
 
 # Run desktop setup (includes base)
 desktop: install-ansible
-	cd ansible && ansible-playbook site.yml
+	ansible-playbook site.yml
 
 # Only link dotfiles
 dotfiles:
-	cd ansible && ansible-playbook site.yml --tags dotfiles
+	ansible-playbook site.yml --tags dotfiles
 
 # Run specific role
 role:
 	@echo "Usage: make role ROLE=<role-name>"
 	@echo "Example: make role ROLE=neovim"
-	cd ansible && ansible-playbook site.yml --tags $(ROLE)
+	ansible-playbook site.yml --tags $(ROLE)
 
 # Check mode (dry run)
 check:
-	cd ansible && ansible-playbook site.yml --check
+	ansible-playbook site.yml --check
 
 # List all available tags
 tags:
-	cd ansible && ansible-playbook site.yml --list-tags
+	ansible-playbook site.yml --list-tags
 
 # Docker testing
 test-build:

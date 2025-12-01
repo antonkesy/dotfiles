@@ -1,18 +1,20 @@
 ---
-# Dotfiles linking role
+# Dotfiles linking role using GNU Stow
 
-- name: Create config directories
+- name: Ensure stow is installed
+  package:
+    name: stow
+    state: present
+  become: true
+
+- name: Create directories that need to exist before stow runs
   file:
     path: "{{ user_home }}/{{ item }}"
     state: directory
     mode: "0755"
   loop:
-    - .config/alacritty
-    - .config/zsh
-    - .config/lvim/lua
     - .config/lvim/spell
-    - .config/gSnap
-    - .tmux/plugins/tpm
+    - .tmux/plugins
 
 - name: Create untracked zsh config
   file:
@@ -27,34 +29,14 @@
     path: "{{ user_home }}/.config/zsh"
     state: absent
 
-- name: Link config directories
-  file:
-    src: "{{ dotfiles_dir }}/home/{{ item }}"
-    dest: "{{ user_home }}/{{ item }}"
-    state: link
-    force: true
-  loop:
-    - .config/alacritty
-    - .config/zsh
-    - .config/lvim/lua
-    - .tmux/plugins/tpm
+- name: Stow dotfiles
+  command: stow --restow --target={{ user_home }} home
+  args:
+    chdir: "{{ dotfiles_dir }}"
+  changed_when: false
 
-- name: Link config files
-  file:
-    src: "{{ dotfiles_dir }}/home/{{ item }}"
-    dest: "{{ user_home }}/{{ item }}"
-    state: link
-    force: true
-  loop:
-    - .config/monitors.xml
-    - .config/lvim/config.lua
-    - .config/gSnap/layouts.json
-    - .spacemacs
-    - .tmux.conf
-    - .zshrc
-
-- name: Run keypocalypse-now link script
-  command: ./link.sh
+- name: Stow keypocalypse-now configs
+  command: stow --restow --target={{ user_home }} .config
   args:
     chdir: "{{ dotfiles_dir }}/home/keypocalypse-now"
   changed_when: false
