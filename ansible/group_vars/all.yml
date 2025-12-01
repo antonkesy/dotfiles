@@ -1,14 +1,129 @@
 ---
-# Global variables - customize here
+pacman_packages:
+  # Base / Core tools
+  - git
+  - vim
+  - vi
+  - less
+  - curl
+  - wget
+  - unzip
+  - base-devel
 
-# Git configuration
+  # Development tools
+  - ffmpeg
+  - pandoc
+  - pdfarranger
+  - qt6-base
+  - cmake
+  - ninja
+  - meson
+
+  # Filesystem support
+  - exfat-utils
+  - ntfs-3g
+
+  # Git
+  - git-lfs
+
+  # Terminal
+  - zsh
+
+  # Python
+  - python
+  - python-pip
+  - python-pipx
+  - python-virtualenv
+
+  # Node.js
+  - nodejs
+  - npm
+
+  # Go
+  - go
+
+  # Neovim build dependencies
+  - gettext
+
+  # LunarVim dependencies
+  - python-pynvim
+  - xclip
+  - ruby
+  - r
+  - php
+  - llvm
+  - lldb
+  - hunspell
+
+  # Desktop - GNOME
+  - gnome
+  - gnome-extra
+  - gnome-tweaks
+  - gnome-shell-extensions
+  - baobab # Disk usage analyzer
+  - file-roller # Archive manager
+  - sushi # File previewer
+  - gnome-calculator
+  - gnome-system-monitor
+  - gnome-disk-utility
+  - gnome-font-viewer
+  - simple-scan # Scanner app
+  - evince # PDF viewer
+
+  # Desktop - Network & Bluetooth
+  - networkmanager
+  - bluez
+  - bluez-utils
+  - cups
+  - cups-pdf
+
+  # Desktop - Media codecs (GStreamer)
+  - gst-libav
+  - gst-plugins-good
+  - gst-plugins-bad
+  - gst-plugins-ugly
+
+  # Desktop - Hyprland (Wayland compositor)
+  - hyprland
+  - cpio
+  - glaze
+  - hyprland-protocols
+  - uwsm
+
+aur_packages: # via yay
+  # Python versions
+  - python38
+  - python39
+  - python310
+  - python311
+  - python312
+
+  # Desktop themes & utils
+  - yaru-theme
+  - better-control-git
+
+pipx_packages:
+  # Git hooks
+  - pre-commit
+
+  # Jupyter
+  - jupyterlab
+  - notebook
+
+  # Neovim/LunarVim
+  - neovim
+  - bandit # Security linter
+  - flake8 # Style checker
+
+npm_packages: []
+
+systemd_services: # (to enable)
+  - gdm
+  - NetworkManager
+  - bluetooth
+  - cups
+
+# GIT CONFIGURATION
 git_user_name: "Anton Kesy"
 git_user_email: "antonkesy@gmail.com"
 git_editor: "lvim"
-
-# Node.js global packages to install
-node_global_packages: []
-
-# Additional base packages
-extra_packages: []
-extra_aur_packages: []

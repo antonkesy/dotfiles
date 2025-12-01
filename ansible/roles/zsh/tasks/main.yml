@@ -1,16 +1,10 @@
 ---
-# Zsh setup
+# Zsh setup (configuration only - packages installed via packages role)
 
 - name: Check if zsh is default shell
   shell: echo $SHELL
   register: current_shell
   changed_when: false
-
-- name: Install zsh
-  become: true
-  pacman:
-    name: zsh
-    state: present
 
 - name: Set zsh as default shell (root)
   become: true

@@ -4,5 +4,5 @@
 - name: Install Go
   become: true
   pacman:
-    name: go
+    name: "{{ golang_packages }}"
     state: present

@@ -1,0 +1,9 @@
+---
+# Install all AUR packages via yay
+
+- name: Install AUR packages
+  command: "yay -S --noconfirm --needed {{ item }}"
+  loop: "{{ aur_packages }}"
+  changed_when: false
+  failed_when: false
+  when: aur_packages | length > 0

@@ -1,88 +1,23 @@
 ---
 # Desktop environment (GNOME + Hyprland)
 
-- name: Install GNOME
+- name: Install desktop packages
   become: true
   pacman:
-    name:
-      - gnome
-      - gnome-extra
-      - gnome-tweaks
-      - gnome-shell-extensions
+    name: "{{ desktop_packages }}"
     state: present
 
-- name: Install GNOME utilities
-  become: true
-  pacman:
-    name:
-      - baobab
-      - file-roller
-      - sushi
-      - gnome-calculator
-      - gnome-system-monitor
-      - gnome-disk-utility
-      - gnome-font-viewer
-      - simple-scan
-      - evince
-    state: present
-
-- name: Enable GDM
-  become: true
-  systemd:
-    name: gdm
-    enabled: true
-    state: started
-  failed_when: false
-
-- name: Install network and bluetooth
-  become: true
-  pacman:
-    name:
-      - networkmanager
-      - bluez
-      - bluez-utils
-      - cups
-      - cups-pdf
-    state: present
-
-- name: Enable network services
+- name: Enable desktop services
   become: true
   systemd:
     name: "{{ item }}"
     enabled: true
     state: started
-  loop:
-    - NetworkManager
-    - bluetooth
-    - cups
+  loop: "{{ desktop_services }}"
   failed_when: false
-
-- name: Install media codecs
-  become: true
-  pacman:
-    name:
-      - gst-libav
-      - gst-plugins-good
-      - gst-plugins-bad
-      - gst-plugins-ugly
-      - ffmpeg
-    state: present
-
-- name: Install Hyprland
-  become: true
-  pacman:
-    name:
-      - hyprland
-      - cpio
-      - glaze
-      - hyprland-protocols
-      - uwsm
-    state: present
 
 - name: Install AUR desktop packages
   command: "yay -S --noconfirm --needed {{ item }}"
-  loop:
-    - yaru-theme
-    - better-control-git
+  loop: "{{ desktop_aur_packages }}"
   changed_when: false
   failed_when: false
