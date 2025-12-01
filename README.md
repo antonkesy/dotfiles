@@ -9,7 +9,7 @@ curl https://github.com/antonkesy/dotfiles/blob/main/arch_install_config.json
 # setup all missing parts like partitioning, users, etc.
 archinstall --config arch_install_config.json
 mkdir -p ~/workspace && cd ~/workspace
-git clone https://github.com/antonkesy/dotfiles.git
+git clone --recursive https://github.com/antonkesy/dotfiles.git
 make desktop
 ```
 
