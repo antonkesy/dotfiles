@@ -1,36 +1,25 @@
-# dotfiles
+# Dotfiles
 
-TODO: why not ansible? Because!
+Arch Linux dotfiles and system setup using Ansible.
 
-## TL:DR
-
-### Arch
-
-For guided Arch install before applying dotfiles use:
+## Fresh Arch Install
 
 ```bash
-archinstall --config https://github.com/antonkesy/dotfiles/tree/main/distros/arch/user_configuration.json
+curl https://github.com/antonkesy/dotfiles/blob/main/arch_install_config.json
+# setup all missing parts like partitioning, users, etc.
+archinstall --config arch_install_config.json
+mkdir -p ~/workspace && cd ~/workspace
+git clone https://github.com/antonkesy/dotfiles.git
+make desktop
 ```
 
-## Currently used with ...
+## Currently Used With
 
-- Arch
+- Arch Linux
 - Nvidia RTX 4070
 - [tmux](https://github.com/tmux/tmux/wiki) + [zsh](https://ohmyz.sh/)
 - [LunarVim](https://www.lunarvim.org/)
 - [Spacemacs](https://www.spacemacs.org/)
-
-## Packages
-
-- TODO: install packages depending on the OS (Ubuntu, Arch)
-- TODO: run specific package install with `python3 ./packages/package.py \[NAME\]+
-- TODO: test with `make test_packages`
-- TODO: test specific package with `pytest packages/test.py -vvv -k "NAME"`
-
-## Tests
-
-- `make test_ubuntu_24_04`
-- `make test_ubuntu_25_04`
 
 ## Workarounds
 

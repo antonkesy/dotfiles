@@ -1,4 +1,4 @@
-.PHONY: all base desktop dotfiles install-ansible help test test-build test-shell
+.PHONY: all base desktop dotfiles install-ansible help test test-build test-shell clean
 
 all: base
 
@@ -27,10 +27,14 @@ tags:
 	cd ansible && ansible-playbook site.yml --list-tags
 
 test-build:
-	docker build -f ./docker/Arch.Dockerfile -t dotfiles-test ..
+	docker build -f ./docker/Arch.Dockerfile -t dotfiles-test .
 
 test-shell: test-build
 	docker run -it --rm dotfiles-test bash
 
 test: test-build
 	docker run --rm dotfiles-test bash -c "cd ansible && ansible-playbook site.yml --tags base --skip-tags aur"
+
+clean:
+	rm -rf ./build
+	rm -rf ./.pytest_cache
