@@ -1,12 +1,3 @@
-[submodule "ubuntu/extensions/gSnap"]
-	path = distros/ubuntu/extensions/gSnap
-	url = ../../GnomeSnapExtensions/gSnap
-[submodule "ubuntu/extensions/gnome-shell-extension-lockkeys"]
-	path = distros/ubuntu/extensions/gnome-shell-extension-lockkeys
-	url = ../../kazysmaster/gnome-shell-extension-lockkeys
-[submodule "ubuntu/extensions/gnome-shell-extension-clipboard-indicator"]
-	path = distros/ubuntu/extensions/gnome-shell-extension-clipboard-indicator
-	url = ../../Tudmotu/gnome-shell-extension-clipboard-indicator
 [submodule "home/.config/lvim"]
 	path = home/.config/lvim
 	url = ../../antonkesy/nvim-config
@@ -16,18 +7,6 @@
 [submodule "home/.tmux/plugins/tpm"]
 	path = home/.tmux/plugins/tpm
 	url = ../../tmux-plugins/tpm.git
-[submodule "ubuntu/extensions/Draw-On-Gnome"]
-	path = distros/ubuntu/extensions/Draw-On-Gnome
-	url = ../../daveprowse/Draw-On-Gnome.git
-[submodule "ubuntu/extensions/display-configuration-switcher-gnome-extension"]
-	path = distros/ubuntu/extensions/display-configuration-switcher-gnome-extension
-	url = https://gitlab.com/knokelmaat/display-configuration-switcher-gnome-extension.git
-[submodule "ubuntu/extensions/gnome-shell-extension-activate-gnome"]
-	path = distros/ubuntu/extensions/gnome-shell-extension-activate-gnome
-	url = ../../isjerryxiao/gnome-shell-extension-activate-gnome.git
-[submodule "ubuntu/extensions/Vitals"]
-	path = distros/ubuntu/extensions/Vitals
-	url = ../../corecoding/Vitals.git
 [submodule "distros/arch/built_from_source/yay"]
 	path = distros/arch/built_from_source/yay
 	url = https://aur.archlinux.org/yay.git
