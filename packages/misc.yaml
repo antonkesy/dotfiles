@@ -1,8 +1,0 @@
-package:
-  hint: "Miscellaneous tools"
-  depends_on:
-    - haskell
-  ubuntu:
-    - "sudo apt install -y libreoffice"
-  arch:
-    - "sudo pacman -S --noconfirm --needed libreoffice"

@@ -1,8 +1,0 @@
-package:
-  hint: "YouTube downloader (yt-dlp)"
-  depends_on:
-    - "python"
-  ubuntu:
-    - "pipx install yt-dlp"
-  arch:
-    - "pipx install yt-dlp"

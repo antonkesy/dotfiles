@@ -1,8 +1,0 @@
-package:
-  hint: ".NET SDK"
-  ubuntu:
-    - "sudo add-apt-repository -y ppa:dotnet/backports"
-    - "sudo apt update -y"
-    - "sudo apt install -y dotnet8"
-  arch:
-    - "sudo pacman -S --noconfirm --needed dotnet-sdk"

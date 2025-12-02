@@ -1,7 +1,0 @@
-package:
-  hint: "LaTeX document preparation system"
-  ubuntu:
-    - "sudo apt install -y latexmk plantuml pandoc latexmk texlive-full"
-  arch:
-    - "sudo pacman -Syu --noconfirm --needed texlive-core texlive-bin texlive-latexextra texlive-science texlive-fontsextra texlive-pictures texlive-pstricks texlive-mathscience texlive-lang"
-    - "sudo pacman -S --noconfirm --needed plantuml pandoc"

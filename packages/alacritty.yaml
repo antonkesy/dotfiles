@@ -1,8 +1,0 @@
-package:
-  hint: "Alacritty"
-  depends_on: []
-  ubuntu:
-    - "sudo apt install -y cmake g++ pkg-config libfreetype-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev python3"
-    - "cd ./distros/ubuntu/built_from_source/alacritty/ && sudo rm -rf target && cargo build --release && chmod +x ./target/release/alacritty && sudo cp ./target/release/alacritty /usr/local/bin && tic -xe alacritty,alacritty-direct extra/alacritty.info"
-  arch:
-    - "sudo pacman -S --noconfirm --needed alacritty"

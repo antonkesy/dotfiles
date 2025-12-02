@@ -1,7 +1,0 @@
-package:
-  hint: "VirtualBox"
-  ubuntu:
-    - "sudo apt-get install -y virtualbox"
-    - "sudo apt update -y"
-  arch:
-    - "sudo pacman -S --noconfirm --needed virtualbox virtualbox-host-modules-arch"
