@@ -19,14 +19,29 @@
     dest: "{{ playbook_dir }}/../build/yay"
     version: master
     update: yes
+  become: false
 
-- name: Build and install yay
+- name: Build yay package
   ansible.builtin.shell: |
     cd {{ playbook_dir }}/../build/yay
-    makepkg -si --noconfirm
+    makepkg -sf --noconfirm
   args:
     executable: /bin/bash
-    creates: /usr/bin/yay
+  become: false
+  register: yay_build
+
+- name: Find yay package file
+  ansible.builtin.find:
+    paths: "{{ playbook_dir }}/../build/yay"
+    patterns: "yay-*.pkg.tar.zst"
+  register: yay_package
+
+- name: Install yay
+  become: true
+  community.general.pacman:
+    name: "{{ yay_package.files[0].path }}"
+    state: present
+  when: yay_package.files | length > 0
 
 - name: Clone paru repository
   ansible.builtin.git:
@@ -34,11 +49,26 @@
     dest: "{{ playbook_dir }}/../build/paru"
     version: master
     update: yes
+  become: false
 
-- name: Build and install paru
+- name: Build paru package
   ansible.builtin.shell: |
     cd {{ playbook_dir }}/../build/paru
-    makepkg -si --noconfirm
+    makepkg -sf --noconfirm
   args:
     executable: /bin/bash
-    creates: /usr/bin/paru
+  become: false
+  register: paru_build
+
+- name: Find paru package file
+  ansible.builtin.find:
+    paths: "{{ playbook_dir }}/../build/paru"
+    patterns: "paru-*.pkg.tar.zst"
+  register: paru_package
+
+- name: Install paru
+  become: true
+  community.general.pacman:
+    name: "{{ paru_package.files[0].path }}"
+    state: present
+  when: paru_package.files | length > 0
