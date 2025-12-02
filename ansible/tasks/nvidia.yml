@@ -14,7 +14,7 @@
   ansible.builtin.systemd:
     name: nvidia-persistenced.service
     enabled: true
-  when: ansible_virtualization_type != "docker"
+  when: ansible_facts['virtualization_type'] != "docker"
 
 - name: Install nvidia-container-toolkit from AUR
   kewlfft.aur.aur:
@@ -25,4 +25,4 @@
   become: true
   ansible.builtin.command: nvidia-ctk runtime configure --runtime=docker
   changed_when: false
-  when: ansible_virtualization_type != "docker"
+  when: ansible_facts['virtualization_type'] != "docker"
