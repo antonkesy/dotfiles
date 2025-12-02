@@ -1,0 +1,5 @@
+---
+- name: Install Dell laptop tools from AUR
+  kewlfft.aur.aur:
+    name: dell-powermanager-git
+    state: present

@@ -12,33 +12,31 @@ ENV TZ=Etc/UTC
 ENV LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 
-# Initialize keyring, upgrade, install essentials
-RUN pacman-key --init \
-    && pacman-key --populate archlinux \
-    && pacman -Syu --noconfirm \
-    && pacman -S --noconfirm --needed \
-       base-devel git sudo zsh tzdata \
-    && pacman -Scc --noconfirm
+# Install sudo
+RUN pacman -Syu --noconfirm
+RUN pacman -S --noconfirm --needed sudo
 
 # Set timezone (skip hwclock)
 RUN ln -sf /usr/share/zoneinfo/$TZ /etc/localtime
 
 # Generate locale
 RUN sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
-    && locale-gen
+  && locale-gen
 
-# Create user (handle existing GID/UID)
+# Create user (handle existing GID/UID) with sudo privileges without password
 RUN (groupdel $(getent group ${GID} | cut -d: -f1) 2>/dev/null || true) \
-    && (userdel $(getent passwd ${UID} | cut -d: -f1) 2>/dev/null || true) \
-    && groupadd -g ${GID} ${USERNAME} \
-    && useradd -m -u ${UID} -g ${GID} -s /bin/bash ${USERNAME} \
-    && echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+  && (userdel $(getent passwd ${UID} | cut -d: -f1) 2>/dev/null || true) \
+  && groupadd -g ${GID} ${USERNAME} \
+  && useradd -m -u ${UID} -g ${GID} -s /bin/bash ${USERNAME} \
+  && echo "${USERNAME} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${USERNAME} \
+  && chmod 440 /etc/sudoers.d/${USERNAME}
 
 USER ${USERNAME}
 WORKDIR /home/${USERNAME}
 
-FROM base AS minimum
-COPY --chown=${USERNAME}:${USERNAME} . /home/${USERNAME}/dotfiles
+COPY --chown=${USERNAME}:${USERNAME} . /home/${USERNAME}/workspace/dotfiles
+WORKDIR /home/${USERNAME}/workspace/dotfiles
 
-FROM minimum AS test
+ENV ANSIBLE_BECOME=false
+
 CMD ["bash"]

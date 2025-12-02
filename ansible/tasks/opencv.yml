@@ -1,0 +1,11 @@
+---
+- name: Install OpenCV packages
+  become: true
+  community.general.pacman:
+    name:
+      - opencv
+      - python-opencv
+      - hdf5
+      - vtk
+      - glew
+    state: present

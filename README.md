@@ -1,65 +1,44 @@
-# dotfiles
+# Dotfiles
 
-WIP: migration from Ubuntu to Arch Linux
+Arch Linux dotfiles and system setup using Ansible.
 
-TODO: why not ansible? Because!
+## Fresh Arch Install
 
-## TL:DR
-
-### Arch
-
-For guided Arch install before applying dotfiles use:
+- Ensure `sudo` is available for the user
+  - `pacman -S --noconfirm --needed sudo` as `root`/`su`
 
 ```bash
-archinstall --config https://github.com/antonkesy/dotfiles/tree/main/distros/arch/user_configuration.json
-```
-
-### Ubuntu
-
-```
-sudo apt-get -y update && sudo apt-get -y install git locales tzdata sudo build-essential && git clone --recursive https://github.com/antonkesy/dotfiles.git && cd dotfiles && make desktop
-```
-
-## Step by step
-
-```
-sudo apt-get -y update && sudo apt-get -y install git locales tzdata sudo build-essential
-```
-
-```
+curl https://github.com/antonkesy/dotfiles/blob/main/arch_install_config.json
+# setup all missing parts like partitioning, users, etc.
+archinstall --config arch_install_config.json
+mkdir -p ~/workspace && cd ~/workspace
 git clone --recursive https://github.com/antonkesy/dotfiles.git
+./prerequisites.sh
+make desktop
 ```
 
-```
-git clone --recursive git@github.com:antonkesy/dotfiles.git
-```
+## Targets
 
-```
-cd dotfiles && make desktop
-```
+- `make dotfiles` - Links only dotfiles
+- `make base` - Minimal setup (for example for WSL)
+- `make desktop` - Full desktop setup
 
-## Currently used with ...
+## Currently Used With
 
-- Arch/Ubuntu 24.04.3 LTS
+- Arch Linux
 - Nvidia RTX 4070
 - [tmux](https://github.com/tmux/tmux/wiki) + [zsh](https://ohmyz.sh/)
 - [LunarVim](https://www.lunarvim.org/)
 - [Spacemacs](https://www.spacemacs.org/)
-
-## Packages
-
-- TODO: install packages depending on the OS (Ubuntu, Arch)
-- TODO: run specific package install with `python3 ./packages/package.py \[NAME\]+
-- TODO: test with `make test_packages`
-- TODO: test specific package with `pytest packages/test.py -vvv -k "NAME"`
-
-## Tests
-
-- `make test_ubuntu_24_04`
-- `make test_ubuntu_25_04`
 
 ## Workarounds
 
 ### Gnome Online Accounts on Hyprland
 
 - Just login through Gnome session :)
+
+## Tests
+
+```bash
+make test
+```

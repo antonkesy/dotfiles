@@ -1,0 +1,28 @@
+---
+- name: Install NVIDIA packages
+  become: true
+  community.general.pacman:
+    name:
+      - nvidia
+      - nvidia-utils
+      - nvidia-settings
+      - cuda
+    state: present
+
+- name: Enable nvidia-persistenced service
+  become: true
+  ansible.builtin.systemd:
+    name: nvidia-persistenced.service
+    enabled: true
+  when: ansible_facts['virtualization_type'] != "docker"
+
+- name: Install nvidia-container-toolkit from AUR
+  kewlfft.aur.aur:
+    name: nvidia-container-toolkit
+    state: present
+
+- name: Configure NVIDIA container toolkit for Docker
+  become: true
+  ansible.builtin.command: nvidia-ctk runtime configure --runtime=docker
+  changed_when: false
+  when: ansible_facts['virtualization_type'] != "docker"

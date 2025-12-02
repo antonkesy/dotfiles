@@ -1,0 +1,40 @@
+---
+- name: Ensure stow is installed
+  become: true
+  community.general.pacman:
+    name: stow
+    state: present
+
+- name: Create directories that need to exist before stow runs
+  ansible.builtin.file:
+    path: "{{ ansible_facts.env.HOME }}/{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - .config/lvim/spell
+    - .tmux/plugins
+
+- name: Create untracked zsh config
+  ansible.builtin.file:
+    path: "{{ playbook_dir | dirname }}/home/.config/zsh/untracked.zsh"
+    state: touch
+    mode: "0644"
+    modification_time: preserve
+    access_time: preserve
+
+- name: Remove existing zsh config directory
+  ansible.builtin.file:
+    path: "{{ ansible_facts.env.HOME }}/.config/zsh"
+    state: absent
+
+- name: Stow dotfiles
+  ansible.builtin.command: stow --restow --target={{ ansible_facts.env.HOME }} home
+  args:
+    chdir: "{{ playbook_dir | dirname }}"
+  changed_when: false
+
+- name: Stow keypocalypse-now configs
+  ansible.builtin.command: stow --restow --target={{ ansible_facts.env.HOME }} .config
+  args:
+    chdir: "{{ playbook_dir | dirname }}/home/keypocalypse-now"
+  changed_when: false

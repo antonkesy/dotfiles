@@ -1,0 +1,23 @@
+---
+- name: Check if arduino-cli is installed
+  ansible.builtin.shell: |
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && which arduino-cli
+  args:
+    executable: /bin/bash
+  register: arduino_check
+  failed_when: false
+  changed_when: false
+
+- name: Update Homebrew
+  ansible.builtin.shell: |
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && brew update
+  args:
+    executable: /bin/bash
+  when: arduino_check.rc != 0
+
+- name: Install arduino-cli via Homebrew
+  ansible.builtin.shell: |
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && brew install arduino-cli
+  args:
+    executable: /bin/bash
+  when: arduino_check.rc != 0

@@ -1,0 +1,8 @@
+---
+- name: Install Node.js packages
+  become: true
+  community.general.pacman:
+    name:
+      - nodejs
+      - npm
+    state: present

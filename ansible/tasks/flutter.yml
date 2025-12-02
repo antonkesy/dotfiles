@@ -1,0 +1,5 @@
+---
+- name: Install Flutter from AUR
+  kewlfft.aur.aur:
+    name: flutter
+    state: present

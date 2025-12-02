@@ -1,0 +1,31 @@
+---
+- name: Install Zsh
+  become: true
+  community.general.pacman:
+    name:
+      - zsh
+    state: present
+
+- name: Check if zsh is default shell
+  ansible.builtin.shell: echo $SHELL
+  register: current_shell
+  changed_when: false
+
+- name: Set zsh as default shell (root)
+  become: true
+  ansible.builtin.user:
+    name: root
+    shell: /usr/bin/zsh
+  when: "'/zsh' not in current_shell.stdout"
+
+- name: Set zsh as default shell (user)
+  become: true
+  ansible.builtin.user:
+    name: "{{ ansible_facts.user_id }}"
+    shell: /usr/bin/zsh
+  when: "'/zsh' not in current_shell.stdout"
+
+- name: Install oh-my-zsh from AUR
+  kewlfft.aur.aur:
+    name: oh-my-zsh-git
+    state: present

@@ -1,0 +1,5 @@
+---
+- name: Install VS Code from AUR
+  kewlfft.aur.aur:
+    name: visual-studio-code-bin
+    state: present

@@ -1,18 +1,3 @@
-[submodule "built_from_source/neovim/neovim"]
-	path = distros/ubuntu/built_from_source/neovim
-	url = ../../neovim/neovim
-[submodule "built_from_source/alacritty/alacritty"]
-	path = distros/ubuntu/built_from_source/alacritty
-	url = ../../alacritty/alacritty
-[submodule "ubuntu/extensions/gSnap"]
-	path = distros/ubuntu/extensions/gSnap
-	url = ../../GnomeSnapExtensions/gSnap
-[submodule "ubuntu/extensions/gnome-shell-extension-lockkeys"]
-	path = distros/ubuntu/extensions/gnome-shell-extension-lockkeys
-	url = ../../kazysmaster/gnome-shell-extension-lockkeys
-[submodule "ubuntu/extensions/gnome-shell-extension-clipboard-indicator"]
-	path = distros/ubuntu/extensions/gnome-shell-extension-clipboard-indicator
-	url = ../../Tudmotu/gnome-shell-extension-clipboard-indicator
 [submodule "home/.config/lvim"]
 	path = home/.config/lvim
 	url = ../../antonkesy/nvim-config
@@ -22,31 +7,6 @@
 [submodule "home/.tmux/plugins/tpm"]
 	path = home/.tmux/plugins/tpm
 	url = ../../tmux-plugins/tpm.git
-[submodule "ubuntu/extensions/Draw-On-Gnome"]
-	path = distros/ubuntu/extensions/Draw-On-Gnome
-	url = ../../daveprowse/Draw-On-Gnome.git
-[submodule "ubuntu/extensions/display-configuration-switcher-gnome-extension"]
-	path = distros/ubuntu/extensions/display-configuration-switcher-gnome-extension
-	url = https://gitlab.com/knokelmaat/display-configuration-switcher-gnome-extension.git
-[submodule "ubuntu/extensions/gnome-shell-extension-activate-gnome"]
-	path = distros/ubuntu/extensions/gnome-shell-extension-activate-gnome
-	url = ../../isjerryxiao/gnome-shell-extension-activate-gnome.git
-[submodule "ubuntu/extensions/Vitals"]
-	path = distros/ubuntu/extensions/Vitals
-	url = ../../corecoding/Vitals.git
-[submodule "built_from_source/CMake/CMake"]
-	path = distros/ubuntu/built_from_source/CMake
-	url = https://github.com/Kitware/CMake.git
-[submodule "distros/arch/built_from_source/yay"]
-	path = distros/arch/built_from_source/yay
-	url = https://aur.archlinux.org/yay.git
-[submodule "distros/arch/built_from_source/paru"]
-	path = distros/arch/built_from_source/paru
-	url = https://aur.archlinux.org/paru.git
-	ignore = dirty
-[submodule "distros/arch/built_from_source/neovim"]
-	path = distros/arch/built_from_source/neovim
-	url = https://github.com/neovim/neovim.git
 [submodule "home/keypocalypse-now"]
 	path = home/keypocalypse-now
 	url = https://github.com/antonkesy/keypocalypse-now.git
