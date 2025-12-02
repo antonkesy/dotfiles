@@ -42,6 +42,9 @@ pacman_packages:
   # Go
   - go
 
+  # Rust
+  - rust
+
   # Neovim build dependencies
   - gettext
 
@@ -101,6 +104,9 @@ aur_packages: # via yay
   # Desktop themes & utils
   - yaru-theme
   - better-control-git
+
+  # Terminal
+  - oh-my-zsh-git
 
 pipx_packages:
   # Git hooks

@@ -1,8 +1,0 @@
----
-# Go setup
-
-- name: Install Go
-  become: true
-  pacman:
-    name: "{{ golang_packages }}"
-    state: present
