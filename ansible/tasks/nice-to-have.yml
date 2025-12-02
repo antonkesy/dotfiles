@@ -1,0 +1,68 @@
+---
+- name: Install nice-to-have packages via pacman
+  become: true
+  community.general.pacman:
+    name:
+      - git
+      - ffmpeg
+      - flex
+      - pandoc
+      - gimp
+      - baobab
+      - curl
+      - qt5-base
+      - qt6-base
+      - libreoffice
+      - obs-studio
+      - pdftk
+      - bison
+      - xournalpp
+      - okular
+      - krita
+      - vlc
+      - drawio-desktop
+      - flameshot
+      - exfatprogs
+      - ntfs-3g
+    state: present
+
+- name: Install nice-to-have packages via AUR
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - postman-bin
+      - pdfarranger
+      - amberol
+      - pympress
+    state: present
+
+- name: Install Python tools via pipx
+  community.general.pipx:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - pre-commit
+    - screenpen
+
+- name: Install Rust-based CLI tools
+  ansible.builtin.shell: cargo install {{ item }}
+  args:
+    executable: /bin/bash
+    creates: "{{ ansible_facts.env.HOME }}/.cargo/bin/{{ item }}"
+  loop:
+    - exa
+    - bat
+    - ripgrep
+    - fd-find
+    - procs
+    - bottom
+    - dysk
+
+- name: Install Flatpak applications
+  community.general.flatpak:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - io.missioncenter.MissionCenter
+    - net.ankiweb.Anki
+  when: ansible_facts['virtualization_type'] != "docker"

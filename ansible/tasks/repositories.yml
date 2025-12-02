@@ -1,0 +1,4 @@
+---
+- name: Configure Arch repositories
+  ansible.builtin.debug:
+    msg: "Repository configuration is handled by pacman.conf on Arch Linux"

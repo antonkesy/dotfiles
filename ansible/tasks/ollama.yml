@@ -1,0 +1,12 @@
+---
+- name: Install Ollama from AUR
+  kewlfft.aur.aur:
+    name: ollama
+    state: present
+
+- name: Install Ollama CUDA support
+  become: true
+  community.general.pacman:
+    name:
+      - ollama-cuda
+    state: present

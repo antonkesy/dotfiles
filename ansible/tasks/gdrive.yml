@@ -1,0 +1,5 @@
+---
+- name: Install gdown (Google Drive downloader) via pipx
+  community.general.pipx:
+    name: gdown
+    state: present

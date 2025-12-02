@@ -1,0 +1,27 @@
+---
+- name: Install font packages
+  become: true
+  community.general.pacman:
+    name:
+      - fontconfig
+      - ttf-jetbrains-mono-nerd
+      - ttf-dejavu
+      - ttf-nerd-fonts-symbols
+      - ttf-ubuntu-font-family
+      - noto-fonts
+      - noto-fonts-emoji
+      - noto-fonts-cjk
+      - ttf-liberation
+      - unzip
+      - wget
+      - curl
+    state: present
+
+- name: Install JetBrains Mono Nerd Font from AUR
+  kewlfft.aur.aur:
+    name: nerd-fonts-jetbrains-mono
+    state: present
+
+- name: Clear font cache
+  ansible.builtin.command: fc-cache -f -v
+  changed_when: false

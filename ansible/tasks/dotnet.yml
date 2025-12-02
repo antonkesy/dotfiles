@@ -1,0 +1,7 @@
+---
+- name: Install .NET SDK
+  become: true
+  community.general.pacman:
+    name:
+      - dotnet-sdk
+    state: present

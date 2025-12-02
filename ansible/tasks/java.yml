@@ -1,0 +1,27 @@
+---
+- name: Install Java development packages
+  become: true
+  community.general.pacman:
+    name:
+      - maven
+      - jdk8-openjdk
+      - jdk21-openjdk
+      - zip
+      - unzip
+      - curl
+    state: present
+
+- name: Install SDKMAN
+  ansible.builtin.shell: curl -s "https://get.sdkman.io" | bash
+  args:
+    executable: /bin/bash
+    creates: "{{ ansible_facts.env.HOME }}/.sdkman/bin/sdkman-init.sh"
+
+- name: Install Gradle via SDKMAN
+  ansible.builtin.shell: |
+    source "{{ ansible_facts.env.HOME }}/.sdkman/bin/sdkman-init.sh"
+    sdk selfupdate force
+    sdk install gradle
+  args:
+    executable: /bin/bash
+    creates: "{{ ansible_facts.env.HOME }}/.sdkman/candidates/gradle"

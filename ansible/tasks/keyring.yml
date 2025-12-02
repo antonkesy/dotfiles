@@ -1,0 +1,17 @@
+---
+- name: Install keyring packages
+  become: true
+  community.general.pacman:
+    name:
+      - gnome-keyring
+      - gcr
+      - seahorse
+    state: present
+
+- name: Enable gcr-ssh-agent socket for user
+  ansible.builtin.systemd:
+    name: gcr-ssh-agent.socket
+    scope: user
+    enabled: true
+    state: started
+  when: ansible_facts['virtualization_type'] != "docker"

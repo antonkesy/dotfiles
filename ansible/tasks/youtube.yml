@@ -1,0 +1,5 @@
+---
+- name: Install yt-dlp (YouTube downloader) via pipx
+  community.general.pipx:
+    name: yt-dlp
+    state: present
