@@ -1,0 +1,25 @@
+---
+- name: Install Homebrew dependencies
+  become: true
+  community.general.pacman:
+    name:
+      - base-devel
+      - procps-ng
+      - curl
+      - file
+      - git
+    state: present
+
+- name: Check if Homebrew is installed
+  ansible.builtin.stat:
+    path: /home/linuxbrew/.linuxbrew/bin/brew
+  register: homebrew_check
+
+- name: Install Homebrew
+  ansible.builtin.shell: |
+    NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  args:
+    executable: /bin/bash
+  when: not homebrew_check.stat.exists
+  environment:
+    NONINTERACTIVE: "1"

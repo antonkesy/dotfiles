@@ -1,0 +1,14 @@
+---
+- name: Check if lazygit is installed
+  ansible.builtin.shell: which lazygit
+  register: lazygit_check
+  failed_when: false
+  changed_when: false
+
+- name: Install lazygit via Go
+  ansible.builtin.shell: go install github.com/jesseduffield/lazygit@latest
+  args:
+    executable: /bin/bash
+  environment:
+    PATH: "{{ ansible_facts.env.PATH }}:{{ ansible_facts.env.HOME }}/go/bin"
+  when: lazygit_check.rc != 0
