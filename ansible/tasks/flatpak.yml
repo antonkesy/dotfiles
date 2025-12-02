@@ -6,37 +6,10 @@
       - flatpak
     state: present
 
-# reset env so flatpak command is available
-- meta: reset_connection
-
 - name: Add Flathub repository
   become: true
   community.general.flatpak_remote:
     name: flathub
     flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
-    state: present
-  when: ansible_facts['virtualization_type'] != "docker"
-
-- name: Install Discord from Flatpak
-  community.general.flatpak:
-    name: com.discordapp.Discord
-    state: present
-  when: ansible_facts['virtualization_type'] != "docker"
-
-- name: Install Thunderbird from Flatpak
-  community.general.flatpak:
-    name: org.mozilla.Thunderbird
-    state: present
-  when: ansible_facts['virtualization_type'] != "docker"
-
-- name: Install Mission Center from Flatpak
-  community.general.flatpak:
-    name: io.missioncenter.MissionCenter
-    state: present
-  when: ansible_facts['virtualization_type'] != "docker"
-
-- name: Install Anki from Flatpak
-  community.general.flatpak:
-    name: net.ankiweb.Anki
     state: present
   when: ansible_facts['virtualization_type'] != "docker"

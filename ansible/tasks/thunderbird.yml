@@ -1,7 +1,7 @@
 ---
-- name: Install Thunderbird from Flatpak
+- name: Install Thunderbird via pacman
   become: true
-  community.general.flatpak:
-    name: org.mozilla.Thunderbird
+  community.general.pacman:
+    name:
+      - thunderbird
     state: present
-  when: ansible_facts['virtualization_type'] != "docker"
