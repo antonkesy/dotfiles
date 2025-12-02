@@ -12,6 +12,7 @@
       - btop
       - atuin
       - python-nautilus
+      - wl-clipboard # copy from wayland
     state: present
 
 - name: Install shtab via pipx
