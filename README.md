@@ -12,13 +12,13 @@ iwctl station <your_wifi_device> connect <your_wifi_ssid>
 curl -L https://raw.githubusercontent.com/antonkesy/dotfiles/main/arch_install_config.json -o arch_install_config.json
 # setup all missing parts like partitioning, users, etc.
 archinstall --config arch_install_config.json
-mkdir -p ~/workspace && cd ~/workspace
 
 # Reboot and login into new user
 nmcli radio wifi on
 nmcli device wifi list
 nmcli device wifi connect "<SSID>" password "<PASSWORD>"
 
+mkdir -p ~/workspace && cd ~/workspace
 sudo pacman -S --noconfirm --needed git
 git clone --recursive https://github.com/antonkesy/dotfiles.git
 ./prerequisites.sh
