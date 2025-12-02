@@ -6,3 +6,39 @@
       - base-devel
       - git
     state: present
+
+- name: Ensure build directory exists
+  ansible.builtin.file:
+    path: "{{ playbook_dir }}/../build"
+    state: directory
+    mode: '0755'
+
+- name: Clone yay repository
+  ansible.builtin.git:
+    repo: https://aur.archlinux.org/yay.git
+    dest: "{{ playbook_dir }}/../build/yay"
+    version: master
+    update: yes
+
+- name: Build and install yay
+  ansible.builtin.shell: |
+    cd {{ playbook_dir }}/../build/yay
+    makepkg -si --noconfirm
+  args:
+    executable: /bin/bash
+    creates: /usr/bin/yay
+
+- name: Clone paru repository
+  ansible.builtin.git:
+    repo: https://aur.archlinux.org/paru.git
+    dest: "{{ playbook_dir }}/../build/paru"
+    version: master
+    update: yes
+
+- name: Build and install paru
+  ansible.builtin.shell: |
+    cd {{ playbook_dir }}/../build/paru
+    makepkg -si --noconfirm
+  args:
+    executable: /bin/bash
+    creates: /usr/bin/paru
