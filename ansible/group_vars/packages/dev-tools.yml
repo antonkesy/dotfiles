@@ -1,0 +1,16 @@
+---
+dev_tools:
+  pacman_packages:
+    - ffmpeg
+    - pandoc
+    - pdfarranger
+    - qt6-base
+    - cmake
+    - ninja
+    - meson
+  aur_packages: []
+  pipx_packages: []
+  npm_packages: []
+  cargo_packages: []
+  flatpak_packages: []
+  systemd_services: []
