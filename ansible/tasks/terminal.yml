@@ -27,7 +27,7 @@
   failed_when: result.rc != 0 and 'already' not in result.stderr
 
 - name: Install nautilus via pipx
-  ansible.builtin.command: pipx install nautilus-open-any-terminal
+  ansible.builtin.command: pipx install nautilus
   register: result
   changed_when: "'installed package' in result.stdout"
   failed_when: result.rc != 0 and 'already' not in result.stderr

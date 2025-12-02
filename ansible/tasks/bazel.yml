@@ -1,5 +1,0 @@
----
-- name: Install Bazel from AUR
-  kewlfft.aur.aur:
-    name: bazel
-    state: present
