@@ -46,6 +46,12 @@ pacman_packages:
   # Rust
   - rust
 
+  # OCaml
+  - opam
+
+  # Flatpak
+  - flatpak
+
   # Neovim build dependencies
   - gettext
 
@@ -123,6 +129,12 @@ pipx_packages:
   - flake8 # Style checker
 
 npm_packages: []
+
+cargo_packages:
+  - cargo-update
+
+flatpak_packages:
+  - org.mozilla.Thunderbird
 
 systemd_services: # (to enable)
   - gdm
