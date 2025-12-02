@@ -3,6 +3,25 @@
   hosts: local
   become: false
 
+  vars_files:
+    - group_vars/packages/base.yml
+    - group_vars/packages/dev-tools.yml
+    - group_vars/packages/filesystem.yml
+    - group_vars/packages/git.yml
+    - group_vars/packages/terminal.yml
+    - group_vars/packages/python.yml
+    - group_vars/packages/node.yml
+    - group_vars/packages/golang.yml
+    - group_vars/packages/rust.yml
+    - group_vars/packages/ocaml.yml
+    - group_vars/packages/flatpak.yml
+    - group_vars/packages/neovim.yml
+    - group_vars/packages/lvim.yml
+    - group_vars/packages/desktop-gnome.yml
+    - group_vars/packages/desktop-network.yml
+    - group_vars/packages/desktop-media.yml
+    - group_vars/packages/hyprland.yml
+
   vars:
     dotfiles_dir: "{{ playbook_dir | dirname }}"
     user_name: "{{ ansible_facts['user_id'] }}"

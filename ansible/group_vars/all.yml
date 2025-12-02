@@ -1,148 +1,147 @@
 ---
-pacman_packages:
-  # Base / Core tools
-  - git
-  - vim
-  - vi
-  - less
-  - curl
-  - wget
-  - unzip
-  - base-devel
+pacman_packages: >-
+  {{
+    base.pacman_packages +
+    dev_tools.pacman_packages +
+    filesystem.pacman_packages +
+    git.pacman_packages +
+    terminal.pacman_packages +
+    python.pacman_packages +
+    node.pacman_packages +
+    golang.pacman_packages +
+    rust.pacman_packages +
+    ocaml.pacman_packages +
+    flatpak.pacman_packages +
+    neovim.pacman_packages +
+    lvim.pacman_packages +
+    desktop_gnome.pacman_packages +
+    desktop_network.pacman_packages +
+    desktop_media.pacman_packages +
+    desktop_hyprland.pacman_packages
+  }}
 
-  # Development tools
-  - ffmpeg
-  - pandoc
-  - pdfarranger
-  - qt6-base
-  - cmake
-  - ninja
-  - meson
+aur_packages: >-
+  {{
+    base.aur_packages +
+    dev_tools.aur_packages +
+    filesystem.aur_packages +
+    git.aur_packages +
+    terminal.aur_packages +
+    python.aur_packages +
+    node.aur_packages +
+    golang.aur_packages +
+    rust.aur_packages +
+    ocaml.aur_packages +
+    flatpak.aur_packages +
+    neovim.aur_packages +
+    lvim.aur_packages +
+    desktop_gnome.aur_packages +
+    desktop_network.aur_packages +
+    desktop_media.aur_packages +
+    desktop_hyprland.aur_packages
+  }}
 
-  # Filesystem support
-  - exfat-utils
-  - ntfs-3g
+pipx_packages: >-
+  {{
+    base.pipx_packages +
+    dev_tools.pipx_packages +
+    filesystem.pipx_packages +
+    git.pipx_packages +
+    terminal.pipx_packages +
+    python.pipx_packages +
+    node.pipx_packages +
+    golang.pipx_packages +
+    rust.pipx_packages +
+    ocaml.pipx_packages +
+    flatpak.pipx_packages +
+    neovim.pipx_packages +
+    lvim.pipx_packages +
+    desktop_gnome.pipx_packages +
+    desktop_network.pipx_packages +
+    desktop_media.pipx_packages +
+    desktop_hyprland.pipx_packages
+  }}
 
-  # Git
-  - git
-  - git-lfs
+npm_packages: >-
+  {{
+    base.npm_packages +
+    dev_tools.npm_packages +
+    filesystem.npm_packages +
+    git.npm_packages +
+    terminal.npm_packages +
+    python.npm_packages +
+    node.npm_packages +
+    golang.npm_packages +
+    rust.npm_packages +
+    ocaml.npm_packages +
+    flatpak.npm_packages +
+    neovim.npm_packages +
+    lvim.npm_packages +
+    desktop_gnome.npm_packages +
+    desktop_network.npm_packages +
+    desktop_media.npm_packages +
+    desktop_hyprland.npm_packages
+  }}
 
-  # Terminal
-  - zsh
+cargo_packages: >-
+  {{
+    base.cargo_packages +
+    dev_tools.cargo_packages +
+    filesystem.cargo_packages +
+    git.cargo_packages +
+    terminal.cargo_packages +
+    python.cargo_packages +
+    node.cargo_packages +
+    golang.cargo_packages +
+    rust.cargo_packages +
+    ocaml.cargo_packages +
+    flatpak.cargo_packages +
+    neovim.cargo_packages +
+    lvim.cargo_packages +
+    desktop_gnome.cargo_packages +
+    desktop_network.cargo_packages +
+    desktop_media.cargo_packages +
+    desktop_hyprland.cargo_packages
+  }}
 
-  # Python
-  - python
-  - python-pip
-  - python-pipx
-  - python-virtualenv
+flatpak_packages: >-
+  {{
+    base.flatpak_packages +
+    dev_tools.flatpak_packages +
+    filesystem.flatpak_packages +
+    git.flatpak_packages +
+    terminal.flatpak_packages +
+    python.flatpak_packages +
+    node.flatpak_packages +
+    golang.flatpak_packages +
+    rust.flatpak_packages +
+    ocaml.flatpak_packages +
+    flatpak.flatpak_packages +
+    neovim.flatpak_packages +
+    lvim.flatpak_packages +
+    desktop_gnome.flatpak_packages +
+    desktop_network.flatpak_packages +
+    desktop_media.flatpak_packages +
+    desktop_hyprland.flatpak_packages
+  }}
 
-  # Node.js
-  - nodejs
-  - npm
-
-  # Go
-  - go
-
-  # Rust
-  - rust
-
-  # OCaml
-  - opam
-
-  # Flatpak
-  - flatpak
-
-  # Neovim build dependencies
-  - gettext
-
-  # LunarVim dependencies
-  - python-pynvim
-  - xclip
-  - ruby
-  - r
-  - php
-  - llvm
-  - lldb
-  - hunspell
-
-  # Desktop - GNOME
-  - gnome
-  - gnome-extra
-  - gnome-tweaks
-  - gnome-shell-extensions
-  - baobab # Disk usage analyzer
-  - file-roller # Archive manager
-  - sushi # File previewer
-  - gnome-calculator
-  - gnome-system-monitor
-  - gnome-disk-utility
-  - gnome-font-viewer
-  - simple-scan # Scanner app
-  - evince # PDF viewer
-
-  # Desktop - Network & Bluetooth
-  - networkmanager
-  - bluez
-  - bluez-utils
-  - cups
-  - cups-pdf
-
-  # Desktop - Media codecs (GStreamer)
-  - gst-libav
-  - gst-plugins-good
-  - gst-plugins-bad
-  - gst-plugins-ugly
-
-  # Desktop - Hyprland (Wayland compositor)
-  - hyprland
-  - cpio
-  - glaze
-  - hyprland-protocols
-  - uwsm
-
-aur_packages: # via yay
-  # Python versions
-  - python38
-  - python39
-  - python310
-  - python311
-  - python312
-
-  # Desktop themes & utils
-  - yaru-theme
-  - better-control-git
-
-  # Terminal
-  - oh-my-zsh-git
-
-pipx_packages:
-  # Git hooks
-  - pre-commit
-
-  # Jupyter
-  - jupyterlab
-  - notebook
-
-  # Neovim/LunarVim
-  - neovim
-  - bandit # Security linter
-  - flake8 # Style checker
-
-npm_packages: []
-
-cargo_packages:
-  - cargo-update
-
-flatpak_packages:
-  - org.mozilla.Thunderbird
-
-systemd_services: # (to enable)
-  - gdm
-  - NetworkManager
-  - bluetooth
-  - cups
-
-# GIT CONFIGURATION
-git_user_name: "Anton Kesy"
-git_user_email: "antonkesy@gmail.com"
-git_editor: "lvim"
+systemd_services: >-
+  {{
+    base.systemd_services +
+    dev_tools.systemd_services +
+    filesystem.systemd_services +
+    git.systemd_services +
+    terminal.systemd_services +
+    python.systemd_services +
+    node.systemd_services +
+    golang.systemd_services +
+    rust.systemd_services +
+    ocaml.systemd_services +
+    flatpak.systemd_services +
+    neovim.systemd_services +
+    lvim.systemd_services +
+    desktop_gnome.systemd_services +
+    desktop_network.systemd_services +
+    desktop_media.systemd_services +
+    desktop_hyprland.systemd_services
+  }}

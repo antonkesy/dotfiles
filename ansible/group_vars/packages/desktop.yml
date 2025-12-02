@@ -1,0 +1,69 @@
+---
+desktop_gnome:
+  pacman_packages:
+    - gnome
+    - gnome-extra
+    - gnome-tweaks
+    - gnome-shell-extensions
+    - baobab # Disk usage analyzer
+    - file-roller # Archive manager
+    - sushi # File previewer
+    - gnome-calculator
+    - gnome-system-monitor
+    - gnome-disk-utility
+    - gnome-font-viewer
+    - simple-scan # Scanner app
+    - evince # PDF viewer
+  aur_packages:
+    - yaru-theme
+  pipx_packages: []
+  npm_packages: []
+  cargo_packages: []
+  flatpak_packages: []
+  systemd_services:
+    - gdm
+
+desktop_media:
+  pacman_packages:
+    - gst-libav
+    - gst-plugins-good
+    - gst-plugins-bad
+    - gst-plugins-ugly
+  aur_packages: []
+  pipx_packages: []
+  npm_packages: []
+  cargo_packages: []
+  flatpak_packages: []
+  systemd_services: []
+
+desktop_network:
+  pacman_packages:
+    - networkmanager
+    - bluez
+    - bluez-utils
+    - cups
+    - cups-pdf
+  aur_packages: []
+  pipx_packages: []
+  npm_packages: []
+  cargo_packages: []
+  flatpak_packages: []
+  systemd_services:
+    - NetworkManager
+    - bluetooth
+    - cups
+
+desktop_hyprland:
+  pacman_packages:
+    - hyprland
+    - cpio
+    - glaze
+    - hyprland-protocols
+    - uwsm
+  aur_packages:
+    - better-control-git
+  pipx_packages: []
+  npm_packages: []
+  cargo_packages: []
+  flatpak_packages: []
+  systemd_services: []
