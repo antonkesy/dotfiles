@@ -10,4 +10,4 @@
     name: snapd.socket
     enabled: true
     state: started
-  when: ansible_virtualization_type != "docker"
+  when: ansible_facts['virtualization_type'] != "docker"

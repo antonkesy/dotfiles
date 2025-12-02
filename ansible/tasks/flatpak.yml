@@ -17,22 +17,22 @@
   community.general.flatpak:
     name: com.discordapp.Discord
     state: present
-  when: ansible_virtualization_type != "docker"
+  when: ansible_facts['virtualization_type'] != "docker"
 
 - name: Install Thunderbird from Flatpak
   community.general.flatpak:
     name: org.mozilla.Thunderbird
     state: present
-  when: ansible_virtualization_type != "docker"
+  when: ansible_facts['virtualization_type'] != "docker"
 
 - name: Install Mission Center from Flatpak
   community.general.flatpak:
     name: io.missioncenter.MissionCenter
     state: present
-  when: ansible_virtualization_type != "docker"
+  when: ansible_facts['virtualization_type'] != "docker"
 
 - name: Install Anki from Flatpak
   community.general.flatpak:
     name: net.ankiweb.Anki
     state: present
-  when: ansible_virtualization_type != "docker"
+  when: ansible_facts['virtualization_type'] != "docker"
