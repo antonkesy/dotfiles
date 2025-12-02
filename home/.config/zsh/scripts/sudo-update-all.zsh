@@ -1,5 +1,4 @@
 #!/bin/zsh
 
-sudo apt update && sudo apt upgrade -y
-sudo snap refresh
+sudo pacman -Syu --noconfirm
 sudo flatpak update -y
