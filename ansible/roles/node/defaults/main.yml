@@ -1,9 +1,0 @@
----
-# Pacman packages
-node_packages:
-  # Node.js runtime
-  - nodejs
-  - npm
-
-# Global npm packages
-node_npm_packages: []

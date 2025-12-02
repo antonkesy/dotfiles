@@ -7,16 +7,16 @@ all:
 	echo "Select a target: dotfiles, base, desktop, test, clean"
 
 dotfiles:
-	cd ansible && ansible-playbook site.yml --tags dotfiles -v
+	cd ansible && ansible-playbook site.yml --tags dotfiles
 
 base:
-	cd ansible && ansible-playbook $(BECOME_FLAG) site.yml --tags base -v
+	cd ansible && ansible-playbook $(BECOME_FLAG) site.yml --tags base
 
 desktop:
-	cd ansible && ansible-playbook $(BECOME_FLAG) site.yml -v
+	cd ansible && ansible-playbook $(BECOME_FLAG) site.yml
 
 check:
-	cd ansible && ansible-playbook site.yml --check -v
+	cd ansible && ansible-playbook site.yml --check
 
 test: test-dotfiles test-base test-desktop
 	echo "All tests passed."
