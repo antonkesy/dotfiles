@@ -1,0 +1,50 @@
+---
+- name: Install LunarVim dependencies
+  become: true
+  community.general.pacman:
+    name:
+      - python-pynvim
+      - xclip
+      - curl
+      - npm
+      - ruby
+      - r
+      - php
+      - llvm
+      - lldb
+      - hunspell
+    state: present
+
+- name: Install neovim via pipx
+  ansible.builtin.command: pipx install --include-deps neovim
+  register: result
+  changed_when: "'installed package' in result.stdout"
+  failed_when: result.rc != 0 and 'already' not in result.stderr
+
+- name: Install bandit via pipx
+  ansible.builtin.command: pipx install bandit
+  register: result
+  changed_when: "'installed package' in result.stdout"
+  failed_when: result.rc != 0 and 'already' not in result.stderr
+
+- name: Install flake8 via pipx
+  ansible.builtin.command: pipx install flake8
+  register: result
+  changed_when: "'installed package' in result.stdout"
+  failed_when: result.rc != 0 and 'already' not in result.stderr
+
+- name: Uninstall existing LunarVim
+  ansible.builtin.shell: bash ~/.local/share/lunarvim/lvim/utils/installer/uninstall.sh
+  args:
+    executable: /bin/bash
+    removes: "{{ ansible_facts.env.HOME }}/.local/share/lunarvim"
+  failed_when: false
+
+- name: Install LunarVim
+  ansible.builtin.shell: |
+    source {{ ansible_facts.env.HOME }}/.cargo/env 2>/dev/null || true
+    export PATH="{{ ansible_facts.env.HOME }}/.cargo/bin:{{ ansible_facts.env.HOME }}/.local/bin:$PATH"
+    bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.4/neovim-0.9/utils/installer/install.sh) --no-install-dependencies
+  args:
+    executable: /bin/bash
+    creates: "{{ ansible_facts.env.HOME }}/.local/bin/lvim"

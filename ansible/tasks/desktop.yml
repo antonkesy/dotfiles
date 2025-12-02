@@ -1,0 +1,89 @@
+---
+- name: Install GNOME desktop environment
+  become: true
+  community.general.pacman:
+    name:
+      - gnome
+      - gnome-extra
+      - gnome-tweaks
+      - gnome-shell-extensions
+    state: present
+
+- name: Install GNOME utilities
+  become: true
+  community.general.pacman:
+    name:
+      - baobab
+      - file-roller
+      - sushi
+      - gnome-calculator
+      - gnome-system-monitor
+      - gnome-disk-utility
+      - gnome-font-viewer
+      - simple-scan
+      - evince
+    state: present
+
+- name: Install network and printing
+  become: true
+  community.general.pacman:
+    name:
+      - networkmanager
+      - cups
+      - cups-pdf
+    state: present
+
+- name: Install media codecs
+  become: true
+  community.general.pacman:
+    name:
+      - gst-libav
+      - gst-plugins-good
+      - gst-plugins-bad
+      - gst-plugins-ugly
+    state: present
+
+- name: Install Hyprland window manager
+  become: true
+  community.general.pacman:
+    name:
+      - hyprland
+      - cpio
+      - glaze
+      - hyprland-protocols
+      - uwsm
+    state: present
+
+- name: Install Yaru theme from AUR
+  kewlfft.aur.aur:
+    name: yaru-theme
+    state: present
+
+- name: Install better-control from AUR
+  kewlfft.aur.aur:
+    name: better-control-git
+    state: present
+
+- name: Enable GDM service
+  become: true
+  ansible.builtin.systemd:
+    name: gdm
+    enabled: true
+    state: started
+  when: ansible_virtualization_type != "docker"
+
+- name: Enable NetworkManager service
+  become: true
+  ansible.builtin.systemd:
+    name: NetworkManager
+    enabled: true
+    state: started
+  when: ansible_virtualization_type != "docker"
+
+- name: Enable CUPS service
+  become: true
+  ansible.builtin.systemd:
+    name: cups
+    enabled: true
+    state: started
+  when: ansible_virtualization_type != "docker"

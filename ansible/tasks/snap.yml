@@ -1,0 +1,13 @@
+---
+- name: Install Snap from AUR
+  kewlfft.aur.aur:
+    name: snapd
+    state: present
+
+- name: Enable snapd socket
+  become: true
+  ansible.builtin.systemd:
+    name: snapd.socket
+    enabled: true
+    state: started
+  when: ansible_virtualization_type != "docker"

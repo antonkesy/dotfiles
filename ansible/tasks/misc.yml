@@ -1,0 +1,51 @@
+---
+- name: Install miscellaneous packages
+  become: true
+  community.general.pacman:
+    name:
+      - libreoffice
+      - gimp
+      - qt5-base
+      - obs-studio
+      - pdftk
+      - bison
+      - xournalpp
+      - okular
+      - krita
+      - vlc
+      - drawio-desktop
+      - flameshot
+      - flex
+    state: present
+
+- name: Install Postman from AUR
+  kewlfft.aur.aur:
+    name: postman-bin
+    state: present
+
+- name: Install pdfarranger from AUR
+  kewlfft.aur.aur:
+    name: pdfarranger
+    state: present
+
+- name: Install amberol from AUR
+  kewlfft.aur.aur:
+    name: amberol
+    state: present
+
+- name: Install pympress from AUR
+  kewlfft.aur.aur:
+    name: pympress
+    state: present
+
+- name: Install screenpen via pipx
+  ansible.builtin.command: pipx install screenpen
+  register: result
+  changed_when: "'installed package' in result.stdout"
+  failed_when: result.rc != 0 and 'already' not in result.stderr
+
+- name: Install cargo tools
+  ansible.builtin.shell: cargo install exa bat ripgrep fd-find procs bottom dysk
+  args:
+    executable: /bin/bash
+  changed_when: false

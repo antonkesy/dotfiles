@@ -1,0 +1,17 @@
+---
+- name: Install LaTeX packages
+  become: true
+  community.general.pacman:
+    name:
+      - texlive-core
+      - texlive-bin
+      - texlive-latexextra
+      - texlive-science
+      - texlive-fontsextra
+      - texlive-pictures
+      - texlive-pstricks
+      - texlive-mathscience
+      - texlive-lang
+      - plantuml
+      - pandoc
+    state: present

@@ -1,0 +1,15 @@
+---
+- name: Install fingerprint packages
+  become: true
+  community.general.pacman:
+    name:
+      - fprintd
+    state: present
+
+- name: Enable fprintd service
+  become: true
+  ansible.builtin.systemd:
+    name: fprintd.service
+    enabled: true
+    state: started
+  when: ansible_virtualization_type != "docker"

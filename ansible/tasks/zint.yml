@@ -1,0 +1,5 @@
+---
+- name: Install Zint from AUR
+  kewlfft.aur.aur:
+    name: zint
+    state: present

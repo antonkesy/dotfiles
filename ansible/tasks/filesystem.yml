@@ -1,0 +1,8 @@
+---
+- name: Install filesystem utilities
+  become: true
+  community.general.pacman:
+    name:
+      - exfat-utils
+      - ntfs-3g
+    state: present

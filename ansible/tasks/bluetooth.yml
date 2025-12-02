@@ -1,0 +1,17 @@
+---
+- name: Install Bluetooth packages
+  become: true
+  community.general.pacman:
+    name:
+      - bluez
+      - bluez-utils
+      - bluetui
+    state: present
+
+- name: Enable Bluetooth service
+  become: true
+  ansible.builtin.systemd:
+    name: bluetooth
+    enabled: true
+    state: started
+  when: ansible_virtualization_type != "docker"

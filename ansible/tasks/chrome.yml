@@ -1,0 +1,5 @@
+---
+- name: Install Google Chrome from AUR
+  kewlfft.aur.aur:
+    name: google-chrome
+    state: present

@@ -1,8 +1,0 @@
----
-# Install all pacman packages
-
-- name: Install pacman packages
-  become: true
-  pacman:
-    name: "{{ pacman_packages }}"
-    state: present

@@ -1,0 +1,60 @@
+---
+- name: Install terminal packages
+  become: true
+  community.general.pacman:
+    name:
+      - zsh
+      - tmux
+      - fzf
+      - xsel
+      - fd
+      - atop
+      - btop
+      - atuin
+      - python-nautilus
+    state: present
+
+- name: Install shtab via pipx
+  ansible.builtin.command: pipx install shtab
+  register: result
+  changed_when: "'installed package' in result.stdout"
+  failed_when: result.rc != 0 and 'already' not in result.stderr
+
+- name: Install trash-cli via pipx
+  ansible.builtin.command: pipx install 'trash-cli[completion]'
+  register: result
+  changed_when: "'installed package' in result.stdout"
+  failed_when: result.rc != 0 and 'already' not in result.stderr
+
+- name: Install nautilus via pipx
+  ansible.builtin.command: pipx install nautilus-open-any-terminal
+  register: result
+  changed_when: "'installed package' in result.stdout"
+  failed_when: result.rc != 0 and 'already' not in result.stderr
+
+- name: Install exa via cargo
+  ansible.builtin.shell: cargo install exa
+  args:
+    executable: /bin/bash
+    creates: "{{ ansible_facts.env.HOME }}/.cargo/bin/exa"
+
+- name: Install libtmux via pip
+  ansible.builtin.command: pip install --user --break-system-packages libtmux
+  register: result
+  changed_when: "'Successfully installed' in result.stdout"
+  failed_when: result.rc != 0 and 'already satisfied' not in result.stdout
+
+- name: Install tmux plugins
+  ansible.builtin.shell: ~/.tmux/plugins/tpm/bin/install_plugins || true
+  args:
+    executable: /bin/bash
+  changed_when: false
+
+- name: Install zinit
+  ansible.builtin.shell: |
+    export ZINIT_INSTALL_SILENT=1
+    export ZINIT_INSTALL_NO_ANNEX_PROMPT=1
+    bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)" <<<"n"
+  args:
+    executable: /bin/bash
+    creates: "{{ ansible_facts.env.HOME }}/.local/share/zinit"
