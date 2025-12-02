@@ -58,11 +58,16 @@
     - bottom
     - dysk
 
-- name: Install Flatpak applications
-  community.general.flatpak:
-    name: "{{ item }}"
+- name: Install Mission Center via AUR
+  kewlfft.aur.aur:
+    use: yay
+    name:
+      - mission-center
     state: present
-  loop:
-    - io.missioncenter.MissionCenter
-    - net.ankiweb.Anki
-  when: ansible_facts['virtualization_type'] != "docker"
+
+- name: Install Anki via pacman
+  become: true
+  community.general.pacman:
+    name:
+      - anki
+    state: present

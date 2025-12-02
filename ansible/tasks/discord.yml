@@ -1,14 +1,7 @@
 ---
-- name: Check if Discord is installed via Flatpak
-  ansible.builtin.shell: flatpak list | grep -q com.discordapp.Discord
-  register: discord_check
-  failed_when: false
-  changed_when: false
-
-- name: Install Discord from Flatpak
-  community.general.flatpak:
-    name: com.discordapp.Discord
+- name: Install Discord via pacman
+  become: true
+  community.general.pacman:
+    name:
+      - discord
     state: present
-  when:
-    - discord_check.rc != 0
-    - ansible_facts['virtualization_type'] != "docker"
