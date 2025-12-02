@@ -24,6 +24,7 @@ pacman_packages:
   - ntfs-3g
 
   # Git
+  - git
   - git-lfs
 
   # Terminal

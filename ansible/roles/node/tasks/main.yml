@@ -1,6 +1,4 @@
 ---
-# Node.js setup
-
 - name: Install Node.js
   become: true
   pacman:
