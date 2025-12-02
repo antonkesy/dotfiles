@@ -1,0 +1,5 @@
+---
+- name: Install Webots from AUR
+  kewlfft.aur.aur:
+    name: webots-bin
+    state: present

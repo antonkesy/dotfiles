@@ -1,0 +1,12 @@
+---
+- name: Install development tools
+  become: true
+  community.general.pacman:
+    name:
+      - ffmpeg
+      - pandoc
+      - pdfarranger
+      - qt6-base
+      - ninja
+      - meson
+    state: present

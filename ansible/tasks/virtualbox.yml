@@ -1,0 +1,8 @@
+---
+- name: Install VirtualBox
+  become: true
+  community.general.pacman:
+    name:
+      - virtualbox
+      - virtualbox-host-modules-arch
+    state: present

@@ -1,0 +1,14 @@
+---
+- name: Install base packages
+  become: true
+  community.general.pacman:
+    name:
+      - git
+      - vim
+      - vi
+      - less
+      - curl
+      - wget
+      - unzip
+      - base-devel
+    state: present

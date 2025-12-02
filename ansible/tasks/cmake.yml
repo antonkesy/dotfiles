@@ -1,0 +1,7 @@
+---
+- name: Install CMake
+  become: true
+  community.general.pacman:
+    name:
+      - cmake
+    state: present

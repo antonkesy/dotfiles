@@ -1,0 +1,7 @@
+---
+- name: Install Dart programming language
+  become: true
+  community.general.pacman:
+    name:
+      - dart
+    state: present

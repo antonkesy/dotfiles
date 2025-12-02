@@ -1,0 +1,8 @@
+---
+- name: Install VPN packages from AUR
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - openconnect
+    - networkmanager-openconnect

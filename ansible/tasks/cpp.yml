@@ -1,0 +1,23 @@
+---
+- name: Install C++ development tools
+  become: true
+  community.general.pacman:
+    name:
+      - base-devel
+      - gmock
+      - gtest
+      - cppcheck
+      - boost
+      - valgrind
+      - perf
+      - bear
+      - clang
+      - meson
+    state: present
+
+- name: Install MinGW for Windows cross-compilation
+  become: true
+  community.general.pacman:
+    name:
+      - mingw-w64-gcc
+    state: present
