@@ -36,11 +36,6 @@
       ansible.builtin.import_tasks: tasks/flatpak.yml
       tags: [flatpak, apps]
 
-    # Snap
-    - name: Setup Snap
-      ansible.builtin.import_tasks: tasks/snap.yml
-      tags: [snap]
-
     # Programming languages
     - name: Setup Python
       ansible.builtin.import_tasks: tasks/python.yml
