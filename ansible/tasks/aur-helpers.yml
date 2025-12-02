@@ -5,17 +5,18 @@
     name:
       - base-devel
       - git
+      - go
     state: present
 
 - name: Ensure build directory exists
   ansible.builtin.file:
     path: "{{ playbook_dir }}/../build"
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Clone yay repository
   ansible.builtin.git:
-    repo: https://aur.archlinux.org/yay.git
+    repo: https://aur.archlinux.org/yay-bin.git # use yay-bin to avoid long build times
     dest: "{{ playbook_dir }}/../build/yay"
     version: master
     update: yes
