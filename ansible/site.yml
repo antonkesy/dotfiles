@@ -20,57 +20,26 @@
       ansible.builtin.import_tasks: tasks/base.yml
       tags: [base]
 
-    - name: Setup filesystem utilities
-      ansible.builtin.import_tasks: tasks/filesystem.yml
-      tags: [filesystem]
-
     - name: Setup AUR helpers
       ansible.builtin.import_tasks: tasks/aur-helpers.yml
       tags: [aur]
+
+    - name: Setup filesystem utilities
+      ansible.builtin.import_tasks: tasks/filesystem.yml
+      tags: [filesystem]
 
     - name: Setup pipx
       ansible.builtin.import_tasks: tasks/pipx.yml
       tags: [pipx, python]
 
-    # Terminal and shell
-    - name: Setup Zsh shell
-      ansible.builtin.import_tasks: tasks/zsh.yml
-      tags: [zsh, shell]
+    - name: Setup Flatpak and apps
+      ansible.builtin.import_tasks: tasks/flatpak.yml
+      tags: [flatpak, apps]
 
-    - name: Setup terminal tools
-      ansible.builtin.import_tasks: tasks/terminal.yml
-      tags: [terminal, shell]
-
-    - name: Setup Alacritty
-      ansible.builtin.import_tasks: tasks/alacritty.yml
-      tags: [alacritty, terminal]
-
-    # Fonts
-    - name: Setup fonts
-      ansible.builtin.import_tasks: tasks/font.yml
-      tags: [fonts]
-
-    # Version control
-    - name: Setup Git
-      ansible.builtin.import_tasks: tasks/git.yml
-      tags: [git]
-
-    # Editors
-    - name: Setup Neovim
-      ansible.builtin.import_tasks: tasks/neovim.yml
-      tags: [neovim, editor]
-
-    - name: Setup LunarVim
-      ansible.builtin.import_tasks: tasks/lvim.yml
-      tags: [lvim, editor]
-
-    - name: Setup Emacs
-      ansible.builtin.import_tasks: tasks/emacs.yml
-      tags: [emacs, editor]
-
-    - name: Setup VS Code
-      ansible.builtin.import_tasks: tasks/vscode.yml
-      tags: [vscode, editor]
+    # Snap
+    - name: Setup Snap
+      ansible.builtin.import_tasks: tasks/snap.yml
+      tags: [snap]
 
     # Programming languages
     - name: Setup Python
@@ -118,10 +87,6 @@
       tags: [dotnet, languages]
 
     # Development tools
-    - name: Setup CMake
-      ansible.builtin.import_tasks: tasks/cmake.yml
-      tags: [cmake, dev-tools]
-
     - name: Setup C++ tools
       ansible.builtin.import_tasks: tasks/cpp.yml
       tags: [cpp, dev-tools]
@@ -130,9 +95,45 @@
       ansible.builtin.import_tasks: tasks/dev-tools.yml
       tags: [dev-tools]
 
-    - name: Setup Bazel
-      ansible.builtin.import_tasks: tasks/bazel.yml
-      tags: [bazel, dev-tools]
+    # Terminal and shell
+    - name: Setup Zsh shell
+      ansible.builtin.import_tasks: tasks/zsh.yml
+      tags: [zsh, shell]
+
+    - name: Setup terminal tools
+      ansible.builtin.import_tasks: tasks/terminal.yml
+      tags: [terminal, shell]
+
+    - name: Setup Alacritty
+      ansible.builtin.import_tasks: tasks/alacritty.yml
+      tags: [alacritty, terminal]
+
+    # Fonts
+    - name: Setup fonts
+      ansible.builtin.import_tasks: tasks/font.yml
+      tags: [fonts]
+
+    # Version control
+    - name: Setup Git
+      ansible.builtin.import_tasks: tasks/git.yml
+      tags: [git]
+
+    # Editors
+    - name: Setup Neovim
+      ansible.builtin.import_tasks: tasks/neovim.yml
+      tags: [neovim, editor]
+
+    - name: Setup LunarVim
+      ansible.builtin.import_tasks: tasks/lvim.yml
+      tags: [lvim, editor]
+
+    - name: Setup Emacs
+      ansible.builtin.import_tasks: tasks/emacs.yml
+      tags: [emacs, editor]
+
+    - name: Setup VS Code
+      ansible.builtin.import_tasks: tasks/vscode.yml
+      tags: [vscode, editor]
 
     - name: Setup LaTeX
       ansible.builtin.import_tasks: tasks/latex.yml
@@ -152,9 +153,6 @@
       ansible.builtin.import_tasks: tasks/desktop.yml
       tags: [desktop]
 
-    - name: Setup Flatpak and apps
-      ansible.builtin.import_tasks: tasks/flatpak.yml
-      tags: [flatpak, apps]
 
     # Hardware and services
     - name: Setup Bluetooth
@@ -209,11 +207,6 @@
     - name: Setup VPN tools
       ansible.builtin.import_tasks: tasks/vpn.yml
       tags: [vpn]
-
-    # Snap
-    - name: Setup Snap
-      ansible.builtin.import_tasks: tasks/snap.yml
-      tags: [snap]
 
     # Robotics
     - name: Setup Webots

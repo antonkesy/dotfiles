@@ -9,4 +9,6 @@
       - qt6-base
       - ninja
       - meson
+      - bazel
+      - cmake
     state: present

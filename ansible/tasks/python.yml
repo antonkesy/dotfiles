@@ -39,13 +39,13 @@
   changed_when: "'installed package' in result.stdout"
   failed_when: result.rc != 0 and 'already' not in result.stderr
 
-- name: Install Python versions from AUR
-  kewlfft.aur.aur:
-    name: "{{ item }}"
-    state: present
-  loop:
-    - python38
-    - python39
-    - python310
-    - python311
-    - python312
+# - name: Install Python versions from AUR
+#   kewlfft.aur.aur:
+#     name: "{{ item }}"
+#     state: present
+#   loop:
+#     - python38
+#     - python39
+#     - python310
+#     - python311
+#     - python312
