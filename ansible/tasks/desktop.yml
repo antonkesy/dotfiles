@@ -1,5 +1,5 @@
 ---
-- name: Install GNOME desktop environment
+- name: Install GNOME
   become: true
   community.general.pacman:
     name:
@@ -7,12 +7,6 @@
       - gnome-extra
       - gnome-tweaks
       - gnome-shell-extensions
-    state: present
-
-- name: Install GNOME utilities
-  become: true
-  community.general.pacman:
-    name:
       - baobab
       - file-roller
       - sushi
@@ -52,6 +46,16 @@
       - glaze
       - hyprland-protocols
       - uwsm
+      - dolphin
+      - dunst
+      - grim
+      - kitty
+      - polkit-kde-agent
+      - qt5-wayland
+      - qt6-wayland
+      - slurp
+      - wofi
+      - xdg-desktop-portal-hyprland
     state: present
 
 - name: Install Yaru theme from AUR
