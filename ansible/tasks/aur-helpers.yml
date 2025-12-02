@@ -6,6 +6,7 @@
       - base-devel
       - git
       - go
+      - rust
     state: present
 
 - name: Ensure build directory exists
