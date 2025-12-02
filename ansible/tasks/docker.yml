@@ -28,6 +28,7 @@
     name: "{{ ansible_facts.user_id }}"
     groups: docker
     append: true
+  ignore_errors: "{{ ansible_check_mode }}"
 
 - name: Install lazydocker
   ansible.builtin.shell: go install github.com/jesseduffield/lazydocker@latest
