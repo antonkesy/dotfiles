@@ -6,33 +6,33 @@ repos:
     rev: v4.5.0
     hooks:
       - id: trailing-whitespace
-        exclude: ^(built_from_source/neovim/neovim|built_from_source/alacritty/alacritty|ubuntu/extensions/gSnap|ubuntu/extensions/gnome-shell-extension-lockkeys|ubuntu/extensions/gnome-shell-extension-clipboard-indicator|home/.config/lvim|home/.config/alacritty/themes|home/.tmux/plugins/tpm)
+        exclude: ^(home/.config/lvim|home/.config/alacritty/themes|home/.tmux/plugins/tpm|home/keypocalypse-now)
       - id: end-of-file-fixer
-        exclude: ^(built_from_source/neovim/neovim|built_from_source/alacritty/alacritty|ubuntu/extensions/gSnap|ubuntu/extensions/gnome-shell-extension-lockkeys|ubuntu/extensions/gnome-shell-extension-clipboard-indicator|home/.config/lvim|home/.config/alacritty/themes|home/.tmux/plugins/tpm)
+        exclude: ^(home/.config/lvim|home/.config/alacritty/themes|home/.tmux/plugins/tpm|home/keypocalypse-now)
       - id: check-yaml
-        exclude: ^(built_from_source/neovim/neovim|built_from_source/alacritty/alacritty|ubuntu/extensions/gSnap|ubuntu/extensions/gnome-shell-extension-lockkeys|ubuntu/extensions/gnome-shell-extension-clipboard-indicator|home/.config/lvim|home/.config/alacritty/themes|home/.tmux/plugins/tpm)
+        exclude: ^(home/.config/lvim|home/.config/alacritty/themes|home/.tmux/plugins/tpm|home/keypocalypse-now)
       - id: check-json
-        exclude: ^(built_from_source/neovim/neovim|built_from_source/alacritty/alacritty|ubuntu/extensions/gSnap|ubuntu/extensions/gnome-shell-extension-lockkeys|ubuntu/extensions/gnome-shell-extension-clipboard-indicator|home/.config/lvim|home/.config/alacritty/themes|home/.tmux/plugins/tpm)
+        exclude: ^(home/.config/lvim|home/.config/alacritty/themes|home/.tmux/plugins/tpm|home/keypocalypse-now)
       - id: check-added-large-files
-        exclude: ^(built_from_source/neovim/neovim|built_from_source/alacritty/alacritty|ubuntu/extensions/gSnap|ubuntu/extensions/gnome-shell-extension-lockkeys|ubuntu/extensions/gnome-shell-extension-clipboard-indicator|home/.config/lvim|home/.config/alacritty/themes|home/.tmux/plugins/tpm)
+        exclude: ^(home/.config/lvim|home/.config/alacritty/themes|home/.tmux/plugins/tpm|home/keypocalypse-now)
       - id: check-merge-conflict
-        exclude: ^(built_from_source/neovim/neovim|built_from_source/alacritty/alacritty|ubuntu/extensions/gSnap|ubuntu/extensions/gnome-shell-extension-lockkeys|ubuntu/extensions/gnome-shell-extension-clipboard-indicator|home/.config/lvim|home/.config/alacritty/themes|home/.tmux/plugins/tpm)
+        exclude: ^(home/.config/lvim|home/.config/alacritty/themes|home/.tmux/plugins/tpm|home/keypocalypse-now)
       - id: detect-private-key
-        exclude: ^(built_from_source/neovim/neovim|built_from_source/alacritty/alacritty|ubuntu/extensions/gSnap|ubuntu/extensions/gnome-shell-extension-lockkeys|ubuntu/extensions/gnome-shell-extension-clipboard-indicator|home/.config/lvim|home/.config/alacritty/themes|home/.tmux/plugins/tpm)
+        exclude: ^(home/.config/lvim|home/.config/alacritty/themes|home/.tmux/plugins/tpm|home/keypocalypse-now)
 
   - repo: https://github.com/koalaman/shellcheck-precommit
     rev: v0.7.2
     hooks:
       - id: shellcheck
-        args: ["--shell=bash","--severity=error"]
-        # + exclude p10k.zsh
-        exclude: ^(.tmux/plugins/tpm|built_from_source/neovim/neovim|built_from_source/alacritty/alacritty|ubuntu/extensions/gSnap|ubuntu/extensions/gnome-shell-extension-lockkeys|ubuntu/extensions/gnome-shell-extension-clipboard-indicator|home/.config/lvim|home/.config/alacritty/themes|home/.config/zsh/p10k.zsh)
+        args: ["--shell=bash", "--severity=error"]
+        # + exclude p10k.zsh (home/.config/zsh/p10k.zsh)
+        exclude: ^(home/.config/lvim|home/.config/alacritty/themes|home/.tmux/plugins/tpm|home/keypocalypse-now|home/.config/zsh/p10k.zsh)
 
   - repo: https://github.com/zricethezav/gitleaks
     rev: v8.18.0
     hooks:
       - id: gitleaks
-        exclude: ^(built_from_source/neovim/neovim|built_from_source/alacritty/alacritty|ubuntu/extensions/gSnap|ubuntu/extensions/gnome-shell-extension-lockkeys|ubuntu/extensions/gnome-shell-extension-clipboard-indicator|home/.config/lvim|home/.config/alacritty/themes|home/.tmux/plugins/tpm)
+        exclude: ^(home/.config/lvim|home/.config/alacritty/themes|home/.tmux/plugins/tpm|home/keypocalypse-now)
 
   - repo: https://github.com/scop/pre-commit-shfmt
     rev: v3.11.0-1
