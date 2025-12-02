@@ -1,8 +1,0 @@
----
-# Development tools
-
-- name: Install dev tools
-  become: true
-  pacman:
-    name: "{{ dev_tools_packages }}"
-    state: present
