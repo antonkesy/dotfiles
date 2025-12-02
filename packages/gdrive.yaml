@@ -1,8 +1,0 @@
-package:
-  hint: "Google Drive download tool (gdown)"
-  depends_on:
-    - "python"
-  ubuntu:
-    - "pipx install gdown"
-  arch:
-    - "pipx install gdown"

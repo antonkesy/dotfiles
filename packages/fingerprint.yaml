@@ -1,9 +1,0 @@
-package:
-  hint: "Fingerprint authentication for sudo"
-  ubuntu:
-    - "sudo apt-get -y install fprintd libfprint-2-2 libpam-fprintd"
-    - "sudo pam-auth-update"
-  arch:
-    - "sudo pacman -S --noconfirm --needed fprintd"
-    - "sudo systemctl enable fprintd.service"
-    - "sudo systemctl start fprintd.service"

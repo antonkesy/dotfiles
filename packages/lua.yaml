@@ -1,8 +1,0 @@
-package:
-  hint: "Lua programming language and tools"
-  ubuntu:
-    - "sudo apt-get install -y luarocks"
-    - "sudo luarocks install luacheck"
-  arch:
-    - "sudo pacman -S --noconfirm --needed luarocks"
-    - "sudo luarocks install luacheck"
