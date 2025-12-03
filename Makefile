@@ -26,7 +26,7 @@ dev-build-dev:
 
 dev: dev-build-dev
 	@echo "Starting development container. Password: 'toor'"
-	docker run -it --rm -v "$(PWD):/workspace" -w /workspace dotfiles-test-dev bash
+	docker run -it --rm -v "$(PWD):/workspace" -v /workspace/build -w /workspace dotfiles-test-dev bash
 
 test: test-check test-dotfiles test-base test-desktop
 	echo "All tests passed."
