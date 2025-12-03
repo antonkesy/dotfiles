@@ -90,6 +90,10 @@
       ansible.builtin.import_tasks: tasks/dev-tools.yml
       tags: [dev-tools]
 
+    - name: Setup Android development environment
+      ansible.builtin.import_tasks: tasks/android.yml
+      tags: [android, mobile]
+
     # Terminal and shell
     - name: Setup Zsh shell
       ansible.builtin.import_tasks: tasks/zsh.yml
