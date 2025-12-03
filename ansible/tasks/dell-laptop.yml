@@ -1,5 +1,6 @@
 ---
 - name: Install Dell laptop tools from AUR
-  kewlfft.aur.aur:
-    name: dell-powermanager-git
-    state: present
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: dell-powermanager-git

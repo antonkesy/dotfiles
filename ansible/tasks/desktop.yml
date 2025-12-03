@@ -59,14 +59,16 @@
     state: present
 
 - name: Install Yaru theme from AUR
-  kewlfft.aur.aur:
-    name: yaru-theme
-    state: present
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: yaru-theme
 
 - name: Install better-control from AUR
-  kewlfft.aur.aur:
-    name: better-control-git
-    state: present
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: better-control-git
 
 - name: Enable GDM service
   become: true

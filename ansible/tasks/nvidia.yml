@@ -17,9 +17,10 @@
   when: ansible_facts['virtualization_type'] != "docker"
 
 - name: Install nvidia-container-toolkit from AUR
-  kewlfft.aur.aur:
-    name: nvidia-container-toolkit
-    state: present
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: nvidia-container-toolkit
 
 - name: Configure NVIDIA container toolkit for Docker
   become: true

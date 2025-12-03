@@ -1,5 +1,6 @@
 ---
 - name: Install Google Chrome from AUR
-  kewlfft.aur.aur:
-    name: google-chrome
-    state: present
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: google-chrome

@@ -1,8 +1,9 @@
 ---
-- name: Install ghcup from AUR
-  kewlfft.aur.aur:
-    name: ghcup-hs-bin
-    state: present
+- name: Build and install ghcup-hs-bin from AUR
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: ghcup-hs-bin
 
 - name: Install Haskell tools
   become: true

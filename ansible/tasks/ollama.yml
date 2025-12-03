@@ -1,8 +1,9 @@
 ---
 - name: Install Ollama from AUR
-  kewlfft.aur.aur:
-    name: ollama
-    state: present
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: ollama
 
 - name: Install Ollama CUDA support
   become: true

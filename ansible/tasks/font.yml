@@ -17,11 +17,6 @@
       - curl
     state: present
 
-- name: Install JetBrains Mono Nerd Font from AUR
-  kewlfft.aur.aur:
-    name: nerd-fonts-jetbrains-mono
-    state: present
-
 - name: Clear font cache
   ansible.builtin.command: fc-cache -f -v
   changed_when: false

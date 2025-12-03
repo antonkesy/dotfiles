@@ -1,8 +1,9 @@
 ---
 - name: Install VPN packages from AUR
-  kewlfft.aur.aur:
-    name: "{{ item }}"
-    state: present
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: "{{ item }}"
   loop:
     - openconnect
     - networkmanager-openconnect

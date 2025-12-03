@@ -1,5 +1,6 @@
 ---
 - name: Install Flutter from AUR
-  kewlfft.aur.aur:
-    name: flutter
-    state: present
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: flutter

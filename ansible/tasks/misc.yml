@@ -19,24 +19,28 @@
     state: present
 
 - name: Install Postman from AUR
-  kewlfft.aur.aur:
-    name: postman-bin
-    state: present
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: postman-bin
 
 - name: Install pdfarranger from AUR
-  kewlfft.aur.aur:
-    name: pdfarranger
-    state: present
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: pdfarranger
 
 - name: Install amberol from AUR
-  kewlfft.aur.aur:
-    name: amberol
-    state: present
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: amberol
 
 - name: Install pympress from AUR
-  kewlfft.aur.aur:
-    name: pympress
-    state: present
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: pympress
 
 - name: Install screenpen via pipx
   ansible.builtin.command: pipx install screenpen
