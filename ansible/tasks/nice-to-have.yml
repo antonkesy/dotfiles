@@ -27,14 +27,15 @@
     state: present
 
 - name: Install nice-to-have packages via AUR
-  kewlfft.aur.aur:
-    use: yay
-    name:
-      - postman-bin
-      - pdfarranger
-      - amberol
-      - pympress
-    state: present
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: "{{ item }}"
+  loop:
+    - postman-bin
+    - pdfarranger
+    - amberol
+    - pympress
 
 - name: Install Python tools via pipx
   community.general.pipx:
@@ -59,11 +60,10 @@
     - dysk
 
 - name: Install Mission Center via AUR
-  kewlfft.aur.aur:
-    use: yay
-    name:
-      - mission-center
-    state: present
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: mission-center
 
 - name: Install Anki via pacman
   become: true

@@ -1,0 +1,50 @@
+---
+- name: Set build directory
+  ansible.builtin.set_fact:
+    build_dir: "{{ playbook_dir }}/../build"
+  when: build_dir is not defined
+
+- name: Install base-devel and build dependencies
+  become: true
+  community.general.pacman:
+    name:
+      - base-devel
+      - git
+    state: present
+
+- name: Prepare build directory for {{ package_name }}
+  ansible.builtin.shell: |
+    mkdir -p "{{ build_dir }}/aur/{{ package_name }}"
+    cd "{{ build_dir }}/aur/{{ package_name }}"
+    yay -G {{ package_name }} --noconfirm
+  args:
+    executable: /bin/bash
+
+- name: Install {{ package_name }} dependencies
+  become: true
+  ansible.builtin.shell: |
+    cd "{{ build_dir }}/aur/{{ package_name }}/{{ package_name }}"
+    source PKGBUILD
+    if [ -n "${depends[*]}" ]; then
+      pacman -S --needed --noconfirm "${depends[@]}" || true
+    fi
+    if [ -n "${makedepends[*]}" ]; then
+      pacman -S --needed --noconfirm "${makedepends[@]}" || true
+    fi
+  args:
+    executable: /bin/bash
+
+- name: Build {{ package_name }} from AUR
+  ansible.builtin.shell: |
+    cd "{{ build_dir }}/aur/{{ package_name }}/{{ package_name }}"
+    makepkg --noconfirm
+  args:
+    executable: /bin/bash
+
+- name: Install {{ package_name }} system-wide
+  ansible.builtin.shell: |
+    cd "{{ build_dir }}/aur/{{ package_name }}/{{ package_name }}"
+    pacman -U --noconfirm *.pkg.tar.zst
+  args:
+    executable: /bin/bash
+  become: true

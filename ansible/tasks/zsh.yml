@@ -26,6 +26,7 @@
   when: "'/zsh' not in current_shell.stdout"
 
 - name: Install oh-my-zsh from AUR
-  kewlfft.aur.aur:
-    name: oh-my-zsh-git
-    state: present
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: oh-my-zsh-git

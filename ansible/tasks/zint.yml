@@ -1,5 +1,6 @@
 ---
 - name: Install Zint from AUR
-  kewlfft.aur.aur:
-    name: zint
-    state: present
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: zint
