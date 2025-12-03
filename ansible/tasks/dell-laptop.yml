@@ -3,4 +3,4 @@
   ansible.builtin.include_role:
     name: aur_build
   vars:
-    package_name: dell-powermanager-git
+    package_name: dell-command-configure
