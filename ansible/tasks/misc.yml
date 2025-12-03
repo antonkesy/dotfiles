@@ -40,7 +40,7 @@
   ansible.builtin.include_role:
     name: aur_build
   vars:
-    package_name: pympress
+    package_name: python-pympress
 
 - name: Install screenpen via pipx
   ansible.builtin.command: pipx install screenpen
