@@ -34,12 +34,19 @@
   args:
     executable: /bin/bash
 
+- name: Check if {{ package_name }} package already built
+  ansible.builtin.find:
+    paths: "{{ build_dir }}/aur/{{ package_name }}/{{ package_name }}"
+    patterns: "*.pkg.tar.zst"
+  register: existing_package
+
 - name: Build {{ package_name }} from AUR
   ansible.builtin.shell: |
     cd "{{ build_dir }}/aur/{{ package_name }}/{{ package_name }}"
     makepkg --noconfirm -f --skippgpcheck
   args:
     executable: /bin/bash
+  when: existing_package.matched == 0
 
 - name: Install {{ package_name }} system-wide
   ansible.builtin.shell: |
