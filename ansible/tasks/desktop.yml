@@ -58,12 +58,6 @@
       - xdg-desktop-portal-hyprland
     state: present
 
-- name: Install Yaru theme from AUR
-  ansible.builtin.include_role:
-    name: aur_build
-  vars:
-    package_name: yaru-gtk-theme
-
 - name: Install better-control from AUR
   ansible.builtin.include_role:
     name: aur_build
