@@ -37,7 +37,7 @@
 - name: Build {{ package_name }} from AUR
   ansible.builtin.shell: |
     cd "{{ build_dir }}/aur/{{ package_name }}/{{ package_name }}"
-    makepkg --noconfirm -f
+    makepkg --noconfirm -f --skippgpcheck
   args:
     executable: /bin/bash
 
