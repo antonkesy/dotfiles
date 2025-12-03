@@ -1,13 +1,8 @@
 ---
-- name: Install Ollama from AUR
-  ansible.builtin.include_role:
-    name: aur_build
-  vars:
-    package_name: ollama
-
-- name: Install Ollama CUDA support
+- name: Install Ollama and CUDA support
   become: true
   community.general.pacman:
     name:
+      - ollama
       - ollama-cuda
     state: present
