@@ -48,6 +48,21 @@
     chdir: "{{ playbook_dir | dirname }}"
   changed_when: false
 
+- name: Check for conflicting keypocalypse-now configs
+  ansible.builtin.shell: |
+    stow --no --target={{ ansible_facts.env.HOME }} .config 2>&1 | grep "existing target" | sed 's/.*existing target //' | sed 's/ since.*//' || true
+  args:
+    chdir: "{{ playbook_dir | dirname }}/home/keypocalypse-now"
+  register: keypocalypse_conflicts
+  changed_when: false
+
+- name: Remove conflicting keypocalypse-now configs
+  ansible.builtin.file:
+    path: "{{ ansible_facts.env.HOME }}/{{ item }}"
+    state: absent
+  loop: "{{ keypocalypse_conflicts.stdout_lines }}"
+  when: keypocalypse_conflicts.stdout_lines | length > 0
+
 - name: Stow keypocalypse-now configs
   ansible.builtin.command: stow --restow --target={{ ansible_facts.env.HOME }} .config
   args:
