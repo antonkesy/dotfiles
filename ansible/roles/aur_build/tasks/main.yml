@@ -20,19 +20,25 @@
   args:
     executable: /bin/bash
 
-- name: Install {{ package_name }} dependencies
-  become: true
+- name: Get {{ package_name }} dependencies
   ansible.builtin.shell: |
     cd "{{ build_dir }}/aur/{{ package_name }}/{{ package_name }}"
     source PKGBUILD
-    if [ -n "${depends[*]}" ]; then
-      pacman -S --needed --noconfirm "${depends[@]}" || true
-    fi
-    if [ -n "${makedepends[*]}" ]; then
-      pacman -S --needed --noconfirm "${makedepends[@]}" || true
-    fi
+    # Output all dependencies
+    echo "${depends[@]}" "${makedepends[@]}"
   args:
     executable: /bin/bash
+  register: package_deps
+  changed_when: false
+
+- name: Install {{ package_name }} dependencies
+  become: true
+  community.general.pacman:
+    name: "{{ item | regex_replace('[<>=].*', '') }}"
+    state: present
+  loop: "{{ package_deps.stdout.split() | select() | list }}"
+  when: package_deps.stdout | length > 0
+  failed_when: false
 
 - name: Check if {{ package_name }} package already built
   ansible.builtin.find:
