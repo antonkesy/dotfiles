@@ -1,9 +1,13 @@
 ---
-- name: Install VPN packages from AUR
+- name: Install openconnect from official repos
+  become: true
+  community.general.pacman:
+    name:
+      - openconnect
+    state: present
+
+- name: Install networkmanager-openconnect from AUR
   ansible.builtin.include_role:
     name: aur_build
   vars:
-    package_name: "{{ item }}"
-  loop:
-    - openconnect
-    - networkmanager-openconnect
+    package_name: networkmanager-openconnect
