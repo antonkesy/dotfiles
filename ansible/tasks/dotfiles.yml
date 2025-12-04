@@ -27,6 +27,21 @@
     path: "{{ ansible_facts.env.HOME }}/.config/zsh"
     state: absent
 
+- name: Check for conflicting dotfiles
+  ansible.builtin.shell: |
+    stow --no --target={{ ansible_facts.env.HOME }} home 2>&1 | grep "existing target" | sed 's/.*existing target //' | sed 's/ since.*//' || true
+  args:
+    chdir: "{{ playbook_dir | dirname }}"
+  register: stow_conflicts
+  changed_when: false
+
+- name: Remove conflicting dotfiles
+  ansible.builtin.file:
+    path: "{{ ansible_facts.env.HOME }}/{{ item }}"
+    state: absent
+  loop: "{{ stow_conflicts.stdout_lines }}"
+  when: stow_conflicts.stdout_lines | length > 0
+
 - name: Stow dotfiles
   ansible.builtin.command: stow --restow --target={{ ansible_facts.env.HOME }} home
   args:
