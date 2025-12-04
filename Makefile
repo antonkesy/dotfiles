@@ -24,9 +24,9 @@ check: galaxy
 dev-build-dev:
 	docker build -f ./docker/Arch.Dockerfile --target dev -t dotfiles-test-dev .
 
-dev: dev-build-dev
+dev:
 	@echo "Starting development container. Password: 'toor'"
-	docker run -it --rm -v "$(PWD):/workspace" -v /workspace/build -w /workspace dotfiles-test-dev bash
+	docker run -it -v "$(PWD):/workspace" -v /workspace/build -w /workspace dotfiles-test-dev bash
 
 test: test-check test-dotfiles test-base test-desktop
 	echo "All tests passed."
