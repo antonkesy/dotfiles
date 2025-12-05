@@ -8,6 +8,7 @@
       - curl
       - file
       - git
+      - ruby-erb
     state: present
 
 - name: Check if Homebrew is installed
@@ -16,6 +17,7 @@
   register: homebrew_check
 
 - name: Install Homebrew
+  become: true
   ansible.builtin.shell: |
     NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   args:
