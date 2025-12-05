@@ -221,3 +221,7 @@
     - name: Setup dotfiles
       ansible.builtin.import_tasks: tasks/dotfiles.yml
       tags: [dotfiles]
+
+    - name: Setup GRUB configuration
+      ansible.builtin.import_tasks: tasks/grub.yml
+      tags: [grub]

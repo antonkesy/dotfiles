@@ -1,0 +1,31 @@
+---
+- name: Check if grub configuration exists
+  ansible.builtin.stat:
+    path: /etc/default/grub
+  register: grub_exists
+
+- name: Backup existing grub configuration
+  become: true
+  ansible.builtin.copy:
+    src: /etc/default/grub
+    dest: /etc/default/grub.backup
+    remote_src: true
+    mode: "0644"
+  when: grub_exists.stat.exists
+
+- name: Install grub configuration file
+  become: true
+  ansible.builtin.copy:
+    src: "{{ playbook_dir | dirname }}/etc/default/grub"
+    dest: /etc/default/grub
+    owner: root
+    group: root
+    mode: "0644"
+    backup: true
+  register: grub_config
+
+- name: Update grub
+  become: true
+  ansible.builtin.command: update-grub
+  when: grub_config.changed
+  changed_when: true
