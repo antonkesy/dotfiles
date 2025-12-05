@@ -1,5 +1,5 @@
 # grep path .gitmodules | sed 's/^[ \t]*path = //' | paste -sd '|' -
-# exclude: ^(built_from_source/neovim/neovim|built_from_source/alacritty/alacritty|ubuntu/extensions/gSnap|ubuntu/extensions/gnome-shell-extension-lockkeys|ubuntu/extensions/gnome-shell-extension-clipboard-indicator|home/.config/lvim|home/.config/alacritty/themes|home/.tmux/plugins/tpm)
+# exclude: ^(home/.config/lvim|home/.config/alacritty/themes|home/.tmux/plugins/tpm|home/keypocalypse-now)
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
