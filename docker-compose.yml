@@ -1,0 +1,14 @@
+services:
+  dev:
+    image: dotfiles-test-dev
+    container_name: dotfiles-dev
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - build:/workspace/build
+    stdin_open: true
+    tty: true
+    command: bash
+
+volumes:
+  build:

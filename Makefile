@@ -21,12 +21,13 @@ desktop: galaxy
 check: galaxy
 	cd ansible && ansible-playbook site.yml --check
 
-dev-build-dev:
+dev-build:
 	docker build -f ./docker/Arch.Dockerfile --target dev -t dotfiles-test-dev .
 
 dev:
 	@echo "Starting development container. Password: 'toor'"
-	docker run -it -v "$(PWD):/workspace" -v /workspace/build -w /workspace dotfiles-test-dev bash
+	docker compose up -d dev
+	docker compose exec dev bash
 
 test: test-check test-dotfiles test-base test-desktop
 	echo "All tests passed."
@@ -45,6 +46,10 @@ test-desktop: test-build
 
 test-dotfiles: test-build
 	docker run --rm dotfiles-test bash -c "./prerequisites.sh && IN_DOCKER=1 make dotfiles"
+
+dev-clean:
+	@echo "Removing development container..."
+	docker compose down -v
 
 clean:
 	rm -rf ./build
