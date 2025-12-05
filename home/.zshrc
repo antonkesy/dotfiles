@@ -16,7 +16,6 @@ export HISTSIZE=50000000
 export SAVEHIST=50000000
 
 source ${HOME}/.config/zsh/untracked.zsh
-source ${HOME}/.config/zsh/homebrew.zsh
 source ${HOME}/.config/zsh/alias.zsh
 source ${HOME}/.config/zsh/znap.zsh
 source ${HOME}/.config/zsh/zinit.zsh

@@ -94,10 +94,6 @@
       ansible.builtin.import_tasks: tasks/android.yml
       tags: [android, mobile]
 
-    - name: Homebrew setup
-      ansible.builtin.import_tasks: tasks/homebrew.yml
-      tags: [homebrew, packages]
-
     # Terminal and shell
     - name: Setup Zsh shell
       ansible.builtin.import_tasks: tasks/zsh.yml
