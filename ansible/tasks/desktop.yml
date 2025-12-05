@@ -56,7 +56,45 @@
       - slurp
       - wofi
       - xdg-desktop-portal-hyprland
+      - waybar
+      - cliphist
+      - wl-clipboard # wayland clipboard utils
+      - kvantum # themes
+      - pipewire
+      - wireplumber
+      - pamixer
+      - brightnessctl
     state: present
+
+- name: Install tofi
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: tofi
+
+- name: Install hyprlock
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: hyprlock
+
+- name: Install wlogout
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: wlogout
+
+- name: Install hypridle
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: hypridle
+
+- name: install swww
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: swww
 
 - name: Install better-control from AUR
   ansible.builtin.include_role:
