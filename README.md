@@ -18,6 +18,7 @@ nmcli radio wifi on
 nmcli device wifi list
 nmcli device wifi connect "<SSID>" password "<PASSWORD>"
 
+# some setups might assume position of dotfiles in ~/workspace
 mkdir -p ~/workspace && cd ~/workspace
 sudo pacman -S --noconfirm --needed git
 git clone --recursive https://github.com/antonkesy/dotfiles.git

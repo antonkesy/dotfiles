@@ -9,22 +9,16 @@
 
 - name: Check if Flutter is already installed
   ansible.builtin.stat:
-    path: "{{ ansible_facts['env']['HOME'] }}/flutter"
+    path: "{{ playbook_dir | dirname }}/build/flutter"
   register: flutter_dir
 
 - name: Clone Flutter SDK from GitHub
   ansible.builtin.git:
     repo: https://github.com/flutter/flutter.git
-    dest: "{{ ansible_facts['env']['HOME'] }}/flutter"
+    dest: "{{ playbook_dir | dirname }}/build/flutter"
     version: stable
     depth: 1
   when: not flutter_dir.stat.exists
-
-- name: Set Chrome executable environment variable
-  ansible.builtin.lineinfile:
-    path: "{{ ansible_facts['env']['HOME'] }}/.zshrc"
-    line: 'export CHROME_EXECUTABLE=/usr/bin/chromium'
-    create: yes
 
 - name: Setup Android SDK for Flutter
   ansible.builtin.include_tasks: android.yml
@@ -36,20 +30,20 @@
 
 - name: Configure Flutter to use Android SDK
   ansible.builtin.shell: |
-    {{ ansible_facts['env']['HOME'] }}/flutter/bin/flutter config --android-sdk "{{ ansible_facts['env']['HOME'] }}/Android/Sdk"
+    {{ playbook_dir | dirname }}/build/flutter/bin/flutter config --android-sdk "{{ ansible_facts['env']['HOME'] }}/Android/Sdk"
   args:
     executable: /bin/bash
   environment:
-    PATH: "{{ ansible_facts['env']['HOME'] }}/flutter/bin:{{ ansible_facts['env']['PATH'] }}"
+    PATH: "{{ playbook_dir | dirname }}/build/flutter/bin:{{ ansible_facts['env']['PATH'] }}"
     ANDROID_HOME: "{{ ansible_facts['env']['HOME'] }}/Android/Sdk"
     ANDROID_SDK_ROOT: "{{ ansible_facts['env']['HOME'] }}/Android/Sdk"
   when: android_sdk_dir.stat.exists
   changed_when: true
 
 - name: Run flutter doctor (initial check)
-  ansible.builtin.shell: "{{ ansible_facts['env']['HOME'] }}/flutter/bin/flutter doctor"
+  ansible.builtin.shell: "{{ playbook_dir | dirname }}/build/flutter/bin/flutter doctor"
   environment:
-    PATH: "{{ ansible_facts['env']['HOME'] }}/flutter/bin:{{ ansible_facts['env']['PATH'] }}"
+    PATH: "{{ playbook_dir | dirname }}/build/flutter/bin:{{ ansible_facts['env']['PATH'] }}"
     CHROME_EXECUTABLE: /usr/bin/chromium
     ANDROID_HOME: "{{ ansible_facts['env']['HOME'] }}/Android/Sdk"
     ANDROID_SDK_ROOT: "{{ ansible_facts['env']['HOME'] }}/Android/Sdk"
