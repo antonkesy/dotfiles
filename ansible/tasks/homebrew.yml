@@ -17,11 +17,10 @@
   register: homebrew_check
 
 - name: Install Homebrew
-  become: true
-  ansible.builtin.shell: |
-    NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  args:
-    executable: /bin/bash
-  when: not homebrew_check.stat.exists
+  become: false
   environment:
     NONINTERACTIVE: "1"
+  shell: |
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  args:
+    creates: /home/linuxbrew/.linuxbrew/bin/brew
