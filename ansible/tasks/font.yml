@@ -15,6 +15,16 @@
       - unzip
       - wget
       - curl
+      - ttf-cascadia-code-nerd
+      - ttf-cascadia-mono-nerd
+      - ttf-fira-code
+      - ttf-fira-mono
+      - ttf-fira-sans
+      - ttf-firacode-nerd
+      - ttf-iosevka-nerd
+      - ttf-iosevkaterm-nerd
+      - ttf-jetbrains-mono
+      - ttf-nerd-fonts-symbols-mono
     state: present
 
 - name: Clear font cache
