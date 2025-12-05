@@ -35,12 +35,22 @@
   register: stow_conflicts
   changed_when: false
 
-- name: Remove conflicting dotfiles
-  ansible.builtin.file:
+- name: Check if conflicting dotfiles are symlinks
+  ansible.builtin.stat:
     path: "{{ ansible_facts.env.HOME }}/{{ item }}"
-    state: absent
+  register: conflict_stat
   loop: "{{ stow_conflicts.stdout_lines }}"
   when: stow_conflicts.stdout_lines | length > 0
+
+- name: Remove conflicting dotfiles (only if not symlinks)
+  ansible.builtin.file:
+    path: "{{ ansible_facts.env.HOME }}/{{ item.item }}"
+    state: absent
+  loop: "{{ conflict_stat.results }}"
+  when:
+    - stow_conflicts.stdout_lines | length > 0
+    - item.stat is defined
+    - not item.stat.islnk
 
 - name: Stow dotfiles
   ansible.builtin.command: stow --restow --target={{ ansible_facts.env.HOME }} home
@@ -56,12 +66,22 @@
   register: keypocalypse_conflicts
   changed_when: false
 
-- name: Remove conflicting keypocalypse-now configs
-  ansible.builtin.file:
+- name: Check if conflicting keypocalypse-now configs are symlinks
+  ansible.builtin.stat:
     path: "{{ ansible_facts.env.HOME }}/{{ item }}"
-    state: absent
+  register: keypocalypse_stat
   loop: "{{ keypocalypse_conflicts.stdout_lines }}"
   when: keypocalypse_conflicts.stdout_lines | length > 0
+
+- name: Remove conflicting keypocalypse-now configs (only if not symlinks)
+  ansible.builtin.file:
+    path: "{{ ansible_facts.env.HOME }}/{{ item.item }}"
+    state: absent
+  loop: "{{ keypocalypse_stat.results }}"
+  when:
+    - keypocalypse_conflicts.stdout_lines | length > 0
+    - item.stat is defined
+    - not item.stat.islnk
 
 - name: Stow keypocalypse-now configs
   ansible.builtin.command: stow --restow --target={{ ansible_facts.env.HOME }} keypocalypse-now
