@@ -24,6 +24,12 @@
     backup: true
   register: grub_config
 
+- name: Install update-grub from AUR
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: update-grub
+
 - name: Update grub
   become: true
   ansible.builtin.command: update-grub
