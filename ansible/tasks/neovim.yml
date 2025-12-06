@@ -35,7 +35,6 @@
     dest: "{{ playbook_dir | dirname }}/build/neovim"
     version: v0.10.4
     depth: 1
-  register: neovim_clone
 
 - name: Clean neovim build directories
   become: true
@@ -45,7 +44,6 @@
   loop:
     - .deps
     - build
-  when: neovim_clone.changed
 
 - name: Build neovim
   become: true
@@ -53,11 +51,9 @@
     chdir: "{{ playbook_dir | dirname }}/build/neovim"
     params:
       CMAKE_BUILD_TYPE: RelWithDebInfo
-  when: neovim_clone.changed
 
 - name: Install neovim
   become: true
   community.general.make:
     chdir: "{{ playbook_dir | dirname }}/build/neovim"
     target: install
-  when: neovim_clone.changed
