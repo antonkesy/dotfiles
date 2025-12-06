@@ -58,8 +58,8 @@
       - xdg-desktop-portal-hyprland
       - waybar
       - cliphist
-      - wl-clipboard # wayland clipboard utils
-      - kvantum # themes
+      - wl-clipboard  # wayland clipboard utils
+      - kvantum  # themes
       - pipewire
       - wireplumber
       - pamixer
