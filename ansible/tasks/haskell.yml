@@ -12,15 +12,3 @@
       - stack
       - cabal-install
     state: present
-
-- name: Update cabal and install GHC tools
-  ansible.builtin.shell: |
-    export BOOTSTRAP_HASKELL_NONINTERACTIVE=1
-    cabal update
-    ghcup install hls 1.4.0 || true
-    ghcup install ghc --set recommended || true
-  args:
-    executable: /bin/bash
-  environment:
-    PATH: "{{ ansible_facts.env.HOME }}/.local/bin:{{ ansible_facts.env.HOME }}/.cabal/bin:{{ ansible_facts.env.HOME }}/.ghcup/bin:{{ ansible_facts.env.PATH }}"
-  changed_when: false
