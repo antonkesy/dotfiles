@@ -20,10 +20,10 @@
 
 - name: Clone yay repository
   ansible.builtin.git:
-    repo: https://aur.archlinux.org/yay-bin.git # use yay-bin to avoid long build times
+    repo: https://aur.archlinux.org/yay-bin.git  # use yay-bin to avoid long build times
     dest: "{{ playbook_dir }}/../build/yay"
     version: master
-    update: yes
+    update: true
   become: false
 
 - name: Build yay package
@@ -53,7 +53,7 @@
     repo: https://aur.archlinux.org/paru.git
     dest: "{{ playbook_dir }}/../build/paru"
     version: master
-    update: yes
+    update: true
   become: false
 
 - name: Build paru package
