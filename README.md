@@ -1,5 +1,7 @@
 # Dotfiles
 
+[![Test Check](https://github.com/antonkesy/dotfiles/workflows/Test%20Check/badge.svg)](https://github.com/antonkesy/dotfiles/actions)
+
 Arch Linux dotfiles and system setup using Ansible.
 
 ## Fresh Arch Install
