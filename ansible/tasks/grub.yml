@@ -33,5 +33,5 @@
 - name: Update grub
   become: true
   ansible.builtin.command: update-grub
-  when: grub_config.changed and not (ansible_virtualization_type is defined and ansible_virtualization_type == "docker")
+  when: grub_config.changed and ansible_facts['virtualization_type'] != "docker"
   changed_when: true
