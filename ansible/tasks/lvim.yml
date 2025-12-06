@@ -1,19 +1,6 @@
 ---
-- name: Install LunarVim dependencies
-  become: true
-  community.general.pacman:
-    name:
-      - python-pynvim
-      - xclip
-      - curl
-      - npm
-      - ruby
-      - r
-      - php
-      - llvm
-      - lldb
-      - hunspell
-    state: present
+- name: Ensure neovim is installed
+  ansible.builtin.include_tasks: neovim.yml
 
 - name: Install neovim via pipx
   ansible.builtin.command: pipx install --include-deps neovim
