@@ -7,6 +7,6 @@
 [submodule "home/.tmux/plugins/tpm"]
 	path = home/.tmux/plugins/tpm
 	url = ../../tmux-plugins/tpm.git
-[submodule "home/keypocalypse-now"]
-	path = home/keypocalypse-now
+[submodule "hyprland"]
+	path = hyprland
 	url = https://github.com/antonkesy/keypocalypse-now.git
