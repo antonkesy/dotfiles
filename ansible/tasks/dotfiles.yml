@@ -58,33 +58,33 @@
     chdir: "{{ playbook_dir | dirname }}"
   changed_when: false
 
-- name: Check for conflicting keypocalypse-now configs
+- name: Check for conflicting hyprland configs
   ansible.builtin.shell: |
-    stow --no --target={{ ansible_facts.env.HOME }} keypocalypse-now 2>&1 | grep "existing target" | sed 's/.*existing target //' | sed 's/ since.*//' || true
+    stow --no --target={{ ansible_facts.env.HOME }} hyprland 2>&1 | grep "existing target" | sed 's/.*existing target //' | sed 's/ since.*//' || true
   args:
-    chdir: "{{ playbook_dir | dirname }}/home"
-  register: keypocalypse_conflicts
+    chdir: "{{ playbook_dir | dirname }}"
+  register: hyprland_conflicts
   changed_when: false
 
-- name: Check if conflicting keypocalypse-now configs are symlinks
+- name: Check if conflicting hyprland configs are symlinks
   ansible.builtin.stat:
     path: "{{ ansible_facts.env.HOME }}/{{ item }}"
-  register: keypocalypse_stat
-  loop: "{{ keypocalypse_conflicts.stdout_lines }}"
-  when: keypocalypse_conflicts.stdout_lines | length > 0
+  register: hyprland_stat
+  loop: "{{ hyprland_conflicts.stdout_lines }}"
+  when: hyprland_conflicts.stdout_lines | length > 0
 
-- name: Remove conflicting keypocalypse-now configs (only if not symlinks)
+- name: Remove conflicting hyprland configs (only if not symlinks)
   ansible.builtin.file:
     path: "{{ ansible_facts.env.HOME }}/{{ item.item }}"
     state: absent
-  loop: "{{ keypocalypse_stat.results }}"
+  loop: "{{ hyprland_stat.results }}"
   when:
-    - keypocalypse_conflicts.stdout_lines | length > 0
+    - hyprland_conflicts.stdout_lines | length > 0
     - item.stat is defined
     - not item.stat.islnk
 
-- name: Stow keypocalypse-now configs
-  ansible.builtin.command: stow --restow --target={{ ansible_facts.env.HOME }} keypocalypse-now
+- name: Stow hyprland configs
+  ansible.builtin.command: stow --restow --target={{ ansible_facts.env.HOME }} hyprland
   args:
-    chdir: "{{ playbook_dir | dirname }}/home"
+    chdir: "{{ playbook_dir | dirname }}"
   changed_when: false
