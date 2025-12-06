@@ -16,7 +16,7 @@
 - name: Install grub configuration file
   become: true
   ansible.builtin.copy:
-    src: "{{ playbook_dir | dirname }}/etc/default/grub"
+    src: "{{ playbook_dir | dirname }}/grub"
     dest: /etc/default/grub
     owner: root
     group: root
@@ -33,5 +33,5 @@
 - name: Update grub
   become: true
   ansible.builtin.command: update-grub
-  when: grub_config.changed
+  when: grub_config.changed and not (ansible_virtualization_type is defined and ansible_virtualization_type == "docker")
   changed_when: true
