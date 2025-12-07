@@ -19,7 +19,7 @@ desktop: galaxy
 	cd ansible && ansible-playbook $(BECOME_FLAG) site.yml
 
 check: galaxy
-	cd ansible && ansible-playbook site.yml --check
+	cd ansible && ansible-playbook $(BECOME_FLAG) site.yml --check
 
 dev-build:
 	docker build -f ./docker/Arch.Dockerfile --target dev -t dotfiles-test-dev .
