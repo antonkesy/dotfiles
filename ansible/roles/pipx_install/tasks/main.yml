@@ -1,0 +1,12 @@
+- name: Check if {{ package_name }} is already installed via pipx
+  ansible.builtin.shell: pipx list --short 2>/dev/null | grep -q "^{{ package_name }}$"
+  args:
+    executable: /bin/bash
+  register: package_installed
+  changed_when: false
+  failed_when: false
+- name: Install {{ package_name }} via pipx
+  ansible.builtin.command: pipx install {{ package_name }}
+  when: package_installed.rc != 0
+  register: pipx_install_result
+  changed_when: "'installed package' in pipx_install_result.stdout"

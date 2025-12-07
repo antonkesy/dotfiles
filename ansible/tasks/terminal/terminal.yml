@@ -17,8 +17,10 @@
       - pandoc
     state: present
 - name: Install pipx packages
-  community.general.pipx:
-    name: "{{ item }}"
+  ansible.builtin.include_role:
+    name: pipx_install
+  vars:
+    package_name: "{{ item }}"
   loop:
     - shtab
     - "trash-cli[completion]"

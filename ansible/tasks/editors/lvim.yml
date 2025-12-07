@@ -1,8 +1,10 @@
 - name: Ensure neovim is installed
   ansible.builtin.include_tasks: neovim.yml
 - name: Install pipx packages for LunarVim
-  community.general.pipx:
-    name: "{{ item }}"
+  ansible.builtin.include_role:
+    name: pipx_install
+  vars:
+    package_name: "{{ item }}"
   loop:
     - neovim
     - bandit
