@@ -2,19 +2,13 @@
   become: true
   community.general.pacman:
     name:
-      - git
-      - ffmpeg
-      - flex
-      - pandoc
       - gimp
       - baobab
-      - curl
       - qt5-base
       - qt6-base
       - libreoffice
       - obs-studio
       - pdftk
-      - bison
       - xournalpp
       - okular
       - krita
@@ -22,78 +16,31 @@
       - drawio-desktop
       - flameshot
       - exfatprogs
-      - ntfs-3g
       - appstream-glib # mission-center dependency
-      - libreoffice
-      - gimp
-      - qt5-base
       - obs-studio
-      - pdftk
-      - xournalpp
-      - okular
-      - krita
-      - vlc
-      - drawio-desktop
-      - flameshot
       - thunderbird
       - discord
+      - remmina # remote desktop client
     state: present
-- name: Install Google Chrome from AUR
-  ansible.builtin.include_role:
-    name: aur_build
-  vars:
-    package_name: google-chrome
 - name: Install nice-to-have packages via AUR
   ansible.builtin.include_role:
     name: aur_build
   vars:
     package_name: "{{ item }}"
   loop:
+    - google-chrome
     - postman-bin
     - pdfarranger
     - amberol
     - anki
     - mission-center
+    - pinta
+    - python-pympress
+    - qutebrowser
 - name: Install Python tools via pipx
   ansible.builtin.include_role:
     name: pipx_install
   vars:
     package_name: "{{ item }}"
   loop:
-    - pre-commit
     - screenpen
-- name: Install Postman
-  ansible.builtin.include_role:
-    name: aur_build
-  vars:
-    package_name: postman-bin
-- name: Install pdfarranger
-  ansible.builtin.include_role:
-    name: aur_build
-  vars:
-    package_name: pdfarranger
-- name: Install amberol
-  ansible.builtin.include_role:
-    name: aur_build
-  vars:
-    package_name: amberol
-- name: Install pympress
-  ansible.builtin.include_role:
-    name: aur_build
-  vars:
-    package_name: python-pympress
-- name: Install screenpen
-  ansible.builtin.include_role:
-    name: pipx_install
-  vars:
-    package_name: screenpen
-- name: Install yt-dlp (YouTube downloader) via pipx
-  ansible.builtin.include_role:
-    name: pipx_install
-  vars:
-    package_name: yt-dlp
-- name: Install gdown (Google Drive downloader) via pipx
-  ansible.builtin.include_role:
-    name: pipx_install
-  vars:
-    package_name: gdown
