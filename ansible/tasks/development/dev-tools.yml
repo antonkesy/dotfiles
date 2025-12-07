@@ -11,4 +11,14 @@
       - meson
       - bazel
       - cmake
+      - arduino-cli
     state: present
+
+- name: Ensure go is installed
+  ansible.builtin.import_tasks: tasks/development/golang.yml
+
+- name: Install lazygit
+  ansible.builtin.shell: go install github.com/jesseduffield/lazygit@latest
+  args:
+    executable: /bin/bash
+    creates: "{{ ansible_facts.env.HOME }}/go/bin/lazygit"
