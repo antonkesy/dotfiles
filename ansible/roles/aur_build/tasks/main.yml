@@ -9,10 +9,6 @@
   register: package_installed
   changed_when: false
   failed_when: false
-- name: Skip {{ package_name }} installation (already installed)
-  ansible.builtin.debug:
-    msg: "{{ package_name }} is already installed: {{ package_installed.stdout }}"
-  when: package_installed.rc == 0
 - name: Install base-devel and build dependencies
   become: true
   community.general.pacman:
