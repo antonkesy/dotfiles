@@ -5,9 +5,3 @@
     name:
       - go
     state: present
-
-- name: Install lazygit
-  ansible.builtin.shell: go install github.com/jesseduffield/lazygit@latest
-  args:
-    executable: /bin/bash
-    creates: "{{ ansible_facts.env.HOME }}/go/bin/lazygit"

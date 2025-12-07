@@ -106,9 +106,9 @@
       ansible.builtin.import_tasks: tasks/development/flutter.yml
       tags: [flutter, mobile, development]
 
-    - name: Setup Arduino
-      ansible.builtin.import_tasks: tasks/development/arduino.yml
-      tags: [arduino, development]
+    - name: Setup OpenCV
+      ansible.builtin.import_tasks: tasks/development/opencv.yml
+      tags: [opencv, ml, ai]
 
     # ==========================================================================
     # EDITORS - Text editors and IDEs
@@ -223,10 +223,6 @@
     - name: Setup Ollama
       ansible.builtin.import_tasks: tasks/ai/ollama.yml
       tags: [ollama, ai]
-
-    - name: Setup OpenCV
-      ansible.builtin.import_tasks: tasks/ai/opencv.yml
-      tags: [opencv, ml, ai]
 
     # ==========================================================================
     # MISC - Miscellaneous tools and configuration

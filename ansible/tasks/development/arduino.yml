@@ -1,6 +1,0 @@
----
-- name: Install arduino-cli
-  become: true
-  community.general.pacman:
-    name: arduino-cli
-    state: present
