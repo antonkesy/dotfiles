@@ -23,3 +23,11 @@
   args:
     executable: /bin/bash
     creates: "{{ ansible_facts.env.HOME }}/go/bin/lazydocker"
+- name: Install Python tools via pipx
+  ansible.builtin.include_role:
+    name: pipx_install
+  vars:
+    package_name: "{{ item }}"
+  loop:
+    - gdown
+    - yt-dlp

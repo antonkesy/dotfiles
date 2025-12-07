@@ -7,17 +7,6 @@
       - python-pipx
       - python-virtualenv
     state: present
-- name: Install Python tools via pipx
-  ansible.builtin.include_role:
-    name: pipx_install
-  vars:
-    package_name: "{{ item }}"
-  loop:
-    - pre-commit
-    - jupyterlab
-    - notebook
-    - gdown
-    - yt-dlp
 
 # - name: Install Python versions from AUR
 #   kewlfft.aur.aur:
