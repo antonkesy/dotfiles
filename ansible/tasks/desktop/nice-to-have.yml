@@ -24,6 +24,7 @@
       - flameshot
       - exfatprogs
       - ntfs-3g
+      - appstream-glib  # mission-center dependency
     state: present
 
 - name: Install nice-to-have packages via AUR
@@ -35,7 +36,8 @@
     - postman-bin
     - pdfarranger
     - amberol
-    - pympress
+    - anki
+    - mission-center
 
 - name: Install Python tools via pipx
   community.general.pipx:
@@ -58,16 +60,3 @@
     - procs
     - bottom
     - dysk
-
-- name: Install Mission Center via AUR
-  ansible.builtin.include_role:
-    name: aur_build
-  vars:
-    package_name: mission-center
-
-- name: Install Anki via pacman
-  become: true
-  community.general.pacman:
-    name:
-      - anki
-    state: present
