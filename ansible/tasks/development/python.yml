@@ -8,8 +8,10 @@
       - python-virtualenv
     state: present
 - name: Install Python tools via pipx
-  community.general.pipx:
-    name: "{{ item }}"
+  ansible.builtin.include_role:
+    name: pipx_install
+  vars:
+    package_name: "{{ item }}"
   loop:
     - pre-commit
     - jupyterlab

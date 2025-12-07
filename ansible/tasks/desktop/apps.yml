@@ -55,9 +55,10 @@
     - anki
     - mission-center
 - name: Install Python tools via pipx
-  community.general.pipx:
-    name: "{{ item }}"
-    state: present
+  ansible.builtin.include_role:
+    name: pipx_install
+  vars:
+    package_name: "{{ item }}"
   loop:
     - pre-commit
     - screenpen
@@ -82,13 +83,17 @@
   vars:
     package_name: python-pympress
 - name: Install screenpen
-  community.general.pipx:
-    name: screenpen
+  ansible.builtin.include_role:
+    name: pipx_install
+  vars:
+    package_name: screenpen
 - name: Install yt-dlp (YouTube downloader) via pipx
-  community.general.pipx:
-    name: yt-dlp
-    state: present
+  ansible.builtin.include_role:
+    name: pipx_install
+  vars:
+    package_name: yt-dlp
 - name: Install gdown (Google Drive downloader) via pipx
-  community.general.pipx:
-    name: gdown
-    state: present
+  ansible.builtin.include_role:
+    name: pipx_install
+  vars:
+    package_name: gdown
