@@ -1,14 +1,12 @@
 - name: Ensure neovim is installed
   ansible.builtin.include_tasks: neovim.yml
 - name: Install pipx packages for LunarVim
-  ansible.builtin.command: "pipx install {{ item.options | default('') }} {{ item.name }}"
+  community.general.pipx:
+    name: "{{ item }}"
   loop:
-    - {name: "neovim", options: "--include-deps"}
-    - {name: "bandit"}
-    - {name: "flake8"}
-  register: result
-  changed_when: "'installed package' in result.stdout"
-  failed_when: result.rc != 0 and 'already' not in result.stderr
+    - neovim
+    - bandit
+    - flake8
 - name: Uninstall existing LunarVim
   ansible.builtin.shell: bash ~/.local/share/lunarvim/lvim/utils/installer/uninstall.sh
   args:

@@ -82,10 +82,8 @@
   vars:
     package_name: python-pympress
 - name: Install screenpen
-  ansible.builtin.command: pipx install screenpen
-  register: result
-  changed_when: "'installed package' in result.stdout"
-  failed_when: result.rc != 0 and 'already' not in result.stderr
+  community.general.pipx:
+    name: screenpen
 - name: Install yt-dlp (YouTube downloader) via pipx
   community.general.pipx:
     name: yt-dlp
