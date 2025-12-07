@@ -24,7 +24,6 @@ source ${HOME}/.config/zsh/tmux.zsh
 source ${HOME}/.config/zsh/android.zsh
 source ${HOME}/.config/zsh/dart.zsh
 source ${HOME}/.config/zsh/flutter.zsh
-source ${HOME}/.config/zsh/flatpack.zsh
 source ${HOME}/.config/zsh/go.zsh
 source ${HOME}/.config/zsh/haskell.zsh
 source ${HOME}/.config/zsh/taco.zsh
