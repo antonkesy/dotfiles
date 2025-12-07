@@ -97,7 +97,6 @@
   ansible.builtin.systemd:
     name: gdm
     enabled: true
-    state: started
   when: ansible_facts['virtualization_type'] != "docker"
 - name: Enable NetworkManager service
   become: true
