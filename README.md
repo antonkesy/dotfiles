@@ -27,6 +27,8 @@ sudo pacman -S --noconfirm --needed git
 git clone --recursive https://github.com/antonkesy/dotfiles.git
 ./prerequisites.sh
 make desktop
+# wait some time
+reboot
 ```
 
 ## Targets
