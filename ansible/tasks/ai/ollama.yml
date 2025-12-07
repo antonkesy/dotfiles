@@ -1,8 +1,0 @@
----
-- name: Install Ollama and CUDA support
-  become: true
-  community.general.pacman:
-    name:
-      - ollama
-      - ollama-cuda
-    state: present

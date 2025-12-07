@@ -13,6 +13,9 @@
       - atuin
       - python-nautilus
       - wl-clipboard  # copy from wayland
+      - ollama
+      - ollama-cuda
+      - pandoc
     state: present
 
 - name: Install shtab via pipx
@@ -33,12 +36,6 @@
   changed_when: "'installed package' in result.stdout"
   failed_when: result.rc != 0 and 'already' not in result.stderr
 
-- name: Install exa via cargo
-  ansible.builtin.shell: cargo install exa
-  args:
-    executable: /bin/bash
-    creates: "{{ ansible_facts.env.HOME }}/.cargo/bin/exa"
-
 - name: Install libtmux via pip
   ansible.builtin.command: pip install --user --break-system-packages libtmux
   register: result
@@ -51,11 +48,8 @@
     executable: /bin/bash
   changed_when: false
 
-- name: Install zinit
-  ansible.builtin.shell: |
-    export ZINIT_INSTALL_SILENT=1
-    export ZINIT_INSTALL_NO_ANNEX_PROMPT=1
-    bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)" <<<"n"
-  args:
-    executable: /bin/bash
-    creates: "{{ ansible_facts.env.HOME }}/.local/share/zinit"
+- name: Install Zint
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: zint
