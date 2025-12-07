@@ -16,21 +16,13 @@
       - ollama-cuda
       - pandoc
     state: present
-- name: Install shtab via pipx
-  ansible.builtin.command: pipx install shtab
-  register: result
-  changed_when: "'installed package' in result.stdout"
-  failed_when: result.rc != 0 and 'already' not in result.stderr
-- name: Install trash-cli via pipx
-  ansible.builtin.command: pipx install 'trash-cli[completion]'
-  register: result
-  changed_when: "'installed package' in result.stdout"
-  failed_when: result.rc != 0 and 'already' not in result.stderr
-- name: Install nautilus via pipx
-  ansible.builtin.command: pipx install nautilus
-  register: result
-  changed_when: "'installed package' in result.stdout"
-  failed_when: result.rc != 0 and 'already' not in result.stderr
+- name: Install pipx packages
+  community.general.pipx:
+    name: "{{ item }}"
+  loop:
+    - shtab
+    - "trash-cli[completion]"
+    - nautilus
 - name: Install libtmux via pip
   ansible.builtin.command: pip install --user --break-system-packages libtmux
   register: result
