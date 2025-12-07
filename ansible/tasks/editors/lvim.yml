@@ -2,20 +2,12 @@
 - name: Ensure neovim is installed
   ansible.builtin.include_tasks: neovim.yml
 
-- name: Install neovim via pipx
-  ansible.builtin.command: pipx install --include-deps neovim
-  register: result
-  changed_when: "'installed package' in result.stdout"
-  failed_when: result.rc != 0 and 'already' not in result.stderr
-
-- name: Install bandit via pipx
-  ansible.builtin.command: pipx install bandit
-  register: result
-  changed_when: "'installed package' in result.stdout"
-  failed_when: result.rc != 0 and 'already' not in result.stderr
-
-- name: Install flake8 via pipx
-  ansible.builtin.command: pipx install flake8
+- name: Install pipx packages for LunarVim
+  ansible.builtin.command: "pipx install {{ item.options | default('') }} {{ item.name }}"
+  loop:
+    - {name: "neovim", options: "--include-deps"}
+    - {name: "bandit"}
+    - {name: "flake8"}
   register: result
   changed_when: "'installed package' in result.stdout"
   failed_when: result.rc != 0 and 'already' not in result.stderr

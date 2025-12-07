@@ -1,5 +1,5 @@
 ---
-- name: Install Unity Hub from AUR
+- name: Install Unity Hub
   ansible.builtin.include_role:
     name: aur_build
   vars:

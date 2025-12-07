@@ -16,6 +16,7 @@
       - gnome-font-viewer
       - simple-scan
       - evince
+      - ntfs-3g
     state: present
 
 - name: Install network and printing

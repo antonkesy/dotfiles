@@ -27,10 +27,6 @@
       ansible.builtin.import_tasks: tasks/core/aur-helpers.yml
       tags: [aur, core]
 
-    - name: Setup filesystem utilities
-      ansible.builtin.import_tasks: tasks/core/filesystem.yml
-      tags: [filesystem, core]
-
     - name: Setup pipx
       ansible.builtin.import_tasks: tasks/core/pipx.yml
       tags: [pipx, python, core]
@@ -148,9 +144,9 @@
       ansible.builtin.import_tasks: tasks/terminal/alacritty.yml
       tags: [alacritty, terminal]
 
-    - name: Setup Lazygit
-      ansible.builtin.import_tasks: tasks/terminal/lazygit.yml
-      tags: [lazygit, terminal, git]
+    - name: Setup CLI tools
+      ansible.builtin.import_tasks: tasks/terminal/cli.yml
+      tags: [cli, terminal]
 
     # ==========================================================================
     # DESKTOP - Desktop environment and applications
@@ -163,29 +159,9 @@
       ansible.builtin.import_tasks: tasks/desktop/font.yml
       tags: [fonts, desktop]
 
-    - name: Setup Google Chrome
-      ansible.builtin.import_tasks: tasks/desktop/chrome.yml
-      tags: [chrome, apps, desktop]
-
-    - name: Setup Discord
-      ansible.builtin.import_tasks: tasks/desktop/discord.yml
-      tags: [discord, apps, desktop]
-
-    - name: Setup Thunderbird
-      ansible.builtin.import_tasks: tasks/desktop/thunderbird.yml
-      tags: [thunderbird, apps, desktop]
-
-    - name: Setup YouTube tools
-      ansible.builtin.import_tasks: tasks/desktop/youtube.yml
-      tags: [youtube, apps, desktop]
-
-    - name: Setup Google Drive
-      ansible.builtin.import_tasks: tasks/desktop/gdrive.yml
-      tags: [gdrive, apps, desktop]
-
-    - name: Setup nice-to-have apps
-      ansible.builtin.import_tasks: tasks/desktop/nice-to-have.yml
-      tags: [nice-to-have, apps, desktop]
+    - name: Setup desktop apps
+      ansible.builtin.import_tasks: tasks/desktop/apps.yml
+      tags: [apps, desktop]
 
     # ==========================================================================
     # HARDWARE - Hardware drivers and configuration
@@ -218,13 +194,6 @@
       tags: [virtualbox, containers]
 
     # ==========================================================================
-    # AI - AI and ML tools
-    # ==========================================================================
-    - name: Setup Ollama
-      ansible.builtin.import_tasks: tasks/ai/ollama.yml
-      tags: [ollama, ai]
-
-    # ==========================================================================
     # MISC - Miscellaneous tools and configuration
     # ==========================================================================
     - name: Setup Git
@@ -236,20 +205,12 @@
       tags: [vpn, misc]
 
     - name: Setup Unity
-      ansible.builtin.import_tasks: tasks/misc/unity.yml
-      tags: [unity, gamedev, misc]
+      ansible.builtin.import_tasks: tasks/editors/unity.yml
+      tags: [unity, gamedev, editors]
 
     - name: Setup Webots
-      ansible.builtin.import_tasks: tasks/misc/webots.yml
-      tags: [webots, robotics, misc]
-
-    - name: Setup Zint
-      ansible.builtin.import_tasks: tasks/misc/zint.yml
-      tags: [zint, misc]
-
-    - name: Setup miscellaneous apps
-      ansible.builtin.import_tasks: tasks/misc/misc.yml
-      tags: [misc, apps]
+      ansible.builtin.import_tasks: tasks/development/webots.yml
+      tags: [webots, robotics, development]
 
     # Dotfiles and system config (should run last after all tools are installed)
     - name: Setup dotfiles

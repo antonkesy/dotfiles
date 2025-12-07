@@ -1,0 +1,107 @@
+---
+- name: Install nice-to-have packages via pacman
+  become: true
+  community.general.pacman:
+    name:
+      - git
+      - ffmpeg
+      - flex
+      - pandoc
+      - gimp
+      - baobab
+      - curl
+      - qt5-base
+      - qt6-base
+      - libreoffice
+      - obs-studio
+      - pdftk
+      - bison
+      - xournalpp
+      - okular
+      - krita
+      - vlc
+      - drawio-desktop
+      - flameshot
+      - exfatprogs
+      - ntfs-3g
+      - appstream-glib  # mission-center dependency
+      - libreoffice
+      - gimp
+      - qt5-base
+      - obs-studio
+      - pdftk
+      - xournalpp
+      - okular
+      - krita
+      - vlc
+      - drawio-desktop
+      - flameshot
+      - thunderbird
+      - discord
+    state: present
+
+- name: Install Google Chrome from AUR
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: google-chrome
+
+- name: Install nice-to-have packages via AUR
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: "{{ item }}"
+  loop:
+    - postman-bin
+    - pdfarranger
+    - amberol
+    - anki
+    - mission-center
+
+- name: Install Python tools via pipx
+  community.general.pipx:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - pre-commit
+    - screenpen
+
+- name: Install Postman
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: postman-bin
+
+- name: Install pdfarranger
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: pdfarranger
+
+- name: Install amberol
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: amberol
+
+- name: Install pympress
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: python-pympress
+
+- name: Install screenpen
+  ansible.builtin.command: pipx install screenpen
+  register: result
+  changed_when: "'installed package' in result.stdout"
+  failed_when: result.rc != 0 and 'already' not in result.stderr
+
+- name: Install yt-dlp (YouTube downloader) via pipx
+  community.general.pipx:
+    name: yt-dlp
+    state: present
+
+- name: Install gdown (Google Drive downloader) via pipx
+  community.general.pipx:
+    name: gdown
+    state: present

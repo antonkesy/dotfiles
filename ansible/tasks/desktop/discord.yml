@@ -1,7 +1,0 @@
----
-- name: Install Discord via pacman
-  become: true
-  community.general.pacman:
-    name:
-      - discord
-    state: present

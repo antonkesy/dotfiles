@@ -1,7 +1,0 @@
----
-- name: Install Thunderbird via pacman
-  become: true
-  community.general.pacman:
-    name:
-      - thunderbird
-    state: present

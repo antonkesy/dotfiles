@@ -1,6 +1,0 @@
----
-- name: Install Zint from AUR
-  ansible.builtin.include_role:
-    name: aur_build
-  vars:
-    package_name: zint
