@@ -19,7 +19,7 @@ archinstall --config arch_install_config.json
 # Reboot and login into new user
 nmcli radio wifi on
 nmcli device wifi list
-nmcli device wifi connect "<SSID>" password "<PASSWORD>"
+nmcli device wifi connect "<SSID>" --ask
 
 # some setups might assume position of dotfiles in ~/workspace
 mkdir -p ~/workspace && cd ~/workspace
