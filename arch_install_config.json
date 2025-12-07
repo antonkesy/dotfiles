@@ -21,7 +21,7 @@
     "type": "nm"
   },
   "ntp": true,
-  "packages": [],
+  "packages": ["sudo", "git", "base-devel", "ansible"],
   "parallel_downloads": 0,
   "profile_config": {
     "gfx_driver": null,
