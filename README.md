@@ -1,6 +1,7 @@
 # Dotfiles
 
-[![Test Check](https://github.com/antonkesy/dotfiles/workflows/Test%20Check/badge.svg)](https://github.com/antonkesy/dotfiles/actions)
+[![`ansible check`](https://github.com/antonkesy/dotfiles/workflows/Test%20Check/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/test-check.yml)
+[![Pre-Commit](https://github.com/antonkesy/dotfiles/workflows/pre-commit/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/pre-commit.yml)
 
 Arch Linux dotfiles and system setup using Ansible.
 
