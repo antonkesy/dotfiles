@@ -23,9 +23,9 @@ nmcli device wifi connect "<SSID>" --ask
 
 # some setups might assume position of dotfiles in ~/workspace
 mkdir -p ~/workspace && cd ~/workspace
-sudo pacman -S --noconfirm --needed git
+sudo pacman -S --noconfirm --needed git # can be skipped if used archinstall config
 git clone --recursive https://github.com/antonkesy/dotfiles.git
-./prerequisites.sh
+./prerequisites.sh # can be skipped if used archinstall config
 make desktop
 # wait some time
 reboot
