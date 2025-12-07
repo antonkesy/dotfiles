@@ -1,11 +1,9 @@
----
 - name: Install Lua packages
   become: true
   community.general.pacman:
     name:
       - luarocks
     state: present
-
 - name: Install luacheck
   become: true
   ansible.builtin.command: luarocks install luacheck

@@ -9,6 +9,5 @@ services:
     stdin_open: true
     tty: true
     command: bash
-
 volumes:
   build:

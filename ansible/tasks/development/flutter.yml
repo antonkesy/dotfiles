@@ -1,17 +1,14 @@
----
 - name: Install Flutter dependencies
   become: true
   community.general.pacman:
     name:
-      - mesa-utils  # For eglinfo
-      - chromium    # Chrome for web development
+      - mesa-utils # For eglinfo
+      - chromium # Chrome for web development
     state: present
-
 - name: Check if Flutter is already installed
   ansible.builtin.stat:
     path: "{{ playbook_dir | dirname }}/build/flutter"
   register: flutter_dir
-
 - name: Clone Flutter SDK from GitHub
   ansible.builtin.git:
     repo: https://github.com/flutter/flutter.git
@@ -19,15 +16,12 @@
     version: stable
     depth: 1
   when: not flutter_dir.stat.exists
-
 - name: Setup Android SDK for Flutter
   ansible.builtin.include_tasks: android.yml
-
 - name: Check if Android SDK exists
   ansible.builtin.stat:
     path: "{{ ansible_facts['env']['HOME'] }}/Android/Sdk"
   register: android_sdk_dir
-
 - name: Configure Flutter to use Android SDK
   ansible.builtin.shell: |
     {{ playbook_dir | dirname }}/build/flutter/bin/flutter config --android-sdk "{{ ansible_facts['env']['HOME'] }}/Android/Sdk"
@@ -39,7 +33,6 @@
     ANDROID_SDK_ROOT: "{{ ansible_facts['env']['HOME'] }}/Android/Sdk"
   when: android_sdk_dir.stat.exists
   changed_when: true
-
 - name: Run flutter doctor (initial check)
   ansible.builtin.shell: "{{ playbook_dir | dirname }}/build/flutter/bin/flutter doctor"
   environment:
@@ -50,7 +43,6 @@
   register: flutter_doctor_output
   changed_when: false
   failed_when: false
-
 - name: Display flutter doctor output
   ansible.builtin.debug:
     var: flutter_doctor_output.stdout_lines

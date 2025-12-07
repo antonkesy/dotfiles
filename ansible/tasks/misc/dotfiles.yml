@@ -1,10 +1,8 @@
----
 - name: Ensure stow is installed
   become: true
   community.general.pacman:
     name: stow
     state: present
-
 - name: Create directories that need to exist before stow runs
   ansible.builtin.file:
     path: "{{ ansible_facts.env.HOME }}/{{ item }}"
@@ -13,7 +11,6 @@
   loop:
     - .config/lvim/spell
     - .tmux/plugins
-
 - name: Create untracked zsh config
   ansible.builtin.file:
     path: "{{ playbook_dir | dirname }}/home/.config/zsh/untracked.zsh"
@@ -21,12 +18,10 @@
     mode: "0644"
     modification_time: preserve
     access_time: preserve
-
 - name: Remove existing zsh config directory
   ansible.builtin.file:
     path: "{{ ansible_facts.env.HOME }}/.config/zsh"
     state: absent
-
 - name: Check for conflicting dotfiles
   ansible.builtin.shell: |
     stow --no --target={{ ansible_facts.env.HOME }} home 2>&1 | grep "existing target" | sed 's/.*existing target //' | sed 's/ since.*//' || true
@@ -34,14 +29,12 @@
     chdir: "{{ playbook_dir | dirname }}"
   register: stow_conflicts
   changed_when: false
-
 - name: Check if conflicting dotfiles are symlinks
   ansible.builtin.stat:
     path: "{{ ansible_facts.env.HOME }}/{{ item }}"
   register: conflict_stat
   loop: "{{ stow_conflicts.stdout_lines }}"
   when: stow_conflicts.stdout_lines | length > 0
-
 - name: Remove conflicting dotfiles (only if not symlinks)
   ansible.builtin.file:
     path: "{{ ansible_facts.env.HOME }}/{{ item.item }}"
@@ -51,13 +44,11 @@
     - stow_conflicts.stdout_lines | length > 0
     - item.stat is defined
     - not item.stat.islnk
-
 - name: Stow dotfiles
   ansible.builtin.command: stow --restow --target={{ ansible_facts.env.HOME }} home
   args:
     chdir: "{{ playbook_dir | dirname }}"
   changed_when: false
-
 - name: Check for conflicting hyprland configs
   ansible.builtin.shell: |
     stow --no --target={{ ansible_facts.env.HOME }} hyprland 2>&1 | grep "existing target" | sed 's/.*existing target //' | sed 's/ since.*//' || true
@@ -65,14 +56,12 @@
     chdir: "{{ playbook_dir | dirname }}"
   register: hyprland_conflicts
   changed_when: false
-
 - name: Check if conflicting hyprland configs are symlinks
   ansible.builtin.stat:
     path: "{{ ansible_facts.env.HOME }}/{{ item }}"
   register: hyprland_stat
   loop: "{{ hyprland_conflicts.stdout_lines }}"
   when: hyprland_conflicts.stdout_lines | length > 0
-
 - name: Remove conflicting hyprland configs (only if not symlinks)
   ansible.builtin.file:
     path: "{{ ansible_facts.env.HOME }}/{{ item.item }}"
@@ -82,7 +71,6 @@
     - hyprland_conflicts.stdout_lines | length > 0
     - item.stat is defined
     - not item.stat.islnk
-
 - name: Stow hyprland configs
   ansible.builtin.command: stow --restow --target={{ ansible_facts.env.HOME }} hyprland
   args:

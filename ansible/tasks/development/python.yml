@@ -1,4 +1,3 @@
----
 - name: Install Python packages
   become: true
   community.general.pacman:
@@ -8,31 +7,26 @@
       - python-pipx
       - python-virtualenv
     state: present
-
 - name: Install pre-commit via pipx
   ansible.builtin.command: pipx install pre-commit
   register: result
   changed_when: "'installed package' in result.stdout"
   failed_when: result.rc != 0 and 'already' not in result.stderr
-
 - name: Install jupyterlab via pipx
   ansible.builtin.command: pipx install jupyterlab
   register: result
   changed_when: "'installed package' in result.stdout"
   failed_when: result.rc != 0 and 'already' not in result.stderr
-
 - name: Install notebook via pipx
   ansible.builtin.command: pipx install notebook
   register: result
   changed_when: "'installed package' in result.stdout"
   failed_when: result.rc != 0 and 'already' not in result.stderr
-
 - name: Install gdown via pipx
   ansible.builtin.command: pipx install gdown
   register: result
   changed_when: "'installed package' in result.stdout"
   failed_when: result.rc != 0 and 'already' not in result.stderr
-
 - name: Install yt-dlp via pipx
   ansible.builtin.command: pipx install yt-dlp
   register: result
