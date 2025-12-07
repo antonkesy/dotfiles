@@ -1,17 +1,14 @@
----
 - name: Install OCaml package manager
   become: true
   community.general.pacman:
     name:
       - opam
     state: present
-
 - name: Initialize opam
   ansible.builtin.shell: opam init --auto-setup --disable-sandboxing -n
   args:
     executable: /bin/bash
     creates: "{{ ansible_facts.env.HOME }}/.opam/config"
-
 - name: Create OCaml 5.3.0 switch
   ansible.builtin.shell: |
     eval $(opam env)
@@ -19,7 +16,6 @@
   args:
     executable: /bin/bash
     creates: "{{ ansible_facts.env.HOME }}/.opam/5.3.0"
-
 - name: Install OCaml development tools
   ansible.builtin.shell: |
     eval $(opam env --switch=5.3.0)

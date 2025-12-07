@@ -1,4 +1,3 @@
----
 - name: Install AUR helpers build dependencies
   become: true
   community.general.pacman:
@@ -8,7 +7,6 @@
       - go
       - rust
     state: present
-
 - name: Ensure build directory exists
   ansible.builtin.file:
     path: "{{ playbook_dir }}/../build"
@@ -17,15 +15,13 @@
     owner: "{{ ansible_facts['user_id'] }}"
     group: "{{ ansible_facts['user_id'] }}"
   become: true
-
 - name: Clone yay repository
   ansible.builtin.git:
-    repo: https://aur.archlinux.org/yay-bin.git  # use yay-bin to avoid long build times
+    repo: https://aur.archlinux.org/yay-bin.git # use yay-bin to avoid long build times
     dest: "{{ playbook_dir }}/../build/yay"
     version: master
     update: true
   become: false
-
 - name: Build yay package
   ansible.builtin.shell: |
     cd {{ playbook_dir }}/../build/yay
@@ -34,20 +30,17 @@
     executable: /bin/bash
   become: false
   register: yay_build
-
 - name: Find yay package file
   ansible.builtin.find:
     paths: "{{ playbook_dir }}/../build/yay"
     patterns: "yay-*.pkg.tar.zst"
   register: yay_package
-
 - name: Install yay
   become: true
   community.general.pacman:
     name: "{{ yay_package.files[0].path }}"
     state: present
   when: yay_package.files | length > 0
-
 - name: Clone paru repository
   ansible.builtin.git:
     repo: https://aur.archlinux.org/paru.git
@@ -55,7 +48,6 @@
     version: master
     update: true
   become: false
-
 - name: Build paru package
   ansible.builtin.shell: |
     cd {{ playbook_dir }}/../build/paru
@@ -64,13 +56,11 @@
     executable: /bin/bash
   become: false
   register: paru_build
-
 - name: Find paru package file
   ansible.builtin.find:
     paths: "{{ playbook_dir }}/../build/paru"
     patterns: "paru-*.pkg.tar.zst"
   register: paru_package
-
 - name: Install paru
   become: true
   community.general.pacman:

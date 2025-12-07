@@ -1,6 +1,5 @@
 # grep path .gitmodules | sed 's/^[ \t]*path = //' | paste -sd '|' -
 # exclude: ^(home/.config/lvim|home/.config/alacritty/themes|home/.tmux/plugins/tpm|home/keypocalypse-now)
-
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
@@ -19,7 +18,6 @@ repos:
         exclude: ^(home/.config/lvim|home/.config/alacritty/themes|home/.tmux/plugins/tpm|home/keypocalypse-now)
       - id: detect-private-key
         exclude: ^(home/.config/lvim|home/.config/alacritty/themes|home/.tmux/plugins/tpm|home/keypocalypse-now)
-
   - repo: https://github.com/koalaman/shellcheck-precommit
     rev: v0.7.2
     hooks:
@@ -27,19 +25,20 @@ repos:
         args: ["--shell=bash", "--severity=error"]
         # + exclude p10k.zsh (home/.config/zsh/p10k.zsh)
         exclude: ^(home/.config/lvim|home/.config/alacritty/themes|home/.tmux/plugins/tpm|home/keypocalypse-now|home/.config/zsh/p10k.zsh)
-
   - repo: https://github.com/zricethezav/gitleaks
     rev: v8.18.0
     hooks:
       - id: gitleaks
         exclude: ^(home/.config/lvim|home/.config/alacritty/themes|home/.tmux/plugins/tpm|home/keypocalypse-now)
-
   - repo: https://github.com/scop/pre-commit-shfmt
     rev: v3.11.0-1
     hooks:
       - id: shfmt
         files: ^install_scripts/
-
+  - repo: https://github.com/google/yamlfmt
+    rev: v0.13.0
+    hooks:
+      - id: yamlfmt
   - repo: https://github.com/adrienverge/yamllint
     rev: v1.35.1
     hooks:
@@ -47,4 +46,13 @@ repos:
         args:
           - --strict
           - -d
-          - "{extends: default, rules: {line-length: {max: 150}, document-start: disable, truthy: {check-keys: false}}}"
+          - |
+            {
+              extends: default,
+              rules: {
+                line-length: {max: 150},
+                document-start: disable,
+                truthy: {check-keys: false},
+                comments: {min-spaces-from-content: 1}
+              }
+            }

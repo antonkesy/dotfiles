@@ -1,4 +1,3 @@
----
 - name: Install Rust packages
   become: true
   community.general.pacman:
@@ -10,7 +9,6 @@
       - openssl
       - pkgconf
     state: present
-
 - name: Install cargo-update
   ansible.builtin.shell: cargo install cargo-update
   args:

@@ -1,11 +1,9 @@
----
 - name: Install fingerprint packages
   become: true
   community.general.pacman:
     name:
       - fprintd
     state: present
-
 - name: Enable fprintd service
   become: true
   ansible.builtin.systemd:

@@ -1,4 +1,3 @@
----
 - name: Install Go programming language
   become: true
   community.general.pacman:

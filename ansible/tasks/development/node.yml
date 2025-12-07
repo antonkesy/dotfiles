@@ -1,4 +1,3 @@
----
 - name: Install Node.js packages
   become: true
   community.general.pacman:

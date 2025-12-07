@@ -1,29 +1,24 @@
----
 - name: Install Android Studio dependencies
   become: true
   community.general.pacman:
     name:
       - jdk-openjdk
     state: present
-
 - name: Install Android Studio from AUR
   ansible.builtin.include_role:
     name: aur_build
   vars:
     package_name: android-studio
-
 - name: Check if Android SDK is already set up
   ansible.builtin.stat:
     path: "{{ ansible_facts['env']['HOME'] }}/Android/Sdk/platform-tools"
   register: android_sdk_check
-
 - name: Create Android SDK directory
   ansible.builtin.file:
     path: "{{ ansible_facts['env']['HOME'] }}/Android/Sdk"
     state: directory
     mode: '0755'
   when: not android_sdk_check.stat.exists
-
 - name: Set up Android SDK via sdkmanager
   ansible.builtin.shell: |
     yes | /opt/android-studio/jbr/bin/java -jar /opt/android-studio/lib/platform-installer.jar \

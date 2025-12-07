@@ -1,9 +1,7 @@
----
 - name: Check if grub configuration exists
   ansible.builtin.stat:
     path: /etc/default/grub
   register: grub_exists
-
 - name: Backup existing grub configuration
   become: true
   ansible.builtin.copy:
@@ -12,7 +10,6 @@
     remote_src: true
     mode: "0644"
   when: grub_exists.stat.exists
-
 - name: Install grub configuration file
   become: true
   ansible.builtin.copy:
@@ -23,13 +20,11 @@
     mode: "0644"
     backup: true
   register: grub_config
-
 - name: Install update-grub from AUR
   ansible.builtin.include_role:
     name: aur_build
   vars:
     package_name: update-grub
-
 - name: Update grub
   become: true
   ansible.builtin.command: update-grub

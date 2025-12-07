@@ -1,4 +1,3 @@
----
 - name: Install VirtualBox
   become: true
   community.general.pacman:

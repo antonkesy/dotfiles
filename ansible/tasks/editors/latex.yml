@@ -1,4 +1,3 @@
----
 - name: Install LaTeX packages
   become: true
   community.general.pacman:

@@ -1,11 +1,9 @@
----
 - name: Install openconnect
   become: true
   community.general.pacman:
     name:
       - openconnect
     state: present
-
 - name: Install networkmanager-openconnect
   ansible.builtin.include_role:
     name: aur_build

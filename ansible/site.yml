@@ -1,20 +1,16 @@
----
 - name: Bootstrap Arch Linux development environment
   hosts: localhost
   connection: local
   become: false
-
   vars:
     git_user_name: "Anton Kesy"
     git_user_email: "antonkesy@gmail.com"
     git_editor: "lvim"
-
   pre_tasks:
     - name: Update pacman cache
       become: true
       community.general.pacman:
         update_cache: true
-
   tasks:
     # ==========================================================================
     # CORE - Base system setup
@@ -22,201 +18,157 @@
     - name: Setup base packages
       ansible.builtin.import_tasks: tasks/core/base.yml
       tags: [base, core]
-
     - name: Setup AUR helpers
       ansible.builtin.import_tasks: tasks/core/aur-helpers.yml
       tags: [aur, core]
-
     - name: Setup pipx
       ansible.builtin.import_tasks: tasks/core/pipx.yml
       tags: [pipx, python, core]
-
     - name: Setup Flatpak and apps
       ansible.builtin.import_tasks: tasks/core/flatpak.yml
       tags: [flatpak, apps, core]
-
     - name: Setup keyring
       ansible.builtin.import_tasks: tasks/core/keyring.yml
       tags: [keyring, core]
-
     # ==========================================================================
     # DEVELOPMENT - Programming languages and tools
     # ==========================================================================
     - name: Setup Python
       ansible.builtin.import_tasks: tasks/development/python.yml
       tags: [python, languages, development]
-
     - name: Setup Node.js
       ansible.builtin.import_tasks: tasks/development/node.yml
       tags: [node, languages, development]
-
     - name: Setup Go
       ansible.builtin.import_tasks: tasks/development/golang.yml
       tags: [golang, languages, development]
-
     - name: Setup Rust
       ansible.builtin.import_tasks: tasks/development/rust.yml
       tags: [rust, languages, development]
-
     - name: Setup Java
       ansible.builtin.import_tasks: tasks/development/java.yml
       tags: [java, languages, development]
-
     - name: Setup Haskell
       ansible.builtin.import_tasks: tasks/development/haskell.yml
       tags: [haskell, languages, development]
-
     - name: Setup OCaml
       ansible.builtin.import_tasks: tasks/development/ocaml.yml
       tags: [ocaml, languages, development]
-
     - name: Setup Lua
       ansible.builtin.import_tasks: tasks/development/lua.yml
       tags: [lua, languages, development]
-
     - name: Setup Dart
       ansible.builtin.import_tasks: tasks/development/dart.yml
       tags: [dart, languages, development]
-
     - name: Setup Racket
       ansible.builtin.import_tasks: tasks/development/racket.yml
       tags: [racket, languages, development]
-
     - name: Setup .NET
       ansible.builtin.import_tasks: tasks/development/dotnet.yml
       tags: [dotnet, languages, development]
-
     - name: Setup C++ tools
       ansible.builtin.import_tasks: tasks/development/cpp.yml
       tags: [cpp, dev-tools, development]
-
     - name: Setup development tools
       ansible.builtin.import_tasks: tasks/development/dev-tools.yml
       tags: [dev-tools, development]
-
     - name: Setup Android development environment
       ansible.builtin.import_tasks: tasks/development/android.yml
       tags: [android, mobile, development]
-
     - name: Setup Flutter
       ansible.builtin.import_tasks: tasks/development/flutter.yml
       tags: [flutter, mobile, development]
-
     - name: Setup OpenCV
       ansible.builtin.import_tasks: tasks/development/opencv.yml
       tags: [opencv, ml, ai]
-
     # ==========================================================================
     # EDITORS - Text editors and IDEs
     # ==========================================================================
     - name: Setup Neovim
       ansible.builtin.import_tasks: tasks/editors/neovim.yml
       tags: [neovim, editor, editors]
-
     - name: Setup LunarVim
       ansible.builtin.import_tasks: tasks/editors/lvim.yml
       tags: [lvim, editor, editors]
-
     - name: Setup Emacs
       ansible.builtin.import_tasks: tasks/editors/emacs.yml
       tags: [emacs, editor, editors]
-
     - name: Setup VS Code
       ansible.builtin.import_tasks: tasks/editors/vscode.yml
       tags: [vscode, editor, editors]
-
     - name: Setup LaTeX
       ansible.builtin.import_tasks: tasks/editors/latex.yml
       tags: [latex, editors]
-
     # ==========================================================================
     # TERMINAL - Shell and terminal tools
     # ==========================================================================
     - name: Setup Zsh shell
       ansible.builtin.import_tasks: tasks/terminal/zsh.yml
       tags: [zsh, shell, terminal]
-
     - name: Setup terminal tools
       ansible.builtin.import_tasks: tasks/terminal/terminal.yml
       tags: [terminal, shell]
-
     - name: Setup Alacritty
       ansible.builtin.import_tasks: tasks/terminal/alacritty.yml
       tags: [alacritty, terminal]
-
     - name: Setup CLI tools
       ansible.builtin.import_tasks: tasks/terminal/cli.yml
       tags: [cli, terminal]
-
     # ==========================================================================
     # DESKTOP - Desktop environment and applications
     # ==========================================================================
     - name: Setup desktop environment
       ansible.builtin.import_tasks: tasks/desktop/desktop.yml
       tags: [desktop]
-
     - name: Setup fonts
       ansible.builtin.import_tasks: tasks/desktop/font.yml
       tags: [fonts, desktop]
-
     - name: Setup desktop apps
       ansible.builtin.import_tasks: tasks/desktop/apps.yml
       tags: [apps, desktop]
-
     # ==========================================================================
     # HARDWARE - Hardware drivers and configuration
     # ==========================================================================
     - name: Setup Bluetooth
       ansible.builtin.import_tasks: tasks/hardware/bluetooth.yml
       tags: [bluetooth, hardware]
-
     - name: Setup NVIDIA
       ansible.builtin.import_tasks: tasks/hardware/nvidia.yml
       tags: [nvidia, hardware]
-
     - name: Setup fingerprint
       ansible.builtin.import_tasks: tasks/hardware/fingerprint.yml
       tags: [fingerprint, hardware]
-
     - name: Setup Dell laptop tools
       ansible.builtin.import_tasks: tasks/hardware/dell-laptop.yml
       tags: [dell, laptop, hardware]
-
     # ==========================================================================
     # CONTAINERS - Docker and virtualization
     # ==========================================================================
     - name: Setup Docker
       ansible.builtin.import_tasks: tasks/containers/docker.yml
       tags: [docker, containers]
-
     - name: Setup VirtualBox
       ansible.builtin.import_tasks: tasks/containers/virtualbox.yml
       tags: [virtualbox, containers]
-
     # ==========================================================================
     # MISC - Miscellaneous tools and configuration
     # ==========================================================================
     - name: Setup Git
       ansible.builtin.import_tasks: tasks/misc/git.yml
       tags: [git, misc]
-
     - name: Setup VPN tools
       ansible.builtin.import_tasks: tasks/misc/vpn.yml
       tags: [vpn, misc]
-
     - name: Setup Unity
       ansible.builtin.import_tasks: tasks/editors/unity.yml
       tags: [unity, gamedev, editors]
-
     - name: Setup Webots
       ansible.builtin.import_tasks: tasks/development/webots.yml
       tags: [webots, robotics, development]
-
     # Dotfiles and system config (should run last after all tools are installed)
     - name: Setup dotfiles
       ansible.builtin.import_tasks: tasks/misc/dotfiles.yml
       tags: [dotfiles, misc]
-
     - name: Setup GRUB configuration
       ansible.builtin.import_tasks: tasks/misc/grub.yml
       tags: [grub, misc]

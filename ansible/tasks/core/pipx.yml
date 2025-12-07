@@ -1,11 +1,9 @@
----
 - name: Install pipx system-wide
   become: true
   community.general.pacman:
     name:
       - python-pipx
     state: present
-
 - name: Ensure pipx path is set for user
   ansible.builtin.command: pipx ensurepath
   changed_when: false

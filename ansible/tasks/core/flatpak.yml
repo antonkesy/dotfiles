@@ -1,11 +1,9 @@
----
 - name: Install Flatpak
   become: true
   community.general.pacman:
     name:
       - flatpak
     state: present
-
 - name: Add Flathub repository
   become: true
   community.general.flatpak_remote:

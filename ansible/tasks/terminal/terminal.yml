@@ -1,4 +1,3 @@
----
 - name: Install terminal packages
   become: true
   community.general.pacman:
@@ -12,42 +11,36 @@
       - btop
       - atuin
       - python-nautilus
-      - wl-clipboard  # copy from wayland
+      - wl-clipboard # copy from wayland
       - ollama
       - ollama-cuda
       - pandoc
     state: present
-
 - name: Install shtab via pipx
   ansible.builtin.command: pipx install shtab
   register: result
   changed_when: "'installed package' in result.stdout"
   failed_when: result.rc != 0 and 'already' not in result.stderr
-
 - name: Install trash-cli via pipx
   ansible.builtin.command: pipx install 'trash-cli[completion]'
   register: result
   changed_when: "'installed package' in result.stdout"
   failed_when: result.rc != 0 and 'already' not in result.stderr
-
 - name: Install nautilus via pipx
   ansible.builtin.command: pipx install nautilus
   register: result
   changed_when: "'installed package' in result.stdout"
   failed_when: result.rc != 0 and 'already' not in result.stderr
-
 - name: Install libtmux via pip
   ansible.builtin.command: pip install --user --break-system-packages libtmux
   register: result
   changed_when: "'Successfully installed' in result.stdout"
   failed_when: result.rc != 0 and 'already satisfied' not in result.stdout
-
 - name: Install tmux plugins
   ansible.builtin.shell: ~/.tmux/plugins/tpm/bin/install_plugins || true
   args:
     executable: /bin/bash
   changed_when: false
-
 - name: Install Zint
   ansible.builtin.include_role:
     name: aur_build

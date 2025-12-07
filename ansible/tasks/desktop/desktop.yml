@@ -1,4 +1,3 @@
----
 - name: Install GNOME
   become: true
   community.general.pacman:
@@ -18,7 +17,6 @@
       - evince
       - ntfs-3g
     state: present
-
 - name: Install network and printing
   become: true
   community.general.pacman:
@@ -27,7 +25,6 @@
       - cups
       - cups-pdf
     state: present
-
 - name: Install media codecs
   become: true
   community.general.pacman:
@@ -37,7 +34,6 @@
       - gst-plugins-bad
       - gst-plugins-ugly
     state: present
-
 - name: Install Hyprland window manager
   become: true
   community.general.pacman:
@@ -59,50 +55,43 @@
       - xdg-desktop-portal-hyprland
       - waybar
       - cliphist
-      - wl-clipboard  # wayland clipboard utils
-      - kvantum  # themes
+      - wl-clipboard # wayland clipboard utils
+      - kvantum # themes
       - pipewire
       - wireplumber
       - pamixer
       - brightnessctl
     state: present
-
 - name: Install tofi
   ansible.builtin.include_role:
     name: aur_build
   vars:
     package_name: tofi
-
 - name: Install hyprlock
   ansible.builtin.include_role:
     name: aur_build
   vars:
     package_name: hyprlock
-
 - name: Install wlogout
   ansible.builtin.include_role:
     name: aur_build
   vars:
     package_name: wlogout
-
 - name: Install hypridle
   ansible.builtin.include_role:
     name: aur_build
   vars:
     package_name: hypridle
-
 - name: install swww
   ansible.builtin.include_role:
     name: aur_build
   vars:
     package_name: swww
-
 - name: Install better-control from AUR
   ansible.builtin.include_role:
     name: aur_build
   vars:
     package_name: better-control-git
-
 - name: Enable GDM service
   become: true
   ansible.builtin.systemd:
@@ -110,7 +99,6 @@
     enabled: true
     state: started
   when: ansible_facts['virtualization_type'] != "docker"
-
 - name: Enable NetworkManager service
   become: true
   ansible.builtin.systemd:
@@ -118,7 +106,6 @@
     enabled: true
     state: started
   when: ansible_facts['virtualization_type'] != "docker"
-
 - name: Enable CUPS service
   become: true
   ansible.builtin.systemd:

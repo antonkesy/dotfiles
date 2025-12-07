@@ -1,4 +1,3 @@
----
 - name: Install font packages
   become: true
   community.general.pacman:
@@ -27,7 +26,6 @@
       - ttf-jetbrains-mono
       - ttf-nerd-fonts-symbols-mono
     state: present
-
 - name: Clear font cache
   ansible.builtin.command: fc-cache -f -v
   changed_when: false

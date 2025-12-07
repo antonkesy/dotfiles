@@ -1,4 +1,3 @@
----
 - name: Install Rust-based CLI tools
   ansible.builtin.shell: cargo install {{ item }}
   args:
@@ -12,16 +11,13 @@
     - procs
     - bottom
     - dysk
-
 - name: Ensure go is installed
   ansible.builtin.import_tasks: tasks/development/golang.yml
-
 - name: Install lazygit
   ansible.builtin.shell: go install github.com/jesseduffield/lazygit@latest
   args:
     executable: /bin/bash
     creates: "{{ ansible_facts.env.HOME }}/go/bin/lazygit"
-
 - name: Install lazydocker
   ansible.builtin.shell: go install github.com/jesseduffield/lazydocker@latest
   args:
