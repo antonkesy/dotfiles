@@ -6,7 +6,7 @@
   changed_when: false
   failed_when: false
 - name: Install {{ package_name }} via pipx
-  ansible.builtin.command: pipx install {{ package_name }}
+  ansible.builtin.command: pipx install {{ package_name }} --include-deps
   when: package_installed.rc != 0
   register: pipx_install_result
   changed_when: "'installed package' in pipx_install_result.stdout"
