@@ -11,7 +11,6 @@
   ansible.builtin.systemd:
     name: docker
     enabled: true
-    state: started
   when: ansible_facts['virtualization_type'] != "docker"
 - name: Create docker group
   become: true
@@ -25,8 +24,3 @@
     groups: docker
     append: true
   ignore_errors: "{{ ansible_check_mode }}"
-- name: Install lazydocker
-  ansible.builtin.shell: go install github.com/jesseduffield/lazydocker@latest
-  args:
-    executable: /bin/bash
-    creates: "{{ ansible_facts.env.HOME }}/go/bin/lazydocker"
