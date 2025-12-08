@@ -20,30 +20,17 @@
     dest: "{{ playbook_dir | dirname }}/build/neovim"
     version: v0.10.4
     depth: 1
-  register: neovim_clone
 - name: Check if neovim binary exists
   ansible.builtin.stat:
     path: "{{ playbook_dir | dirname }}/build/neovim/build/bin/nvim"
-  register: neovim_binary
-- name: Clean neovim build directories
-  become: true
-  ansible.builtin.file:
-    path: "{{ playbook_dir | dirname }}/build/neovim/{{ item }}"
-    state: absent
-  loop:
-    - .deps
-    - build
-  when: neovim_clone.changed or not neovim_binary.stat.exists
 - name: Build neovim
   become: true
   community.general.make:
     chdir: "{{ playbook_dir | dirname }}/build/neovim"
     params:
       CMAKE_BUILD_TYPE: RelWithDebInfo
-  when: neovim_clone.changed or not neovim_binary.stat.exists
 - name: Install neovim
   become: true
   community.general.make:
     chdir: "{{ playbook_dir | dirname }}/build/neovim"
     target: install
-  when: neovim_clone.changed or not neovim_binary.stat.exists
