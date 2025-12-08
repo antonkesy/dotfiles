@@ -11,5 +11,4 @@
   ansible.builtin.systemd:
     name: bluetooth
     enabled: true
-    state: started
   when: ansible_facts['virtualization_type'] != "docker"
