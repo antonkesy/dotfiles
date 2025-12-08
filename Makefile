@@ -51,6 +51,13 @@ dev-clean:
 	@echo "Removing development container..."
 	docker compose down -v
 
+submodule-ssh:
+	git config submodule.hyprland.url git@github.com:antonkesy/keypocalypse-now.git
+	git config submodule.home/.config/lvim.url git@github.com:antonkesy/nvim-config.git
+	git submodule sync
+	git -C hyprland remote set-url origin git@github.com:antonkesy/keypocalypse-now.git
+	git -C home/.config/lvim remote set-url origin git@github.com:antonkesy/nvim-config.git
+
 clean:
 	rm -rf ./build
 	rm -rf ./.pytest_cache
