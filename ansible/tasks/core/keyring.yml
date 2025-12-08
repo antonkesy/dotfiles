@@ -11,5 +11,4 @@
     name: gcr-ssh-agent.socket
     scope: user
     enabled: true
-    state: started
   when: ansible_facts['virtualization_type'] != "docker"
