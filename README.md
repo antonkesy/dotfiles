@@ -13,7 +13,7 @@ Arch Linux dotfiles and system setup using Ansible.
 ```bash
 iwctl station <your_wifi_device> connect <your_wifi_ssid>
 curl -L https://raw.githubusercontent.com/antonkesy/dotfiles/main/arch_install_config.json -o arch_install_config.json
-# setup all missing parts like partitioning, users, etc.
+# setup all missing parts: partitioning & authentication
 archinstall --config arch_install_config.json
 
 # Reboot and login into new user
@@ -36,6 +36,7 @@ reboot
 - `make dotfiles` - Links only dotfiles
 - `make base` - Minimal setup (for example for WSL)
 - `make desktop` - Full desktop setup
+- `make submodule-ssh` - Switches https submodules to ssh for development
 
 ## Currently Used With
 
