@@ -1,0 +1,19 @@
+- name: Install GNOME
+  become: true
+  community.general.pacman:
+    name:
+      - gnome
+      - gnome-extra
+      - gnome-tweaks
+      - gnome-shell-extensions
+      - baobab
+      - file-roller
+      - sushi
+      - gnome-calculator
+      - gnome-system-monitor
+      - gnome-disk-utility
+      - gnome-font-viewer
+      - simple-scan
+      - evince
+      - ntfs-3g
+    state: present

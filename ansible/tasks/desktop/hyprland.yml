@@ -1,0 +1,40 @@
+- name: Install Hyprland window manager
+  become: true
+  community.general.pacman:
+    name:
+      - hyprland
+      - cpio
+      - glaze
+      - hyprland-protocols
+      - uwsm
+      - dolphin
+      - dunst
+      - grim
+      - kitty
+      - polkit-kde-agent
+      - qt5-wayland
+      - qt6-wayland
+      - slurp
+      - wofi
+      - xdg-desktop-portal-hyprland
+      - waybar
+      - cliphist
+      - wl-clipboard # wayland clipboard utils
+      - kvantum # themes
+      - pipewire
+      - wireplumber
+      - pamixer
+      - brightnessctl
+    state: present
+- name: Install AUR packages for Hyprland
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: "{{ item }}"
+  loop:
+    - tofi
+    - hyprlock
+    - wlogout
+    - hypridle
+    - swww
+    - better-control-git
