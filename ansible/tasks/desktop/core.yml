@@ -1,0 +1,29 @@
+- name: Install network and printing
+  become: true
+  community.general.pacman:
+    name:
+      - networkmanager
+      - cups
+      - cups-pdf
+    state: present
+- name: Install media codecs
+  become: true
+  community.general.pacman:
+    name:
+      - gst-libav
+      - gst-plugins-good
+      - gst-plugins-bad
+      - gst-plugins-ugly
+    state: present
+- name: Enable NetworkManager service
+  become: true
+  ansible.builtin.systemd:
+    name: NetworkManager
+    enabled: true
+  when: ansible_facts['virtualization_type'] != "docker"
+- name: Enable CUPS service
+  become: true
+  ansible.builtin.systemd:
+    name: cups
+    enabled: true
+  when: ansible_facts['virtualization_type'] != "docker"

@@ -117,8 +117,14 @@
     # ==========================================================================
     # DESKTOP - Desktop environment and applications
     # ==========================================================================
-    - name: Setup desktop environment
-      ansible.builtin.import_tasks: tasks/desktop/desktop.yml
+    - name: Install Hyprland and dependencies
+      ansible.builtin.import_tasks: tasks/desktop/hyprland.yml
+      tags: [desktop]
+    - name: Install GNOME desktop environment
+      ansible.builtin.import_tasks: tasks/desktop/gnome.yml
+      tags: [desktop]
+    - name: Install core desktop packages
+      ansible.builtin.import_tasks: tasks/desktop/core.yml
       tags: [desktop]
     - name: Setup fonts
       ansible.builtin.import_tasks: tasks/desktop/font.yml
