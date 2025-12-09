@@ -6,8 +6,51 @@
       - vim
       - vi
       - less
-      - curl
-      - wget
-      - unzip
       - base-devel
+      - ipset
+      - rsync
+      - xz
+      - jq
+      - dhcpcd # DHCP client; Arch does not enable one out of the box.
+      - openssh
+      - wget
+      - curl
+      - bind-tools # DNS utilities: dig, host, nslookup.
+      - nftables # Modern firewall framework; Ubuntu typically enables firewall tooling.
+      - dosfstools # FAT filesystem creation/repair tools.
+      - exfatprogs # EXFAT support utilities.
+      - ntfs-3g # Read/write support for NTFS.
+      - btrfs-progs # Required for managing Btrfs filesystems.
+      - xfsprogs # Same for XFS.
+      - mdadm # RAID array management.
+      - lvm2 # Logical Volume Manager tools.
+      - smartmontools # SMART disk health monitoring.
+      - zip # ZIP creation.
+      - unzip # ZIP extraction.
+      - p7zip # 7z and multiformat compression.
+      - zstd # Fast compression utility.
+      - pciutils # lspci hardware info.
+      - usbutils # lsusb hardware info.
+      - ethtool # Ethernet device configuration.
+      - hdparm # SATA/SSD performance and power tweaks.
+      - lm_sensors # Sensor detection and monitoring.
+      - acpi # ACPI device info (battery, thermal).
+      - cpupower # CPU frequency governor controls.
+      - strace # System call tracing.
+      - lsof # List open files.
+      - psmisc # killall, fuser, pstree, etc.
+      - man-db # Manpage viewer.
+      - man-pages # Standard Linux manpage set.
+      - linux-firmware # Vendor firmware for most hardware.
+      - intel-ucode # Intel CPU microcode updates.
+      - amd-ucode # AMD CPU microcode updates.
+      - ca-certificates # TLS/SSL root certificates.
+      - gnupg # GPG encryption/signing utilities.
+      - grub # Bootloader (if you choose GRUB).
+      - efibootmgr # EFI boot entry management.
+      - htop # Interactive process monitor.
+      - btop # Advanced system monitor.
+      - sysstat # Performance and I/O monitoring tools (iostat, sar).
+      - iperf3 # Network performance testing.
+      - sshfs # Mount remote systems via SSH.
     state: present

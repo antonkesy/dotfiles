@@ -1,3 +1,13 @@
+- name: Install CLI tools
+  become: true
+  community.general.pacman:
+    name:
+      - jq
+      - yq
+      - tldr
+      - which
+      - fastfetch
+    state: present
 - name: Install Rust-based CLI tools
   ansible.builtin.shell: cargo install {{ item }}
   args:
