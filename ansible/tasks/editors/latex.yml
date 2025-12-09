@@ -2,15 +2,7 @@
   become: true
   community.general.pacman:
     name:
-      - texlive-core
-      - texlive-bin
-      - texlive-latexextra
-      - texlive-science
-      - texlive-fontsextra
-      - texlive-pictures
-      - texlive-pstricks
-      - texlive-mathscience
-      - texlive-lang
+      - texlive-meta
       - plantuml
       - pandoc
     state: present
