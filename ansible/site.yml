@@ -135,6 +135,9 @@
     # ==========================================================================
     # HARDWARE - Hardware drivers and configuration
     # ==========================================================================
+    - name: Setup Audio
+      ansible.builtin.import_tasks: tasks/hardware/audio.yml
+      tags: [audio, hardware]
     - name: Setup Bluetooth
       ansible.builtin.import_tasks: tasks/hardware/bluetooth.yml
       tags: [bluetooth, hardware]
