@@ -54,3 +54,10 @@
       - iperf3 # Network performance testing.
       - sshfs # Mount remote systems via SSH.
     state: present
+- name: Install AUR packages
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: "{{ item }}"
+  loop:
+    - debtap # Convert .deb packages to Arch installable format.
