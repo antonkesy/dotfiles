@@ -1,0 +1,20 @@
+- name: Install Hyprland window manager
+  become: true
+  community.general.pacman:
+    name:
+      - dgop # Dank GO Process Status
+    state: present
+- name: Install AUR packages for Hyprland
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    package_name: "{{ item }}"
+  loop:
+    - dms-shell-bin
+    - dsearch-bin # dank search
+- name: Enable dankshell service
+  ansible.builtin.systemd:
+    name: dms
+    scope: user
+    enabled: true
+  when: ansible_facts['virtualization_type'] != "docker"

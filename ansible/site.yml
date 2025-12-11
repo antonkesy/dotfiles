@@ -120,6 +120,9 @@
     - name: Install Hyprland and dependencies
       ansible.builtin.import_tasks: tasks/desktop/hyprland.yml
       tags: [desktop]
+    - name: Install Linux Dank Sehll
+      ansible.builtin.import_tasks: tasks/desktop/dankshell.yml
+      tags: [desktop]
     - name: Install GNOME desktop environment
       ansible.builtin.import_tasks: tasks/desktop/gnome.yml
       tags: [desktop]
