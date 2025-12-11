@@ -1,7 +1,8 @@
 IN_DOCKER ?= 0
 BECOME_FLAG := $(if $(filter 1,$(IN_DOCKER)),, --ask-become-pass)
+TIMESTAMP := $(shell date +%Y%m%d_%H%M%S)
 
-.PHONY: all base desktop dotfiles install-ansible help test test-build dev-build dev test-dotfiles test-check test-base test-desktop clean galaxy
+.PHONY: all base log desktop dotfiles install-ansible help test test-build dev-build dev test-dotfiles test-check test-base test-desktop clean galaxy
 
 all:
 	echo "Select a target: dotfiles, base, desktop, test, clean"
@@ -9,17 +10,20 @@ all:
 galaxy:
 	cd ansible && ansible-galaxy install -r requirements.yml
 
-dotfiles: galaxy
-	cd ansible && ansible-playbook site.yml --tags dotfiles
+log:
+	@mkdir -p ./log
 
-base: galaxy
-	cd ansible && ansible-playbook $(BECOME_FLAG) site.yml --tags base
+dotfiles: galaxy log
+	cd ansible && ansible-playbook site.yml --tags dotfiles 2>&1 | tee ../log/dotfiles_$(TIMESTAMP).log
 
-desktop: galaxy
-	cd ansible && ansible-playbook $(BECOME_FLAG) site.yml
+base: galaxy log
+	cd ansible && ansible-playbook $(BECOME_FLAG) site.yml --tags base 2>&1 | tee ../log/base_$(TIMESTAMP).log
 
-check: galaxy
-	cd ansible && ansible-playbook $(BECOME_FLAG) site.yml --check
+desktop: galaxy log
+	cd ansible && ansible-playbook $(BECOME_FLAG) site.yml 2>&1 | tee ../log/desktop_$(TIMESTAMP).log
+
+check: galaxy log
+	cd ansible && ansible-playbook $(BECOME_FLAG) site.yml --check 2>&1 | tee ../log/check_$(TIMESTAMP).log
 
 dev-build:
 	docker build -f ./docker/Arch.Dockerfile --target dev -t dotfiles-test-dev .
