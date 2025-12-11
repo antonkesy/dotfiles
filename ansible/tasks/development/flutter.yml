@@ -3,7 +3,6 @@
   community.general.pacman:
     name:
       - mesa-utils # For eglinfo
-      - chromium # Chrome for web development
     state: present
 - name: Check if Flutter is already installed
   ansible.builtin.stat:
@@ -15,6 +14,8 @@
     dest: "{{ playbook_dir | dirname }}/build/flutter"
     version: stable
     depth: 1
+- name: Ensure Chrome is installed for Flutter web development
+  ansible.builtin.include_tasks: desktop/apps.yml
   when: not flutter_dir.stat.exists
 - name: Setup Android SDK for Flutter
   ansible.builtin.include_tasks: android.yml
@@ -37,7 +38,7 @@
   ansible.builtin.shell: "{{ playbook_dir | dirname }}/build/flutter/bin/flutter doctor"
   environment:
     PATH: "{{ playbook_dir | dirname }}/build/flutter/bin:{{ ansible_facts['env']['PATH'] }}"
-    CHROME_EXECUTABLE: /usr/bin/chromium
+    CHROME_EXECUTABLE: /usr/sbin/google-chrome-stable
     ANDROID_HOME: "{{ ansible_facts['env']['HOME'] }}/Android/Sdk"
     ANDROID_SDK_ROOT: "{{ ansible_facts['env']['HOME'] }}/Android/Sdk"
   register: flutter_doctor_output
