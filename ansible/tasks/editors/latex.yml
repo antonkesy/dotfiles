@@ -5,4 +5,5 @@
       - texlive-meta
       - plantuml
       - pandoc
+      - biber
     state: present
