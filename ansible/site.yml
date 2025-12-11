@@ -15,12 +15,12 @@
     # ==========================================================================
     # CORE - Base system setup
     # ==========================================================================
-    - name: Setup base packages
-      ansible.builtin.import_tasks: tasks/core/base.yml
-      tags: [base, core]
     - name: Setup AUR helpers
       ansible.builtin.import_tasks: tasks/core/aur-helpers.yml
       tags: [aur, core]
+    - name: Setup base packages
+      ansible.builtin.import_tasks: tasks/core/base.yml
+      tags: [base, core]
     - name: Setup pipx
       ansible.builtin.import_tasks: tasks/core/pipx.yml
       tags: [pipx, python, core]
