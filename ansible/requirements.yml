@@ -1,5 +1,4 @@
 collections:
   - name: community.general
   - name: kewlfft.aur
-roles:
-  - name: geerlingguy.docker
+roles: []
