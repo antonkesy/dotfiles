@@ -3,6 +3,7 @@
   community.general.pacman:
     name:
       - fprintd
+      - libfprint
     state: present
 - name: Enable fprintd service
   become: true
