@@ -7,6 +7,15 @@
     git_user_email: "antonkesy@gmail.com"
     git_editor: "lvim"
   pre_tasks:
+    - name: Install reflector for mirror management
+      become: true
+      community.general.pacman:
+        name: reflector
+        state: present
+    - name: Update to fastest mirrors
+      become: true
+      ansible.builtin.command: reflector --latest 10 --sort rate --save /etc/pacman.d/mirrorlist
+      changed_when: true
     - name: Update pacman cache
       become: true
       community.general.pacman:
