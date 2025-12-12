@@ -1,10 +1,10 @@
-- name: Install Hyprland window manager
+- name: Install dankshell packages
   become: true
   community.general.pacman:
     name:
       - dgop # Dank GO Process Status
     state: present
-- name: Install AUR packages for Hyprland
+- name: Install AUR packages for dankshell
   ansible.builtin.include_role:
     name: aur_build
   vars:
