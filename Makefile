@@ -2,7 +2,7 @@ IN_DOCKER ?= 0
 BECOME_FLAG := $(if $(filter 1,$(IN_DOCKER)),, --ask-become-pass)
 TIMESTAMP := $(shell date +%Y%m%d_%H%M%S)
 
-.PHONY: all base log desktop dotfiles install-ansible help test test-build dev-build dev test-dotfiles test-check test-base test-desktop clean galaxy
+.PHONY: all base log desktop dotfiles install-ansible help test test-build dev-build dev test-dotfiles test-check test-base test-desktop clean galaxy unblock
 
 all:
 	echo "Select a target: dotfiles, base, desktop, test, clean"
@@ -65,3 +65,6 @@ submodule-ssh:
 clean:
 	rm -rf ./build
 	rm -rf ./.pytest_cache
+
+unblock:
+	sudo rm -f /var/lib/pacman/db.lck
