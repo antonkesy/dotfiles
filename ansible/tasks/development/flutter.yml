@@ -15,7 +15,7 @@
     version: stable
     depth: 1
 - name: Ensure Chrome is installed for Flutter web development
-  ansible.builtin.include_tasks: desktop/apps.yml
+  ansible.builtin.include_tasks: tasks/desktop/apps.yml
   when: not flutter_dir.stat.exists
 - name: Setup Android SDK for Flutter
   ansible.builtin.include_tasks: android.yml
