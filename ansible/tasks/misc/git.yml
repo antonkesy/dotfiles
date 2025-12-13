@@ -19,3 +19,4 @@
     - {name: "bash.showDirtyState", value: "true"}
     - {name: "bash.showUntrackedFiles", value: "true"}
     - {name: "pull.rebase", value: "true"}
+    - {name: "commit.gpgsign", value: "true"}
