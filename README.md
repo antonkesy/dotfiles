@@ -36,7 +36,7 @@ reboot
 - `make dotfiles` - Links only dotfiles
 - `make base` - Minimal setup (for example for WSL)
 - `make desktop` - Full desktop setup
-- `make submodule-ssh` - Switches https submodules to ssh for development
+- `make sitch-to-ssh` - Switches https git repo to ssh for development
 
 ## Currently Used With
 
