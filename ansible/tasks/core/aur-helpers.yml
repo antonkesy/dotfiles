@@ -17,7 +17,7 @@
   become: true
 - name: Clone yay repository
   ansible.builtin.git:
-    repo: https://aur.archlinux.org/yay-bin.git # use yay-bin to avoid long build times
+    repo: https://aur.archlinux.org/yay.git # build from source since pacman update broke -bin version for some time
     dest: "{{ playbook_dir }}/../build/yay"
     version: master
     update: true
@@ -33,7 +33,7 @@
 - name: Find yay package file
   ansible.builtin.find:
     paths: "{{ playbook_dir }}/../build/yay"
-    patterns: "yay-*.pkg.tar.zst"
+    patterns: "yay*.pkg.tar.zst"
   register: yay_package
 - name: Install yay
   become: true
@@ -43,7 +43,7 @@
   when: yay_package.files | length > 0
 - name: Clone paru repository
   ansible.builtin.git:
-    repo: https://aur.archlinux.org/paru.git
+    repo: https://aur.archlinux.org/paru-bin.git # use paru-bin to avoid build issues with alpm version mismatches (quick fix for now)
     dest: "{{ playbook_dir }}/../build/paru"
     version: master
     update: true
