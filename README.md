@@ -45,6 +45,8 @@ reboot
 - [tmux](https://github.com/tmux/tmux/wiki) + [zsh](https://ohmyz.sh/)
 - [LunarVim](https://www.lunarvim.org/)
 - [Spacemacs](https://www.spacemacs.org/)
+- [Hyprland](https://hyprland.org/)
+- [Dank Linux](https://https://danklinux.com/)
 
 ## Workarounds
 
