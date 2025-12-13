@@ -4,7 +4,7 @@
   become: false
   vars:
     git_user_name: "Anton Kesy"
-    git_user_email: "antonkesy@gmail.com"
+    git_user_email: "anton@kesy.de"
     git_editor: "lvim"
   pre_tasks:
     - name: Install reflector for mirror management
