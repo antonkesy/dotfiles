@@ -2,8 +2,9 @@
 TERM="xterm-256color"
 
 [window]
-decorations = "Full"
-startup_mode = "Maximized"
+decorations = "None"
+padding = { x = 12, y = 12 }
+opacity = 1.0
 
 [scrolling]
 history = 50000
@@ -22,10 +23,28 @@ args = ["new", "-A", "-s", "main"]
 [mouse]
 hide_when_typing = true
 
-[keyboard]
-bindings = [
-    { key = "F11", mods = "Alt", action = "ToggleFullscreen" },
-]
+[selection]
+save_to_clipboard = false
 
 [general]
 import = [ "~/.config/alacritty/themes/themes/iterm.toml" ]
+
+[cursor]
+style = { shape = "Block", blinking = "On" }
+blink_interval = 500
+unfocused_hollow = true
+
+[bell]
+duration = 0
+
+# Dank Linux Configs
+# [keyboard]
+# bindings = [
+#   { key = "C",       mods = "Control|Shift", action = "Copy"  },
+#   { key = "V",       mods = "Control|Shift", action = "Paste" },
+#   { key = "N",       mods = "Control|Shift", action = "SpawnNewInstance" },
+#   { key = "Equals",  mods = "Control|Shift", action = "IncreaseFontSize" },
+#   { key = "Minus",   mods = "Control",       action = "DecreaseFontSize" },
+#   { key = "Key0",    mods = "Control",       action = "ResetFontSize"    },
+#   { key = "Enter",   mods = "Shift",         chars = "\n" },
+# ]
