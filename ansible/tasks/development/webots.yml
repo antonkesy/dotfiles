@@ -1,10 +1,7 @@
-- name: Install freeimage dependency
+- name: Install Webots and dependencies from AUR
   ansible.builtin.include_role:
     name: aur_build
   vars:
-    package_name: freeimage
-- name: Install Webots from AUR
-  ansible.builtin.include_role:
-    name: aur_build
-  vars:
-    package_name: webots-bin
+    aur_packages:
+      - freeimage
+      - webots-bin

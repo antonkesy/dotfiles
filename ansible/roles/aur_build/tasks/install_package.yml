@@ -1,0 +1,55 @@
+- name: Check if {{ package_name }} is already installed
+  ansible.builtin.shell: pacman -Q {{ package_name }} 2>/dev/null
+  args:
+    executable: /bin/bash
+  register: package_installed
+  changed_when: false
+  failed_when: false
+- name: Prepare build directory for {{ package_name }}
+  ansible.builtin.shell: |
+    mkdir -p "{{ build_dir }}/aur/{{ package_name }}"
+    cd "{{ build_dir }}/aur/{{ package_name }}"
+    /usr/sbin/yay -G {{ package_name }} --noconfirm
+  args:
+    executable: /bin/bash
+  when: package_installed.rc != 0
+- name: Get {{ package_name }} dependencies
+  ansible.builtin.shell: |
+    cd "{{ build_dir }}/aur/{{ package_name }}/{{ package_name }}"
+    source PKGBUILD
+    # Output all dependencies
+    echo "${depends[@]}" "${makedepends[@]}"
+  args:
+    executable: /bin/bash
+  register: package_deps
+  changed_when: false
+  when: package_installed.rc != 0
+- name: Install {{ package_name }} dependencies
+  become: true
+  community.general.pacman:
+    name: "{{ item | regex_replace('[<>=].*', '') }}"
+    state: present
+  loop: "{{ package_deps.stdout.split() | select() | list }}"
+  when: package_installed.rc != 0 and package_deps.stdout | length > 0
+  failed_when: false
+- name: Check if {{ package_name }} package already built
+  ansible.builtin.find:
+    paths: "{{ build_dir }}/aur/{{ package_name }}/{{ package_name }}"
+    patterns: "*.pkg.tar.zst"
+  register: existing_package
+  when: package_installed.rc != 0
+- name: Build {{ package_name }} from AUR
+  ansible.builtin.shell: |
+    cd "{{ build_dir }}/aur/{{ package_name }}/{{ package_name }}"
+    makepkg --noconfirm -f --skippgpcheck
+  args:
+    executable: /bin/bash
+  when: package_installed.rc != 0 and (existing_package.matched | default(0)) == 0
+- name: Install {{ package_name }} system-wide
+  ansible.builtin.shell: |
+    cd "{{ build_dir }}/aur/{{ package_name }}/{{ package_name }}"
+    pacman -U --noconfirm *.pkg.tar.zst
+  args:
+    executable: /bin/bash
+  become: true
+  when: package_installed.rc != 0

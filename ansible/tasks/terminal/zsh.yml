@@ -24,4 +24,5 @@
   ansible.builtin.include_role:
     name: aur_build
   vars:
-    package_name: oh-my-zsh-git
+    aur_packages:
+      - oh-my-zsh-git

@@ -24,7 +24,8 @@
   ansible.builtin.include_role:
     name: aur_build
   vars:
-    package_name: update-grub
+    aur_packages:
+      - update-grub
 - name: Update grub
   become: true
   ansible.builtin.command: update-grub

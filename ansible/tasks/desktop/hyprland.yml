@@ -30,11 +30,10 @@
   ansible.builtin.include_role:
     name: aur_build
   vars:
-    package_name: "{{ item }}"
-  loop:
-    - tofi
-    - hyprlock
-    - wlogout
-    - hypridle
-    - swww
-    - better-control-git
+    aur_packages:
+      - tofi
+      - hyprlock
+      - wlogout
+      - hypridle
+      - swww
+      - better-control-git

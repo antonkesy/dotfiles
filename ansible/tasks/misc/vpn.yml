@@ -8,4 +8,5 @@
   ansible.builtin.include_role:
     name: aur_build
   vars:
-    package_name: networkmanager-openconnect
+    aur_packages:
+      - networkmanager-openconnect

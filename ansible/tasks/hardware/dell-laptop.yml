@@ -2,4 +2,5 @@
   ansible.builtin.include_role:
     name: aur_build
   vars:
-    package_name: dell-command-configure
+    aur_packages:
+      - dell-command-configure

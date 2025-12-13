@@ -2,7 +2,8 @@
   ansible.builtin.include_role:
     name: aur_build
   vars:
-    package_name: ghcup-hs-bin
+    aur_packages:
+      - ghcup-hs-bin
 - name: Install Haskell tools
   become: true
   community.general.pacman:

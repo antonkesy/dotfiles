@@ -13,16 +13,13 @@
     name: nvidia-persistenced.service
     enabled: true
   when: ansible_facts['virtualization_type'] != "docker"
-- name: Install libnvidia-container
+- name: Install NVIDIA container tools from AUR
   ansible.builtin.include_role:
     name: aur_build
   vars:
-    package_name: libnvidia-container
-- name: Install nvidia-container-toolkit
-  ansible.builtin.include_role:
-    name: aur_build
-  vars:
-    package_name: nvidia-container-toolkit
+    aur_packages:
+      - libnvidia-container
+      - nvidia-container-toolkit
 - name: Configure NVIDIA container toolkit for Docker
   become: true
   ansible.builtin.command: nvidia-ctk runtime configure --runtime=docker

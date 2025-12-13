@@ -58,6 +58,5 @@
   ansible.builtin.include_role:
     name: aur_build
   vars:
-    package_name: "{{ item }}"
-  loop:
-    - debtap # Convert .deb packages to Arch installable format.
+    aur_packages:
+      - debtap # Convert .deb packages to Arch installable format.

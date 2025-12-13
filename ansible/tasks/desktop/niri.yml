@@ -21,13 +21,10 @@
   ansible.builtin.include_role:
     name: aur_build
   vars:
-    package_name: "{{ aur_package }}"
-  loop:
-    - dms-shell-bin
-    - matugen
-    - qt6-multimedia-ffmpeg
-  loop_control:
-    loop_var: aur_package
+    aur_packages:
+      - dms-shell-bin
+      - matugen
+      - qt6-multimedia-ffmpeg
 - name: Enable dms service for Niri
   ansible.builtin.systemd:
     name: dms
