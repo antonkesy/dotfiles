@@ -3,7 +3,7 @@
 [![`ansible check`](https://github.com/antonkesy/dotfiles/workflows/Ansible%20Check/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/test-check.yml)
 [![Pre-Commit](https://github.com/antonkesy/dotfiles/workflows/pre-commit/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/pre-commit.yml)
 
-Arch Linux dotfiles and system setup using Ansible.
+Arch Linux dotfiles and system setup using Ansible. (Will switch to NixOS once my setup broke 3 times)
 
 ## Fresh Arch Install
 
