@@ -30,4 +30,4 @@
     name: dms
     scope: user
     enabled: true
-  when: ansible_virtualization_type != "container"
+  when: ansible_facts['virtualization_type'] != "container"
