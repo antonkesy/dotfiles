@@ -8,10 +8,9 @@
   ansible.builtin.include_role:
     name: aur_build
   vars:
-    package_name: "{{ item }}"
-  loop:
-    - dms-shell-bin
-    - dsearch-bin # dank search
+    aur_packages:
+      - dms-shell-bin
+      - dsearch-bin # dank search
 - name: Enable dankshell service
   ansible.builtin.systemd:
     name: dms

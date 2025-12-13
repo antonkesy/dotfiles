@@ -26,17 +26,16 @@
   ansible.builtin.include_role:
     name: aur_build
   vars:
-    package_name: "{{ item }}"
-  loop:
-    - google-chrome
-    - postman-bin
-    - pdfarranger
-    - amberol
-    - anki
-    - mission-center
-    - pinta
-    - python-pympress
-    - qutebrowser
+    aur_packages:
+      - google-chrome
+      - postman-bin
+      - pdfarranger
+      - amberol
+      - anki
+      - mission-center
+      - pinta
+      - python-pympress
+      - qutebrowser
 - name: Install Python tools via pipx
   ansible.builtin.include_role:
     name: pipx_install

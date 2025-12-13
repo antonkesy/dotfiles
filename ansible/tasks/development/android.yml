@@ -8,7 +8,8 @@
   ansible.builtin.include_role:
     name: aur_build
   vars:
-    package_name: android-studio
+    aur_packages:
+      - android-studio
 - name: Check if Android SDK is already set up
   ansible.builtin.stat:
     path: "{{ ansible_facts['env']['HOME'] }}/Android/Sdk/platform-tools"
