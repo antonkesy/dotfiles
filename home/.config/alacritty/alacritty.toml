@@ -16,10 +16,6 @@ size = 12
 [terminal]
 osc52 = "CopyPaste"
 
-[terminal.shell]
-program = "tmux"
-args = ["new", "-A", "-s", "main"]
-
 [mouse]
 hide_when_typing = true
 
