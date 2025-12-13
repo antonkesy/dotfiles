@@ -1,6 +1,0 @@
-- name: Install COSMIC
-  become: true
-  community.general.pacman:
-    name:
-      - cosmic
-    state: present
