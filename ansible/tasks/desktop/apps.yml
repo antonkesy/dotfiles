@@ -36,6 +36,7 @@
       - pinta
       - python-pympress
       - qutebrowser
+      - lmstudio
 - name: Install Python tools via pipx
   ansible.builtin.include_role:
     name: pipx_install
