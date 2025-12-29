@@ -12,10 +12,16 @@
       community.general.pacman:
         name: reflector
         state: present
-    - name: Update to fastest mirrors
+    - name: Update pacman mirrors with reflector
       become: true
-      ansible.builtin.command: reflector --latest 10 --sort rate --save /etc/pacman.d/mirrorlist
-      changed_when: true
+      command: >
+        reflector --ipv4 --latest 10 --sort rate --save /etc/pacman.d/mirrorlist
+
+      register: reflector_result
+      retries: 2
+      delay: 3
+      until: reflector_result.rc == 0
+      failed_when: false
     - name: Update pacman cache
       become: true
       community.general.pacman:
