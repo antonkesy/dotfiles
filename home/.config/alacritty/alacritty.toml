@@ -33,6 +33,17 @@ unfocused_hollow = true
 [bell]
 duration = 0
 
+
+[[keyboard.bindings]]
+key = "Space"
+mods = "Control"
+action = "ToggleViMode"
+
+[[keyboard.bindings]]
+key = "Y"
+mode = "Vi"
+action = "Copy"
+
 # Dank Linux Configs
 # [keyboard]
 # bindings = [
