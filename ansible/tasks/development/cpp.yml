@@ -12,6 +12,7 @@
       - bear
       - clang
       - meson
+      - llvm
     state: present
 - name: Install MinGW for Windows cross-compilation
   become: true
