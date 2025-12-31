@@ -2,7 +2,7 @@
   become: true
   community.general.pacman:
     name:
-      - nvidia
+      - nvidia-open
       - nvidia-utils
       - nvidia-settings
       - cuda
