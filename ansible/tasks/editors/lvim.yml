@@ -29,3 +29,8 @@
   args:
     executable: /bin/bash
     creates: "{{ ansible_facts.env.HOME }}/.local/bin/lvim"
+- name: Reset LunarVim cache (non-interactive)
+  ansible.builtin.shell: |
+    lvim --headless "+LvimCacheReset" +qa
+  args:
+    executable: /bin/bash
