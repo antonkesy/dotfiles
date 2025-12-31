@@ -7,21 +7,6 @@
     git_user_email: "anton@kesy.de"
     git_editor: "lvim"
   pre_tasks:
-    - name: Install reflector for mirror management
-      become: true
-      community.general.pacman:
-        name: reflector
-        state: present
-    - name: Update pacman mirrors with reflector
-      become: true
-      command: >
-        reflector --ipv4 --latest 10 --sort rate --save /etc/pacman.d/mirrorlist
-
-      register: reflector_result
-      retries: 2
-      delay: 3
-      until: reflector_result.rc == 0
-      failed_when: false
     - name: Update pacman cache
       become: true
       community.general.pacman:
