@@ -37,6 +37,7 @@
       - python-pympress
       - qutebrowser
       - lmstudio
+      - gpu-screen-recorder # ShadowPlay alternative
 - name: Install Python tools via pipx
   ansible.builtin.include_role:
     name: pipx_install
