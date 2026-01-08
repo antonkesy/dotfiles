@@ -8,6 +8,7 @@
       - which
       - fastfetch
       - yazi
+      - codespell
     state: present
 - name: Install Rust-based CLI tools
   ansible.builtin.shell: cargo install {{ item }}
