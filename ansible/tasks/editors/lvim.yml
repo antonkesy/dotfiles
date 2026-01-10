@@ -15,12 +15,12 @@
     name:
       - yamllint
     state: present
-- name: Uninstall existing LunarVim
-  ansible.builtin.shell: bash ~/.local/share/lunarvim/lvim/utils/installer/uninstall.sh
-  args:
-    executable: /bin/bash
-    removes: "{{ ansible_facts.env.HOME }}/.local/share/lunarvim"
-  failed_when: false
+# - name: Uninstall existing LunarVim
+#   ansible.builtin.shell: bash ~/.local/share/lunarvim/lvim/utils/installer/uninstall.sh
+#   args:
+#     executable: /bin/bash
+#     removes: "{{ ansible_facts.env.HOME }}/.local/share/lunarvim"
+#   failed_when: false
 - name: Install LunarVim
   ansible.builtin.shell: |
     source {{ ansible_facts.env.HOME }}/.cargo/env 2>/dev/null || true
