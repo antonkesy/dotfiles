@@ -54,6 +54,20 @@ reboot
 
 - Just login through Gnome session :)
 
+### Broken Yay
+
+If you get an libalpm.so error, its because there is a mismatch of versions of pacman and the AUR helper (yay/paru/...):
+```
+yay: error while loading shared libraries: libalpm.so.XX: cannot open shared object file: No such file or directory
+```
+
+Just remove `yay` or `paru` and reinstall with `make desktop` for example.
+```
+sudo pacman -Rns yay
+sudo rm -f /usr/bin/yay
+```
+
+
 ## Tests
 
 ```bash
