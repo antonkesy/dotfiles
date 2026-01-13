@@ -3,6 +3,7 @@
   community.general.pacman:
     name:
       - dgop # Dank GO Process Status
+      - cava # Audio visualizer
     state: present
 - name: Install AUR packages for dankshell
   ansible.builtin.include_role:
