@@ -443,11 +443,11 @@
           "enabled": true
         },
         {
-          "id": "notificationButton",
+          "id": "controlCenterButton",
           "enabled": true
         },
         {
-          "id": "controlCenterButton",
+          "id": "notificationButton",
           "enabled": true
         }
       ],
