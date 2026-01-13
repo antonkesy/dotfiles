@@ -53,6 +53,9 @@
       - sysstat # Performance and I/O monitoring tools (iostat, sar).
       - iperf3 # Network performance testing.
       - sshfs # Mount remote systems via SSH.
+      - libva-utils # HW accel info
+      - intel-media-driver # HW accel
+      - mesa # HW accel
     state: present
 - name: Install AUR packages
   ansible.builtin.include_role:
