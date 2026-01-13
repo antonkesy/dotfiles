@@ -79,12 +79,12 @@
       "width": 50
     },
     {
-      "id": "bluetooth",
+      "id": "audioOutput",
       "enabled": true,
       "width": 50
     },
     {
-      "id": "audioOutput",
+      "id": "builtin_vpn",
       "enabled": true,
       "width": 50
     },
@@ -94,12 +94,44 @@
       "width": 50
     },
     {
+      "id": "bluetooth",
+      "enabled": true,
+      "width": 50
+    },
+    {
+      "id": "battery",
+      "enabled": true,
+      "width": 50
+    },
+    {
       "id": "nightMode",
       "enabled": true,
       "width": 50
     },
     {
+      "id": "doNotDisturb",
+      "enabled": true,
+      "width": 50
+    },
+    {
+      "id": "builtin_cups",
+      "enabled": true,
+      "width": 50
+    },
+    {
+      "id": "diskUsage",
+      "enabled": true,
+      "width": 50,
+      "instanceId": "mkcabul2xmuhauno6sv",
+      "mountPath": "/"
+    },
+    {
       "id": "darkMode",
+      "enabled": true,
+      "width": 50
+    },
+    {
+      "id": "colorPicker",
       "enabled": true,
       "width": 50
     }
