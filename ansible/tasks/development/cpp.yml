@@ -1,4 +1,4 @@
-- name: Install C++ development tools
+- name: Install C++ development tools (Pacman)
   become: true
   community.general.pacman:
     name:
@@ -13,10 +13,5 @@
       - clang
       - meson
       - llvm
-    state: present
-- name: Install MinGW for Windows cross-compilation
-  become: true
-  community.general.pacman:
-    name:
       - mingw-w64-gcc
     state: present

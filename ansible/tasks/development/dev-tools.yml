@@ -1,4 +1,4 @@
-- name: Install development tools
+- name: Install development tools & Libs
   become: true
   community.general.pacman:
     name:
@@ -11,6 +11,13 @@
       - arduino-cli
       - bison
       - flex
+      - eigen
+      - spglib
+      - jkqtplotter
+      - openbabel
+      - libarchive
+      - msgpack-c
+      - glew
     state: present
 - name: Install Python tools via pipx
   ansible.builtin.include_role:
@@ -21,3 +28,10 @@
     - pre-commit
     - jupyterlab
     - notebook
+- name: Install Libs development tools (AUR)
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    aur_packages:
+      - mmtf-cpp
+      - libmsym
