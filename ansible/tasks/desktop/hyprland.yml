@@ -37,3 +37,15 @@
       - hypridle
       - swww
       - better-control-git
+- name: Update hyprpm
+  ansible.builtin.command:
+    become: true
+    cmd: hyprpm update
+- name: Add hypr-dynamic-cursors plugin
+  ansible.builtin.command:
+    cmd: yes | hyprpm add https://github.com/virtcode/hypr-dynamic-cursors
+  failed_when: false
+- name: Enable dynamic-cursors plugin
+  ansible.builtin.command:
+    become: true
+    cmd: hyprpm enable dynamic-cursors
