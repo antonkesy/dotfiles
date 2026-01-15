@@ -12,18 +12,19 @@
       - tree
     state: present
 - name: Install Rust-based CLI tools
-  ansible.builtin.shell: cargo install {{ item }}
-  args:
-    executable: /bin/bash
-    creates: "{{ ansible_facts.env.HOME }}/.cargo/bin/{{ item }}"
+  ansible.builtin.include_role:
+    name: cargo_install
+  vars:
+    package_name: "{{ item.package }}"
+    binary_name: "{{ item.binary | default(item.package) }}"
   loop:
-    - exa
-    - bat
-    - ripgrep
-    - fd-find
-    - procs
-    - bottom
-    - dysk
+    - {package: exa}
+    - {package: bat}
+    - {package: ripgrep, binary: rg}
+    - {package: fd-find, binary: fd}
+    - {package: procs}
+    - {package: bottom, binary: btm}
+    - {package: dysk}
 - name: Ensure go is installed
   ansible.builtin.import_tasks: tasks/development/golang.yml
 - name: Install lazygit

@@ -1,0 +1,11 @@
+- name: Check if {{ package_name }} is already installed via cargo
+  ansible.builtin.stat:
+    path: "{{ ansible_facts.env.HOME }}/.cargo/bin/{{ binary_name | default(package_name) }}"
+  register: cargo_binary_check
+- name: Install {{ package_name }} via cargo
+  ansible.builtin.shell: cargo install {{ package_name }}
+  args:
+    executable: /bin/bash
+  when: not cargo_binary_check.stat.exists
+  register: cargo_install_result
+  changed_when: cargo_install_result.rc == 0
