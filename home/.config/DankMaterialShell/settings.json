@@ -560,6 +560,7 @@
   "desktopWidgetPositions": {},
   "desktopWidgetGridSettings": {},
   "desktopWidgetInstances": [],
+  "desktopWidgetGroups": [],
   "builtInPluginSettings": {
     "dms_settings_search": {
       "trigger": "?"
