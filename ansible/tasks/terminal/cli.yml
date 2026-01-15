@@ -25,6 +25,7 @@
     - {package: procs}
     - {package: bottom, binary: btm}
     - {package: dysk}
+    - {package: typos-cli, binary: typos}
 - name: Ensure go is installed
   ansible.builtin.import_tasks: tasks/development/golang.yml
 - name: Install lazygit
