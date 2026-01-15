@@ -21,6 +21,7 @@ base: galaxy log
 
 desktop: galaxy log
 	cd ansible && ansible-playbook $(BECOME_FLAG) site.yml 2>&1 | tee ../log/desktop_$(TIMESTAMP).log
+	./postsetup/hyprpm.sh
 
 check: galaxy log
 	cd ansible && ansible-playbook $(BECOME_FLAG) site.yml --check 2>&1 | tee ../log/check_$(TIMESTAMP).log
