@@ -25,6 +25,7 @@
       - wireplumber
       - pamixer
       - brightnessctl
+      - dmenu
     state: present
 - name: Install AUR packages for Hyprland
   ansible.builtin.include_role:
