@@ -11,3 +11,5 @@ yes | hyprpm add https://github.com/hyprwm/hyprland-plugins
 # HyprExpo2
 yes | hyprpm add https://github.com/antonkesy/hyprexpo2
 hyprpm enable hyprexpo2
+
+hyprpm reload
