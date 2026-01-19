@@ -1,5 +1,5 @@
-[submodule "home/.config/lvim"]
-	path = home/.config/lvim
+[submodule "home/.config/nvim"]
+	path = home/.config/nvim
 	url = ../../antonkesy/nvim-config
 [submodule "home/.config/alacritty/themes"]
 	path = home/.config/alacritty/themes
