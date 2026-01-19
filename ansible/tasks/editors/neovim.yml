@@ -18,7 +18,7 @@
   ansible.builtin.git:
     repo: https://github.com/neovim/neovim.git
     dest: "{{ playbook_dir | dirname }}/build/neovim"
-    version: v0.10.4
+    version: v0.11.5
     depth: 1
 - name: Check if neovim binary exists
   ansible.builtin.stat:

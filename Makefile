@@ -57,9 +57,9 @@ dev-clean:
 	docker compose down -v
 
 switch-to-ssh:
-	git config submodule.home/.config/lvim.url git@github.com:antonkesy/nvim-config.git
+	git config submodule.home/.config/nvim.url git@github.com:antonkesy/nvim-config.git
 	git submodule sync
-	git -C home/.config/lvim remote set-url origin git@github.com:antonkesy/nvim-config.git
+	git -C home/.config/nvim remote set-url origin git@github.com:antonkesy/nvim-config.git
 	git remote set-url origin git@github.com:antonkesy/dotfiles.git
 
 clean:

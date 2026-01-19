@@ -9,7 +9,7 @@
     state: directory
     mode: "0755"
   loop:
-    - .config/lvim/spell
+    - .config/nvim/spell
     - .tmux/plugins
 - name: Create untracked zsh config
   ansible.builtin.file:

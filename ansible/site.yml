@@ -5,7 +5,7 @@
   vars:
     git_user_name: "Anton Kesy"
     git_user_email: "anton@kesy.de"
-    git_editor: "lvim"
+    git_editor: "nvim"
   pre_tasks:
     - name: Update pacman cache
       become: true
@@ -87,9 +87,6 @@
     - name: Setup Neovim
       ansible.builtin.import_tasks: tasks/editors/neovim.yml
       tags: [neovim, editor, editors]
-    - name: Setup LunarVim
-      ansible.builtin.import_tasks: tasks/editors/lvim.yml
-      tags: [lvim, editor, editors]
     - name: Setup Emacs
       ansible.builtin.import_tasks: tasks/editors/emacs.yml
       tags: [emacs, editor, editors]
