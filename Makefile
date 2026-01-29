@@ -14,17 +14,17 @@ log:
 	@mkdir -p ./log
 
 dotfiles: galaxy log
-	cd ansible && ansible-playbook site.yml --tags dotfiles 2>&1 | tee ../log/dotfiles_$(TIMESTAMP).log
+	cd ansible && ansible-playbook site.yml --tags dotfiles
 
 base: galaxy log
-	cd ansible && ansible-playbook $(BECOME_FLAG) site.yml --tags base 2>&1 | tee ../log/base_$(TIMESTAMP).log
+	cd ansible && ansible-playbook $(BECOME_FLAG) site.yml --tags base
 
 desktop: galaxy log
-	cd ansible && ansible-playbook $(BECOME_FLAG) site.yml 2>&1 | tee ../log/desktop_$(TIMESTAMP).log
+	cd ansible && ansible-playbook $(BECOME_FLAG) site.yml
 	./postsetup/hyprpm.sh
 
 check: galaxy log
-	cd ansible && ansible-playbook $(BECOME_FLAG) site.yml --check 2>&1 | tee ../log/check_$(TIMESTAMP).log
+	cd ansible && ansible-playbook $(BECOME_FLAG) site.yml --check
 
 dev-build:
 	docker build -f ./docker/Arch.Dockerfile --target dev -t dotfiles-test-dev .
