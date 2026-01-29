@@ -1,0 +1,6 @@
+- name: Install PHP
+  become: true
+  community.general.pacman:
+    name:
+      - composer
+    state: present

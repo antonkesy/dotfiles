@@ -81,6 +81,12 @@
     - name: Setup OpenCV
       ansible.builtin.import_tasks: tasks/development/opencv.yml
       tags: [opencv, ml, ai]
+    - name: Setup Ruby
+      ansible.builtin.import_tasks: tasks/development/ruby.yml
+      tags: [ruby, languages, development]
+    - name: Setup PHP
+      ansible.builtin.import_tasks: tasks/development/php.yml
+      tags: [php, languages, development]
     # ==========================================================================
     # EDITORS - Text editors and IDEs
     # ==========================================================================
