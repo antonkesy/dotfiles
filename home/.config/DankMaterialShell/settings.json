@@ -58,6 +58,7 @@
   "controlCenterShowMicPercent": false,
   "controlCenterShowBatteryIcon": true,
   "controlCenterShowPrinterIcon": true,
+  "controlCenterShowScreenSharingIcon": true,
   "showPrivacyButton": true,
   "privacyShowMicIcon": false,
   "privacyShowCameraIcon": false,
