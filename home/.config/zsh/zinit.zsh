@@ -22,7 +22,7 @@ zinit wait lucid for \
 
 zinit ice depth=1
 zinit light jeffreytse/zsh-vi-mode # Breaks auto-complete in insert mode; keep an eye on this
-ZVM_VI_EDITOR=lvim # vv in normal mode -> opens lvim
+ZVM_VI_EDITOR=nvim # vv in normal mode -> opens nvim
 
 autoload -Uz promptinit; promptinit
 
