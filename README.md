@@ -43,7 +43,7 @@ reboot
 - Arch Linux
 - Nvidia RTX 4070
 - [tmux](https://github.com/tmux/tmux/wiki) + [zsh](https://ohmyz.sh/)
-- [LunarVim](https://www.lunarvim.org/)
+- [LazyVim](http://lazyvim.org/)
 - [Spacemacs](https://www.spacemacs.org/)
 - [Hyprland](https://hyprland.org/)
 - [Dank Linux](https://https://danklinux.com/)
