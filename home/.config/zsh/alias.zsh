@@ -8,6 +8,7 @@ alias m="make"
 alias g="lazygit"
 alias n="nvim"
 alias d="lazydocker"
+alias z="zoxide"
 
 # replace common tools
 alias l="exa -lah"

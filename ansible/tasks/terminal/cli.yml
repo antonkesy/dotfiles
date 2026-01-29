@@ -10,6 +10,7 @@
       - yazi
       - codespell
       - tree
+      - zoxide # smarter cd command - https://github.com/ajeetdsouza/zoxide
     state: present
 - name: Install Rust-based CLI tools
   ansible.builtin.include_role:
