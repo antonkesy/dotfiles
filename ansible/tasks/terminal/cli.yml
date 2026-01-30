@@ -11,6 +11,7 @@
       - codespell
       - tree
       - zoxide # smarter cd command - https://github.com/ajeetdsouza/zoxide
+      - act # Run your GitHub Actions locally - https://github.com/nektos/act
     state: present
 - name: Install Rust-based CLI tools
   ansible.builtin.include_role:
