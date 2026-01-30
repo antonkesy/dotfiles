@@ -1,28 +1,44 @@
-- name: Install Ollama
+- name: Create ollama system user and group
   become: true
-  community.general.pacman:
-    name:
-      - ollama
-      - ollama-cuda
-    state: present
+  user:
+    name: ollama
+    system: true
+    shell: /bin/false
+    group: ollama
+    groups: ollama
+    append: true
+    home: /usr/share/ollama
+    create_home: true
+- name: Add current user to ollama group
+  become: true
+  user:
+    name: "{{ ansible_user_id }}"
+    groups: ollama
+    append: true
 - name: Create systemd service for Ollama
   become: true
   copy:
     dest: /etc/systemd/system/ollama.service
+    mode: '0644'
     content: |
       [Unit]
-      Description=Ollama Serve
-      After=network.target
+      Description=Ollama Service
+      After=network-online.target
 
       [Service]
-      Type=simple
       ExecStart=/usr/bin/ollama serve
+      User=ollama
+      Group=ollama
       Restart=always
-      User={{ ansible_env.USER }}
-      WorkingDirectory=/home/{{ ansible_env.USER }}
+      RestartSec=3
+      Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
       [Install]
       WantedBy=multi-user.target
+- name: Reload systemd daemon
+  become: true
+  systemd:
+    daemon_reload: true
 - name: Enable and start Ollama service
   become: true
   systemd:
