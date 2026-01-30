@@ -12,8 +12,6 @@
       - atuin
       - python-nautilus
       - wl-clipboard # copy from wayland
-      - ollama
-      - ollama-cuda
       - pandoc
     state: present
 - name: Install pipx packages

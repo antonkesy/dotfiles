@@ -183,6 +183,9 @@
     - name: Setup Webots
       ansible.builtin.import_tasks: tasks/development/webots.yml
       tags: [webots, robotics, development]
+    - name: Setup AI tools
+      ansible.builtin.import_tasks: tasks/misc/ai.yml
+      tags: [ai]
     # Dotfiles and system config (should run last after all tools are installed)
     - name: Setup dotfiles
       ansible.builtin.import_tasks: tasks/misc/dotfiles.yml
