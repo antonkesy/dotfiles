@@ -9,12 +9,14 @@
     append: true
     home: /usr/share/ollama
     create_home: true
+  when: ansible_facts['virtualization_type'] != "docker"
 - name: Add current user to ollama group
   become: true
   user:
     name: "{{ ansible_user_id }}"
     groups: ollama
     append: true
+  when: ansible_facts['virtualization_type'] != "docker"
 - name: Create systemd service for Ollama
   become: true
   copy:
@@ -35,13 +37,16 @@
 
       [Install]
       WantedBy=multi-user.target
+  when: ansible_facts['virtualization_type'] != "docker"
 - name: Reload systemd daemon
   become: true
   systemd:
     daemon_reload: true
+  when: ansible_facts['virtualization_type'] != "docker"
 - name: Enable and start Ollama service
   become: true
   systemd:
     name: ollama
     enabled: true
     state: started
+  when: ansible_facts['virtualization_type'] != "docker"
