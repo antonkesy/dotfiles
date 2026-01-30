@@ -457,12 +457,13 @@
           "showAudioIcon": true,
           "showAudioPercent": true,
           "showVpnIcon": true,
-          "showBrightnessIcon": false,
-          "showBrightnessPercent": false,
+          "showBrightnessIcon": true,
+          "showBrightnessPercent": true,
           "showMicIcon": true,
           "showMicPercent": true,
           "showBatteryIcon": true,
-          "showPrinterIcon": true
+          "showPrinterIcon": true,
+          "showScreenSharingIcon": true
         },
         {
           "id": "notificationButton",
