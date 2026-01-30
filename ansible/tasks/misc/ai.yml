@@ -1,0 +1,31 @@
+- name: Install Ollama
+  become: true
+  community.general.pacman:
+    name:
+      - ollama
+      - ollama-cuda
+    state: present
+- name: Create systemd service for Ollama
+  become: true
+  copy:
+    dest: /etc/systemd/system/ollama.service
+    content: |
+      [Unit]
+      Description=Ollama Serve
+      After=network.target
+
+      [Service]
+      Type=simple
+      ExecStart=/usr/bin/ollama serve
+      Restart=always
+      User={{ ansible_env.USER }}
+      WorkingDirectory=/home/{{ ansible_env.USER }}
+
+      [Install]
+      WantedBy=multi-user.target
+- name: Enable and start Ollama service
+  become: true
+  systemd:
+    name: ollama
+    enabled: true
+    state: started
