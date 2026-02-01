@@ -1,0 +1,7 @@
+styles
+*.tar.xz
+Hack.zip
+Hack.*
+**/__pycache__/
+build
+log

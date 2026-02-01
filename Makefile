@@ -8,23 +8,23 @@ all:
 	echo "Select a target: dotfiles, base, desktop, test, clean"
 
 galaxy:
-	cd ansible && ansible-galaxy install -r requirements.yml
+	cd setup/ansible && ansible-galaxy install -r requirements.yml
 
 log:
 	@mkdir -p ./log
 
 dotfiles: galaxy log
-	cd ansible && ansible-playbook site.yml --tags dotfiles
+	cd setup/ansible && ansible-playbook site.yml --tags dotfiles
 
 base: galaxy log
-	cd ansible && ansible-playbook $(BECOME_FLAG) site.yml --tags base
+	cd setup/ansible && ansible-playbook $(BECOME_FLAG) site.yml --tags base
 
 desktop: galaxy log
-	cd ansible && ansible-playbook $(BECOME_FLAG) site.yml
-	./postsetup/hyprpm.sh
+	cd setup/ansible && ansible-playbook $(BECOME_FLAG) site.yml
+	./setup/postsetup/hyprpm.sh
 
 check: galaxy log
-	cd ansible && ansible-playbook $(BECOME_FLAG) site.yml --check
+	cd setup/ansible && ansible-playbook $(BECOME_FLAG) site.yml --check
 
 dev-build:
 	docker build -f ./docker/Arch.Dockerfile --target dev -t dotfiles-test-dev .
@@ -63,7 +63,7 @@ switch-to-ssh:
 	git remote set-url origin git@github.com:antonkesy/dotfiles.git
 
 clean:
-	rm -rf ./build
+	rm -rf ./setup/build
 	rm -rf ./.pytest_cache
 
 unblock:

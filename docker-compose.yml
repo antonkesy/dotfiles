@@ -5,7 +5,7 @@ services:
     working_dir: /workspace
     volumes:
       - .:/workspace
-      - build:/workspace/build
+      - ./setup/build:/workspace/build
     stdin_open: true
     tty: true
     command: bash
