@@ -1,26 +1,9 @@
-- name: Create ollama system group
+- name: Install ollama
   become: true
-  group:
-    name: ollama
-    system: true
-  when: ansible_facts['virtualization_type'] != "docker"
-- name: Create ollama system user
-  become: true
-  user:
-    name: ollama
-    system: true
-    shell: /bin/false
-    group: ollama
-    home: /usr/share/ollama
-    create_home: true
-  when: ansible_facts['virtualization_type'] != "docker"
-- name: Add current user to ollama group
-  become: true
-  user:
-    name: "{{ ansible_user_id }}"
-    groups: ollama
-    append: true
-  when: ansible_facts['virtualization_type'] != "docker"
+  community.general.pacman:
+    name:
+      - ollama
+      - ollama-cuda
 - name: Create systemd service for Ollama
   become: true
   copy:
