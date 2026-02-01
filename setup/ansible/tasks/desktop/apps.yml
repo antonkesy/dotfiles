@@ -45,3 +45,27 @@
     package_name: "{{ item }}"
   loop:
     - screenpen
+- name: Create Discord update systemd service
+  copy:
+    dest: /etc/systemd/system/update-discord.service
+    owner: root
+    group: root
+    mode: '0644'
+    content: |
+      [Unit]
+      Description=Update Discord package after boot
+      After=network-online.target
+      Wants=network-online.target
+
+      [Service]
+      Type=oneshot
+      ExecStart=/bin/bash -c 'sleep 10 && /usr/bin/pacman -S discord --needed --noconfirm'
+
+      [Install]
+      WantedBy=multi-user.target
+- name: Enable discord update service
+  become: true
+  ansible.builtin.systemd:
+    name: update-discord.service
+    enabled: true
+  when: ansible_facts['virtualization_type'] != "docker"
