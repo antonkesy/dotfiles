@@ -3,4 +3,5 @@
     name: aur_build
   vars:
     aur_packages:
+      - openssl-1.1 # dell-command-configure dependency
       - dell-command-configure
