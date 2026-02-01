@@ -46,6 +46,7 @@
   loop:
     - screenpen
 - name: Create Discord update systemd service
+  become: true
   copy:
     dest: /etc/systemd/system/update-discord.service
     owner: root
