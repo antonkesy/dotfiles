@@ -12,7 +12,6 @@
       - atuin
       - python-nautilus
       - wl-clipboard # copy from wayland
-      - pandoc
     state: present
 - name: Install pipx packages
   ansible.builtin.include_role:
