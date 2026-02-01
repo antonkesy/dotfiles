@@ -17,7 +17,8 @@
   become: true
 - name: Clone yay repository
   ansible.builtin.git:
-    repo: https://aur.archlinux.org/yay.git # build from source since pacman update broke -bin version for some time
+    # repo: https://aur.archlinux.org/yay.git # using -bin could save some time but meh
+    repo: https://aur.archlinux.org/yay.git
     dest: "{{ playbook_dir }}/../build/yay"
     version: master
     update: true
@@ -43,7 +44,8 @@
   when: yay_package.files | length > 0
 - name: Clone paru repository
   ansible.builtin.git:
-    repo: https://aur.archlinux.org/paru-bin.git # use paru-bin to avoid build issues with alpm version mismatches (quick fix for now)
+    # repo: https://aur.archlinux.org/paru-bin.git # same as yay with -bin
+    repo: https://aur.archlinux.org/paru.git
     dest: "{{ playbook_dir }}/../build/paru"
     version: master
     update: true
