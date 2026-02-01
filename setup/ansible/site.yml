@@ -93,9 +93,6 @@
     - name: Setup Neovim
       ansible.builtin.import_tasks: tasks/editors/neovim.yml
       tags: [neovim, editor, editors]
-    - name: Setup Emacs
-      ansible.builtin.import_tasks: tasks/editors/emacs.yml
-      tags: [emacs, editor, editors]
     - name: Setup VS Code
       ansible.builtin.import_tasks: tasks/editors/vscode.yml
       tags: [vscode, editor, editors]
