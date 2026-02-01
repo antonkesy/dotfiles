@@ -120,9 +120,6 @@
     - name: Install Hyprland and dependencies
       ansible.builtin.import_tasks: tasks/desktop/hyprland.yml
       tags: [desktop]
-    - name: Install niri and dependencies
-      ansible.builtin.import_tasks: tasks/desktop/niri.yml
-      tags: [desktop]
     - name: Install Linux Dank Shell
       ansible.builtin.import_tasks: tasks/desktop/dankshell.yml
       tags: [desktop]
