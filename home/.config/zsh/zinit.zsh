@@ -14,11 +14,10 @@ zinit light ohmyzsh/ohmyzsh
 # zsh theme
 zinit light romkatv/powerlevel10k
 
-zinit wait lucid for \
-    zdharma-continuum/fast-syntax-highlighting \
-    zsh-users/zsh-autosuggestions \
-    zsh-users/zsh-completions \
-    thetic/extract
+zinit light zdharma-continuum/fast-syntax-highlighting
+zinit light zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-completions
+zinit light thetic/extract
 
 zinit ice depth=1
 zinit light jeffreytse/zsh-vi-mode # Breaks auto-complete in insert mode; keep an eye on this
