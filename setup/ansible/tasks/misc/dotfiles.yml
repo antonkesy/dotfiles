@@ -3,6 +3,9 @@
   community.general.pacman:
     name: stow
     state: present
+- name: Define dotfiles root
+  ansible.builtin.set_fact:
+    dotfiles_root: "{{ playbook_dir | dirname | dirname }}"
 - name: Create directories that need to exist before stow runs
   ansible.builtin.file:
     path: "{{ ansible_facts.env.HOME }}/{{ item }}"
@@ -13,18 +16,18 @@
     - .tmux/plugins
 - name: Create untracked zsh config
   ansible.builtin.file:
-    path: "{{ playbook_dir | dirname }}/home/.config/zsh/untracked.zsh"
+    path: "{{ dotfiles_root }}/home/.config/zsh/untracked.zsh"
     state: touch
     mode: "0644"
     modification_time: preserve
     access_time: preserve
 - name: Unstow all dotfiles
-  command: stow -vvv -D --target ~ home
+  ansible.builtin.command: stow -vvv -D --target ~ home
   args:
-    chdir: "{{ playbook_dir | dirname }}"
+    chdir: "{{ dotfiles_root }}"
   changed_when: false
 - name: Restow dotfiles
-  command: stow -vvv --target ~ home
+  ansible.builtin.command: stow -vvv --target ~ home
   args:
-    chdir: "{{ playbook_dir | dirname }}"
+    chdir: "{{ dotfiles_root }}"
   changed_when: false

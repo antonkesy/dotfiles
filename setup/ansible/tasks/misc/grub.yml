@@ -13,7 +13,7 @@
 - name: Install grub configuration file
   become: true
   ansible.builtin.copy:
-    src: "{{ playbook_dir | dirname }}/grub"
+    src: "{{ playbook_dir | dirname | dirname }}/grub"
     dest: /etc/default/grub
     owner: root
     group: root
