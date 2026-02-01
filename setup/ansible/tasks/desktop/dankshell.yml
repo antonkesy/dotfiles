@@ -12,9 +12,3 @@
     aur_packages:
       - dms-shell-bin
       - dsearch-bin # dank search
-- name: Enable dankshell service
-  ansible.builtin.systemd:
-    name: dms
-    scope: user
-    enabled: true
-  when: ansible_facts['virtualization_type'] != "docker"
