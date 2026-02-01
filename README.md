@@ -7,6 +7,8 @@ Arch Linux dotfiles and system setup using Ansible. (Will switch to NixOS once m
 
 ## Fresh Arch Install
 
+- [Download Arch ISO](https://www.archlinux.de/download)
+
 - Ensure `sudo` is available for the user
   - `pacman -S --noconfirm --needed sudo` as `root`/`su`
 
