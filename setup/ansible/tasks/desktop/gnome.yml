@@ -17,3 +17,9 @@
       - evince
       - ntfs-3g
     state: present
+- name: Enable GDM for next boot
+  become: true
+  ansible.builtin.systemd:
+    name: gdm
+    enabled: true
+  when: ansible_facts['virtualization_type'] != "docker"
