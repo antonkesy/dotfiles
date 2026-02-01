@@ -1,12 +1,16 @@
-- name: Create ollama system user and group
+- name: Create ollama system group
+  become: true
+  group:
+    name: ollama
+    system: true
+  when: ansible_facts['virtualization_type'] != "docker"
+- name: Create ollama system user
   become: true
   user:
     name: ollama
     system: true
     shell: /bin/false
     group: ollama
-    groups: ollama
-    append: true
     home: /usr/share/ollama
     create_home: true
   when: ansible_facts['virtualization_type'] != "docker"
