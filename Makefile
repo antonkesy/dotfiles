@@ -21,7 +21,6 @@ base: galaxy log
 
 desktop: galaxy log
 	cd setup/ansible && ansible-playbook $(BECOME_FLAG) site.yml
-	./setup/manual/hyprpm.sh
 
 check: galaxy log
 	cd setup/ansible && ansible-playbook $(BECOME_FLAG) site.yml --check
