@@ -13,24 +13,27 @@ Arch Linux dotfiles and system setup using Ansible. (Will switch to NixOS once m
   - `pacman -S --noconfirm --needed sudo` as `root`/`su`
 
 ```bash
-iwctl station <your_wifi_device> connect <your_wifi_ssid>
+iwctl
+station wifi connect <your_wifi_ssid>
+exit
 curl -L https://raw.githubusercontent.com/antonkesy/dotfiles/main/arch_install_config.json -o arch_install_config.json
 # setup all missing parts: partitioning & authentication
 archinstall --config arch_install_config.json
 
 # Reboot and login into new user
+
 nmcli radio wifi on
 nmcli device wifi list
 nmcli device wifi connect "<SSID>" --ask
 
 # some setups might assume position of dotfiles in ~/workspace
 mkdir -p ~/workspace && cd ~/workspace
-sudo pacman -S --noconfirm --needed git # can be skipped if used archinstall config
 git clone --recursive https://github.com/antonkesy/dotfiles.git
-./prerequisites.sh # can be skipped if used archinstall config
+cd dotfiles
 make desktop
 # wait some time
 reboot
+setup/manual/hyprpm.sh # requires hyprland to be running
 ```
 
 ## Targets
