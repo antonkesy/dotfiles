@@ -5,6 +5,8 @@
       - networkmanager
       - cups
       - cups-pdf
+      - kwallet # for KDE apps
+      - evolution-ews # for MS Exchange calendar integration
     state: present
 - name: Install media codecs
   become: true
