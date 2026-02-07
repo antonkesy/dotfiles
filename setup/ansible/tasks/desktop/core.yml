@@ -27,3 +27,15 @@
     name: cups
     enabled: true
   when: ansible_facts['virtualization_type'] != "docker"
+- name: Disable PAM faillock deny policy
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/security/faillock.conf
+    regexp: '^deny\s*='
+    line: 'deny = 0'
+    create: true
+    owner: root
+    group: root
+    mode: '0644'
+- name: Reset all faillock counters
+  ansible.builtin.command: faillock --reset
