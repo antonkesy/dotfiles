@@ -4,7 +4,7 @@
     name: os-prober
     state: present
 - name: Regenerate GRUB config
-  when: grub_config.changed and ansible_facts['virtualization_type'] != "docker"
+  when: ansible_facts['virtualization_type'] != "docker"
   become: true
   ansible.builtin.command:
     cmd: grub-mkconfig -o /boot/grub/grub.cfg

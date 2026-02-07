@@ -39,7 +39,7 @@
     owner: root
     group: root
     mode: '0644'
-  when: grub_config.changed and ansible_facts['virtualization_type'] != "docker"
+  when: ansible_facts['virtualization_type'] != "docker"
 - name: Reset all faillock counters
   ansible.builtin.command: faillock --reset
-  when: grub_config.changed and ansible_facts['virtualization_type'] != "docker"
+  when: ansible_facts['virtualization_type'] != "docker"
