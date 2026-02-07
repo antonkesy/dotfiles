@@ -1,0 +1,9 @@
+- name: Install os-prober
+  become: true
+  ansible.builtin.pacman:
+    name: os-prober
+    state: present
+- name: Regenerate GRUB config
+  become: true
+  ansible.builtin.command:
+    cmd: grub-mkconfig -o /boot/grub/grub.cfg
