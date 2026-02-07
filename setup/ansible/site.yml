@@ -135,6 +135,9 @@
     - name: Setup desktop apps
       ansible.builtin.import_tasks: tasks/desktop/apps.yml
       tags: [apps, desktop]
+    - name: Make dual-boot with Windows possible
+      ansible.builtin.import_tasks: tasks/desktop/windows.yml
+      tags: [desktop]
     # ==========================================================================
     # HARDWARE - Hardware drivers and configuration
     # ==========================================================================
