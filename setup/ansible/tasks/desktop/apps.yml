@@ -72,3 +72,23 @@
     name: update-discord.service
     enabled: true
   when: ansible_facts['virtualization_type'] != "docker"
+- name: Install and initialize Waydroid
+  become: true
+  block:
+    - name: Install Waydroid packages
+      pacman:
+        name:
+          - waydroid
+          - lxc
+          - dnsmasq
+        state: present
+        update_cache: true
+    - name: Enable and start Waydroid container service
+      systemd:
+        name: waydroid-container.service
+        enabled: true
+        state: started
+    - name: Initialize Waydroid (run once)
+      command: waydroid init
+      args:
+        creates: /var/lib/waydroid
