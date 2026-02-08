@@ -39,7 +39,6 @@
       - lmstudio-beta
       - gpu-screen-recorder # ShadowPlay alternative
       - teams-for-linux
-      - ventoy # 1 USB for multiple ISOs
 - name: Install Python tools via pipx
   ansible.builtin.include_role:
     name: pipx_install
