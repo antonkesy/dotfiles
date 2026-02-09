@@ -83,11 +83,13 @@
         state: present
         update_cache: true
     - name: Enable and start Waydroid container service
+      when: ansible_facts['virtualization_type'] != "docker"
       systemd:
         name: waydroid-container.service
         enabled: true
         state: started
     - name: Initialize Waydroid (run once)
+      when: ansible_facts['virtualization_type'] != "docker"
       command: waydroid init
       args:
         creates: /var/lib/waydroid
