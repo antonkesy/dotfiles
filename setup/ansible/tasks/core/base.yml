@@ -56,6 +56,7 @@
       - libva-utils # HW accel info
       - intel-media-driver # HW accel
       - mesa # HW accel
+      - smbclient
     state: present
 - name: Install AUR packages
   ansible.builtin.include_role:
