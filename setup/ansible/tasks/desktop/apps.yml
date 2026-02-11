@@ -46,7 +46,7 @@
     package_name: "{{ item }}"
   loop:
     - screenpen
-- name: Create Discord update systemd service
+- name: Create Discord update systemd service # TODO: also need to update database
   become: true
   copy:
     dest: /etc/systemd/system/update-discord.service
