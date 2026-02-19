@@ -26,6 +26,14 @@
       - ttf-jetbrains-mono
       - ttf-nerd-fonts-symbols-mono
     state: present
+- name: Install AUR font packages
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    aur_packages:
+      - ttf-ms-fonts # wingdings
+      - ttf-croscore # MS Office Fonts
+      - ttf-vista-fonts # MS Office Fonts
 - name: Clear font cache
   ansible.builtin.command: fc-cache -f -v
   changed_when: false
