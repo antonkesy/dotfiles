@@ -87,6 +87,9 @@
     - name: Setup PHP
       ansible.builtin.import_tasks: tasks/development/php.yml
       tags: [php, languages, development]
+    - name: Setup R
+      ansible.builtin.import_tasks: tasks/development/r.yml
+      tags: [languages, development]
     # ==========================================================================
     # EDITORS - Text editors and IDEs
     # ==========================================================================

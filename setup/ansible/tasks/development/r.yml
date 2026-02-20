@@ -1,0 +1,6 @@
+- name: Install R
+  become: true
+  community.general.pacman:
+    name:
+      - r
+    state: present
