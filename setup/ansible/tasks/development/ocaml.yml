@@ -9,15 +9,3 @@
   args:
     executable: /bin/bash
     creates: "{{ ansible_facts.env.HOME }}/.opam/config"
-- name: Create OCaml 5.3.0 switch
-  ansible.builtin.shell: |
-    eval $(opam env)
-    opam switch create 5.3.0 || true
-  args:
-    executable: /bin/bash
-    creates: "{{ ansible_facts.env.HOME }}/.opam/5.3.0"
-- name: Install OCaml development tools
-  ansible.builtin.shell: |
-    eval $(opam env --switch=5.3.0)
-    opam install ocaml-lsp-server odoc ocamlformat utop -y
-  changed_when: false
