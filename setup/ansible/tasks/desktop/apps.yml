@@ -39,6 +39,7 @@
       - lmstudio-beta
       - gpu-screen-recorder # ShadowPlay alternative
       - teams-for-linux
+      - libtiff5 # wps dependency
       - wps-office # Office tools
 - name: Install Python tools via pipx
   ansible.builtin.include_role:
