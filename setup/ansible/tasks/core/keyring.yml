@@ -1,7 +1,4 @@
-- name: Install and enable GNOME Keyring on Arch Linux
-  hosts: all
-  become: true
-  block:
+- block:
     - name: Install gnome-keyring package
       pacman:
         name: gnome-keyring
