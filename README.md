@@ -71,6 +71,22 @@ sudo pacman -Rns yay
 sudo rm -f /usr/bin/yay
 ```
 
+### `gcr-ssh-agent.service` spams processes and uses 99% CPU
+
+Check last logs:
+```
+journalctl --user-unit=gcr-ssh-agent.service -f
+```
+
+Possible:
+```
+Permissions 0644 for '/home/ak/.ssh/X' are too open.
+This private key will be ignored.
+```
+Just fix by
+```
+chmod 600 /home/ak/.ssh/X
+```
 
 ## Tests
 
