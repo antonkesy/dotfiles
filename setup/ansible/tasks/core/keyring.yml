@@ -1,14 +1,21 @@
-- name: Install keyring packages
+- name: Install and enable GNOME Keyring on Arch Linux
+  hosts: all
   become: true
-  community.general.pacman:
-    name:
-      - gnome-keyring
-      - gcr
-      - seahorse
-    state: present
-- name: Enable gcr-ssh-agent socket for user
-  ansible.builtin.systemd:
-    name: gcr-ssh-agent.socket
-    scope: user
-    enabled: true
-  when: ansible_facts['virtualization_type'] != "docker"
+  block:
+    - name: Install gnome-keyring package
+      pacman:
+        name: gnome-keyring
+        state: present
+        update_cache: true
+    - name: Ensure dbus is installed (required dependency)
+      pacman:
+        name: dbus
+        state: present
+    - name: Enable and start gcr-ssh-agent socket (SSH key integration)
+      systemd:
+        name: gcr-ssh-agent.socket
+        enabled: true
+        state: started
+        scope: user
+      when: ansible_facts['virtualization_type'] != "docker"
+      become: false
