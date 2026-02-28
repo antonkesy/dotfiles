@@ -1,5 +1,6 @@
 - block:
     - name: Install gnome-keyring package
+      become: true
       pacman:
         name: gnome-keyring
         state: present
