@@ -267,7 +267,11 @@
   "wifiNetworkPins": {},
   "bluetoothDevicePins": {},
   "audioInputDevicePins": {},
-  "audioOutputDevicePins": {},
+  "audioOutputDevicePins": {
+    "preferredOutput": [
+      "bluez_output.AC:3E:B1:90:EE:E1"
+    ]
+  },
   "gtkThemingEnabled": false,
   "qtThemingEnabled": false,
   "syncModeWithPortal": true,
@@ -427,10 +431,6 @@
           "enabled": true
         },
         {
-          "id": "network_speed_monitor",
-          "enabled": true
-        },
-        {
           "id": "cpuUsage",
           "enabled": true,
           "minimumWidth": true
@@ -441,32 +441,23 @@
           "showSwap": false
         },
         {
-          "id": "spacer",
-          "enabled": true,
-          "size": 5
-        },
-        {
-          "id": "dockerManager",
-          "enabled": true
-        },
-        {
           "id": "controlCenterButton",
           "enabled": true,
-          "showNetworkIcon": true,
+          "showNetworkIcon": false,
           "showBluetoothIcon": true,
           "showAudioIcon": true,
           "showAudioPercent": true,
-          "showVpnIcon": true,
+          "showVpnIcon": false,
           "showBrightnessIcon": true,
           "showBrightnessPercent": true,
           "showMicIcon": true,
           "showMicPercent": true,
-          "showBatteryIcon": true,
+          "showBatteryIcon": false,
           "showPrinterIcon": true,
           "showScreenSharingIcon": true
         },
         {
-          "id": "notificationButton",
+          "id": "battery",
           "enabled": true
         }
       ],
