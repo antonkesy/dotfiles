@@ -1,19 +1,36 @@
 - block:
-    - name: Install gnome-keyring package
+    - name: Install required packages
       become: true
       pacman:
-        name: gnome-keyring
+        name:
+          - openssh
+          - dbus
         state: present
         update_cache: true
-    - name: Ensure dbus is installed (required dependency)
-      pacman:
-        name: dbus
-        state: present
-    - name: Enable and start gcr-ssh-agent socket (SSH key integration)
+    - name: Create systemd user directory
+      file:
+        path: "{{ ansible_env.HOME }}/.config/systemd/user"
+        state: directory
+        mode: "0755"
+    - name: Create ssh-agent systemd user service
+      copy:
+        dest: "{{ ansible_env.HOME }}/.config/systemd/user/ssh-agent.service"
+        mode: "0644"
+        content: |
+          [Unit]
+          Description=SSH Agent
+
+          [Service]
+          Type=simple
+          Environment=SSH_AUTH_SOCK=%t/ssh-agent.socket
+          ExecStart=/usr/bin/ssh-agent -D -a $SSH_AUTH_SOCK
+
+          [Install]
+          WantedBy=default.target
+    - name: Enable and start ssh-agent
       systemd:
-        name: gcr-ssh-agent.socket
+        name: ssh-agent.service
         enabled: true
         state: started
         scope: user
       when: ansible_facts['virtualization_type'] != "docker"
-      become: false
