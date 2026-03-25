@@ -33,7 +33,6 @@
     aur_packages:
       - ttf-ms-fonts # wingdings
       - ttf-croscore # MS Office Fonts
-      - ttf-vista-fonts # MS Office Fonts
 - name: Clear font cache
   ansible.builtin.command: fc-cache -f -v
   changed_when: false
