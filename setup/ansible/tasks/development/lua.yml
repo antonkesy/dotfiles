@@ -2,6 +2,7 @@
   become: true
   community.general.pacman:
     name:
+      - lua54
       - luarocks
     state: present
 - name: Install luacheck
