@@ -14,11 +14,13 @@ Arch Linux dotfiles and system setup using Ansible. (Will switch to NixOS once m
 
 ```bash
 iwctl
+station list # if required to find your wifi device
 station wifi connect <your_wifi_ssid>
 exit
 curl -L https://raw.githubusercontent.com/antonkesy/dotfiles/main/arch_install_config.json -o arch_install_config.json
 # setup all missing parts: partitioning & authentication
 archinstall --config arch_install_config.json
+# Manually set: Partitioning (+ HW Encryption), Root PW, User Accounts
 
 # Reboot and login into new user
 
