@@ -3,6 +3,15 @@
   community.general.pacman:
     name:
       - dotnet-sdk
+      - dotnet-sdk-6.0
       - dotnet-sdk-9.0
       - dotnet-runtime-8.0
+      - dotnet-runtime-9.0
+      - aspnet-runtime-9.0
     state: present
+- name: Install .NET SDK (AUR)
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    aur_packages:
+      - dotnet-sdk-7.0
