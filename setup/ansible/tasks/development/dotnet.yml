@@ -3,5 +3,6 @@
   community.general.pacman:
     name:
       - dotnet-sdk
+      - dotnet-sdk-9.0
       - dotnet-runtime-8.0
     state: present
