@@ -21,6 +21,7 @@
       - thunderbird
       - discord
       - remmina # remote desktop client
+      - firefox
     state: present
 - name: Install nice-to-have packages via AUR
   ansible.builtin.include_role:
