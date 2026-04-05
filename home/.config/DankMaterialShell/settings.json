@@ -510,20 +510,11 @@
       "showOnLastDisplay": true,
       "leftWidgets": [
         {
-          "id": "capsLockIndicator",
-          "enabled": true
-        },
-        {
           "id": "clock",
           "enabled": true
         },
         {
-          "id": "spacer",
-          "enabled": true,
-          "size": 10
-        },
-        {
-          "id": "focusedWindow",
+          "id": "capsLockIndicator",
           "enabled": true
         }
       ],
@@ -546,6 +537,7 @@
         {
           "id": "memUsage",
           "enabled": true,
+          "minimumWidth": true,
           "showSwap": false
         },
         {
