@@ -418,16 +418,15 @@
   "osdPowerProfileEnabled": true,
   "osdAudioOutputEnabled": true,
   "powerActionConfirm": true,
-  "powerActionHoldDuration": 1,
+  "powerActionHoldDuration": 0.5,
   "powerMenuActions": [
     "reboot",
     "logout",
     "poweroff",
     "lock",
-    "suspend",
-    "restart"
+    "suspend"
   ],
-  "powerMenuDefaultAction": "logout",
+  "powerMenuDefaultAction": "lock",
   "powerMenuGridLayout": false,
   "customPowerActionLock": "",
   "customPowerActionLogout": "",
