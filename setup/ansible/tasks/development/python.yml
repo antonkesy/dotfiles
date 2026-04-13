@@ -7,14 +7,15 @@
       - python-pipx
       - python-virtualenv
     state: present
-- name: Install Python versions from AUR
-  kewlfft.aur.aur:
-    name: "{{ item }}"
-    state: present
-  loop:
-    - python38
-    - python39
-    - python310
-    - python311
-    - python312
-    - python312
+
+# - name: Install Python versions from AUR
+#   kewlfft.aur.aur:
+#     name: "{{ item }}"
+#     state: present
+#   loop:
+#     - python38
+#     - python39
+#     - python310
+#     - python311
+#     - python312
+#     - python312
