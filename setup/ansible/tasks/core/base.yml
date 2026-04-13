@@ -64,3 +64,17 @@
   vars:
     aur_packages:
       - debtap # Convert .deb packages to Arch installable format.
+- name: Set timezone to Europe/Berlin
+  ansible.builtin.command: timedatectl set-timezone Europe/Berlin
+  changed_when: false
+- name: Enable automatic time sync (systemd-timesyncd)
+  ansible.builtin.command: timedatectl set-ntp true
+  when: ansible_facts['virtualization_type'] != "docker"
+  changed_when: false
+- name: Restart timesync service (force sync)
+  become: true
+  when: ansible_facts['virtualization_type'] != "docker"
+  ansible.builtin.service:
+    name: systemd-timesyncd
+    state: restarted
+    enabled: true
