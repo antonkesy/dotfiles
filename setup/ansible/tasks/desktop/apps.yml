@@ -6,7 +6,6 @@
       - baobab
       - qt5-base
       - qt6-base
-      - libreoffice
       - obs-studio
       - pdftk
       - xournalpp
