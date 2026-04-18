@@ -98,3 +98,89 @@
       command: waydroid init
       args:
         creates: /var/lib/waydroid
+- name: Install dbcUtility
+  block:
+    - name: Create dbcUtility build directory
+      ansible.builtin.file:
+        path: "{{ playbook_dir | dirname }}/build/dbcUtility"
+        state: directory
+        mode: "0755"
+    - name: Clone dbcUtility
+      ansible.builtin.git:
+        repo: https://github.com/busaudit/dbcUtility.git
+        dest: "{{ playbook_dir | dirname }}/build/dbcUtility"
+        version: master
+        depth: 1
+        force: true
+    - name: Build dbcUtility
+      become: true
+      ansible.builtin.command:
+        cmd: uv run python scripts/build_linux.py
+        chdir: "{{ playbook_dir | dirname }}/build/dbcUtility"
+    - name: Install dbcUtility without install.sh
+      block:
+        - name: Set paths
+          ansible.builtin.set_fact:
+            dbc_src_dir: "{{ playbook_dir | dirname }}/build/dbcUtility/linuxBuilds/DBCUtility-Linux-x86_64"
+            dbc_install_dir: /opt/DBCUtility
+            dbc_user_home: "{{ ansible_env.HOME }}"
+            dbc_desktop_dir: "{{ ansible_env.HOME }}/.local/share/applications"
+            dbc_icon_dir: "{{ ansible_env.HOME }}/.local/share/icons"
+        - name: Create install directory
+          become: true
+          ansible.builtin.file:
+            path: "{{ dbc_install_dir }}"
+            state: directory
+            mode: "0755"
+        - name: Copy application files
+          become: true
+          ansible.builtin.copy:
+            src: "{{ dbc_src_dir }}/"
+            dest: "{{ dbc_install_dir }}/"
+            remote_src: true
+            mode: preserve
+        - name: Ensure main executable permissions
+          become: true
+          ansible.builtin.file:
+            path: "{{ item }}"
+            mode: "0755"
+          loop:
+            - "{{ dbc_install_dir }}/DBCUtility"
+            - "{{ dbc_install_dir }}/launch-dbc-utility.sh"
+        - name: Create user desktop applications directory
+          ansible.builtin.file:
+            path: "{{ dbc_desktop_dir }}"
+            state: directory
+            mode: "0755"
+        - name: Install desktop entry
+          ansible.builtin.copy:
+            src: "{{ dbc_install_dir }}/DBCUtility.desktop"
+            dest: "{{ dbc_desktop_dir }}/DBCUtility.desktop"
+            remote_src: true
+            mode: "0644"
+        - name: Update desktop entry Exec path
+          ansible.builtin.replace:
+            path: "{{ dbc_desktop_dir }}/DBCUtility.desktop"
+            regexp: '^Exec=launch-dbc-utility\.sh$'
+            replace: "Exec={{ dbc_install_dir }}/launch-dbc-utility.sh"
+        - name: Update desktop entry Icon name
+          ansible.builtin.replace:
+            path: "{{ dbc_desktop_dir }}/DBCUtility.desktop"
+            regexp: '^Icon=app_icon\.png$'
+            replace: "Icon=dbc-utility"
+        - name: Create user icon directory
+          ansible.builtin.file:
+            path: "{{ dbc_icon_dir }}"
+            state: directory
+            mode: "0755"
+        - name: Install application icon
+          ansible.builtin.copy:
+            src: "{{ dbc_install_dir }}/_internal/icons/app_icon.png"
+            dest: "{{ dbc_icon_dir }}/dbc-utility.png"
+            remote_src: true
+            mode: "0644"
+        - name: Update desktop database
+          ansible.builtin.command:
+            cmd: update-desktop-database "{{ dbc_desktop_dir }}"
+          changed_when: false
+          failed_when: false
