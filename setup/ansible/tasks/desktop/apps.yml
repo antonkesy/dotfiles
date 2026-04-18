@@ -117,7 +117,9 @@
       ansible.builtin.command:
         cmd: uv run python scripts/build_linux.py
         chdir: "{{ playbook_dir | dirname }}/build/dbcUtility"
+      when: not ansible_check_mode
     - name: Install dbcUtility without install.sh
+      when: not ansible_check_mode
       block:
         - name: Set paths
           ansible.builtin.set_fact:
