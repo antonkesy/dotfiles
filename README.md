@@ -5,6 +5,8 @@
 
 Arch Linux dotfiles and system setup using Ansible. (Will switch to NixOS once my setup broke 3 times)
 
+<img src="./docs/images/preview.png" width="800">
+
 ## Fresh Arch Install
 
 - [Download Arch ISO](https://www.archlinux.de/download)
