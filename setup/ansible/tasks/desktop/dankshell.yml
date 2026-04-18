@@ -10,5 +10,5 @@
     name: aur_build
   vars:
     aur_packages:
-      - dms-shell-bin
+      - dms-shell
       - dsearch-bin # dank search
