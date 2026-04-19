@@ -6,6 +6,7 @@
       - python-pip
       - python-pipx
       - python-virtualenv
+      - swig # dependency for Box2D
     state: present
 
 # - name: Install Python versions from AUR
