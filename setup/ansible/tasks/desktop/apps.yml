@@ -50,42 +50,51 @@
     package_name: "{{ item }}"
   loop:
     - screenpen
-- name: Create Discord update systemd service # TODO: also need to update database
-  become: true
-  copy:
-    dest: /etc/systemd/system/update-discord.service
-    owner: root
-    group: root
-    mode: '0644'
-    content: |
-      [Unit]
-      Description=Update Discord package after boot
-      After=network-online.target
-      Wants=network-online.target
-
-      [Service]
-      Type=oneshot
-      ExecStart=/bin/bash -c 'sleep 10 && /usr/bin/pacman -S discord --needed --noconfirm'
-
-      [Install]
-      WantedBy=multi-user.target
-- name: Enable discord update service
-  become: true
-  ansible.builtin.systemd:
-    name: update-discord.service
-    enabled: true
-  when: ansible_facts['virtualization_type'] != "docker"
-- name: Install and initialize Waydroid
-  become: true
+- name: Install and setup Discord
   block:
-    - name: Install Waydroid packages
-      pacman:
-        name:
-          - waydroid
-          - lxc
-          - dnsmasq
-        state: present
-        update_cache: true
+    - name: Ensure Discord config directory exists
+      ansible.builtin.file:
+        path: "{{ ansible_env.HOME }}/.config/discord"
+        state: directory
+        mode: "0755"
+    - name: Ensure Discord settings.json exists with SKIP_HOST_UPDATE
+      ansible.builtin.copy:
+        dest: "{{ ansible_env.HOME }}/.config/discord/settings.json"
+        mode: "0644"
+        force: false
+        content: |
+          {
+            "SKIP_HOST_UPDATE": true
+          }
+    - name: Ensure Discord settings.json includes SKIP_HOST_UPDATE
+      ansible.builtin.shell: |
+        python3 - <<'PY'
+        import json
+        from pathlib import Path
+
+        settings_path = Path("{{ ansible_env.HOME }}/.config/discord/settings.json")
+
+        if settings_path.exists():
+            with settings_path.open("r", encoding="utf-8") as f:
+                data = json.load(f)
+        else:
+            settings_path.parent.mkdir(parents=True, exist_ok=True)
+            data = {}
+
+        changed = data.get("SKIP_HOST_UPDATE") is not True
+        if changed:
+            data["SKIP_HOST_UPDATE"] = True
+            with settings_path.open("w", encoding="utf-8") as f:
+                json.dump(data, f, indent=2)
+                f.write("\n")
+            print("changed")
+        else:
+            print("ok")
+        PY
+      args:
+        executable: /bin/bash
+      register: discord_settings_json
+      changed_when: "'changed' in discord_settings_json.stdout"
     - name: Enable and start Waydroid container service
       when: ansible_facts['virtualization_type'] != "docker"
       systemd:
