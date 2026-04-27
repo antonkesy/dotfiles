@@ -9,12 +9,12 @@
         update_cache: true
     - name: Create systemd user directory
       file:
-        path: "{{ ansible_env.HOME }}/.config/systemd/user"
+        path: "{{ ansible_facts['env']['HOME'] }}/.config/systemd/user"
         state: directory
         mode: "0755"
     - name: Create ssh-agent systemd user service
       copy:
-        dest: "{{ ansible_env.HOME }}/.config/systemd/user/ssh-agent.service"
+        dest: "{{ ansible_facts['env']['HOME'] }}/.config/systemd/user/ssh-agent.service"
         mode: "0644"
         content: |
           [Unit]
