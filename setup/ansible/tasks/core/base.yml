@@ -57,6 +57,7 @@
       - intel-media-driver # HW accel
       - mesa # HW accel
       - smbclient
+      - rclone # cloud storage file managment
     state: present
 - name: Install AUR packages
   ansible.builtin.include_role:
