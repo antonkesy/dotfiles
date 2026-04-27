@@ -54,12 +54,12 @@
   block:
     - name: Ensure Discord config directory exists
       ansible.builtin.file:
-        path: "{{ ansible_env.HOME }}/.config/discord"
+        path: "{{ ansible_facts['env']['HOME'] }}/.config/discord"
         state: directory
         mode: "0755"
     - name: Ensure Discord settings.json exists with SKIP_HOST_UPDATE
       ansible.builtin.copy:
-        dest: "{{ ansible_env.HOME }}/.config/discord/settings.json"
+        dest: "{{ ansible_facts['env']['HOME'] }}/.config/discord/settings.json"
         mode: "0644"
         force: false
         content: |
@@ -72,7 +72,7 @@
         import json
         from pathlib import Path
 
-        settings_path = Path("{{ ansible_env.HOME }}/.config/discord/settings.json")
+        settings_path = Path("{{ ansible_facts['env']['HOME'] }}/.config/discord/settings.json")
 
         if settings_path.exists():
             with settings_path.open("r", encoding="utf-8") as f:
@@ -133,9 +133,9 @@
           ansible.builtin.set_fact:
             dbc_src_dir: "{{ playbook_dir | dirname }}/build/dbcUtility/linuxBuilds/DBCUtility-Linux-x86_64"
             dbc_install_dir: /opt/DBCUtility
-            dbc_user_home: "{{ ansible_env.HOME }}"
-            dbc_desktop_dir: "{{ ansible_env.HOME }}/.local/share/applications"
-            dbc_icon_dir: "{{ ansible_env.HOME }}/.local/share/icons"
+            dbc_user_home: "{{ ansible_facts['env']['HOME'] }}"
+            dbc_desktop_dir: "{{ ansible_facts['env']['HOME'] }}/.local/share/applications"
+            dbc_icon_dir: "{{ ansible_facts['env']['HOME'] }}/.local/share/icons"
         - name: Create install directory
           become: true
           ansible.builtin.file:
