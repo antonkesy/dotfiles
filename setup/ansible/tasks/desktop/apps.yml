@@ -43,6 +43,7 @@
       - libtiff5 # wps dependency
       - wps-office # Office tools
       - nextcloud-client
+      - zotero
 - name: Install Python tools via pipx
   ansible.builtin.include_role:
     name: pipx_install
