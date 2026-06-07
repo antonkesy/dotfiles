@@ -44,6 +44,7 @@
       - wps-office # Office tools
       - nextcloud-client
       - zotero
+      - cursor-bin
 - name: Install Python tools via pipx
   ansible.builtin.include_role:
     name: pipx_install
