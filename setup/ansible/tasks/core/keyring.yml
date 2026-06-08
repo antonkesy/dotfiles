@@ -1,19 +1,55 @@
 - block:
     - name: Install required packages
       become: true
-      pacman:
+      community.general.pacman:
         name:
           - openssh
           - dbus
+          - gnome-keyring
+          - libsecret
         state: present
         update_cache: true
+    - name: Unlock gnome-keyring on login via PAM
+      become: true
+      ansible.builtin.lineinfile:
+        path: "/etc/pam.d/{{ item.path }}"
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+        insertafter: "{{ item.insertafter }}"
+        state: present
+      loop:
+        - path: login
+          regexp: '^\s*auth\s+optional\s+pam_gnome_keyring\.so'
+          line: 'auth       optional     pam_gnome_keyring.so'
+          insertafter: '^auth\s+include\s+system-local-login'
+        - path: login
+          regexp: '^\s*session\s+optional\s+pam_gnome_keyring\.so'
+          line: 'session    optional     pam_gnome_keyring.so auto_start'
+          insertafter: '^session\s+include\s+system-local-login'
+        - path: passwd
+          regexp: '^\s*password\s+optional\s+pam_gnome_keyring\.so'
+          line: 'password   optional     pam_gnome_keyring.so'
+          insertafter: '^password\s+include\s+system-auth'
+      when: ansible_facts['virtualization_type'] != "docker"
+    - name: Enable gnome-keyring user socket
+      ansible.builtin.systemd:
+        name: gnome-keyring-daemon.socket
+        enabled: true
+        scope: user
+      when: ansible_facts['virtualization_type'] != "docker"
+    - name: Enable gnome-keyring user service
+      ansible.builtin.systemd:
+        name: gnome-keyring-daemon.service
+        enabled: true
+        scope: user
+      when: ansible_facts['virtualization_type'] != "docker"
     - name: Create systemd user directory
-      file:
+      ansible.builtin.file:
         path: "{{ ansible_facts['env']['HOME'] }}/.config/systemd/user"
         state: directory
         mode: "0755"
     - name: Create ssh-agent systemd user service
-      copy:
+      ansible.builtin.copy:
         dest: "{{ ansible_facts['env']['HOME'] }}/.config/systemd/user/ssh-agent.service"
         mode: "0644"
         content: |
@@ -28,7 +64,7 @@
           [Install]
           WantedBy=default.target
     - name: Enable and start ssh-agent
-      systemd:
+      ansible.builtin.systemd:
         name: ssh-agent.service
         enabled: true
         state: started
