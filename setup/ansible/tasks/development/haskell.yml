@@ -10,4 +10,5 @@
     name:
       - stack
       - cabal-install
+      - ghc
     state: present
