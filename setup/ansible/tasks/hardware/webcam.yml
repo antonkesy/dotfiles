@@ -1,0 +1,28 @@
+- name: Install webcam utilities
+  become: true
+  community.general.pacman:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - v4l-utils # Video4Linux utilities for camera management
+    - libv4l # Video4Linux library
+    - guvcview # USB camera viewer/controller
+- name: Install Logitech USB webcam support
+  become: true
+  community.general.pacman:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - libusb # USB library
+- name: Install Dell integrated webcam drivers
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    aur_packages:
+      - libva # Video Acceleration API
+      - libva-intel-driver # Intel VA driver (common in Dell laptops)
+      - libva-vdpau-driver # VDPAU support
+- name: Load uvcvideo kernel module (USB Video Class)
+  community.general.modprobe:
+    name: uvcvideo
+    state: present
