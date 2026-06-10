@@ -116,6 +116,8 @@
       ansible.builtin.import_tasks: tasks/hardware/fingerprint.yml
     - name: Setup Dell laptop tools
       ansible.builtin.import_tasks: tasks/hardware/dell-laptop.yml
+    - name: Install webcam utilities
+      ansible.builtin.import_tasks: tasks/hardware/webcam.yml
     # ==========================================================================
     # CONTAINERS - Docker and virtualization
     # ==========================================================================
