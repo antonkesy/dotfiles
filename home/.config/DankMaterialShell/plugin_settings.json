@@ -1,0 +1,5 @@
+{
+  "dockerManager": {
+    "enabled": true
+  }
+}

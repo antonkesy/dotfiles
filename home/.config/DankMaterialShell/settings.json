@@ -36,6 +36,12 @@
   "modalAnimationSpeed": 1,
   "modalCustomAnimationDuration": 150,
   "enableRippleEffects": true,
+  "blurEnabled": false,
+  "blurForegroundLayers": true,
+  "blurLayerOutlineOpacity": 0.12,
+  "blurBorderColor": "outline",
+  "blurBorderCustomColor": "#ffffff",
+  "blurBorderOpacity": 0.35,
   "wallpaperFillMode": "Fill",
   "blurredWallpaperLayer": false,
   "blurWallpaperOnOverview": false,
@@ -52,6 +58,9 @@
   "selectedGpuIndex": 0,
   "enabledGpuPciIds": [],
   "showSystemTray": true,
+  "systemTrayIconTintMode": "none",
+  "systemTrayIconTintSaturation": 50,
+  "systemTrayIconTintStrength": 135,
   "showClock": true,
   "showNotificationButton": true,
   "showBattery": true,
@@ -224,12 +233,6 @@
   "greeterEnableFprint": false,
   "greeterEnableU2f": false,
   "greeterWallpaperPath": "",
-  "greeterUse24HourClock": true,
-  "greeterShowSeconds": false,
-  "greeterPadHours12Hour": false,
-  "greeterLockDateFormat": "",
-  "greeterFontFamily": "",
-  "greeterWallpaperFillMode": "",
   "mediaSize": 1,
   "appLauncherViewMode": "list",
   "spotlightModalViewMode": "list",
@@ -322,6 +325,10 @@
   "qtThemingEnabled": false,
   "syncModeWithPortal": true,
   "terminalsAlwaysDark": false,
+  "muxType": "tmux",
+  "muxUseCustomCommand": false,
+  "muxCustomCommand": "",
+  "muxSessionFilter": "",
   "runDmsMatugenTemplates": true,
   "matugenTemplateGtk": true,
   "matugenTemplateNiri": true,
@@ -458,41 +465,42 @@
   "hyprlandOutputSettings": {},
   "displayProfiles": {
     "hyprland": {
-      "profile_1774347496911_wxcnxw": {
-        "id": "profile_1774347496911_wxcnxw",
-        "name": "LaptopOnly",
+      "profile_1776070156120_hc2wzi": {
+        "id": "profile_1776070156120_hc2wzi",
+        "name": "Home",
         "outputSet": [
+          "DP-5",
+          "DP-6",
           "eDP-1"
         ],
-        "createdAt": 1774347496911,
-        "updatedAt": 1774347496911
+        "createdAt": 1776070156120,
+        "updatedAt": 1776070156120
       },
-      "profile_1774349388869_t8oxj6": {
-        "id": "profile_1774349388869_t8oxj6",
-        "name": "HomeOffice",
+      "profile_1776240638881_odj28o": {
+        "id": "profile_1776240638881_odj28o",
+        "name": "206",
         "outputSet": [
-          "DP-3",
-          "DP-4",
+          "DP-6",
+          "DP-9",
           "eDP-1"
         ],
-        "createdAt": 1774349388869,
-        "updatedAt": 1774349388869
+        "createdAt": 1776240638881,
+        "updatedAt": 1776240638881
       },
-      "profile_1774352633946_8rh0i7": {
-        "id": "profile_1774352633946_8rh0i7",
-        "name": "C10-206",
+      "profile_1781168431132_hfl672": {
+        "id": "profile_1781168431132_hfl672",
+        "name": "ISSE_Meeting",
         "outputSet": [
-          "DP-4",
-          "DP-7",
+          "HDMI-A-1",
           "eDP-1"
         ],
-        "createdAt": 1774352633947,
-        "updatedAt": 1774352633947
+        "createdAt": 1781168431132,
+        "updatedAt": 1781168431132
       }
     }
   },
   "activeDisplayProfile": {
-    "hyprland": "profile_1774347496911_wxcnxw"
+    "hyprland": "profile_1781168431132_hfl672"
   },
   "displayProfileAutoSelect": false,
   "displayShowDisconnected": false,
@@ -526,6 +534,10 @@
       "rightWidgets": [
         {
           "id": "systemTray",
+          "enabled": true
+        },
+        {
+          "id": "dockerManager",
           "enabled": true
         },
         {
