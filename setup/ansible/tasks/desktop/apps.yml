@@ -22,6 +22,7 @@
       - discord
       - remmina # remote desktop client
       - firefox
+      - blender
     state: present
 - name: Install nice-to-have packages via AUR
   ansible.builtin.include_role:
