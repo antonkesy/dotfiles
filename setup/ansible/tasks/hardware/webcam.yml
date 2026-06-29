@@ -23,6 +23,7 @@
       - libva-intel-driver # Intel VA driver (common in Dell laptops)
       - libva-vdpau-driver # VDPAU support
 - name: Load uvcvideo kernel module (USB Video Class)
+  when: ansible_facts['virtualization_type'] != "docker"
   community.general.modprobe:
     name: uvcvideo
     state: present
