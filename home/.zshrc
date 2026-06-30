@@ -26,6 +26,7 @@ source ${HOME}/.config/zsh/dart.zsh
 source ${HOME}/.config/zsh/flutter.zsh
 source ${HOME}/.config/zsh/go.zsh
 source ${HOME}/.config/zsh/haskell.zsh
+source ${HOME}/.config/zsh/nvidia.zsh
 source ${HOME}/.config/zsh/sdkman.zsh
 source ${HOME}/.config/zsh/atuin.zsh
 source ${HOME}/.config/zsh/scripts.zsh
