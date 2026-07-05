@@ -55,3 +55,8 @@ action = "Copy"
 #   { key = "Key0",    mods = "Control",       action = "ResetFontSize"    },
 #   { key = "Enter",   mods = "Shift",         chars = "\n" },
 # ]
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001B\r"

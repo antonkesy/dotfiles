@@ -14,6 +14,12 @@
       - act # Run your GitHub Actions locally - https://github.com/nektos/act
       - just # make replacment
     state: present
+- name: Install CLI tools from AUR
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    aur_packages:
+      - claude-code
 - name: Install Rust-based CLI tools
   ansible.builtin.include_role:
     name: cargo_install
