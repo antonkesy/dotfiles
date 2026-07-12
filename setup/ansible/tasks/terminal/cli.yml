@@ -35,6 +35,7 @@
     - {package: bottom, binary: btm}
     - {package: dysk}
     - {package: typos-cli, binary: typos}
+    - {package: lychee} # broken HTTP link scanning
 - name: Ensure go is installed
   ansible.builtin.import_tasks: tasks/development/golang.yml
 - name: Install lazygit
