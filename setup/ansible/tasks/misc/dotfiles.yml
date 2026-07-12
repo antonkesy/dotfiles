@@ -27,7 +27,7 @@
     chdir: "{{ dotfiles_root }}"
   changed_when: false
 - name: Restow dotfiles
-  ansible.builtin.command: stow -vvv --target ~ home
+  ansible.builtin.command: stow -vvv --adopt --target ~ home
   args:
     chdir: "{{ dotfiles_root }}"
   changed_when: false
