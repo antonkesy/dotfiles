@@ -2,10 +2,6 @@
 -- Hyprland Configuration
 -- https://wiki.hypr.land/Configuring/
 
-local binds = require("binds")
-local plugins = require("plugins")
-local outputs = require("dms.outputs")
-
 hl.env("SSH_AUTH_SOCK", "local_var_XDG_RUNTIME_DIR/ssh-agent.socket")
 
 -- no theme generation from dms
