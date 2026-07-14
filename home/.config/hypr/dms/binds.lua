@@ -1,26 +1,9 @@
 -- DMS default keybinds (Hyprland 0.55+ Lua)
 
 -- === Application Launchers ===
-hl.bind("SUPER + T", hl.dsp.exec_cmd("alacritty"))
-hl.bind("SUPER + space", hl.dsp.exec_cmd("dms ipc call spotlight toggle"))
 hl.bind("ALT + space", hl.dsp.exec_cmd("dms ipc call spotlight-bar toggle"))
-hl.bind("SUPER + V", hl.dsp.exec_cmd("dms ipc call clipboard toggle"))
-hl.bind("SUPER + M", hl.dsp.exec_cmd("dms ipc call processlist focusOrToggle"))
-hl.bind("SUPER + comma", hl.dsp.exec_cmd("dms ipc call settings focusOrToggle"))
-hl.bind("SUPER + N", hl.dsp.exec_cmd("dms ipc call notifications toggle"))
-hl.bind("SUPER + SHIFT + N", hl.dsp.exec_cmd("dms ipc call notepad toggle"))
-hl.bind("SUPER + Y", hl.dsp.exec_cmd("dms ipc call dash toggle wallpaper"))
 hl.bind("SUPER + TAB", hl.dsp.exec_cmd("dms ipc call hypr toggleOverview"))
 hl.bind("SUPER + O", hl.dsp.exec_cmd("dms ipc call hypr toggleOverview"))
-hl.bind("SUPER + X", hl.dsp.exec_cmd("dms ipc call powermenu toggle"))
-
--- === Cheat sheet
-hl.bind("SUPER + SHIFT + Slash", hl.dsp.exec_cmd("dms ipc call keybinds toggle hyprland"))
-
--- === Security ===
-hl.bind("SUPER + ALT + L", hl.dsp.exec_cmd("dms ipc call lock lock"))
-hl.bind("SUPER + SHIFT + E", hl.dsp.exit())
-hl.bind("CTRL + ALT + Delete", hl.dsp.exec_cmd("dms ipc call processlist focusOrToggle"))
 
 -- === Audio Controls ===
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("dms ipc call audio increment 3"), { locked = true, repeating = true })
@@ -158,14 +141,3 @@ hl.bind("SUPER + minus", hl.dsp.window.resize({ x = -100, y = 0, relative = true
 hl.bind("SUPER + equal", hl.dsp.window.resize({ x = 100, y = 0, relative = true }), { repeating = true })
 hl.bind("SUPER + SHIFT + minus", hl.dsp.window.resize({ x = 0, y = -100, relative = true }), { repeating = true })
 hl.bind("SUPER + SHIFT + equal", hl.dsp.window.resize({ x = 0, y = 100, relative = true }), { repeating = true })
-
--- === Screenshots ===
-hl.bind("Print", hl.dsp.exec_cmd("dms screenshot"))
-hl.bind("CTRL + Print", hl.dsp.exec_cmd("dms screenshot full"))
-hl.bind("ALT + Print", hl.dsp.exec_cmd("dms screenshot window"))
-
--- === Display Profiles ===
-hl.bind("SUPER + P", hl.dsp.exec_cmd("dms ipc outputs cycleProfile"))
-
--- === System Controls ===
-hl.bind("SUPER + SHIFT + P", hl.dsp.dpms({ action = "toggle" }))
