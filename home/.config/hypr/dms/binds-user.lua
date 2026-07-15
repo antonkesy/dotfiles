@@ -13,8 +13,6 @@ hl.bind(mod .. " + " .. "comma", hl.dsp.exec_cmd("dms ipc call settings focusOrT
 hl.bind(mod .. " + " .. "N", hl.dsp.exec_cmd("dms ipc call notifications toggle"))
 hl.bind("SUPER" .. " + " .. "D", hl.dsp.exec_cmd("wayscriber --active"))
 
-hl.bind("SUPER + SHIFT + L", hl.dsp.exec_cmd("dms ipc call lock lock"))
-
 -- Scratchpad discord
 hl.bind(mod .. " + " .. "SHIFT" .. " + " .. "D", hl.dsp.exec_cmd("~/.config/hypr/scripts/discord-scratchpad.sh"))
 hl.window_rule({
