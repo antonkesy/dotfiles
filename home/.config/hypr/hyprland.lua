@@ -35,17 +35,10 @@ hl.config({
     general = {
         gaps_in = 0,
         gaps_out = 0,
-        border_size = 2,
-        -- https://wiki.hyprland.org/Configuring/Variables/#variable-types for info about colors
-        -- col.inactive_border = rgba(0,0,0,0) # TODO: inactive border is transparent, even tho it shouldn't
-        -- Set to true enable resizing windows by clicking and dragging on borders and gaps
+        border_size = 5, -- thicker borders
         resize_on_border = true,
-        -- Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
         allow_tearing = false,
         layout = "dwindle",
-        col = {
-            active_border = "rgb(8aadf4)",
-        },
     },
 })
 
