@@ -58,6 +58,7 @@
       - mesa # HW accel
       - smbclient
       - rclone # cloud storage file managment
+      - ntfsprogs # ntfsfix
     state: present
 - name: Install AUR packages
   ansible.builtin.include_role:
