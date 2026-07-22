@@ -16,4 +16,4 @@ fi
 FROM_WORD="$1"
 TO_WORD="$2"
 
-find . -type f -exec sed -i "s/\\b${FROM_WORD}\\b/${TO_WORD}/g" {} +
+find . -type f -exec sed -i "s/\b${FROM_WORD}\b/${TO_WORD}/g" {} +
