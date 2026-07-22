@@ -12,7 +12,7 @@
       - tree
       - zoxide # smarter cd command - https://github.com/ajeetdsouza/zoxide
       - act # Run your GitHub Actions locally - https://github.com/nektos/act
-      - just # make replacment
+      - just # make replacement
     state: present
 - name: Install CLI tools from AUR
   ansible.builtin.include_role:
