@@ -5,3 +5,4 @@
       - virtualbox
       - virtualbox-host-modules-arch
     state: present
+  when: ansible_facts['virtualization_type'] != "docker"
