@@ -68,29 +68,15 @@ hl.window_rule({
 })
 
 -- === Move compelete workspace to Monitor ===
--- TODO: manual review (unknown dispatcher: movecurrentworkspacetomonitor)
--- hl.bind("$mod + CTRL + SHIFT + left", hl.dsp.movecurrentworkspacetomonitor("l"))
-
--- TODO: manual review (unknown dispatcher: movecurrentworkspacetomonitor)
--- hl.bind("$mod + CTRL + SHIFT + right", hl.dsp.movecurrentworkspacetomonitor("r"))
-
--- TODO: manual review (unknown dispatcher: movecurrentworkspacetomonitor)
--- hl.bind("$mod + CTRL + SHIFT + up", hl.dsp.movecurrentworkspacetomonitor("u"))
-
--- TODO: manual review (unknown dispatcher: movecurrentworkspacetomonitor)
--- hl.bind("$mod + CTRL + SHIFT + down", hl.dsp.movecurrentworkspacetomonitor("d"))
-
--- TODO: manual review (unknown dispatcher: movecurrentworkspacetomonitor)
--- hl.bind("$mod + CTRL + SHIFT + H", hl.dsp.movecurrentworkspacetomonitor("l"))
-
--- TODO: manual review (unknown dispatcher: movecurrentworkspacetomonitor)
--- hl.bind("$mod + CTRL + SHIFT + L", hl.dsp.movecurrentworkspacetomonitor("r"))
-
--- TODO: manual review (unknown dispatcher: movecurrentworkspacetomonitor)
--- hl.bind("$mod + CTRL + SHIFT + K", hl.dsp.movecurrentworkspacetomonitor("u"))
-
--- TODO: manual review (unknown dispatcher: movecurrentworkspacetomonitor)
--- hl.bind("$mod + CTRL + SHIFT + J", hl.dsp.movecurrentworkspacetomonitor("d"))
+-- ponytail: still commented out on purpose -- binds.lua already owns
+-- SUPER+CTRL+SHIFT+{arrows,HJKL} for "move *window* to monitor". Uncommenting
+-- these steals all 8 binds (binds-user loads last) and turns them into
+-- "move *workspace* to monitor". Syntax below is correct for 0.56, pick one.
+-- for dir, keys in pairs({ l = { "left", "H" }, r = { "right", "L" }, u = { "up", "K" }, d = { "down", "J" } }) do
+--     for _, key in ipairs(keys) do
+--         hl.bind(mod .. " + CTRL + SHIFT + " .. key, hl.dsp.workspace.move({ monitor = dir }))
+--     end
+-- end
 
 -- === Screenshots ===
 hl.bind(mod .. " + " .. "S", hl.dsp.exec_cmd("dms screenshot"))
