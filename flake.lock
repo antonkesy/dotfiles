@@ -90,11 +90,28 @@
         "type": "github"
       }
     },
+    "nvim-config": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1777279039,
+        "narHash": "sha256-hIzTCncMb/ldlRG68IRceMTcZLs0DCviWfIFAPzsdfU=",
+        "owner": "antonkesy",
+        "repo": "nvim-config",
+        "rev": "9f01de34715f31899a6051d12593d572800e0843",
+        "type": "github"
+      },
+      "original": {
+        "owner": "antonkesy",
+        "repo": "nvim-config",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "dank-material-shell": "dank-material-shell",
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "nvim-config": "nvim-config"
       }
     }
   },

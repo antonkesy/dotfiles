@@ -15,10 +15,8 @@
 
   hardware.nvidia-container-toolkit.enable = true;
 
-  services.ollama = {
-    enable = true;
-    package = pkgs.ollama-cuda;
-  };
+  # apps.nix already enables ollama; on this host give it the CUDA build.
+  services.ollama.package = pkgs.ollama-cuda;
 
   environment.systemPackages = with pkgs; [
     cudaPackages.cudatoolkit
