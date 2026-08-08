@@ -40,10 +40,20 @@
     # hyprland.lua sets DMS_DISABLE_MATUGEN=1, so no dynamic theming.
     enableDynamicTheming = false;
     enableAudioWavelength = true;
+
+    # Was a gitlink vendored under home/.config/DankMaterialShell/plugins/ with
+    # no .gitmodules entry, which broke `git submodule status`. Pinned here
+    # instead; the attr name must match the "id" in the plugin's plugin.json
+    # and the key in plugin_settings.json (see modules/home/seed.nix).
+    plugins.dockerManager.src = pkgs.fetchFromGitHub {
+      owner = "LuckShiba";
+      repo = "DmsDockerManager";
+      rev = "v1.3.1";
+      hash = "sha256-YDCwXF0dyuNy07voKvkLlKfHFfPkhSS4oGopn+EnM+0=";
+    };
   };
-  # ponytail: ~/.config/DankMaterialShell/plugins/ stays unmanaged — DMS clones
-  # plugins there itself (see the .repos dir). Declare plugins here only if you
-  # want them pinned in the store.
+  # ~/.config/DankMaterialShell/plugins/ itself stays unmanaged — DMS also
+  # clones plugins there at runtime (the .repos dir).
 
   # --- GNOME ---------------------------------------------------------------
   # Kept from tasks/desktop/gnome.yml: gdm offers both a GNOME and a Hyprland
