@@ -30,7 +30,9 @@
   # files. Declaring them would make DMS unable to persist anything.
   programs.dank-material-shell = {
     enable = true;
-    systemd.enable = true;
+    # No systemd unit: hyprland.lua's `hyprland.start` hook already execs
+    # `dms run`, and that path wins — the unit would just sit inactive.
+    systemd.enable = false;
     enableSystemMonitoring = true;
     enableVPN = true;
     enableCalendarEvents = true;

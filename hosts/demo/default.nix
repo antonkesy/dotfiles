@@ -36,11 +36,13 @@
   # No SMART-capable disks in a VM; smartd just fails the boot otherwise.
   services.smartd.enable = false;
 
-  # Software rendering: no host GPU is passed through.
+  # Software rendering: no host GPU is passed through, so mesa falls back to
+  # llvmpipe on the virtio-gpu DRM node.
   environment.sessionVariables = {
     WLR_RENDERER_ALLOW_SOFTWARE = "1";
     WLR_NO_HARDWARE_CURSORS = "1";
     AQ_NO_ATOMIC = "1";
+    LIBGL_ALWAYS_SOFTWARE = "1";
   };
 
   virtualisation.vmVariant.virtualisation = {
@@ -48,11 +50,19 @@
     cores = 4;
     diskSize = 32768;
     graphics = true;
-    # virtio-gpu gives Hyprland a DRM node; xres/yres set the initial size.
+    # virtio-vga gives Hyprland a DRM node; xres/yres set the initial size.
     # `resolution` is deliberately NOT used — it only feeds grub and Xorg.
+    #
+    # No `gl=on`/virtio-vga-gl: virgl needs qemu's GTK to obtain a host GL
+    # context, which fails on plenty of hosts with
+    #   "GtkGLArea console lacks DMABUF support"
+    #   epoxy_get_proc_address: Assertion `0 && "Couldn't find current GLX or EGL context"`
+    # llvmpipe is slower but starts everywhere. To opt back in on a host where
+    # virgl does work:
+    #   QEMU_OPTS="-display gtk,gl=on" make demo
     qemu.options = [
-      "-device virtio-vga-gl,xres=1920,yres=1080"
-      "-display gtk,gl=on,show-cursor=on"
+      "-device virtio-vga,xres=1920,yres=1080"
+      "-display gtk,show-cursor=on"
     ];
   };
 }
