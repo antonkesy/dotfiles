@@ -1,5 +1,0 @@
-git:
-  # If true, do not spawn a separate process when using GPG
-  overrideGpg: true
-# If true, don't display introductory popups upon opening Lazygit.
-disableStartupPopups: true

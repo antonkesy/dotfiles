@@ -1,7 +1,0 @@
-- name: Install Racket
-  become: true
-  community.general.pacman:
-    name:
-      - racket
-      - graphviz
-    state: present

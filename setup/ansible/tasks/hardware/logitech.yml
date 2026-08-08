@@ -1,5 +1,0 @@
-- name: Install litra-rs - Logitech Light controller (https://github.com/timrogers/litra-rs)
-  ansible.builtin.include_role:
-    name: cargo_install
-  vars:
-    package_name: "litra-rs"

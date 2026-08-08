@@ -1,9 +1,0 @@
-- name: Install LaTeX packages
-  become: true
-  community.general.pacman:
-    name:
-      - texlive-meta
-      - plantuml
-      - pandoc
-      - biber
-    state: present

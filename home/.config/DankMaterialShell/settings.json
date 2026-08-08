@@ -615,7 +615,14 @@
     "dock": true
   },
   "niriOutputSettings": {},
-  "hyprlandOutputSettings": {},
+  "hyprlandOutputSettings": {
+    "DP-5": {
+      "disabled": true
+    },
+    "DP-6": {
+      "disabled": true
+    }
+  },
   "displayProfiles": {},
   "activeDisplayProfile": {
     "hyprland": "profile_1784627118203_ofi64x1"
