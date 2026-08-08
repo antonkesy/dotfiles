@@ -3,10 +3,19 @@
 # nixos-rebuild required, `system.build.vm` is a plain derivation.
 { lib, ... }:
 {
+  # Same module set as akdesk, minus the two things a VM has no hardware for:
+  # nvidia.nix (no GPU passthrough) and virtualbox (nested virt).
   imports = [
     ../../modules/nixos/desktop.nix
+    ../../modules/nixos/apps.nix
+    ../../modules/nixos/development.nix
+    ../../modules/nixos/containers.nix
     ../../modules/nixos/hardware.nix
   ];
+
+  # waydroid needs binder kernel modules that are not wired up in the VM; it
+  # would only ever show up as a failed unit here.
+  virtualisation.waydroid.enable = lib.mkForce false;
 
   # Load-bearing: the runner script is named run-${config.system.name}-vm, and
   # system.name defaults to networking.hostName. Set in lib/mkHost.nix.

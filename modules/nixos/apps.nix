@@ -52,7 +52,7 @@
     baobab
     appstream-glib
 
-    # --- ai --- (ollama itself comes from services.ollama in nvidia.nix)
+    # --- ai --- (ollama comes from services.ollama below)
     lmstudio
 
     # --- api / dev ---
@@ -71,4 +71,7 @@
 
   # tasks/desktop/apps.yml enabled waydroid but never installed it.
   virtualisation.waydroid.enable = true;
+
+  # tasks/ai/ollama.yml. CPU build by default; nvidia.nix swaps in ollama-cuda.
+  services.ollama.enable = true;
 }

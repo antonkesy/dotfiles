@@ -18,6 +18,16 @@ Builds the `demo` host into a QEMU image and boots it: Hyprland + DankMaterialSh
 autologin as `ak` / `demo`. Needs `nix` with flakes and KVM — **not** `nixos-rebuild`.
 `Ctrl-Alt-G` releases the mouse. `make demo-clean` throws the disk away.
 
+The demo runs the **same module set as `akdesk`** — same apps, same language
+toolchains, same nvim config, same shell — minus the two things a VM has no
+hardware for: `nvidia.nix` and VirtualBox. First run pulls the full closure
+(~10 GiB download, ~30 GiB in the store); after that it starts in seconds.
+
+It renders with llvmpipe, not virgl: `-display gtk,gl=on` needs qemu's GTK to
+obtain a host GL context, which fails on many hosts with `GtkGLArea console
+lacks DMABUF support`. On a host where virgl does work, opt back in with
+`QEMU_OPTS="-display gtk,gl=on" make demo`.
+
 ## Hosts
 
 | host | what it is |
