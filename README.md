@@ -114,12 +114,23 @@ Things that used to be imperative and are now declarative, or simply gone:
 - `hyprpm`, which compiles plugins against the running Hyprland and cannot work on
   NixOS — use `programs.hyprland.plugins`
 
-### What stays mutable on purpose
+### Declared, seeded, or left alone
 
-DankMaterialShell generates `~/.config/hypr/dms/{colors,outputs,layout,cursor,binds}.lua`
-and `~/.config/DankMaterialShell/*.json` at runtime. Those are deliberately **not**
-declared — `modules/home/hyprland.nix` symlinks single files so the parent directories
-stay writable. Declaring them would leave DMS unable to persist anything.
+Three tiers, because DankMaterialShell rewrites its own config at runtime:
+
+| tier | what | where |
+|---|---|---|
+| **declared** — read-only store symlink | `hyprland.lua`, `plugins.lua`, `dms/binds-user.lua`, `dms/windowrules.lua`, `hypr/scripts/*`, zsh fragments, wallpapers | `modules/home/hyprland.nix`, `zsh.nix` |
+| **seeded** — copied once, then yours | `DankMaterialShell/{settings,clsettings,plugin_settings}.json`, `dms/{binds,colors,layout}.lua`, `discord/settings.json` | `modules/home/seed.nix` |
+| **left alone** — machine-specific state | `monitors.json`, `dms/{outputs,cursor}.lua`, `dms/profiles/` | nothing declares these |
+
+Symlinking a *single file* leaves its parent directory writable, which is what lets
+DMS keep generating files next to the declared ones. Seeds are only written when the
+target is absent, so live DMS state always wins over the repo copy — to re-apply an
+updated repo version, delete the file and `make switch`.
+
+That tiering is why the repo's own `.gitignore` files matter: they already mark
+machine-specific state, and `seed.nix` seeds exactly the tracked set.
 
 ## Workarounds
 
