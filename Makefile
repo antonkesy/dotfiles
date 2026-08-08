@@ -1,69 +1,47 @@
-IN_DOCKER ?= 0
-BECOME_FLAG := $(if $(filter 1,$(IN_DOCKER)),, --ask-become-pass)
-TIMESTAMP := $(shell date +%Y%m%d_%H%M%S)
+HOST ?= $(shell hostname 2>/dev/null || cat /etc/hostname)
+FLAKE := .
 
-.PHONY: all base log desktop dotfiles install-ansible help test test-build dev-build dev test-dotfiles test-check test-base test-desktop clean galaxy unblock
+.PHONY: help switch boot build test check update fmt demo demo-clean clean
 
-all:
-	echo "Select a target: dotfiles, base, desktop, test, clean"
+help:
+	@echo "switch      - build and activate the config for HOST=$(HOST)"
+	@echo "boot        - build and activate on next boot"
+	@echo "build       - build without activating"
+	@echo "check       - evaluate and build every host (nix flake check)"
+	@echo "update      - update flake inputs"
+	@echo "fmt         - format all nix files"
+	@echo "demo        - boot the desktop config in a QEMU VM"
+	@echo "demo-clean  - throw away the demo VM disk"
 
-galaxy:
-	cd setup/ansible && ansible-galaxy install -r requirements.yml
+switch:
+	sudo nixos-rebuild switch --flake $(FLAKE)#$(HOST)
 
-log:
-	@mkdir -p ./log
+boot:
+	sudo nixos-rebuild boot --flake $(FLAKE)#$(HOST)
 
-dotfiles: galaxy log
-	cd setup/ansible && ansible-playbook site.yml --tags dotfiles
+build:
+	nixos-rebuild build --flake $(FLAKE)#$(HOST)
 
-base: galaxy log
-	cd setup/ansible && ansible-playbook $(BECOME_FLAG) site.yml --tags base
+check:
+	nix flake check
 
-desktop: galaxy log
-	cd setup/ansible && ansible-playbook $(BECOME_FLAG) site.yml
+update:
+	nix flake update
 
-check: galaxy log
-	cd setup/ansible && ansible-playbook $(BECOME_FLAG) site.yml --check
+fmt:
+	nix fmt
 
-dev-build:
-	docker build -f ./docker/Arch.Dockerfile --target dev -t dotfiles-test-dev .
+# Showcase the finished install without touching the host: builds the `demo`
+# nixosConfiguration into a runnable QEMU image. Needs only nix + kvm, not
+# nixos-rebuild, because system.build.vm is a plain derivation.
+demo:
+	nix build $(FLAKE)#nixosConfigurations.demo.config.system.build.vm -o result-demo
+	@mkdir -p .demo
+	@echo "Login: ak / demo   (autologin into Hyprland; Ctrl-Alt-G releases the mouse)"
+	NIX_DISK_IMAGE=$(CURDIR)/.demo/demo.qcow2 ./result-demo/bin/run-demo-vm
 
-dev:
-	@echo "Starting development container. Password: 'toor'"
-	docker compose up -d dev
-	docker compose exec dev bash
+demo-clean:
+	rm -rf .demo result-demo
 
-test: test-check test-dotfiles test-base test-desktop
-	echo "All tests passed."
-
-test-build:
-	docker build -f ./docker/Arch.Dockerfile --target ci -t dotfiles-test .
-
-test-check: test-build
-	docker run --rm dotfiles-test bash -c "./prerequisites.sh && IN_DOCKER=1 make check"
-
-test-base: test-build
-	docker run --rm dotfiles-test bash -c "./prerequisites.sh && IN_DOCKER=1 make base"
-
-test-desktop: test-build
-	docker run --rm dotfiles-test bash -c "./prerequisites.sh && IN_DOCKER=1 make desktop"
-
-test-dotfiles: test-build
-	docker run --rm dotfiles-test bash -c "./prerequisites.sh && IN_DOCKER=1 make dotfiles"
-
-dev-clean:
-	@echo "Removing development container..."
-	docker compose down -v
-
-switch-to-ssh:
-	git config submodule.home/.config/nvim.url git@github.com:antonkesy/nvim-config.git
-	git submodule sync
-	git -C home/.config/nvim remote set-url origin git@github.com:antonkesy/nvim-config.git
-	git remote set-url origin git@github.com:antonkesy/dotfiles.git
-
-clean:
-	rm -rf ./setup/build
-	rm -rf ./.pytest_cache
-
-unblock:
-	sudo rm -f /var/lib/pacman/db.lck
+clean: demo-clean
+	rm -f result

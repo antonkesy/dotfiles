@@ -1,6 +1,4 @@
-# grep path .gitmodules | sed 's/^[ \t]*path = //' | paste -sd '|' -
-# exclude auto-generated settings file "/home/.config/DankMaterialShell/settings.json"
-exclude: ^(home/.config/nvim|home/.config/alacritty/themes|home/.tmux/plugins/tpm|home/keypocalypse-now|home/.config/DankMaterialShell/settings.json)
+exclude: ^(home/.config/nvim|home/.config/DankMaterialShell)
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
@@ -25,24 +23,12 @@ repos:
     rev: v3.13.1-1
     hooks:
       - id: shfmt
-  - repo: https://github.com/google/yamlfmt
-    rev: v0.21.0
+  - repo: https://github.com/NixOS/nixfmt
+    rev: v1.0.0
     hooks:
-      - id: yamlfmt
-  - repo: https://github.com/adrienverge/yamllint
-    rev: v1.38.0
+      - id: nixfmt
+  - repo: https://github.com/astro/deadnix
+    rev: v1.4.0
     hooks:
-      - id: yamllint
-        args:
-          - --strict
-          - -d
-          - |
-            {
-              extends: default,
-              rules: {
-                line-length: {max: 150},
-                document-start: disable,
-                truthy: {check-keys: false},
-                comments: {min-spaces-from-content: 1}
-              }
-            }
+      - id: deadnix
+        args: ["--edit", "--no-lambda-pattern-names"]
