@@ -2,10 +2,16 @@ name: pre-commit
 on:
   pull_request:
   push:
+    branches: [main]
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
+      - uses: actions/checkout@v4
+      # The nixfmt/deadnix hooks shell out to the flake.
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+      - uses: actions/setup-python@v5
       - uses: pre-commit/action@v3.0.1
