@@ -9,6 +9,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Declarative partitioning: `hosts/disk.nix` + `disko-install` replace the
+    # manual parted/mkfs/mount steps.
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # DankMaterialShell: the packages are in nixpkgs, but the NixOS/HM modules
     # only exist upstream.
     dank-material-shell = {

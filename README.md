@@ -71,85 +71,68 @@ sudo systemctl start wpa_supplicant
 wpa_cli   # add_network / set_network 0 ssid "..." / set_network 0 psk "..." / enable_network 0
 ```
 
-### 4. Partition and mount
+### 4. Clone the repo
 
-GPT + UEFI. The labels matter: `hosts/*/hardware-configuration.nix` mounts by
-`/dev/disk/by-label/{BOOT,nixos,swap}`, so using different ones means editing
-that file afterwards.
+Anywhere in the live session — the target disk does not exist yet. The
+permanent checkout comes later (step 8), and its path is load-bearing:
+`modules/home/nvim.nix` symlinks `~/.config/nvim` into
+`~/workspace/dotfiles/home/.config/nvim` so lazy.nvim can write lock files
+into a real checkout.
 
 ```bash
-lsblk                                  # pick the target disk — this erases it
-DISK=/dev/nvme0n1
-
-sudo parted $DISK -- mklabel gpt
-sudo parted $DISK -- mkpart ESP fat32 1MiB 1GiB
-sudo parted $DISK -- set 1 esp on
-sudo parted $DISK -- mkpart swap linux-swap 1GiB 17GiB
-sudo parted $DISK -- mkpart root ext4 17GiB 100%
-
-sudo mkfs.fat -F32 -n BOOT ${DISK}p1
-sudo mkswap -L swap ${DISK}p2
-sudo mkfs.ext4 -L nixos ${DISK}p3
-
-sudo mount /dev/disk/by-label/nixos /mnt
-sudo mount --mkdir /dev/disk/by-label/BOOT /mnt/boot
-sudo swapon /dev/disk/by-label/swap
+git clone --recursive https://github.com/antonkesy/dotfiles.git
+cd dotfiles
 ```
-
-For encryption, `cryptsetup luksFormat` the root partition here and label the
-mapped device `nixos`; nothing in this repo depends on either choice.
-
-On `akdesk` (dual-boot) **do not** reformat the existing Windows ESP — install
-to the second disk and let `boot.loader.grub.useOSProber`
-(`modules/nixos/base.nix`) find Windows.
 
 ### 5. Generate the hardware config
 
-```bash
-sudo nixos-generate-config --root /mnt
-```
-
-Only `hardware-configuration.nix` is used; the generated `configuration.nix` is
-thrown away.
-
-### 6. Clone the repo into place
-
-The path is load-bearing, not a suggestion: `modules/home/nvim.nix` symlinks
-`~/.config/nvim` to `~/workspace/dotfiles/home/.config/nvim` so lazy.nvim can
-write lock files into a real checkout.
+Kernel modules and CPU only — `hosts/disk.nix` declares the filesystems, so
+`--no-filesystems` is what keeps the two from fighting:
 
 ```bash
-mkdir -p /mnt/home/ak/workspace && cd /mnt/home/ak/workspace
-git clone --recursive https://github.com/antonkesy/dotfiles.git
-cd dotfiles
-
-# the checked-in hardware-configuration.nix files are placeholders
-cp /mnt/etc/nixos/hardware-configuration.nix hosts/$HOST/hardware-configuration.nix
+sudo nixos-generate-config --no-filesystems --show-hardware-config \
+  > hosts/$HOST/hardware-configuration.nix
 ```
 
 Overwriting works because that file is already tracked by git. Anything *new*
 you add needs `git add` before the flake can see it — flakes ignore untracked
 files in a git tree, which is the classic first-install "my change did nothing".
 
-### 7. Install
+### 6. Install
+
+One command: partition, format, mount, install. `--disk main` overrides the
+device in `hosts/disk.nix`, and **erases it**.
 
 ```bash
-sudo nixos-install --flake .#$HOST
+lsblk                                  # pick the target disk — this erases it
+
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko#disko-install -- \
+  --flake .#$HOST --disk main /dev/nvme0n1
 ```
 
-Pulls a big closure on first run. It prompts for the **root** password at the
-end.
+The layout lives in [`hosts/disk.nix`](hosts/disk.nix): 1 GiB ESP, 16 GiB swap,
+ext4 root over the rest. Edit it there rather than partitioning by hand — for
+LUKS, wrap the root partition's content in disko's `luks` type; nothing else in
+the repo cares. Pulls a big closure on first run.
 
-### 8. Set a password for `ak`
+On `akdesk` (dual-boot) point `--disk main` at the **second** disk — disko
+wipes whatever it is given, including a Windows ESP.
+`boot.loader.grub.useOSProber` (`modules/nixos/base.nix`) finds Windows from
+the new ESP.
 
-Nothing in the repo declares one outside the demo host, so skipping this leaves
-you unable to log in:
+### 7. Set a password for `ak`
+
+Nothing in the repo declares one outside the demo host, and `disko-install`
+leaves root locked, so skipping this leaves you unable to log in. It also
+unmounts on the way out, hence the remount:
 
 ```bash
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- \
+  --mode mount --flake .#$HOST
 sudo nixos-enter --root /mnt -- passwd ak
 ```
 
-### 9. Reboot
+### 8. Reboot
 
 ```bash
 reboot
@@ -157,12 +140,13 @@ reboot
 
 Pull the stick.
 
-### 10. After first boot
+### 9. After first boot
 
 ```bash
-sudo chown -R ak:users ~/workspace   # the clone was made as root from the installer
+mkdir -p ~/workspace && cd ~/workspace
+git clone --recursive https://github.com/antonkesy/dotfiles.git
 nmtui                                # wifi, via NetworkManager
-cd ~/workspace/dotfiles && make switch
+cd dotfiles && make switch
 ```
 
 If `make switch` rebuilds cleanly, that is the whole workflow from here on. Log
@@ -188,6 +172,7 @@ once your keys are in place.
 flake.nix          inputs and the three nixosConfigurations
 lib/mkHost.nix     nixosSystem wrapper, wires in Home Manager
 hosts/             per-machine config + hardware-configuration.nix
+hosts/disk.nix     disko partition layout for the physical hosts
 modules/nixos/     system modules (base, desktop, apps, development, ...)
 modules/home/      Home Manager modules (zsh, tmux, terminal, hyprland, nvim, git)
 pkgs/              derivations for what is not in nixpkgs
