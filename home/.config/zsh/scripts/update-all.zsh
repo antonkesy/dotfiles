@@ -2,7 +2,7 @@
 # Update everything nix does not pin: the flake inputs, then rebuild.
 set -e
 
-DOTFILES="${DOTFILES:-$HOME/workspace/dotfiles}"
+DOTFILES="${DOTFILES:-$HOME/Projects/dotfiles}"
 
 cd "$DOTFILES"
 nix flake update

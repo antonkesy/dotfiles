@@ -15,7 +15,7 @@ let
   # The demo VM has no checkout, and a gitlink's contents never reach the flake
   # store copy, so it gets the pinned nvim-config input instead. Read-only there,
   # which is fine for a demo but would break `:Lazy update` on a real host.
-  liveCheckout = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/workspace/dotfiles/home/.config/nvim";
+  liveCheckout = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Projects/dotfiles/home/.config/nvim";
 in
 {
   home.packages = with pkgs; [
