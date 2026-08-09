@@ -76,7 +76,7 @@ wpa_cli   # add_network / set_network 0 ssid "..." / set_network 0 psk "..." / e
 Anywhere in the live session — the target disk does not exist yet. The
 permanent checkout comes later (step 8), and its path is load-bearing:
 `modules/home/nvim.nix` symlinks `~/.config/nvim` into
-`~/workspace/dotfiles/home/.config/nvim` so lazy.nvim can write lock files
+`~/Projects/dotfiles/home/.config/nvim` so lazy.nvim can write lock files
 into a real checkout.
 
 ```bash
@@ -143,7 +143,7 @@ Pull the stick.
 ### 9. After first boot
 
 ```bash
-mkdir -p ~/workspace && cd ~/workspace
+mkdir -p ~/Projects && cd ~/Projects
 git clone --recursive https://github.com/antonkesy/dotfiles.git
 nmtui                                # wifi, via NetworkManager
 cd dotfiles && make switch
