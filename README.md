@@ -38,115 +38,37 @@ lacks DMABUF support`. On a host where virgl does work, opt back in with
 
 ## Fresh install
 
-From an empty machine to a working desktop. `akdesk` and `aklap` install exactly
-the same way — the host name is the only substitution, so pick it once:
+### 1. Install NixOS the normal way
 
-```bash
-HOST=akdesk   # or aklap
-```
-
-### 1. Write the ISO to a USB stick
-
-On any machine that already works. Take the **minimal** ISO — the graphical
-installer boots nouveau and none of it is used here anyway.
-
-- [Download the NixOS ISO](https://nixos.org/download/#nixos-iso)
-
-```bash
-lsblk                                  # find the stick, and be sure about it
-sudo dd if=nixos-minimal-*.iso of=/dev/sdX bs=4M status=progress conv=fsync
-```
-
-### 2. Boot it
-
-Firmware in UEFI mode, Secure Boot **off** — the NVIDIA kernel modules are
+[Download the ISO](https://nixos.org/download/#nixos-iso) and follow the
+[installation manual](https://nixos.org/manual/nixos/stable/#sec-installation) —
+partitioning, user `ak` with a password, **no desktop environment**. This repo
+takes over from there. Secure Boot **off**: the NVIDIA kernel modules are
 unsigned and will not load otherwise.
 
-### 3. Get online
+### 2. Reboot and take over
 
-Ethernet needs nothing. For wifi:
-
-```bash
-sudo systemctl start wpa_supplicant
-wpa_cli   # add_network / set_network 0 ssid "..." / set_network 0 psk "..." / enable_network 0
-```
-
-### 4. Clone the repo
-
-Anywhere in the live session — the target disk does not exist yet. The
-permanent checkout comes later (step 8), and its path is load-bearing:
-`modules/home/nvim.nix` symlinks `~/.config/nvim` into
-`~/Projects/dotfiles/home/.config/nvim` so lazy.nvim can write lock files
-into a real checkout.
-
-```bash
-git clone --recursive https://github.com/antonkesy/dotfiles.git
-cd dotfiles
-```
-
-### 5. Generate the hardware config
-
-Kernel modules and CPU only — `hosts/disk.nix` declares the filesystems, so
-`--no-filesystems` is what keeps the two from fighting:
-
-```bash
-sudo nixos-generate-config --no-filesystems --show-hardware-config \
-  > hosts/$HOST/hardware-configuration.nix
-```
-
-Overwriting works because that file is already tracked by git. Anything *new*
-you add needs `git add` before the flake can see it — flakes ignore untracked
-files in a git tree, which is the classic first-install "my change did nothing".
-
-### 6. Install
-
-One command: partition, format, mount, install. `--disk main` overrides the
-device in `hosts/disk.nix`, and **erases it**.
-
-```bash
-lsblk                                  # pick the target disk — this erases it
-
-sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko#disko-install -- \
-  --flake .#$HOST --disk main /dev/nvme0n1
-```
-
-The layout lives in [`hosts/disk.nix`](hosts/disk.nix): 1 GiB ESP, 16 GiB swap,
-ext4 root over the rest. Edit it there rather than partitioning by hand — for
-LUKS, wrap the root partition's content in disko's `luks` type; nothing else in
-the repo cares. Pulls a big closure on first run.
-
-On `akdesk` (dual-boot) point `--disk main` at the **second** disk — disko
-wipes whatever it is given, including a Windows ESP.
-`boot.loader.grub.useOSProber` (`modules/nixos/base.nix`) finds Windows from
-the new ESP.
-
-### 7. Set a password for `ak`
-
-Nothing in the repo declares one outside the demo host, and `disko-install`
-leaves root locked, so skipping this leaves you unable to log in. It also
-unmounts on the way out, hence the remount:
-
-```bash
-sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- \
-  --mode mount --flake .#$HOST
-sudo nixos-enter --root /mnt -- passwd ak
-```
-
-### 8. Reboot
-
-```bash
-reboot
-```
-
-Pull the stick.
-
-### 9. After first boot
+`~/Projects/dotfiles` is load-bearing — `modules/home/nvim.nix` symlinks
+`~/.config/nvim` into it so lazy.nvim can write lock files into a real checkout.
 
 ```bash
 mkdir -p ~/Projects && cd ~/Projects
 git clone --recursive https://github.com/antonkesy/dotfiles.git
+cd dotfiles
 nmtui                                # wifi, via NetworkManager
-cd dotfiles && make switch
+```
+
+### 3. Use the machine's real hardware config, then switch
+
+The tracked `hosts/$HOST/hardware-configuration.nix` is only a stub so the flake
+evaluates anywhere; the installer wrote the real one. Copy it over **before** the
+first switch, or the new generation boots with the stub's filesystems:
+
+```bash
+HOST=akdesk   # or aklap
+cp /etc/nixos/hardware-configuration.nix hosts/$HOST/hardware-configuration.nix
+git add hosts/$HOST/hardware-configuration.nix   # flakes ignore untracked files
+make switch                                      # HOST defaults to `hostname`
 ```
 
 If `make switch` rebuilds cleanly, that is the whole workflow from here on. Log
@@ -172,7 +94,6 @@ once your keys are in place.
 flake.nix          inputs and the three nixosConfigurations
 lib/mkHost.nix     nixosSystem wrapper, wires in Home Manager
 hosts/             per-machine config + hardware-configuration.nix
-hosts/disk.nix     disko partition layout for the physical hosts
 modules/nixos/     system modules (base, desktop, apps, development, ...)
 modules/home/      Home Manager modules (zsh, tmux, terminal, hyprland, nvim, git)
 pkgs/              derivations for what is not in nixpkgs
