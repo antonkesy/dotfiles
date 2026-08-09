@@ -33,34 +33,142 @@ lacks DMABUF support`. On a host where virgl does work, opt back in with
 | host | what it is |
 |---|---|
 | `akdesk` | desktop workstation — NVIDIA RTX 4070, CUDA, VirtualBox, dual-boot with Windows |
-| `aklap` | Dell laptop — fingerprint reader, TLP, no NVIDIA |
+| `aklap` | Dell laptop — same config as `akdesk`, plus fingerprint reader and power management, minus VirtualBox |
 | `demo` | throwaway QEMU VM for `make demo` |
 
 ## Fresh install
 
+From an empty machine to a working desktop. `akdesk` and `aklap` install exactly
+the same way — the host name is the only substitution, so pick it once:
+
+```bash
+HOST=akdesk   # or aklap
+```
+
+### 1. Write the ISO to a USB stick
+
+On any machine that already works. Take the **minimal** ISO — the graphical
+installer boots nouveau and none of it is used here anyway.
+
 - [Download the NixOS ISO](https://nixos.org/download/#nixos-iso)
 
 ```bash
-# boot the ISO, connect to wifi
+lsblk                                  # find the stick, and be sure about it
+sudo dd if=nixos-minimal-*.iso of=/dev/sdX bs=4M status=progress conv=fsync
+```
+
+### 2. Boot it
+
+Firmware in UEFI mode, Secure Boot **off** — the NVIDIA kernel modules are
+unsigned and will not load otherwise.
+
+### 3. Get online
+
+Ethernet needs nothing. For wifi:
+
+```bash
 sudo systemctl start wpa_supplicant
 wpa_cli   # add_network / set_network 0 ssid "..." / set_network 0 psk "..." / enable_network 0
+```
 
-# partition and mount to /mnt yourself (LUKS if you want encryption), then:
+### 4. Partition and mount
+
+GPT + UEFI. The labels matter: `hosts/*/hardware-configuration.nix` mounts by
+`/dev/disk/by-label/{BOOT,nixos,swap}`, so using different ones means editing
+that file afterwards.
+
+```bash
+lsblk                                  # pick the target disk — this erases it
+DISK=/dev/nvme0n1
+
+sudo parted $DISK -- mklabel gpt
+sudo parted $DISK -- mkpart ESP fat32 1MiB 1GiB
+sudo parted $DISK -- set 1 esp on
+sudo parted $DISK -- mkpart swap linux-swap 1GiB 17GiB
+sudo parted $DISK -- mkpart root ext4 17GiB 100%
+
+sudo mkfs.fat -F32 -n BOOT ${DISK}p1
+sudo mkswap -L swap ${DISK}p2
+sudo mkfs.ext4 -L nixos ${DISK}p3
+
+sudo mount /dev/disk/by-label/nixos /mnt
+sudo mount --mkdir /dev/disk/by-label/BOOT /mnt/boot
+sudo swapon /dev/disk/by-label/swap
+```
+
+For encryption, `cryptsetup luksFormat` the root partition here and label the
+mapped device `nixos`; nothing in this repo depends on either choice.
+
+On `akdesk` (dual-boot) **do not** reformat the existing Windows ESP — install
+to the second disk and let `boot.loader.grub.useOSProber`
+(`modules/nixos/base.nix`) find Windows.
+
+### 5. Generate the hardware config
+
+```bash
 sudo nixos-generate-config --root /mnt
+```
 
+Only `hardware-configuration.nix` is used; the generated `configuration.nix` is
+thrown away.
+
+### 6. Clone the repo into place
+
+The path is load-bearing, not a suggestion: `modules/home/nvim.nix` symlinks
+`~/.config/nvim` to `~/workspace/dotfiles/home/.config/nvim` so lazy.nvim can
+write lock files into a real checkout.
+
+```bash
 mkdir -p /mnt/home/ak/workspace && cd /mnt/home/ak/workspace
 git clone --recursive https://github.com/antonkesy/dotfiles.git
 cd dotfiles
 
 # the checked-in hardware-configuration.nix files are placeholders
-cp /mnt/etc/nixos/hardware-configuration.nix hosts/akdesk/hardware-configuration.nix
+cp /mnt/etc/nixos/hardware-configuration.nix hosts/$HOST/hardware-configuration.nix
+```
 
-sudo nixos-install --flake .#akdesk
+Overwriting works because that file is already tracked by git. Anything *new*
+you add needs `git add` before the flake can see it — flakes ignore untracked
+files in a git tree, which is the classic first-install "my change did nothing".
+
+### 7. Install
+
+```bash
+sudo nixos-install --flake .#$HOST
+```
+
+Pulls a big closure on first run. It prompts for the **root** password at the
+end.
+
+### 8. Set a password for `ak`
+
+Nothing in the repo declares one outside the demo host, so skipping this leaves
+you unable to log in:
+
+```bash
+sudo nixos-enter --root /mnt -- passwd ak
+```
+
+### 9. Reboot
+
+```bash
 reboot
 ```
 
-Some setups assume the repo lives at `~/workspace/dotfiles` — `modules/home/nvim.nix`
-symlinks the nvim config out of the store from there so lazy.nvim can write to it.
+Pull the stick.
+
+### 10. After first boot
+
+```bash
+sudo chown -R ak:users ~/workspace   # the clone was made as root from the installer
+nmtui                                # wifi, via NetworkManager
+cd ~/workspace/dotfiles && make switch
+```
+
+If `make switch` rebuilds cleanly, that is the whole workflow from here on. Log
+in through the GNOME session once if you want Gnome Online Accounts (see
+[Workarounds](#gnome-online-accounts-on-hyprland)), and swap the remotes to SSH
+once your keys are in place.
 
 ## Targets
 

@@ -1,4 +1,5 @@
-# Dell laptop: fingerprint reader, no NVIDIA, no VirtualBox.
+# Dell laptop: same module set as akdesk plus laptop.nix (fingerprint, power
+# management), minus VirtualBox.
 { ... }:
 {
   imports = [
@@ -8,6 +9,7 @@
     ../../modules/nixos/development.nix
     ../../modules/nixos/containers.nix
     ../../modules/nixos/hardware.nix
+    ../../modules/nixos/nvidia.nix
     ../../modules/nixos/laptop.nix
   ];
 }
