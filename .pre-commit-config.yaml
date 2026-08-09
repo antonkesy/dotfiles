@@ -23,12 +23,18 @@ repos:
     rev: v3.13.1-1
     hooks:
       - id: shfmt
-  - repo: https://github.com/NixOS/nixfmt
-    rev: v1.0.0
+  # Nix tooling comes from the flake itself, so pre-commit and `nix fmt` can
+  # never disagree and nothing gets rebuilt from cabal/cargo.
+  - repo: local
     hooks:
       - id: nixfmt
-  - repo: https://github.com/astro/deadnix
-    rev: v1.4.0
-    hooks:
+        name: nixfmt
+        entry: nix fmt --
+        language: system
+        pass_filenames: false
+        files: \.nix$
       - id: deadnix
-        args: ["--edit", "--no-lambda-pattern-names"]
+        name: deadnix
+        entry: nix run --inputs-from . nixpkgs#deadnix -- --edit --no-lambda-pattern-names
+        language: system
+        files: \.nix$
