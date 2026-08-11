@@ -3,30 +3,11 @@
 [![nix](https://github.com/antonkesy/dotfiles/workflows/nix/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/nix.yml)
 [![Pre-Commit](https://github.com/antonkesy/dotfiles/workflows/pre-commit/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/pre-commit.yml)
 
-NixOS system and Home Manager configuration. (Previously Arch Linux + Ansible —
-the setup did break three times, as predicted.)
+_Trying to achieve the best reproducible setup for my personal and professional use_
+
+NixOS system and Home Manager configuration.
 
 <img src="./docs/images/preview.png" width="800">
-
-## Try it without installing anything
-
-```bash
-make demo
-```
-
-Builds the `demo` host into a QEMU image and boots it: Hyprland + DankMaterialShell,
-autologin as `ak` / `demo`. Needs `nix` with flakes and KVM — **not** `nixos-rebuild`.
-`Ctrl-Alt-G` releases the mouse. `make demo-clean` throws the disk away.
-
-The demo runs the **same module set as `akdesk`** — same apps, same language
-toolchains, same nvim config, same shell — minus the two things a VM has no
-hardware for: `nvidia.nix` and VirtualBox. First run pulls the full closure
-(~10 GiB download, ~30 GiB in the store); after that it starts in seconds.
-
-It renders with llvmpipe, not virgl: `-display gtk,gl=on` needs qemu's GTK to
-obtain a host GL context, which fails on many hosts with `GtkGLArea console
-lacks DMABUF support`. On a host where virgl does work, opt back in with
-`QEMU_OPTS="-display gtk,gl=on" make demo`.
 
 ## Hosts
 
@@ -38,7 +19,7 @@ lacks DMABUF support`. On a host where virgl does work, opt back in with
 
 ## Fresh install
 
-### 1. Install NixOS the normal way
+### 1. Install NixOS
 
 [Download the ISO](https://nixos.org/download/#nixos-iso) and follow the
 [installation manual](https://nixos.org/manual/nixos/stable/#sec-installation) —
@@ -169,3 +150,23 @@ Pick the previous generation in the GRUB menu, or:
 ```bash
 sudo nixos-rebuild switch --rollback
 ```
+
+## Try it without installing anything
+
+```bash
+make demo
+```
+
+Builds the `demo` host into a QEMU image and boots it: Hyprland + DankMaterialShell,
+autologin as `ak` / `demo`. Needs `nix` with flakes and KVM — **not** `nixos-rebuild`.
+`Ctrl-Alt-G` releases the mouse. `make demo-clean` throws the disk away.
+
+The demo runs the **same module set as `akdesk`** — same apps, same language
+toolchains, same nvim config, same shell — minus the two things a VM has no
+hardware for: `nvidia.nix` and VirtualBox. First run pulls the full closure
+(~10 GiB download, ~30 GiB in the store); after that it starts in seconds.
+
+It renders with llvmpipe, not virgl: `-display gtk,gl=on` needs qemu's GTK to
+obtain a host GL context, which fails on many hosts with `GtkGLArea console
+lacks DMABUF support`. On a host where virgl does work, opt back in with
+`QEMU_OPTS="-display gtk,gl=on" make demo`.
