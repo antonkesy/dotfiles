@@ -67,6 +67,7 @@ once your keys are in place.
 | `make check` | evaluate and build every host |
 | `make update` | update flake inputs |
 | `make fmt` | format all nix files |
+| `make desktop` | regenerate this machine's `hardware-configuration.nix`, hide it from git (`skip-worktree`), then switch |
 | `make demo` | boot the desktop config in QEMU |
 
 ## Layout
