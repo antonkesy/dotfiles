@@ -1,7 +1,9 @@
 HOST ?= $(shell hostname 2>/dev/null || cat /etc/hostname)
 FLAKE := .
 
-.PHONY: help switch boot build test check update fmt demo demo-clean clean
+HW := hosts/$(HOST)/hardware-configuration.nix
+
+.PHONY: help switch boot build test check update fmt desktop demo demo-clean clean
 
 help:
 	@echo "switch      - build and activate the config for HOST=$(HOST)"
@@ -10,6 +12,7 @@ help:
 	@echo "check       - evaluate and build every host (nix flake check)"
 	@echo "update      - update flake inputs"
 	@echo "fmt         - format all nix files"
+	@echo "desktop     - regenerate $(HW) (kept local), then switch"
 	@echo "demo        - boot the desktop config in a QEMU VM"
 	@echo "demo-clean  - throw away the demo VM disk"
 
@@ -30,6 +33,16 @@ update:
 
 fmt:
 	nix fmt
+
+# The real hardware config belongs to this machine only, but the file is tracked
+# (the stub) so the flake evaluates anywhere. skip-worktree keeps the machine's
+# version out of `git status`/`git commit -a` while nix still reads it from the
+# worktree. Undo with: git update-index --no-skip-worktree $(HW)
+desktop:
+	git update-index --no-skip-worktree $(HW)
+	sudo nixos-generate-config --show-hardware-config > $(HW)
+	git update-index --skip-worktree $(HW)
+	$(MAKE) switch
 
 # Showcase the finished install without touching the host: builds the `demo`
 # nixosConfiguration into a runnable QEMU image. Needs only nix + kvm, not
