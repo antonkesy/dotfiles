@@ -61,6 +61,10 @@
   services.displayManager.gdm.enable = true;
   services.displayManager.defaultSession = "hyprland-uwsm";
   services.desktopManager.gnome.enable = true;
+  # gnome.nix defaults i18n.inputMethod to ibus, which autostarts ibus-daemon
+  # in every session (including Hyprland) and fires an "IBus" notification on
+  # boot. Not used, so opt back out.
+  i18n.inputMethod.enable = false;
 
   # --- audio ---------------------------------------------------------------
   services.pipewire = {
