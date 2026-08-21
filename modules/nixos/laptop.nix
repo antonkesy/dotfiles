@@ -4,8 +4,7 @@
 { pkgs, ... }:
 {
   services.fprintd.enable = true;
-  # No login.fprintAuth: gdm drives fprintd itself and NixOS's gdm module forces
-  # that option off, so setting it here only produces a conflict.
+  # Scoped to sudo/hyprlock only, not the login screen itself.
   security.pam.services = {
     sudo.fprintAuth = true;
     hyprlock.fprintAuth = true;

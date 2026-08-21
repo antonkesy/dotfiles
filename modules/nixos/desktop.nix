@@ -56,8 +56,10 @@
   # clones plugins there at runtime (the .repos dir).
 
   # --- display manager ------------------------------------------------------
-  services.displayManager.gdm.enable = true;
-  services.displayManager.defaultSession = "hyprland-uwsm";
+  services.greetd = {
+    enable = true;
+    settings.default_session.command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --remember-session --asterisks";
+  };
 
   # --- audio ---------------------------------------------------------------
   services.pipewire = {
