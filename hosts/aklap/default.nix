@@ -1,5 +1,5 @@
 # Dell laptop: same module set as akdesk plus laptop.nix (fingerprint, power
-# management), minus VirtualBox.
+# management), minus VirtualBox and nvidia.nix (no NVIDIA GPU on this machine).
 { ... }:
 {
   imports = [
@@ -9,7 +9,6 @@
     ../../modules/nixos/development.nix
     ../../modules/nixos/containers.nix
     ../../modules/nixos/hardware.nix
-    ../../modules/nixos/nvidia.nix
     ../../modules/nixos/laptop.nix
   ];
 }
