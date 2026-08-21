@@ -13,7 +13,7 @@
       init.defaultBranch = "main";
       help.autocorrect = 10;
       pull.rebase = true;
-      commit.gpgsign = true;
+      # commit.gpgsign = true;
       bash = {
         showDirtyState = true;
         showUntrackedFiles = true;
