@@ -1,7 +1,7 @@
 # Throwaway QEMU host used by `make demo` to showcase the real desktop config.
 # Built with `nix build .#nixosConfigurations.demo.config.system.build.vm` — no
 # nixos-rebuild required, `system.build.vm` is a plain derivation.
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
   # Same module set as akdesk, minus the two things a VM has no hardware for:
   # nvidia.nix (no GPU passthrough) and virtualbox (nested virt).
@@ -35,10 +35,10 @@
   users.users.ak.initialPassword = "demo";
   users.users.root.initialPassword = "demo";
   security.sudo.wheelNeedsPassword = false;
-  # gdm is the display manager (modules/nixos/desktop.nix); autologin straight
-  # into the Hyprland session set as services.displayManager.defaultSession.
-  services.displayManager.autoLogin = {
-    enable = true;
+  # greetd is the display manager (modules/nixos/desktop.nix); initial_session
+  # autologins straight into the Hyprland (UWSM) session, skipping tuigreet.
+  services.greetd.settings.initial_session = {
+    command = "${pkgs.uwsm}/bin/uwsm start -F -- ${pkgs.hyprland}/bin/Hyprland";
     user = "ak";
   };
 
