@@ -55,16 +55,9 @@
   # ~/.config/DankMaterialShell/plugins/ itself stays unmanaged — DMS also
   # clones plugins there at runtime (the .repos dir).
 
-  # --- GNOME ---------------------------------------------------------------
-  # Kept from tasks/desktop/gnome.yml: gdm offers both a GNOME and a Hyprland
-  # session, which is the README's "Gnome Online Accounts on Hyprland" workaround.
+  # --- display manager ------------------------------------------------------
   services.displayManager.gdm.enable = true;
   services.displayManager.defaultSession = "hyprland-uwsm";
-  services.desktopManager.gnome.enable = true;
-  # gnome.nix defaults i18n.inputMethod to ibus, which autostarts ibus-daemon
-  # in every session (including Hyprland) and fires an "IBus" notification on
-  # boot. Not used, so opt back out.
-  i18n.inputMethod.enable = false;
 
   # --- audio ---------------------------------------------------------------
   services.pipewire = {
@@ -147,21 +140,6 @@
     libsForQt5.qtstyleplugin-kvantum
     qt5.qtwayland
     qt6.qtwayland
-
-    # --- gnome extras from tasks/desktop/gnome.yml ---
-    gnome-tweaks
-    gnome-calculator
-    gnome-system-monitor
-    gnome-disk-utility
-    gnome-font-viewer
-    gnome-calendar
-    baobab
-    file-roller
-    sushi
-    simple-scan
-    evince
-    evolution
-    evolution-ews
 
     # --- gstreamer codecs from tasks/desktop/core.yml ---
     gst_all_1.gst-libav

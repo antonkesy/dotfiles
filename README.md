@@ -52,10 +52,8 @@ git add hosts/$HOST/hardware-configuration.nix   # flakes ignore untracked files
 make switch                                      # HOST defaults to `hostname`
 ```
 
-If `make switch` rebuilds cleanly, that is the whole workflow from here on. Log
-in through the GNOME session once if you want Gnome Online Accounts (see
-[Workarounds](#gnome-online-accounts-on-hyprland)), and swap the remotes to SSH
-once your keys are in place.
+If `make switch` rebuilds cleanly, that is the whole workflow from here on. Swap
+the remotes to SSH once your keys are in place.
 
 ## Targets
 
@@ -129,10 +127,6 @@ That tiering is why the repo's own `.gitignore` files matter: they already mark
 machine-specific state, and `seed.nix` seeds exactly the tracked set.
 
 ## Workarounds
-
-### Gnome Online Accounts on Hyprland
-
-`gdm` offers both a GNOME and a Hyprland session — log in through GNOME once.
 
 ### `gcr-ssh-agent` spamming processes at 99% CPU
 
