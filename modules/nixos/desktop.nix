@@ -115,6 +115,7 @@
 
   environment.systemPackages = with pkgs; [
     # --- hyprland ecosystem ---
+    bibata-cursors
     hypridle
     wlogout
     awww # upstream renamed swww -> awww
