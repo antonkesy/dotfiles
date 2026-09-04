@@ -92,7 +92,7 @@
     bear
     cppcheck
     valgrind
-    linuxPackages.perf
+    perf
     gtest # provides gmock too
     boost
     pkgsCross.mingwW64.buildPackages.gcc

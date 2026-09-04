@@ -65,24 +65,24 @@ buildFHSEnv {
       wayland
       libxkbcommon
       # x11
-      xorg.libX11
-      xorg.libXext
-      xorg.libXrender
-      xorg.libXi
-      xorg.libXrandr
-      xorg.libXcursor
-      xorg.libXcomposite
-      xorg.libXdamage
-      xorg.libXfixes
-      xorg.libXtst
-      xorg.libxcb
-      xorg.xcbutil
-      xorg.xcbutilimage
-      xorg.xcbutilkeysyms
-      xorg.xcbutilrenderutil
-      xorg.xcbutilwm
-      xorg.libSM
-      xorg.libICE
+      libx11
+      libxext
+      libxrender
+      libxi
+      libxrandr
+      libxcursor
+      libxcomposite
+      libxdamage
+      libxfixes
+      libxtst
+      libxcb
+      libxcb-util
+      libxcb-image
+      libxcb-keysyms
+      libxcb-render-util
+      libxcb-wm
+      libsm
+      libice
       # audio
       alsa-lib
       libpulseaudio
