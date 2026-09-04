@@ -15,7 +15,7 @@ help:
 	@echo "desktop     - regenerate $(HW) (kept local), then switch"
 	@echo "demo        - boot the desktop config in a QEMU VM"
 	@echo "demo-clean  - throw away the demo VM disk"
-	@echo "use-ssh     - switch origin remote from https to ssh (github.com/antonkesy/*)"
+	@echo "use-ssh     - switch origin remote (and submodules) from https to ssh (github.com/antonkesy/*)"
 
 switch:
 	sudo nixos-rebuild switch --flake $(FLAKE)#$(HOST)
@@ -61,15 +61,5 @@ clean: demo-clean
 	rm -f result
 
 use-ssh:
-	@url=$$(git remote get-url origin); \
-	case "$$url" in \
-		https://github.com/antonkesy/*) \
-			repo=$$(echo "$$url" | sed -E 's#https://github.com/antonkesy/##; s#\.git$$##'); \
-			new="git@github.com:antonkesy/$$repo.git"; \
-			git remote set-url origin "$$new"; \
-			echo "origin -> $$new" ;; \
-		git@github.com:antonkesy/*) \
-			echo "origin already uses SSH: $$url" ;; \
-		*) \
-			echo "origin is not an antonkesy/* GitHub URL: $$url"; exit 1 ;; \
-	esac
+	@$(CURDIR)/scripts/use-ssh-remote.sh
+	@git submodule foreach --recursive $(CURDIR)/scripts/use-ssh-remote.sh
