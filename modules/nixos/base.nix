@@ -17,6 +17,8 @@
   };
   boot.kernelParams = [ "noplymouth" ];
 
+  services.upower.enable = true; # battery level
+
   hardware.enableRedistributableFirmware = true;
   hardware.cpu.intel.updateMicrocode = true;
   hardware.cpu.amd.updateMicrocode = true;
