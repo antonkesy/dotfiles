@@ -4,6 +4,7 @@
 { pkgs, ... }:
 {
   programs.firefox.enable = true;
+  programs.steam.enable = true;
 
   environment.systemPackages = with pkgs; [
     # --- browsers ---
@@ -14,6 +15,7 @@
     vscode
     code-cursor # AUR cursor-bin
     unityhub
+    godot_4
 
     # --- graphics ---
     gimp
