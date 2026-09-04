@@ -135,6 +135,7 @@
     rofi
     dmenu
     kitty
+    nautilus
     kdePackages.dolphin
     kdePackages.polkit-kde-agent-1
     kdePackages.kwallet
