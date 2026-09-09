@@ -137,6 +137,8 @@
     dmenu
     kitty
     nautilus
+    adwaita-icon-theme
+    gnome-themes-extra
     kdePackages.dolphin
     kdePackages.polkit-kde-agent-1
     kdePackages.kwallet
@@ -156,4 +158,9 @@
     libsecret
     seahorse
   ];
+
+  # Ubuntu theme on nautilus
+  environment.variables = {
+    GTK_THEME = "Adwaita";
+  };
 }
