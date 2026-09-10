@@ -15,6 +15,7 @@ help:
 	@echo "desktop     - regenerate $(HW) (kept local), then switch"
 	@echo "demo        - boot the desktop config in a QEMU VM"
 	@echo "demo-clean  - throw away the demo VM disk"
+	@echo "clean       - remove build outputs, collect nix garbage (all old generations) and drop old GRUB entries"
 	@echo "use-ssh     - switch origin remote (and submodules) from https to ssh (github.com/antonkesy/*)"
 
 switch:
@@ -57,8 +58,13 @@ demo:
 demo-clean:
 	rm -rf .demo result-demo
 
+# Frees disk space: drops every system generation except the current one and
+# every store path nothing references any more. The GRUB menu is rebuilt from
+# the remaining generations so the old boot entries disappear as well.
 clean: demo-clean
 	rm -f result
+	sudo nix-collect-garbage -d
+	sudo /run/current-system/bin/switch-to-configuration boot
 
 use-ssh:
 	@$(CURDIR)/scripts/use-ssh-remote.sh
