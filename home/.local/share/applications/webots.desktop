@@ -1,0 +1,9 @@
+# Missing AUR Webots Desktop entry
+[Desktop Entry]
+Name=Webots
+Comment=Robots Simulation
+Exec=/usr/bin/webots
+Type=Application
+StartupNotify=true
+# Icon=/full/path/to/icon.png
+Categories=Development;

@@ -12,10 +12,9 @@ alias z="zoxide"
 alias neofetch="fastfetch"
 
 # replace common tools
-# exa is unmaintained; eza is the maintained fork and what nixpkgs ships.
-alias l="eza -lah"
-alias la="eza -lah"
-alias exa="eza -lah"
+alias l="exa -lah"
+alias la="exa -lah"
+alias exa="exa -lah"
 alias rm="trash"
 alias mr="trash-restore"
 
