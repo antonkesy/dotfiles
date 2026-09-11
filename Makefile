@@ -44,9 +44,6 @@ desktop:
 	git update-index --skip-worktree $(HW)
 	$(MAKE) switch
 
-# Frees disk space: drops every system generation except the current one and
-# every store path nothing references any more. The GRUB menu is rebuilt from
-# the remaining generations so the old boot entries disappear as well.
 clean:
 	rm -f result
 	sudo nix-collect-garbage -d
