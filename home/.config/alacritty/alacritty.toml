@@ -1,0 +1,62 @@
+[env]
+TERM="xterm-256color"
+
+[window]
+decorations = "None"
+padding = { x = 0, y = 0 }
+opacity = 1.0
+
+[scrolling]
+history = 50000
+
+[font]
+normal = { family = "Hack Nerd Font Mono", style = "Regular" }
+size = 12
+
+[terminal]
+osc52 = "CopyPaste"
+
+[mouse]
+hide_when_typing = true
+
+[selection]
+save_to_clipboard = false
+
+[general]
+import = [ "~/.config/alacritty/themes/themes/iterm.toml" ]
+
+[cursor]
+style = { shape = "Block", blinking = "On" }
+blink_interval = 500
+unfocused_hollow = true
+
+[bell]
+duration = 0
+
+
+[[keyboard.bindings]]
+key = "Space"
+mods = "Control"
+action = "ToggleViMode"
+
+[[keyboard.bindings]]
+key = "Y"
+mode = "Vi"
+action = "Copy"
+
+# Dank Linux Configs
+# [keyboard]
+# bindings = [
+#   { key = "C",       mods = "Control|Shift", action = "Copy"  },
+#   { key = "V",       mods = "Control|Shift", action = "Paste" },
+#   { key = "N",       mods = "Control|Shift", action = "SpawnNewInstance" },
+#   { key = "Equals",  mods = "Control|Shift", action = "IncreaseFontSize" },
+#   { key = "Minus",   mods = "Control",       action = "DecreaseFontSize" },
+#   { key = "Key0",    mods = "Control",       action = "ResetFontSize"    },
+#   { key = "Enter",   mods = "Shift",         chars = "\n" },
+# ]
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001B\r"

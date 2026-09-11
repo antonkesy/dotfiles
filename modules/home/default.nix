@@ -1,10 +1,8 @@
 { ... }:
 {
   imports = [
-    ./zsh.nix
-    ./tmux.nix
     ./terminal.nix
-    ./hyprland.nix
+    ./dotfiles.nix
     ./nvim.nix
     ./git.nix
     ./seed.nix

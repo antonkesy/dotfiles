@@ -16,6 +16,7 @@
         numpy
         jupyterlab
         notebook
+        libtmux # tmux-window-name (tpm plugin in home/.tmux.conf) imports it
       ]
     ))
     swig

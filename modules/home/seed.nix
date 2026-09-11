@@ -2,7 +2,7 @@
 #
 # DankMaterialShell rewrites its own settings at runtime — theme, bar layout,
 # keybinds, plugin state — so these paths cannot be xdg.configFile store
-# symlinks (see modules/home/hyprland.nix for the half that can). Seeding gives
+# symlinks (see modules/home/dotfiles.nix for the half that can). Seeding gives
 # a fresh machine the real settings while leaving DMS able to persist changes.
 #
 # Seeds are only written when the target is absent, so live DMS state always

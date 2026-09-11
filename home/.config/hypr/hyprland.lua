@@ -86,9 +86,7 @@ hl.config({
 
 
 hl.on("hyprland.start", function()
-    -- ponytail: no `hyprpm reload` -- hyprpm compiles plugins against the
-    -- running Hyprland, which does not work on NixOS. Use
-    -- programs.hyprland.plugins in modules/nixos/desktop.nix instead.
+    hl.exec_cmd("hyprpm reload")
     hl.exec_cmd("dms run")
     hl.exec_cmd("awww-daemon")
     hl.exec_cmd("awww img ~/.config/wallpapers/XPPeepo_M4x_Day.png")
@@ -96,13 +94,10 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("systemctl --user start hyprland-session.target")
 end)
 
--- DMS generates colors/outputs/layout/cursor/binds at runtime and they are not
--- managed by Nix, so they may not exist yet on a fresh machine. pcall keeps the
--- first boot from dying before DMS ever gets a chance to write them.
-for _, mod in ipairs({ "colors", "outputs", "layout", "cursor", "binds" }) do
-    pcall(require, "dms." .. mod)
-end
-
--- Hand-written, managed declaratively by Home Manager.
+require("dms.colors")
+require("dms.outputs")
+require("dms.layout")
+require("dms.cursor")
+require("dms.binds")
 require("dms.binds-user")
 require("dms.windowrules")

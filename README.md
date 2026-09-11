@@ -28,8 +28,9 @@ unsigned and will not load otherwise.
 
 ### 2. Reboot and take over
 
-`~/Projects/dotfiles` is load-bearing — `modules/home/nvim.nix` symlinks
-`~/.config/nvim` into it so lazy.nvim can write lock files into a real checkout.
+`~/Projects/dotfiles` is load-bearing — `modules/home/dotfiles.nix` (and
+`nvim.nix`) symlink the dotfiles under `home/` straight into the checkout, so
+lazy.nvim, tpm and zinit can write next to them and edits apply without a rebuild.
 
 ```bash
 mkdir -p ~/Projects && cd ~/Projects
@@ -54,6 +55,10 @@ make switch                                      # HOST defaults to `hostname`
 If `make switch` rebuilds cleanly, that is the whole workflow from here on. Swap
 the remotes to SSH once your keys are in place.
 
+Two things still finish themselves on first use, as they did with stow: the first
+zsh start clones znap/zinit and its plugins (needs network), and tmux plugins are
+installed with `prefix + I` (`` M-` `` then `I`) once tmux is running.
+
 ## Targets
 
 | target | what it does |
@@ -73,9 +78,9 @@ flake.nix          inputs and the two nixosConfigurations
 lib/mkHost.nix     nixosSystem wrapper, wires in Home Manager
 hosts/             per-machine config + hardware-configuration.nix
 modules/nixos/     system modules (base, desktop, apps, development, ...)
-modules/home/      Home Manager modules (zsh, tmux, terminal, hyprland, nvim, git)
+modules/home/      Home Manager modules (dotfiles links, terminal packages, nvim, git, seed)
 pkgs/              derivations for what is not in nixpkgs
-home/              raw dotfile content consumed by modules/home/
+home/              stow-style dotfiles, shared with non-NixOS machines; linked by modules/home/dotfiles.nix
 ```
 
 ## Currently used with
@@ -89,6 +94,10 @@ home/              raw dotfile content consumed by modules/home/
 
 ## What changed from the Ansible setup
 
+The dotfiles under `home/` are **not** part of this: they stay plain files
+(`.zshrc` + zinit, `.tmux.conf` + TPM, `alacritty.toml`, ...) because other
+machines consume the same tree. Home Manager only symlinks them.
+
 Things that used to be imperative and are now declarative, or simply gone:
 
 - `yay`/`paru`/`makepkg` and the hand-rolled `aur_build` role — everything is a nixpkgs
@@ -97,9 +106,6 @@ Things that used to be imperative and are now declarative, or simply gone:
   `luarocks install` as root — all pinned toolchains now
 - neovim and flutter built from source into `/usr/local` and `setup/build/`
 - `stow --adopt`, which moved files *into* the repo — Home Manager symlinks out of it
-- znap and zinit, which `git clone`d themselves on every shell start —
-  `programs.zsh.plugins`
-- TPM and `~/.tmux/plugins` — `programs.tmux.plugins` writes store paths directly
 - a hand-written `/etc/systemd/system/ollama.service` (that never created the `ollama`
   user), `nvidia-ctk runtime configure`, and `lineinfile` edits to `/etc/pam.d/*` —
   all first-class NixOS options now
@@ -112,12 +118,12 @@ Three tiers, because DankMaterialShell rewrites its own config at runtime:
 
 | tier | what | where |
 |---|---|---|
-| **declared** — read-only store symlink | `hyprland.lua`, `plugins.lua`, `dms/binds-user.lua`, `dms/windowrules.lua`, `hypr/scripts/*`, zsh fragments, wallpapers | `modules/home/hyprland.nix`, `zsh.nix` |
+| **linked** — symlink into the checkout | `.zshrc`, `.tmux.conf`, `.tmux/plugins/tpm`, `zsh/`, `alacritty/`, `lazygit/config.yml`, `hyprland.lua`, `plugins.lua`, `dms/binds-user.lua`, `dms/windowrules.lua`, `hypr/scripts/*`, wallpapers | `modules/home/dotfiles.nix` |
 | **seeded** — copied once, then yours | `DankMaterialShell/{settings,clsettings,plugin_settings}.json`, `dms/{binds,colors,layout}.lua`, `discord/settings.json` | `modules/home/seed.nix` |
 | **left alone** — machine-specific state | `monitors.json`, `dms/{outputs,cursor}.lua`, `dms/profiles/` | nothing declares these |
 
-Symlinking a *single file* leaves its parent directory writable, which is what lets
-DMS keep generating files next to the declared ones. Seeds are only written when the
+`~/.config/hypr` is linked file by file: a *single file* symlink leaves its parent
+directory writable, which is what lets DMS keep generating files next to the linked ones. Seeds are only written when the
 target is absent, so live DMS state always wins over the repo copy — to re-apply an
 updated repo version, delete the file and `make switch`.
 
