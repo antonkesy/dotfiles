@@ -15,7 +15,6 @@ NixOS system and Home Manager configuration.
 |---|---|
 | `akdesk` | desktop workstation — NVIDIA RTX 4070, CUDA, VirtualBox, dual-boot with Windows |
 | `aklap` | Dell laptop — same config as `akdesk`, plus fingerprint reader and power management, minus VirtualBox |
-| `demo` | throwaway QEMU VM for `make demo` |
 
 ## Fresh install
 
@@ -66,12 +65,11 @@ the remotes to SSH once your keys are in place.
 | `make update` | update flake inputs |
 | `make fmt` | format all nix files |
 | `make desktop` | regenerate this machine's `hardware-configuration.nix`, hide it from git (`skip-worktree`), then switch |
-| `make demo` | boot the desktop config in QEMU |
 
 ## Layout
 
 ```
-flake.nix          inputs and the three nixosConfigurations
+flake.nix          inputs and the two nixosConfigurations
 lib/mkHost.nix     nixosSystem wrapper, wires in Home Manager
 hosts/             per-machine config + hardware-configuration.nix
 modules/nixos/     system modules (base, desktop, apps, development, ...)
@@ -145,23 +143,3 @@ Pick the previous generation in the GRUB menu, or:
 ```bash
 sudo nixos-rebuild switch --rollback
 ```
-
-## Try it without installing anything
-
-```bash
-make demo
-```
-
-Builds the `demo` host into a QEMU image and boots it: Hyprland + DankMaterialShell,
-autologin as `ak` / `demo`. Needs `nix` with flakes and KVM — **not** `nixos-rebuild`.
-`Ctrl-Alt-G` releases the mouse. `make demo-clean` throws the disk away.
-
-The demo runs the **same module set as `akdesk`** — same apps, same language
-toolchains, same nvim config, same shell — minus the two things a VM has no
-hardware for: `nvidia.nix` and VirtualBox. First run pulls the full closure
-(~10 GiB download, ~30 GiB in the store); after that it starts in seconds.
-
-It renders with llvmpipe, not virgl: `-display gtk,gl=on` needs qemu's GTK to
-obtain a host GL context, which fails on many hosts with `GtkGLArea console
-lacks DMABUF support`. On a host where virgl does work, opt back in with
-`QEMU_OPTS="-display gtk,gl=on" make demo`.

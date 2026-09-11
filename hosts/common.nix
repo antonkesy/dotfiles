@@ -36,8 +36,7 @@
 
   # Replaces `timedatectl set-timezone` from tasks/core/base.yml.
   time.timeZone = "Europe/Berlin";
-  # mkDefault: the qemu-vm profile turns this off for the demo VM.
-  services.timesyncd.enable = lib.mkDefault true;
+  services.timesyncd.enable = true;
 
   i18n.defaultLocale = "en_US.UTF-8";
   console.keyMap = "us";

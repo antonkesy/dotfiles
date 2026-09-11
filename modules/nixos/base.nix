@@ -28,7 +28,7 @@
   programs.nix-ld.enable = true; # run the odd unpatched binary
 
   services.openssh.enable = true;
-  services.smartd.enable = lib.mkDefault true; # off in the demo VM: no SMART disks
+  services.smartd.enable = true;
   services.fstrim.enable = true;
 
   services.flatpak.enable = true; # tasks/core/flatpak.yml

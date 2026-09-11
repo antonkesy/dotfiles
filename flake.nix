@@ -16,14 +16,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Same repo as the home/.config/nvim submodule. Needed as an input because a
-    # gitlink's contents never make it into the flake's store copy, so hosts that
-    # do not have this repo checked out (the demo VM) would get a dangling
-    # ~/.config/nvim symlink. See modules/home/nvim.nix.
-    nvim-config = {
-      url = "github:antonkesy/nvim-config";
-      flake = false;
-    };
   };
 
   outputs =
@@ -41,12 +33,9 @@
       nixosConfigurations = {
         akdesk = mkHost "akdesk" [ ./hosts/akdesk ];
         aklap = mkHost "aklap" [ ./hosts/aklap ];
-        demo = mkHost "demo" [ ./hosts/demo ];
       };
 
       overlays.default = import ./pkgs;
-
-      packages.${system}.demo-vm = self.nixosConfigurations.demo.config.system.build.vm;
 
       formatter.${system} = pkgs.nixfmt-tree;
 
