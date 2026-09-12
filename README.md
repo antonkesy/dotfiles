@@ -15,6 +15,7 @@ lives in the sibling repo [`setup`](https://github.com/antonkesy/setup).
 ## Hosts
 
 One `homeConfigurations.<host>` per file in `hosts/`; each is just a set of feature flags.
+Possible values for `HOST` (and `--flake .#<host>`): `akdesk`, `aklap`, `ak`, `wsl`.
 
 | host | distro | desktop | development | containers | nvidia |
 |---|---|---|---|---|---|
@@ -41,7 +42,7 @@ curl -fsSL https://install.determinate.systems/nix | sh -s -- install
 mkdir -p ~/Projects && cd ~/Projects
 git clone --recursive https://github.com/antonkesy/dotfiles.git
 cd dotfiles
-make switch                      # HOST defaults to `hostname`; HOST=ak / HOST=wsl to pick one
+make switch                      # HOST defaults to `hostname`; HOST=akdesk|aklap|ak|wsl to pick one
 
 # 3. desktop hosts only: OpenGL for Nix-built apps (once, and after GL lib updates)
 sudo ~/.nix-profile/bin/non-nixos-gpu-setup
