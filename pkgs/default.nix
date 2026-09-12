@@ -4,6 +4,5 @@
 #   ttf-croscore   -> liberation_ttf is metric-compatible with the same MS metrics
 #   thetic/extract -> p7zip + unzip already cover it
 final: _prev: {
-  webots = final.callPackage ./webots.nix { };
   screenpen = final.callPackage ./screenpen.nix { };
 }

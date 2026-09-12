@@ -68,7 +68,6 @@ lib.mkIf config.ak.desktop.enable {
     postman
 
     # --- robotics / automotive / annotation (all from pkgs/) ---
-    webots
     screenpen
 
     # --- toolkits several of the above dlopen at runtime ---
