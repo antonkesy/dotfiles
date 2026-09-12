@@ -17,7 +17,6 @@
 
     # --- go install -> nixpkgs ---
     lazygit
-    lazydocker
 
     # --- cli ---
     jq
@@ -37,7 +36,7 @@
     yt-dlp
     pre-commit
     python3Packages.shtab
-    jupyter
+    # jupyter: jupyterlab/notebook live in the python env of development.nix
 
     # --- terminal ---
     alacritty

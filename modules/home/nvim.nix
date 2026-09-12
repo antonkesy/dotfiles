@@ -5,7 +5,7 @@ let
   # On a real machine the config is the git submodule in this repo, symlinked
   # out of the store so lazy.nvim can write lock files and spell downloads into
   # it and so edits take effect without a rebuild.
-  liveCheckout = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Projects/dotfiles/home/.config/nvim";
+  liveCheckout = config.lib.file.mkOutOfStoreSymlink "${config.ak.dotfilesDir}/home/.config/nvim";
 in
 {
   home.packages = with pkgs; [
