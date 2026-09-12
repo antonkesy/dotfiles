@@ -2,7 +2,7 @@
 -- Hyprland Configuration
 -- https://wiki.hypr.land/Configuring/
 
-hl.env("SSH_AUTH_SOCK", "local_var_XDG_RUNTIME_DIR/ssh-agent.socket")
+hl.env("SSH_AUTH_SOCK", "local_var_XDG_RUNTIME_DIR/ssh-agent")
 
 -- no theme generation from dms
 hl.env("DMS_DISABLE_MATUGEN", 1)

@@ -1,5 +1,7 @@
 #!/bin/zsh
 
-# this assumes, dotfiles are under $HOME/workspace
-export PATH="$PATH:$HOME/workspace/dotfiles/build/flutter/bin"
-export CHROME_EXECUTABLE=/usr/sbin/google-chrome-stable
+# flutter itself comes from home-manager; only tell it which browser to use
+# unless the environment (hm-session-vars) already did.
+if [ -z "$CHROME_EXECUTABLE" ] && command -v google-chrome-stable >/dev/null 2>&1; then
+	export CHROME_EXECUTABLE="$(command -v google-chrome-stable)"
+fi
