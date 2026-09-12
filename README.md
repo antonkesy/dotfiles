@@ -76,7 +76,7 @@ lib/nixpkgs-config.nix  allowUnfree + insecure exceptions, shared with setup
 hosts/                  one file per host: feature flags only
 modules/home/           options (flags), base, terminal, nvim, git, dotfiles links, seed,
                         desktop, fonts, apps, development, containers, nvidia
-pkgs/                   derivations for what is not in nixpkgs (webots, screenpen)
+pkgs/                   derivations for what is not in nixpkgs (screenpen)
 home/                   stow-style dotfiles; linked by modules/home/dotfiles.nix
 ```
 
