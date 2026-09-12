@@ -1,9 +1,12 @@
-# Always on: the user-level half of what used to be environment.systemPackages
-# in the NixOS base module. Filesystem tools, firmware, daemons and anything
-# that needs root stay in ../setup.
-{ config, pkgs, ... }:
+# Always on: every user-level CLI tool, on every distro. Filesystem tools,
+# firmware, daemons and anything that only works as root stay in ../setup.
+{ pkgs, ... }:
 {
   home.packages = with pkgs; [
+    less
+    man-pages
+    man-pages-posix
+
     wget
     curl
     rsync
@@ -33,8 +36,8 @@
     acpi
   ];
 
-  # Same unit name and socket ($XDG_RUNTIME_DIR/ssh-agent, see
-  # home/.config/zsh/path.zsh) as NixOS' programs.ssh.startAgent, which
-  # ../setup enables; on NixOS the system unit must not be shadowed.
-  services.ssh-agent.enable = !config.ak.nixos;
+  # Socket $XDG_RUNTIME_DIR/ssh-agent, which home/.config/zsh/path.zsh and
+  # hyprland.lua export. On NixOS ../setup disables gcr-ssh-agent and does not
+  # start its own agent, so this unit is the only one.
+  services.ssh-agent.enable = true;
 }

@@ -1,7 +1,8 @@
 # Wayland helper tools and desktop odds and ends that do not need root. The
 # compositor stack itself -- Hyprland, hyprlock/hypridle, uwsm, portals,
-# DankMaterialShell, pipewire, greetd, polkit agent, GL drivers -- comes from
-# the system (../setup: NixOS modules or the ansible desktop role).
+# DankMaterialShell (which brings the polkit agent), pipewire, greetd, GL
+# drivers -- comes from the system (../setup: NixOS modules or the ansible
+# desktop role).
 {
   config,
   lib,
@@ -43,12 +44,19 @@ lib.mkIf config.ak.desktop.enable {
     libsecret
     seahorse
     pavucontrol
+    alsa-utils
     bluetui
     guvcview
+    v4l-utils
+    libva-utils # vainfo
   ];
 
   # Ubuntu theme on nautilus
   home.sessionVariables.GTK_THEME = "Adwaita";
+
+  # GTK apps follow the dark scheme (was setup/manual/dark-mode.sh: gsettings).
+  # Needs the dconf service: programs.dconf on NixOS, the dconf package on Arch.
+  dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
 
   # On NixOS ../setup runs the keyring via PAM (services.gnome.gnome-keyring).
   # Standalone, a user unit; no "ssh" component so it never competes with

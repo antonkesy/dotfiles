@@ -1,6 +1,12 @@
-# Replaces tasks/misc/git.yml (which wrote these into ~/.gitconfig imperatively).
-{ pkgs, ... }:
+# git with signed commits, plus the gpg agent that makes signing work.
+{ config, pkgs, ... }:
 {
+  programs.gpg.enable = true;
+  services.gpg-agent = {
+    enable = true;
+    pinentry.package = if config.ak.desktop.enable then pkgs.pinentry-gnome3 else pkgs.pinentry-curses;
+  };
+
   programs.git = {
     enable = true;
     lfs.enable = true;
