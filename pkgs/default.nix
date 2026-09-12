@@ -6,5 +6,4 @@
 final: _prev: {
   webots = final.callPackage ./webots.nix { };
   screenpen = final.callPackage ./screenpen.nix { };
-  dbc-utility = final.callPackage ./dbc-utility.nix { };
 }

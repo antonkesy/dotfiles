@@ -58,7 +58,6 @@
       homeConfigurations = lib.genAttrs hosts mkHome;
 
       packages.${system} = {
-        inherit (pkgs) webots screenpen dbc-utility;
         # First run on a machine without home-manager in PATH:
         #   nix run .#home-manager -- switch --flake .#<host>
         inherit (home-manager.packages.${system}) home-manager;
