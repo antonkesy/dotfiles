@@ -1,12 +1,20 @@
-# Replaces tasks/desktop/apps.yml, tasks/editors/{vscode,unity}.yml and
-# tasks/development/webots.yml. Everything that came from the AUR is either a
-# nixpkgs package or a derivation in pkgs/.
-{ pkgs, ... }:
+# GUI applications. Everything that came from the AUR is either a nixpkgs
+# package or a derivation in pkgs/. On non-NixOS these get OpenGL through
+# targets.genericLinux.gpu (options.nix). Steam, waydroid, ollama and
+# gpu-screen-recorder need system integration and live in ../setup.
 {
-  programs.firefox.enable = true;
-  programs.steam.enable = true;
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+lib.mkIf config.ak.desktop.enable {
+  programs.firefox = {
+    enable = true;
+    configPath = ".mozilla/firefox"; # keep the pre-26.05 profile location
+  };
 
-  environment.systemPackages = with pkgs; [
+  home.packages = with pkgs; [
     # --- browsers ---
     google-chrome
     qutebrowser
@@ -25,7 +33,6 @@
     drawio
     flameshot
     obs-studio
-    gpu-screen-recorder
 
     # --- documents ---
     kdePackages.okular
@@ -54,7 +61,7 @@
     baobab
     appstream-glib
 
-    # --- ai --- (ollama comes from services.ollama below)
+    # --- ai --- (ollama is a system service, see ../setup)
     lmstudio
 
     # --- api / dev ---
@@ -70,10 +77,4 @@
     qt6.qtbase
     libtiff
   ];
-
-  # tasks/desktop/apps.yml enabled waydroid but never installed it.
-  virtualisation.waydroid.enable = true;
-
-  # tasks/ai/ollama.yml. CPU build by default; nvidia.nix swaps in ollama-cuda.
-  services.ollama.enable = true;
 }

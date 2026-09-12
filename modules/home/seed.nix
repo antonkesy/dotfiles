@@ -7,7 +7,7 @@
 #
 # Seeds are only written when the target is absent, so live DMS state always
 # wins over the repo copy. To re-apply an updated repo version on a machine that
-# already has one, delete the file and re-run `make switch`.
+# already has one, delete the file and switch again.
 {
   config,
   lib,
@@ -54,7 +54,8 @@ let
     fi
   '';
 in
-{
+# All of these belong to the Hyprland/DMS desktop; nothing to seed on wsl.
+lib.mkIf config.ak.desktop.enable {
   home.activation.seedMutableConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] (
     lib.concatStringsSep "\n" (lib.mapAttrsToList seedFile seeds ++ map touchMarker markers)
   );

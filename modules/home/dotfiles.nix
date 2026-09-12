@@ -4,18 +4,15 @@
 #
 # Out-of-store symlinks into the live checkout (same mechanism as nvim.nix):
 # edits take effect without a rebuild, and tools that write next to their
-# config (tpm, zinit, *.zwc caches, untracked.zsh) can do so. ~/Projects/dotfiles
-# is therefore load-bearing.
+# config (tpm, zinit, *.zwc caches, untracked.zsh) can do so. ak.dotfilesDir
+# (default ~/Projects/dotfiles) is therefore load-bearing.
 #
 # ~/.config/hypr is linked file by file on purpose: the directory has to stay a
 # real, writable one so DankMaterialShell can generate colors/outputs/layout/
 # cursor/binds.lua next to the hand-written files (see seed.nix).
-#
-# Not linked: home/.local/share/applications/webots.desktop. Its Exec points at
-# the Arch path /usr/bin/webots; pkgs/webots.nix ships the NixOS desktop entry.
 { config, lib, ... }:
 let
-  dotfiles = "${config.home.homeDirectory}/Projects/dotfiles/home";
+  dotfiles = "${config.ak.dotfilesDir}/home";
   link = rel: config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${rel}";
 
   hyprFiles = [
