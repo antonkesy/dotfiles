@@ -70,7 +70,6 @@ lib.mkIf config.ak.desktop.enable {
     # --- robotics / automotive / annotation (all from pkgs/) ---
     webots
     screenpen
-    dbc-utility
 
     # --- toolkits several of the above dlopen at runtime ---
     qt5.qtbase
