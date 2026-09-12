@@ -2,7 +2,7 @@ name: nix
 on:
   pull_request:
   push:
-    branches: [main]
+    branches: [main, nixos]
 jobs:
   eval:
     runs-on: ubuntu-latest
@@ -17,5 +17,8 @@ jobs:
       # Evaluation only: building a full desktop closure does not fit in CI.
       - name: Evaluate every host
         run: |
-          nix eval --json '.#nixosConfigurations' \
-            --apply 'builtins.mapAttrs (_: c: c.config.system.build.toplevel.drvPath)'
+          nix eval --json '.#homeConfigurations' \
+            --apply 'builtins.mapAttrs (_: c: c.activationPackage.drvPath)'
+      # Instantiates the whole wsl closure (every derivation, no downloads).
+      - name: Dry-build the wsl host
+        run: nix build .#homeConfigurations.wsl.activationPackage --dry-run

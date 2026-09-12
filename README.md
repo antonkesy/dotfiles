@@ -5,147 +5,122 @@
 
 _Trying to achieve the best reproducible setup for my personal and professional use_
 
-NixOS system and Home Manager configuration.
+A standalone [Home Manager](https://github.com/nix-community/home-manager) flake:
+every user-level program and every dotfile, on any Linux distro. What Home Manager
+cannot do without root -- NixOS system config, drivers, the compositor stack, daemons --
+lives in the sibling repo [`setup`](https://github.com/antonkesy/setup).
 
 <img src="./docs/images/preview.png" width="800">
 
 ## Hosts
 
-| host | what it is |
-|---|---|
-| `akdesk` | desktop workstation — NVIDIA RTX 4070, CUDA, VirtualBox, dual-boot with Windows |
-| `aklap` | Dell laptop — same config as `akdesk`, plus fingerprint reader and power management, minus VirtualBox |
+One `homeConfigurations.<host>` per file in `hosts/`; each is just a set of feature flags.
 
-## Fresh install
+| host | distro | desktop | development | containers | nvidia |
+|---|---|---|---|---|---|
+| `akdesk` | NixOS (system half in `setup`) | x | x | x | x (CUDA userspace) |
+| `aklap` | NixOS (system half in `setup`) | x | x | x | |
+| `ak` | any other distro with a desktop (Arch) | x | x | x | pin driver libs, see `hosts/ak.nix` |
+| `wsl` | Ubuntu on WSL2 | | x | x | |
 
-### 1. Install NixOS
+`ak.nixos` is detected, not configured: as a NixOS module (imported by `setup`) the
+system owns ssh-agent, keyring, GL drivers and the session; standalone, this flake
+enables the generic-Linux shims (`targets.genericLinux`) instead.
 
-[Download the ISO](https://nixos.org/download/#nixos-iso) and follow the
-[installation manual](https://nixos.org/manual/nixos/stable/#sec-installation) —
-partitioning, user `ak` with a password, **no desktop environment**. This repo
-takes over from there. Secure Boot **off**: the NVIDIA kernel modules are
-unsigned and will not load otherwise.
+## Fresh machine (Arch, Ubuntu, WSL)
 
-### 2. Reboot and take over
-
-`~/Projects/dotfiles` is load-bearing — `modules/home/dotfiles.nix` (and
-`nvim.nix`) symlink the dotfiles under `home/` straight into the checkout, so
-lazy.nvim, tpm and zinit can write next to them and edits apply without a rebuild.
+`~/Projects/dotfiles` is load-bearing (`ak.dotfilesDir`): `modules/home/dotfiles.nix`
+and `nvim.nix` symlink the files under `home/` straight into the checkout, so lazy.nvim,
+tpm and zinit can write next to them and edits apply without a rebuild.
 
 ```bash
+# 1. nix (multi-user, flakes on) -- or let setup's ansible do all of this
+curl -fsSL https://install.determinate.systems/nix | sh -s -- install
+
+# 2. clone and switch
 mkdir -p ~/Projects && cd ~/Projects
 git clone --recursive https://github.com/antonkesy/dotfiles.git
 cd dotfiles
-nmtui                                # wifi, via NetworkManager
+make switch                      # HOST defaults to `hostname`; HOST=ak / HOST=wsl to pick one
+
+# 3. desktop hosts only: OpenGL for Nix-built apps (once, and after GL lib updates)
+sudo ~/.nix-profile/bin/non-nixos-gpu-setup
 ```
 
-### 3. Use the machine's real hardware config, then switch
+The first `make switch` runs home-manager from this flake's pinned input; afterwards
+`home-manager` is in `PATH`. Then log out and in once so the session variables apply.
+Two things still finish themselves on first use: the first zsh start clones znap/zinit
+plugins (needs network), and tmux plugins are installed with `prefix + I`.
 
-The tracked `hosts/$HOST/hardware-configuration.nix` is only a stub so the flake
-evaluates anywhere; the installer wrote the real one. Copy it over **before** the
-first switch, or the new generation boots with the stub's filesystems:
-
-```bash
-HOST=akdesk   # or aklap
-cp /etc/nixos/hardware-configuration.nix hosts/$HOST/hardware-configuration.nix
-git add hosts/$HOST/hardware-configuration.nix   # flakes ignore untracked files
-make switch                                      # HOST defaults to `hostname`
-```
-
-If `make switch` rebuilds cleanly, that is the whole workflow from here on. Swap
-the remotes to SSH once your keys are in place.
-
-Two things still finish themselves on first use, as they did with stow: the first
-zsh start clones znap/zinit and its plugins (needs network), and tmux plugins are
-installed with `prefix + I` (`` M-` `` then `I`) once tmux is running.
+On NixOS do **not** `make switch` here (the Makefile refuses): the same modules are
+applied as part of the system generation by `make switch` in `setup`.
 
 ## Targets
 
 | target | what it does |
 |---|---|
-| `make switch` | build + activate for the current hostname |
-| `make boot` | activate on next boot |
+| `make switch` | build + activate `homeConfigurations.$(hostname)` |
+| `make dry` | show what switch would do |
 | `make build` | build without activating |
-| `make check` | evaluate and build every host |
+| `make check` | evaluate every host |
 | `make update` | update flake inputs |
 | `make fmt` | format all nix files |
-| `make desktop` | regenerate this machine's `hardware-configuration.nix`, hide it from git (`skip-worktree`), then switch |
+| `make clean` | remove build outputs, user-level garbage collection |
 
 ## Layout
 
 ```
-flake.nix          inputs and the two nixosConfigurations
-lib/mkHost.nix     nixosSystem wrapper, wires in Home Manager
-hosts/             per-machine config + hardware-configuration.nix
-modules/nixos/     system modules (base, desktop, apps, development, ...)
-modules/home/      Home Manager modules (dotfiles links, terminal packages, nvim, git, seed)
-pkgs/              derivations for what is not in nixpkgs
-home/              stow-style dotfiles, shared with non-NixOS machines; linked by modules/home/dotfiles.nix
+flake.nix               homeConfigurations, homeModules (for setup), overlays, packages
+lib/mkHome.nix          homeManagerConfiguration wrapper
+lib/nixpkgs-config.nix  allowUnfree + insecure exceptions, shared with setup
+hosts/                  one file per host: feature flags only
+modules/home/           options (flags), base, terminal, nvim, git, dotfiles links, seed,
+                        desktop, fonts, apps, development, containers, nvidia
+pkgs/                   derivations for what is not in nixpkgs (webots, screenpen, dbc-utility)
+home/                   stow-style dotfiles; linked by modules/home/dotfiles.nix
 ```
 
 ## Currently used with
 
-- NixOS (unstable)
-- NVIDIA RTX 4070
+- NixOS (unstable) / Arch / Ubuntu on WSL
 - [tmux](https://github.com/tmux/tmux/wiki) + zsh + [powerlevel10k](https://github.com/romkatv/powerlevel10k)
 - [LazyVim](http://lazyvim.org/)
-- [Hyprland](https://hyprland.org/) (Lua config, 0.55+)
-- [DankMaterialShell](https://danklinux.com/)
+- [Hyprland](https://hyprland.org/) (Lua config, 0.55+) + [DankMaterialShell](https://danklinux.com/) -- installed by `setup`
 
-## What changed from the Ansible setup
+## Declared, seeded, or left alone
 
-The dotfiles under `home/` are **not** part of this: they stay plain files
-(`.zshrc` + zinit, `.tmux.conf` + TPM, `alacritty.toml`, ...) because other
-machines consume the same tree. Home Manager only symlinks them.
-
-Things that used to be imperative and are now declarative, or simply gone:
-
-- `yay`/`paru`/`makepkg` and the hand-rolled `aur_build` role — everything is a nixpkgs
-  attribute or a derivation in `pkgs/`
-- `ghcup`, `opam init`, SDKMAN, `pipx`, `cargo install`, `go install ...@latest`,
-  `luarocks install` as root — all pinned toolchains now
-- neovim and flutter built from source into `/usr/local` and `setup/build/`
-- `stow --adopt`, which moved files *into* the repo — Home Manager symlinks out of it
-- a hand-written `/etc/systemd/system/ollama.service` (that never created the `ollama`
-  user), `nvidia-ctk runtime configure`, and `lineinfile` edits to `/etc/pam.d/*` —
-  all first-class NixOS options now
-- `hyprpm`, which compiles plugins against the running Hyprland and cannot work on
-  NixOS — use `programs.hyprland.plugins`
-
-### Declared, seeded, or left alone
-
-Three tiers, because DankMaterialShell rewrites its own config at runtime:
+The dotfiles under `home/` stay plain files (`.zshrc` + zinit, `.tmux.conf` + TPM,
+`alacritty.toml`, ...); Home Manager only symlinks them. Three tiers, because
+DankMaterialShell rewrites its own config at runtime:
 
 | tier | what | where |
 |---|---|---|
-| **linked** — symlink into the checkout | `.zshrc`, `.tmux.conf`, `.tmux/plugins/tpm`, `zsh/`, `alacritty/`, `lazygit/config.yml`, `hyprland.lua`, `plugins.lua`, `dms/binds-user.lua`, `dms/windowrules.lua`, `hypr/scripts/*`, wallpapers | `modules/home/dotfiles.nix` |
-| **seeded** — copied once, then yours | `DankMaterialShell/{settings,clsettings,plugin_settings}.json`, `dms/{binds,colors,layout}.lua`, `discord/settings.json` | `modules/home/seed.nix` |
-| **left alone** — machine-specific state | `monitors.json`, `dms/{outputs,cursor}.lua`, `dms/profiles/` | nothing declares these |
+| **linked** -- symlink into the checkout | `.zshrc`, `.tmux.conf`, `.tmux/plugins/tpm`, `zsh/`, `alacritty/`, `lazygit/config.yml`, `hyprland.lua`, `plugins.lua`, `dms/binds-user.lua`, `dms/windowrules.lua`, `hypr/scripts/*`, wallpapers | `modules/home/dotfiles.nix` |
+| **seeded** -- copied once, then yours | `DankMaterialShell/{settings,clsettings,plugin_settings}.json`, `dms/{binds,colors,layout}.lua`, `discord/settings.json` | `modules/home/seed.nix` |
+| **left alone** -- machine-specific state | `monitors.json`, `dms/{outputs,cursor}.lua`, `dms/profiles/` | nothing declares these |
 
 `~/.config/hypr` is linked file by file: a *single file* symlink leaves its parent
-directory writable, which is what lets DMS keep generating files next to the linked ones. Seeds are only written when the
-target is absent, so live DMS state always wins over the repo copy — to re-apply an
-updated repo version, delete the file and `make switch`.
-
-That tiering is why the repo's own `.gitignore` files matter: they already mark
-machine-specific state, and `seed.nix` seeds exactly the tracked set.
+directory writable, which is what lets DMS keep generating files next to the linked
+ones. Seeds are only written when the target is absent, so live DMS state always wins
+over the repo copy -- to re-apply an updated repo version, delete the file and switch.
 
 ## Workarounds
 
 ### `gcr-ssh-agent` spamming processes at 99% CPU
 
-Already handled: `hosts/common.nix` disables `services.gnome.gcr-ssh-agent` and uses
-`programs.ssh.startAgent`, which is what `home/.config/zsh/path.zsh` points
-`SSH_AUTH_SOCK` at. If a key is still ignored, its permissions are too open:
+The plain ssh-agent is used everywhere (NixOS `programs.ssh.startAgent` in `setup`,
+`services.ssh-agent` here elsewhere), listening on `$XDG_RUNTIME_DIR/ssh-agent`, which is
+what `home/.config/zsh/path.zsh` and `hyprland.lua` point `SSH_AUTH_SOCK` at. If a key is
+still ignored, its permissions are too open:
 
 ```bash
 chmod 600 ~/.ssh/<key>
 ```
 
-### Rolling back a bad generation
-
-Pick the previous generation in the GRUB menu, or:
+### Rolling back
 
 ```bash
-sudo nixos-rebuild switch --rollback
+home-manager generations          # pick one, run its activate script
 ```
+
+On NixOS pick the previous generation in GRUB, or `sudo nixos-rebuild switch --rollback`.
