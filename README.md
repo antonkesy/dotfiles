@@ -117,32 +117,6 @@ system/Ubuntu-26.04-WSL2/        bootstrap.sh
 - [LazyVim](http://lazyvim.org/)
 - [Hyprland](https://hyprland.org/) + [DankMaterialShell](https://danklinux.com/) -- installed by `system/Arch`'s ansible, configured here
 
-## Linked, not generated
-
-The dotfiles under `home/` stay plain files (`.zshrc` + zinit, `.tmux.conf` + TPM,
-`alacritty.toml`, `lazygit/config.yml`, the nvim submodule, the hypr lua); Home Manager only
-symlinks them into the checkout: `.zshrc`, `.tmux.conf`, `.tmux/plugins/tpm`, `zsh/`,
-`alacritty/`, `lazygit/config.yml` (`home/modules/dotfiles.nix`), `nvim/`
-(`home/modules/nvim.nix`) and the Hyprland/DMS config (`home/modules/desktop.nix`).
-
-## Hyprland / DMS config
-
-`home/modules/desktop.nix` handles `home/.config/{hypr,DankMaterialShell,wallpapers}` in
-three tiers, because DankMaterialShell rewrites its own config at runtime. It is applied on
-every machine (WSL included, where it is simply unused) so that all of `~` comes from here.
-
-| tier | what | how |
-|---|---|---|
-| **linked** -- symlink into the checkout | `hypr/hyprland.lua`, `hypr/plugins.lua`, `hypr/dms/binds-user.lua`, `hypr/dms/windowrules.lua`, `hypr/scripts/*`, `wallpapers/` | `xdg.configFile`, out of store |
-| **seeded** -- copied once, then yours | `DankMaterialShell/{settings,clsettings,plugin_settings}.json`, `hypr/dms/{binds,colors,layout}.lua`, `discord/settings.json`, `DankMaterialShell/.firstlaunch` | activation script, only when absent |
-| **left alone** -- machine-specific state | `DankMaterialShell/monitors.json`, `hypr/dms/{outputs,cursor}.lua`, `hypr/dms/profiles/` | nothing declares these (gitignored) |
-
-`~/.config/hypr` is linked file by file: a *single file* symlink leaves its parent directory
-writable, which is what lets DMS keep generating files next to the linked ones. Seeds are only
-written when the target is absent, so live DMS state always wins over the repo copy -- to
-re-apply an updated repo version, delete the file and `make switch`. Hyprland plugins are
-installed with `hyprpm` (`system/Arch/manual/hyprpm.sh`).
-
 ## Workarounds
 
 ### `gcr-ssh-agent` spamming processes at 99% CPU
