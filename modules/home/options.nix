@@ -1,4 +1,4 @@
-# Standalone home-manager on a non-NixOS distro (Arch, Ubuntu, WSL): the
+# Standalone home-manager on Arch and Ubuntu/WSL: the
 # generic-Linux shims (XDG_DATA_DIRS, session vars, nix profile in the
 # session) are always on.
 { config, lib, ... }:
@@ -14,7 +14,7 @@
 
   config.targets.genericLinux = {
     enable = true;
-    # No Nix-built GUI programs here (they come from the distro via ../setup),
+    # No Nix-built GUI programs here (they come from the distro via system/Arch),
     # so the /run/opengl-driver shim is not needed.
     gpu.enable = false;
   };

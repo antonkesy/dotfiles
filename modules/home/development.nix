@@ -128,7 +128,7 @@
     plantuml
     pandoc
 
-    # --- android --- (android-studio itself is GUI: ../setup)
+    # --- android --- (android-studio itself is GUI: system/Arch)
     android-tools
   ];
 

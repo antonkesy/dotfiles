@@ -1,0 +1,49 @@
+---
+# The handover: installs nix (Determinate installer: multi-user, flakes on)
+# and applies homeConfigurations.ak from the flake at the repo root
+# (dotfiles_dir, three levels above this playbook), which owns everything
+# under ~ (terminal environment and the hypr/DMS config; the packages behind
+# the GUI came from the desktop role via pacman/AUR).
+
+# modules/home/{dotfiles,desktop,nvim}.nix symlink into ~/Projects/dotfiles
+# (ak.dotfilesDir); running from anywhere else would leave dangling links.
+- name: The checkout must be where home-manager links into
+  ansible.builtin.assert:
+    that: dotfiles_dir == ansible_facts.env.HOME ~ '/Projects/dotfiles'
+    fail_msg: "playbook runs from {{ dotfiles_dir }}, but ak.dotfilesDir is ~/Projects/dotfiles; clone the repo there"
+    quiet: true
+
+- name: Check for nix
+  ansible.builtin.stat:
+    path: /nix/var/nix/profiles/default/bin/nix
+  register: nix_bin
+
+- name: Install nix (Determinate installer)
+  become: true
+  ansible.builtin.shell: >
+    set -o pipefail &&
+    curl -fsSL https://install.determinate.systems/nix
+    | sh -s -- install {{ 'linux --init none' if ansible_facts.service_mgr != 'systemd' else '' }} --no-confirm
+  args:
+    executable: /bin/bash
+    creates: /nix/var/nix/profiles/default/bin/nix
+  when: not nix_bin.stat.exists and not is_container
+
+- name: Apply homeConfigurations.ak
+  ansible.builtin.command:
+    argv:
+      - nix
+      - run
+      - "{{ dotfiles_dir }}#home-manager"
+      - --
+      - switch
+      - --flake
+      - "{{ dotfiles_dir }}#ak"
+      - -b
+      - hm-bak
+  environment:
+    PATH: "/nix/var/nix/profiles/default/bin:{{ ansible_facts.env.PATH }}"
+    NIX_CONFIG: "experimental-features = nix-command flakes"
+  register: hm_switch
+  changed_when: "'Creating profile generation' in hm_switch.stdout"
+  when: not is_container

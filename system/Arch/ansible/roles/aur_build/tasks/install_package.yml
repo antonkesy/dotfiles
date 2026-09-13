@@ -1,0 +1,49 @@
+---
+- name: Check whether the AUR package is installed - {{ package_name }}
+  ansible.builtin.command: pacman -Q {{ package_name }}
+  register: package_installed
+  changed_when: false
+  failed_when: false
+
+- name: Clone from the AUR - {{ package_name }}
+  ansible.builtin.git:
+    repo: "https://aur.archlinux.org/{{ package_name }}.git"
+    dest: "{{ build_dir }}/aur/{{ package_name }}"
+    version: master
+  when: package_installed.rc != 0
+
+- name: Read PKGBUILD dependencies - {{ package_name }}
+  ansible.builtin.shell: |
+    source PKGBUILD
+    echo "${depends[@]}" "${makedepends[@]}"
+  args:
+    chdir: "{{ build_dir }}/aur/{{ package_name }}"
+    executable: /bin/bash
+  register: package_deps
+  changed_when: false
+  when: package_installed.rc != 0
+
+# makepkg -s would call sudo interactively; install repo deps with become
+# instead. Deps that are themselves AUR packages must be listed before this
+# one in aur_packages.
+- name: Install repo dependencies - {{ package_name }}
+  become: true
+  community.general.pacman:
+    name: "{{ item | regex_replace('[<>=].*', '') }}"
+    state: present
+  loop: "{{ package_deps.stdout.split() | select() | list }}"
+  when: package_installed.rc != 0 and package_deps.stdout | length > 0
+  failed_when: false
+
+- name: Build with makepkg - {{ package_name }}
+  ansible.builtin.command: makepkg --noconfirm -f --skippgpcheck
+  args:
+    chdir: "{{ build_dir }}/aur/{{ package_name }}"
+  when: package_installed.rc != 0
+
+- name: Install the built package - {{ package_name }}
+  become: true
+  ansible.builtin.shell: pacman -U --noconfirm ./*.pkg.tar.zst
+  args:
+    chdir: "{{ build_dir }}/aur/{{ package_name }}"
+  when: package_installed.rc != 0

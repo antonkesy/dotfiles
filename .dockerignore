@@ -1,0 +1,10 @@
+# Build context for system/Arch/docker/Arch.Dockerfile is the repo root; the
+# container only runs the ansible playbook in check mode.
+.git
+.claude
+docs
+home
+result
+result-*
+system/Arch/build
+system/Arch/ansible/.ansible

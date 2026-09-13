@@ -1,0 +1,20 @@
+---
+# Feature flags; hosts/<setup_host>.yml overrides them per machine. The roles
+# install packages and the system half (pacman/AUR, systemd, PAM); the nix
+# role then applies everything under ~ (homeConfigurations.ak from the flake
+# at the repo root, identical on every host, hypr/DMS config included).
+desktop_enabled: false
+nvidia_enabled: false
+laptop_enabled: false
+containers_enabled: false
+
+# Which profile file to load: hosts/<setup_host>.yml (must exist, see site.yml).
+setup_host: "{{ ansible_facts.hostname }}"
+
+# This playbook lives at <repo>/system/Arch/ansible; the flake is <repo>.
+# It has to be ~/Projects/dotfiles (ak.dotfilesDir); the nix role asserts it.
+dotfiles_dir: "{{ playbook_dir | dirname | dirname | dirname }}"
+
+# Docker-based tests: no systemd, no kernel modules, no PAM edits.
+# virtualization_type is undefined when no virtualisation is detected.
+is_container: "{{ (ansible_facts.virtualization_type | default('')) in ['docker', 'container', 'podman'] }}"

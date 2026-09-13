@@ -1,0 +1,228 @@
+---
+# Packages and system configuration only: the compositor stack and the
+# daemons behind it (PAM, session, system services, the GPU driver), plus the
+# wayland helpers, fonts and GUI apps that need the distro's GL stack. Nothing
+# here writes under ~: the hypr/DMS config, session variables and dark mode
+# come from the dotfiles flake (modules/home/desktop.nix), applied by the nix
+# role.
+
+- name: Desktop role is Arch only
+  ansible.builtin.debug:
+    msg: "Hyprland is not usefully packaged on {{ ansible_facts.distribution }}; skipping the desktop role."
+  when: ansible_facts.os_family != 'Archlinux'
+
+- name: Arch desktop
+  when: ansible_facts.os_family == 'Archlinux'
+  block:
+    # steam (and lib32-*) live in multilib, which Arch ships disabled.
+    - name: Enable the multilib repository
+      become: true
+      ansible.builtin.blockinfile:
+        path: /etc/pacman.conf
+        marker: "# {mark} ANSIBLE MANAGED BLOCK multilib"
+        block: |
+          [multilib]
+          Include = /etc/pacman.d/mirrorlist
+      register: multilib
+
+    - name: Refresh the package database
+      become: true
+      community.general.pacman:
+        update_cache: true
+      when: multilib.changed
+      check_mode: false
+
+    - name: Install compositor stack, session, audio and desktop daemons
+      become: true
+      community.general.pacman:
+        name:
+          # --- compositor / session ---
+          - hyprland
+          - hyprland-protocols
+          - uwsm
+          - hyprlock
+          - hypridle
+          - xdg-desktop-portal-hyprland
+          - xdg-desktop-portal-gtk
+          - greetd
+          - greetd-tuigreet
+          # --- audio ---
+          - pipewire
+          - pipewire-alsa
+          - pipewire-pulse
+          - wireplumber
+          - alsa-ucm-conf
+          - sof-firmware
+          # --- daemons ---
+          - networkmanager
+          - networkmanager-openconnect
+          - cups
+          - cups-pdf
+          - avahi
+          - nss-mdns
+          - gvfs
+          - udisks2
+          - bluez
+          - bluez-utils
+          - blueman
+          - upower
+          - gnome-keyring
+          - dconf # service behind home-manager's dconf.settings
+          # --- needs system integration (setuid / setcap / 32-bit) ---
+          - steam
+          - gpu-screen-recorder
+          - ollama
+          # --- GPU userspace ---
+          - mesa
+          - intel-media-driver
+        state: present
+
+    # GUI user half; config for these lives in dotfiles (home/.config).
+    - name: Install wayland helpers, fonts and GUI apps
+      become: true
+      community.general.pacman:
+        name:
+          # --- terminal emulator (config: home/.config/alacritty in dotfiles) ---
+          - alacritty
+          # --- hyprland ecosystem ---
+          - awww
+          - cliphist
+          - wl-clipboard
+          - grim
+          - slurp
+          - brightnessctl
+          - pamixer
+          - playerctl
+          - dunst
+          - waybar
+          - wofi
+          - rofi
+          - dmenu
+          - kitty
+          - nautilus
+          - adwaita-icon-theme
+          - gnome-themes-extra
+          - dolphin
+          - kvantum
+          - kvantum-qt5
+          - xdg-utils
+          # --- keyring / audio / bluetooth / webcam frontends ---
+          - libsecret
+          - seahorse
+          - pavucontrol
+          - alsa-utils
+          - bluetui
+          - guvcview
+          - v4l-utils
+          - libva-utils
+          # --- fonts ---
+          - ttf-jetbrains-mono-nerd
+          - ttf-cascadia-code-nerd
+          - ttf-cascadia-mono-nerd
+          - ttf-firacode-nerd
+          - ttf-hack-nerd
+          - ttf-iosevka-nerd
+          - ttf-iosevkaterm-nerd
+          - ttf-nerd-fonts-symbols
+          - ttf-jetbrains-mono
+          - ttf-fira-code
+          - ttf-fira-mono
+          - ttf-fira-sans
+          - noto-fonts
+          - noto-fonts-emoji
+          - noto-fonts-cjk
+          - ttf-liberation
+          - ttf-dejavu
+          - ttf-ubuntu-font-family
+          # --- apps ---
+          - firefox
+          - godot
+          - gimp
+          - pinta
+          - blender
+          - obs-studio
+          - okular
+          - evince
+          - pdfarranger
+          - anki
+          - vlc
+          - amberol
+          - thunderbird
+          - discord
+          - mission-center
+          - remmina
+          - nextcloud-client
+          - baobab
+          - qt5-base
+          - qt6-base
+          - libtiff
+        state: present
+
+    - name: Install DankMaterialShell, helpers and GUI apps from the AUR
+      ansible.builtin.include_role:
+        name: aur_build
+      vars:
+        aur_packages:
+          - dms # was dms-shell; renamed upstream
+          - bibata-cursor-theme-bin
+          - wlogout
+          - tofi
+          - wayscriber-bin
+          - better-control-git
+          - dsearch-bin
+          - screenpen-git
+          - python-pympress
+          - ttf-ms-fonts
+          - google-chrome
+          - visual-studio-code-bin
+          - drawio-desktop-bin
+          - wps-office
+          - teams-for-linux-bin
+          - android-studio
+
+    - name: Configure greetd with tuigreet
+      become: true
+      ansible.builtin.copy:
+        dest: /etc/greetd/config.toml
+        mode: "0644"
+        content: |
+          [terminal]
+          vt = 1
+
+          [default_session]
+          command = "tuigreet --time --remember --remember-session --asterisks"
+          user = "greeter"
+
+    - name: Never lock the account after failed logins
+      become: true
+      ansible.builtin.lineinfile:
+        path: /etc/security/faillock.conf
+        regexp: '^#?\s*deny\s*='
+        line: "deny = 0"
+        create: true
+        mode: "0644"
+
+    - name: Unlock the gnome keyring at login (PAM)
+      become: true
+      ansible.builtin.lineinfile:
+        path: /etc/pam.d/login
+        line: "{{ item }}"
+        insertafter: EOF
+      loop:
+        - "auth       optional     pam_gnome_keyring.so"
+        - "session    optional     pam_gnome_keyring.so auto_start"
+      when: not is_container
+
+    - name: Enable desktop services
+      become: true
+      ansible.builtin.systemd:
+        name: "{{ item }}"
+        enabled: true
+      loop:
+        - greetd
+        - NetworkManager
+        - cups
+        - avahi-daemon
+        - bluetooth
+        - ollama
+      when: not is_container

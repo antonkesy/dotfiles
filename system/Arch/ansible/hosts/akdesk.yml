@@ -1,0 +1,5 @@
+---
+# Desktop workstation on Arch.
+desktop_enabled: true
+nvidia_enabled: true
+containers_enabled: true

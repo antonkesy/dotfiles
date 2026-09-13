@@ -1,0 +1,52 @@
+---
+- name: Laptop role is Arch only
+  ansible.builtin.debug:
+    msg: "No laptop role for {{ ansible_facts.distribution }}."
+  when: ansible_facts.os_family != 'Archlinux'
+
+- name: Arch laptop
+  when: ansible_facts.os_family == 'Archlinux'
+  block:
+    # powertop and cctk only work as root, hence pacman rather than home-manager.
+    - name: Install fingerprint and power management
+      become: true
+      community.general.pacman:
+        name:
+          - fprintd
+          - libfprint
+          - power-profiles-daemon
+          - thermald
+          - powertop
+        state: present
+
+    - name: Install Dell tools from the AUR
+      ansible.builtin.include_role:
+        name: aur_build
+      vars:
+        aur_packages:
+          - openssl-1.1 # dell-command-configure dependency
+          - dell-command-configure
+
+    - name: Fingerprint for sudo and hyprlock (PAM)
+      become: true
+      ansible.builtin.lineinfile:
+        path: "/etc/pam.d/{{ item }}"
+        line: "auth       sufficient   pam_fprintd.so"
+        insertbefore: BOF
+        create: true
+        mode: "0644"
+      loop:
+        - sudo
+        - hyprlock
+      when: not is_container
+
+    - name: Enable laptop services
+      become: true
+      ansible.builtin.systemd:
+        name: "{{ item }}"
+        enabled: true
+      loop:
+        - fprintd
+        - power-profiles-daemon
+        - thermald
+      when: not is_container
