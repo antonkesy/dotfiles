@@ -33,4 +33,4 @@
       ansible.builtin.command: nvidia-ctk runtime configure --runtime=docker
       args:
         creates: /etc/docker/daemon.json
-      when: containers_enabled and not is_container
+      when: not is_container

@@ -7,8 +7,8 @@ export NIX_CONFIG := experimental-features = nix-command flakes
 HM := $(shell command -v home-manager 2>/dev/null || echo "nix run $(FLAKE)\#home-manager --")
 
 # System half (what needs root, per distro) lives in system/<Distro>. The Arch
-# targets forward to system/Arch/Makefile; command-line variables (HOST=,
-# IN_DOCKER=) reach the sub-make.
+# targets forward to system/Arch/Makefile; command-line variables (IN_DOCKER=)
+# reach the sub-make.
 ARCH_TARGETS := arch galaxy ansible-check ansible-syntax lint test-arch dev-arch
 
 .PHONY: help switch dry build check update clean use-ssh wsl clean-arch $(ARCH_TARGETS)
@@ -23,7 +23,7 @@ help:
 	@echo "  clean          - remove build outputs, user-level nix garbage, system/Arch/build"
 	@echo "  use-ssh        - switch origin remote (and submodules) from https to ssh (github.com/antonkesy/*)"
 	@echo "System (system/<Distro>):"
-	@echo "  arch           - ansible playbook for profile HOST=<hostname> (system/Arch)"
+	@echo "  arch           - ansible playbook, every role, host ak (system/Arch)"
 	@echo "  ansible-check  - dry run of the playbook on this machine"
 	@echo "  ansible-syntax - syntax-check the playbook"
 	@echo "  lint           - ansible-lint"

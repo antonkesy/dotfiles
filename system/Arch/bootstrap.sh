@@ -5,13 +5,11 @@
 # via ansible, ending in home-manager switch for everything under ~.
 #
 #   curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Arch/bootstrap.sh | bash
-#   curl -fsSL ... | HOST=ak bash            # profile (ansible/hosts/<name>.yml)
-#   HOST=ak bash system/Arch/bootstrap.sh    # from a checkout
+#   bash system/Arch/bootstrap.sh            # from a checkout
 set -euo pipefail
 
 PROJECTS="${PROJECTS:-$HOME/Projects}"
 DOTFILES="$PROJECTS/dotfiles"
-HOST="${HOST:-$(hostname)}"
 
 sudo pacman -Syu --noconfirm
 sudo pacman -S --noconfirm --needed base-devel git make ansible
@@ -21,6 +19,6 @@ mkdir -p "$PROJECTS"
 git -C "$DOTFILES" submodule update --init --recursive
 
 cd "$DOTFILES"
-make arch HOST="$HOST"
+make arch
 
 echo "Done. Reboot into the greeter. Hyprland plugins: system/Arch/manual/hyprpm.sh (needs a running Hyprland)."
