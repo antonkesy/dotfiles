@@ -16,7 +16,7 @@ in
     ".zshrc".source = link ".zshrc";
     ".tmux.conf".source = link ".tmux.conf";
     # ~/.tmux/plugins itself stays a real directory so tpm can clone the other
-    # plugins next to it (prefix + I).
+    # plugins next to it (.tmux.conf does that on the first tmux start).
     ".tmux/plugins/tpm".source = link ".tmux/plugins/tpm";
   };
 
