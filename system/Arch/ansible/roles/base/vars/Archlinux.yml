@@ -1,5 +1,7 @@
 ---
 # base-devel: makepkg for the AUR builds; git/curl: bootstrap + nix installer.
+# Everything else here only makes sense as root or is kernel/firmware-coupled;
+# user-level CLI tools come from home-manager (home/modules/base.nix).
 base_packages:
   - base-devel
   - git
@@ -8,4 +10,31 @@ base_packages:
   - zsh
   - openssh
   - flatpak
+  - vim # an editor for root/visudo without nix in PATH
+  # --- boot ---
+  - grub
+  - efibootmgr
+  - os-prober # Windows entry for the dual-boot machines
+  - linux-firmware
+  - intel-ucode
+  - amd-ucode
+  # --- filesystems / storage ---
+  - dosfstools
+  - exfatprogs
+  - ntfs-3g
+  - btrfs-progs
+  - xfsprogs
+  - mdadm
+  - lvm2
+  - smartmontools
+  - hdparm
+  - smbclient
+  # --- network ---
+  - nftables
+  - ipset
+  - ethtool
+  - ca-certificates
+  # --- kernel-coupled ---
+  - cpupower
+  - perf
 zsh_path: /usr/bin/zsh
