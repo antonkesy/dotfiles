@@ -13,7 +13,8 @@ One repo, two halves:
   `tmux`, `nvim`, `git`, CLI tools and language toolchains on `Arch` and `Ubuntu(WSL2)`,
   plus the Hyprland/DankMaterialShell config (linked everywhere, used on the desktops).
 - **System** (`system/<Distro>/`): what needs root. On Arch an `archinstall` answer file
-  and an ansible playbook (packages, drivers, daemons, PAM, the login session, GUI apps);
+  and an ansible playbook (packages, drivers, daemons, PAM, the login session, GUI apps --
+  one host, `ak`, everything installed everywhere);
   on Ubuntu/WSL2 a short bootstrap script (apt, `/etc/wsl.conf`, single-user nix). Both
   end by running `make switch` from this checkout.
 
@@ -26,8 +27,8 @@ Every path clones this repo into `~/Projects/dotfiles` (load-bearing: home-manag
 
 **Arch**
 ```bash
-# phase 1, on the live ISO (hostname = ansible profile: akdesk, aklap, ak)
-curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Arch/install.sh | bash -s -- akdesk
+# phase 1, on the live ISO
+curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Arch/install.sh | bash
 # phase 2, after the reboot and first login
 curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Arch/bootstrap.sh | bash
 ```
@@ -65,7 +66,7 @@ exit
 # phase 1: archinstall with system/Arch/archinstall.json (GRUB, locale, NetworkManager,
 # zram, the packages phase 2 needs). Set Disk configuration (+ encryption) and
 # Authentication (root password, user ak with sudo) in the menu, then Install.
-curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Arch/install.sh | bash -s -- akdesk
+curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Arch/install.sh | bash
 
 # reboot, pull the stick, log in as the new user
 
@@ -74,11 +75,11 @@ nmcli radio wifi on
 nmcli device wifi list
 nmcli device wifi connect "<SSID>" --ask
 
-# phase 2: ansible (system half) then home-manager; HOST=ak for the generic profile
+# phase 2: ansible (system half, every role) then home-manager
 curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Arch/bootstrap.sh | bash
 ```
 
-Roles, profiles, the container test and the manual steps (`hyprpm`, fingerprints):
+Roles, the container test and the manual steps (`hyprpm`, fingerprints):
 [`system/Arch/README.md`](system/Arch/README.md).
 
 ## WSL
@@ -98,7 +99,7 @@ gpg-agent); `system/Ubuntu-26.04-WSL2/bootstrap.sh` writes it once, then run
 | `make update` | update flake inputs |
 | `make clean` | remove build outputs, user-level garbage collection, `system/Arch/build` |
 | `make use-ssh` | switch origin remote (and submodules) from https to ssh |
-| `make arch` | ansible playbook for profile `HOST` (default: hostname) |
+| `make arch` | ansible playbook, every role (host `ak`) |
 | `make ansible-check` | dry run of the playbook on this machine |
 | `make ansible-syntax` / `make lint` | playbook syntax check / ansible-lint |
 | `make test-arch` / `make dev-arch` | `ansible --check` inside the Arch container / a shell in it |

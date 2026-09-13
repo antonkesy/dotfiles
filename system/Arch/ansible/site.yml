@@ -5,13 +5,6 @@
   become: false
 
   pre_tasks:
-    # A profile that does not exist must fail, not silently fall back to the
-    # defaults in group_vars (include_vars errors on a missing file).
-    - name: Load the host profile hosts/<name>.yml - {{ setup_host }}
-      ansible.builtin.include_vars:
-        file: "{{ playbook_dir }}/hosts/{{ setup_host }}.yml"
-      tags: always
-
     # Also in check mode, so package lookups work against a current database.
     - name: Refresh the package database
       become: true
@@ -25,27 +18,21 @@
       ansible.builtin.debug:
         msg: >-
           {{ ansible_facts.distribution }} ({{ ansible_facts.os_family }}),
-          profile={{ setup_host }},
-          desktop={{ desktop_enabled }}, nvidia={{ nvidia_enabled }},
-          laptop={{ laptop_enabled }}, containers={{ containers_enabled }},
-          container={{ is_container }}
+          host ak, all roles, container={{ is_container }}
       tags: always
 
+  # Every role, always; the only gate is is_container (docker check runs).
   roles:
     - role: base
       tags: [base]
     - role: desktop
       tags: [desktop]
-      when: desktop_enabled
     - role: nvidia
       tags: [nvidia]
-      when: nvidia_enabled
     - role: laptop
       tags: [laptop]
-      when: laptop_enabled
     - role: containers
       tags: [containers]
-      when: containers_enabled
     # Last: installs nix, applies homeConfigurations.ak from the repo root (all of ~).
     - role: nix
       tags: [nix, dotfiles]

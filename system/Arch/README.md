@@ -11,12 +11,12 @@ nix and runs home-manager from the repo root, which owns everything under `~`
 **Phase 1, on the live ISO.** `archinstall.json` pre-seeds GRUB, locale, timezone,
 NetworkManager, zram swap and the packages phase 2 needs, with profile *Minimal*
 (no desktop, greeter or gfx driver). Partitioning and the root/user passwords are
-left to archinstall's menu on purpose: `akdesk` dual-boots, and no password hashes
-in git.
+left to archinstall's menu on purpose: some machines dual-boot, and no password
+hashes in git. The hostname is always `ak`.
 
 ```bash
 iwctl station wlan0 connect <SSID>          # wifi, if needed
-curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Arch/install.sh | bash -s -- akdesk
+curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Arch/install.sh | bash
 ```
 
 In the menu set *Disk configuration* and *Authentication* (root password, user
@@ -30,8 +30,7 @@ curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Arch
 ```
 
 `bootstrap.sh` installs `ansible`, clones this repo into `~/Projects/dotfiles` and
-runs `make arch` for the profile named after the hostname (`HOST=ak` for the
-generic one: `curl ... | HOST=ak bash`).
+runs `make arch`.
 
 ## Daily use
 
@@ -39,7 +38,7 @@ Run from the repo root (the root Makefile forwards here) or from this directory.
 
 | target | what it does |
 |---|---|
-| `make arch` | apply profile `ansible/hosts/$(hostname).yml` (`HOST=ak` for the generic one) |
+| `make arch` | apply the playbook: every role |
 | `make ansible-check` | dry run |
 | `make ansible-syntax` / `make lint` | playbook syntax check / ansible-lint |
 | `make test-arch` | `ansible --check` inside the Arch container (services, PAM, nix skipped) |
@@ -58,8 +57,9 @@ installer, then `nix run ~/Projects/dotfiles#home-manager -- switch --flake
 ~/Projects/dotfiles#ak -b hm-bak` (what `make switch` at the repo root does;
 everything under `~`, hypr/DMS config included).
 
-Feature flags live in `ansible/hosts/<name>.yml`; a profile that does not exist
-fails the run. The home-manager configuration is always `ak`. `~/Projects/dotfiles`
+There is one host, `ak`, and no feature flags: every role runs on every machine
+(nvidia and laptop included), the only gate is `is_container` for the docker check
+run. The home-manager configuration is always `ak`. `~/Projects/dotfiles`
 is load-bearing: home-manager links `~/.config` into that checkout, and the `nix`
 role refuses to run from anywhere else. AUR builds land in `./build`.
 
@@ -72,10 +72,9 @@ running Hyprland). Fingerprints: `fprintd-enroll`.
 
 ```
 archinstall.json     archinstall answer file (phase 1)
-install.sh           live-ISO wrapper: sets the hostname, runs archinstall --config
+install.sh           live-ISO wrapper: fetches archinstall.json, runs archinstall --config
 bootstrap.sh         phase 2: pacman prerequisites, clone this repo, make arch
-ansible/site.yml     one play, roles gated by the profile's flags
-ansible/hosts/       profiles: akdesk, aklap, ak
+ansible/site.yml     one play, every role
 ansible/roles/       base, desktop, nvidia, laptop, containers, nix, aur_build
 docker/              Arch image for make test-arch / dev-arch
 manual/              what stays interactive
