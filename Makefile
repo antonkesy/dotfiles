@@ -17,12 +17,10 @@ help:
 	@echo "clean       - remove build outputs and collect user-level nix garbage"
 	@echo "use-ssh     - switch origin remote (and submodules) from https to ssh (github.com/antonkesy/*)"
 
-# On NixOS home-manager is part of the system generation (../setup); a
-# standalone switch would fight the NixOS module over ~/.config.
-switch: guard-nixos
+switch:
 	$(HM) switch --flake $(FLAKE)#ak -b hm-bak
 
-dry: guard-nixos
+dry:
 	$(HM) switch --flake $(FLAKE)#ak -b hm-bak -n
 
 build:
@@ -41,9 +39,3 @@ clean:
 use-ssh:
 	@$(CURDIR)/scripts/use-ssh-remote.sh
 	@git submodule foreach --recursive $(CURDIR)/scripts/use-ssh-remote.sh
-
-guard-nixos:
-	@if [ -e /etc/NIXOS ]; then \
-		echo "This is NixOS: home-manager is applied by 'make switch' in ~/Projects/setup." >&2; \
-		exit 1; \
-	fi
