@@ -5,7 +5,7 @@
 
 DOTFILES="${DOTFILES:-$HOME/Projects/dotfiles}"
 
-(cd "$DOTFILES" && make update switch)
+(cd "$DOTFILES/home" && make update switch)
 
 zsh -ic "zinit update --all"
 
