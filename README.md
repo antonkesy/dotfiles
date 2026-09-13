@@ -25,8 +25,27 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/sc
 
 **Arch**
 ```bash
-git clone --recursive https://github.com/antonkesy/dotfiles.git ~/Projects/dotfiles
-cd ~/Projects/dotfiles && make switch
+# skip this block if connected with Ethernet
+iwctl
+station list # if required to find your wifi device
+station wifi connect <your_wifi_ssid>
+exit
+
+# get archinstall.json
+curl -L https://raw.githubusercontent.com/antonkesy/dotfiles/main/arch_install_config.json -o arch_install_config.json
+# setup all missing parts: partitioning & authentication
+archinstall --config arch_install_config.json
+# Manually set: Partitioning (+ HW Encryption), Root PW, User Accounts
+
+# Reboot and login into new user
+
+# skip this block if connected with Ethernet
+nmcli radio wifi on
+nmcli device wifi list
+nmcli device wifi connect "<SSID>" --ask
+
+# some setups might assume position of dotfiles in ~/workspace
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/scripts/bootstrap-arch.sh)"
 ```
 
 ## Prerequisites
