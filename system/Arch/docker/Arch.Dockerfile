@@ -1,5 +1,5 @@
-# Arch container for `ansible-playbook --check` runs (make test-arch) and an
-# interactive shell (make dev-arch); build context is the repo root, trimmed
+# Arch container for `ansible-playbook --check` runs (make test) and an
+# interactive shell (make dev), both from system/Arch; build context is the repo root, trimmed
 # by /.dockerignore. No systemd, no kernel: the playbook's is_container guard
 # skips services, PAM and the nix/home-manager steps.
 FROM archlinux:latest AS base

@@ -1,43 +1,36 @@
 REPO_ROOT := $(abspath ../..)
-ANSIBLE := ansible
-PLAYBOOK := cd $(ANSIBLE) && ansible-playbook site.yml
+# ansible-galaxy first: the play needs community.general (requirements.yml).
+PLAYBOOK := cd ansible && ansible-galaxy collection install -r requirements.yml && ansible-playbook site.yml
 BECOME_FLAG := $(if $(filter 1,$(IN_DOCKER)),,--ask-become-pass)
 
-.PHONY: help galaxy arch ansible-check ansible-syntax lint test-arch dev-arch clean
+.PHONY: help arch dry lint test dev clean
 
 help:
-	@echo "Arch system half via ansible; the nix role ends in home-manager switch from <repo>/home:"
-	@echo "  arch           - the playbook: every role, host ak"
-	@echo "  ansible-check  - dry run of the playbook on this machine"
-	@echo "  ansible-syntax - syntax-check the playbook"
-	@echo "  lint           - ansible-lint"
-	@echo "  test-arch      - ansible --check inside the Arch container"
-	@echo "  dev-arch       - shell in the Arch container, repo bind-mounted at ~/Projects/dotfiles"
-	@echo "  clean          - remove ./build (AUR builds)"
-	@echo "Fresh install: ./install.sh on the live ISO, then bootstrap.sh after the reboot"
+	@echo "Arch system half via ansible (every role, host ak); ends in home-manager switch from <repo>/home:"
+	@echo "  arch   - apply the playbook"
+	@echo "  dry    - ansible --check --diff on this machine"
+	@echo "  lint   - ansible-lint"
+	@echo "  test   - dry, inside the Arch container (docker)"
+	@echo "  dev    - shell in that container, repo bind-mounted at ~/Projects/dotfiles"
+	@echo "  clean  - remove ./build (AUR builds)"
+	@echo "Fresh install: install.sh on the live ISO, bootstrap.sh after the reboot"
 
-galaxy:
-	cd $(ANSIBLE) && ansible-galaxy collection install -r requirements.yml
-
-arch: galaxy
+arch:
 	$(PLAYBOOK) $(BECOME_FLAG)
 
-ansible-check: galaxy
+dry:
 	$(PLAYBOOK) $(BECOME_FLAG) --check --diff
 
-ansible-syntax:
-	cd $(ANSIBLE) && ansible-playbook site.yml --syntax-check
-
 lint:
-	cd $(ANSIBLE) && ansible-lint
+	cd ansible && ansible-lint
 
 # Build context is the repo root (trimmed by /.dockerignore): the image copies
-# it to ~/Projects/dotfiles and runs the root Makefile, which dispatches here.
-test-arch:
+# it to ~/Projects/dotfiles and runs `make dry` from this directory.
+test:
 	docker build -f docker/Arch.Dockerfile --target ci -t dotfiles-test-arch $(REPO_ROOT)
-	docker run --rm dotfiles-test-arch make galaxy ansible-check IN_DOCKER=1
+	docker run --rm dotfiles-test-arch make -C system/Arch dry IN_DOCKER=1
 
-dev-arch:
+dev:
 	docker build -f docker/Arch.Dockerfile --target dev -t dotfiles-dev-arch $(REPO_ROOT)
 	docker run --rm -it -v $(REPO_ROOT):/home/ak/Projects/dotfiles dotfiles-dev-arch bash
 

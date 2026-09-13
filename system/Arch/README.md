@@ -34,15 +34,15 @@ runs `make arch`.
 
 ## Daily use
 
-Run from the repo root (the root Makefile forwards here) or from this directory.
+From this directory (`make arch` also works at the repo root).
 
 | target | what it does |
 |---|---|
 | `make arch` | apply the playbook: every role |
-| `make ansible-check` | dry run |
-| `make ansible-syntax` / `make lint` | playbook syntax check / ansible-lint |
-| `make test-arch` | `ansible --check` inside the Arch container (services, PAM, nix skipped) |
-| `make dev-arch` | shell in that container, repo bind-mounted |
+| `make dry` | `ansible --check --diff` on this machine |
+| `make lint` | ansible-lint |
+| `make test` | `make dry` inside the Arch container (services, PAM, nix skipped) |
+| `make dev` | shell in that container, repo bind-mounted |
 | `make clean` | remove `./build` (AUR builds) |
 
 Roles, in order: `base` (base-devel, git, curl, sudo, zsh as login shell, openssh,
@@ -76,6 +76,6 @@ install.sh           live-ISO wrapper: fetches archinstall.json, runs archinstal
 bootstrap.sh         phase 2: pacman prerequisites, clone this repo, make arch
 ansible/site.yml     one play, every role
 ansible/roles/       base, desktop, nvidia, laptop, containers, nix, aur_build
-docker/              Arch image for make test-arch / dev-arch
+docker/              Arch image for make test / dev
 manual/              what stays interactive
 ```
