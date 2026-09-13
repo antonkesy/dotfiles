@@ -1,0 +1,19 @@
+# /etc/default/grub, installed by roles/base; `grub-mkconfig` runs when it changes.
+GRUB_TIMEOUT_STYLE=menu
+GRUB_TIMEOUT=10
+GRUB_DISTRIBUTOR="Arch"
+GRUB_CMDLINE_LINUX_DEFAULT="noplymouth"
+# GRUB_CMDLINE_LINUX_DEFAULT="noplymouth nvidia.NVreg_OpenRmEnableUnsupportedGpus=1 nouveau.blacklist=1" # allow nvidia-eGPU
+GRUB_CMDLINE_LINUX=""
+
+# boot the last chosen entry by default
+GRUB_DEFAULT=saved
+GRUB_SAVEDEFAULT=true
+# dual boot: let os-prober find Windows
+GRUB_DISABLE_OS_PROBER=false
+
+# workaround for high-DPI displays lagging grub menu
+GRUB_GFXMODE=1920x1080
+GRUB_GFXPAYLOAD_LINUX=keep
+
+# GRUB_INIT_TUNE="480 440 1" # beep at grub start

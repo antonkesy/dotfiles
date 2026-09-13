@@ -35,3 +35,31 @@
     flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
     state: present
   when: ansible_facts.os_family == 'Archlinux' and not is_container
+
+- name: Install debtap from the AUR (.deb to pacman packages)
+  ansible.builtin.include_role:
+    name: aur_build
+  vars:
+    aur_packages:
+      - debtap
+  when: ansible_facts.os_family == 'Archlinux'
+
+# archinstall installs GRUB (archinstall.json: bootloader Grub); this owns its
+# config afterwards. The previous file is kept as a timestamped backup.
+- name: Install /etc/default/grub
+  become: true
+  ansible.builtin.copy:
+    src: grub
+    dest: /etc/default/grub
+    owner: root
+    group: root
+    mode: "0644"
+    backup: true
+  register: grub_default
+  when: ansible_facts.os_family == 'Archlinux'
+
+- name: Regenerate grub.cfg
+  become: true
+  ansible.builtin.command: grub-mkconfig -o /boot/grub/grub.cfg
+  changed_when: true
+  when: ansible_facts.os_family == 'Archlinux' and grub_default.changed and not is_container
