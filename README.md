@@ -92,10 +92,7 @@ gpg-agent); `system/Ubuntu-26.04-WSL2/bootstrap.sh` writes it once, then run
 
 | target | what it does |
 | --- | --- |
-| `make switch` | build + activate `homeConfigurations.ak` |
-| `make dry` | show what switch would do |
-| `make update` | update flake inputs |
-| `make check` | evaluate the flake, lint the ansible playbook |
+| `make home` | build + activate `homeConfigurations.ak` |
 | `make arch` | system half of an Arch machine (ansible, every role) |
 | `make wsl` | system half of Ubuntu on WSL2, then switch (re-runnable) |
 | `make clean` | build outputs, user-level nix garbage, AUR builds |
