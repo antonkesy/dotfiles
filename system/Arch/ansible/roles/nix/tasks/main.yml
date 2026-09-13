@@ -1,11 +1,11 @@
 ---
 # The handover: installs nix (Determinate installer: multi-user, flakes on)
-# and applies homeConfigurations.ak from the flake at the repo root
-# (dotfiles_dir, three levels above this playbook), which owns everything
+# and applies homeConfigurations.ak from the flake in <repo>/home
+# (dotfiles_dir is the repo, three levels above this playbook), which owns everything
 # under ~ (terminal environment and the hypr/DMS config; the packages behind
 # the GUI came from the desktop role via pacman/AUR).
 
-# modules/home/{dotfiles,desktop,nvim}.nix symlink into ~/Projects/dotfiles
+# home/modules/{dotfiles,desktop,nvim}.nix symlink into ~/Projects/dotfiles
 # (ak.dotfilesDir); running from anywhere else would leave dangling links.
 - name: The checkout must be where home-manager links into
   ansible.builtin.assert:
@@ -34,11 +34,11 @@
     argv:
       - nix
       - run
-      - "{{ dotfiles_dir }}#home-manager"
+      - "{{ dotfiles_dir }}/home#home-manager"
       - --
       - switch
       - --flake
-      - "{{ dotfiles_dir }}#ak"
+      - "{{ dotfiles_dir }}/home#ak"
       - -b
       - hm-bak
   environment:

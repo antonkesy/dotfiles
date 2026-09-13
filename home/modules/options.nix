@@ -7,7 +7,7 @@
     type = lib.types.str;
     default = "${config.home.homeDirectory}/Projects/dotfiles";
     description = ''
-      Live checkout of this repo. modules/home/{dotfiles,desktop,nvim}.nix
+      Live checkout of this repo. home/modules/{dotfiles,desktop,nvim}.nix
       symlink into it out of the store, so it is load-bearing.
     '';
   };

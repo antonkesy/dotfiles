@@ -40,8 +40,8 @@ mkdir -p "$PROJECTS"
 [ -d "$DOTFILES" ] || git clone --recursive https://github.com/antonkesy/dotfiles.git "$DOTFILES"
 git -C "$DOTFILES" submodule update --init --recursive
 
-# The root Makefile exports NIX_CONFIG (flakes) and runs home-manager from the
-# flake's pinned input when it is not on PATH yet.
+# The root Makefile forwards to home/Makefile, which exports NIX_CONFIG (flakes)
+# and runs home-manager from the flake's pinned input when it is not on PATH yet.
 cd "$DOTFILES"
 make switch
 

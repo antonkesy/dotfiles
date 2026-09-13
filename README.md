@@ -8,7 +8,7 @@ _Trying to achieve the best reproducible setup for my personal and professional 
 
 One repo, two halves:
 
-- **Home** (repo root): everything under `~` as a
+- **Home** (`home/`): everything under `~` as a
   [Home Manager](https://github.com/nix-community/home-manager) flake -- the same `zsh`,
   `tmux`, `nvim`, `git`, CLI tools and language toolchains on `Arch` and `Ubuntu(WSL2)`,
   plus the Hyprland/DankMaterialShell config (linked everywhere, used on the desktops).
@@ -108,8 +108,9 @@ gpg-agent); `system/Ubuntu-26.04-WSL2/bootstrap.sh` writes it once, then run
 ## Layout
 
 ```
-flake.nix, lib/, modules/home/   Home Manager flake: homeConfigurations.ak
-home/                            the plain dotfiles it links into ~ (stow-style)
+home/                            everything under ~, for every distro
+  flake.nix, lib/, modules/      Home Manager flake: homeConfigurations.ak
+  .config/, .zshrc, .tmux/ ...   the plain dotfiles it links into ~ (stow-style)
 system/Arch/                     archinstall.json, install.sh, bootstrap.sh, ansible/, docker/, manual/
 system/Ubuntu-26.04-WSL2/        bootstrap.sh
 scripts/use-ssh-remote.sh        make use-ssh
@@ -127,12 +128,12 @@ scripts/use-ssh-remote.sh        make use-ssh
 The dotfiles under `home/` stay plain files (`.zshrc` + zinit, `.tmux.conf` + TPM,
 `alacritty.toml`, `lazygit/config.yml`, the nvim submodule, the hypr lua); Home Manager only
 symlinks them into the checkout: `.zshrc`, `.tmux.conf`, `.tmux/plugins/tpm`, `zsh/`,
-`alacritty/`, `lazygit/config.yml` (`modules/home/dotfiles.nix`), `nvim/`
-(`modules/home/nvim.nix`) and the Hyprland/DMS config (`modules/home/desktop.nix`).
+`alacritty/`, `lazygit/config.yml` (`home/modules/dotfiles.nix`), `nvim/`
+(`home/modules/nvim.nix`) and the Hyprland/DMS config (`home/modules/desktop.nix`).
 
 ## Hyprland / DMS config
 
-`modules/home/desktop.nix` handles `home/.config/{hypr,DankMaterialShell,wallpapers}` in
+`home/modules/desktop.nix` handles `home/.config/{hypr,DankMaterialShell,wallpapers}` in
 three tiers, because DankMaterialShell rewrites its own config at runtime. It is applied on
 every machine (WSL included, where it is simply unused) so that all of `~` comes from here.
 

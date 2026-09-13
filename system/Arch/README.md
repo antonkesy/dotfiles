@@ -3,7 +3,7 @@
 Packages and the system half for an Arch machine, via ansible: pacman/AUR,
 systemd and PAM, including the wayland helpers, fonts and GUI apps that need the
 distro's GL stack. Nothing here writes under `~`. Last, the `nix` role installs
-nix and runs home-manager from the repo root, which owns everything under `~`
+nix and runs home-manager from `home/`, which owns everything under `~`
 (terminal environment and the hypr/DMS config).
 
 ## Fresh install
@@ -53,8 +53,8 @@ gpu-screen-recorder, ollama, keyring PAM, and the packages behind the GUI user h
 alacritty, wayland helpers, fonts, GUI apps via pacman/AUR), `nvidia` (driver,
 container toolkit, cuda, nvtop), `laptop` (fprintd + PAM, power management, powertop,
 Dell tools), `containers` (docker daemon + group), and last `nix`: Determinate
-installer, then `nix run ~/Projects/dotfiles#home-manager -- switch --flake
-~/Projects/dotfiles#ak -b hm-bak` (what `make switch` at the repo root does;
+installer, then `nix run ~/Projects/dotfiles/home#home-manager -- switch --flake
+~/Projects/dotfiles/home#ak -b hm-bak` (what `make switch` at the repo root does;
 everything under `~`, hypr/DMS config included).
 
 There is one host, `ak`, and no feature flags: every role runs on every machine

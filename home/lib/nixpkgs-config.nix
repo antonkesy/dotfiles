@@ -3,7 +3,7 @@
 {
   allowUnfree = true;
   # dotnet SDK 6 and 7 are past end of life and nixpkgs marks them insecure.
-  # Drop these (and sdk_6_0/sdk_7_0 in modules/home/development.nix) when the
+  # Drop these (and sdk_6_0/sdk_7_0 in modules/development.nix) when the
   # projects that need them are gone.
   permittedInsecurePackages = [
     "dotnet-sdk-6.0.428"

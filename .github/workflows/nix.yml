@@ -15,7 +15,7 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes
       - name: Evaluate
-        run: nix eval --raw '.#homeConfigurations.ak.activationPackage.drvPath'
+        run: nix eval --raw './home#homeConfigurations.ak.activationPackage.drvPath'
       # Instantiates the whole closure (every derivation, no downloads).
       - name: Dry-build
-        run: nix build .#homeConfigurations.ak.activationPackage --dry-run
+        run: nix build ./home#homeConfigurations.ak.activationPackage --dry-run
