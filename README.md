@@ -18,13 +18,15 @@ that playbook ends by running `home-manager switch` from this repo.
 
 ## TL;DR
 
+**Ubuntu-26.04 on WSL2**
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/scripts/bootstrap-wsl.sh)"
 ```
-curl -fsSL https://install.determinate.systems/nix | sh -s -- install
 
-mkdir -p ~/Projects && cd ~/Projects
-git clone --recursive https://github.com/antonkesy/dotfiles.git
-cd dotfiles
-make switch
+**Arch**
+```bash
+git clone --recursive https://github.com/antonkesy/dotfiles.git ~/Projects/dotfiles
+cd ~/Projects/dotfiles && make switch
 ```
 
 ### Manual Steps
