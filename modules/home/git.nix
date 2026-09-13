@@ -4,8 +4,7 @@
   programs.gpg.enable = true;
   services.gpg-agent = {
     enable = true;
-    # Terminal default; ../setup's NixOS desktop module overrides this with
-    # pinentry-gnome3 where there is a session.
+    # Terminal default; works on WSL as well as inside a Hyprland session.
     pinentry.package = lib.mkDefault pkgs.pinentry-curses;
   };
 
