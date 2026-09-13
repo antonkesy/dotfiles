@@ -1,13 +1,8 @@
 # Docker clients. The daemon, the docker group and nvidia-container-toolkit
 # are system-side (../setup). The cli-plugins links make `docker compose` and
 # `docker buildx` resolve against a distro-installed docker too.
+{ pkgs, ... }:
 {
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-lib.mkIf config.ak.containers.enable {
   home.packages = with pkgs; [
     docker-compose
     docker-buildx

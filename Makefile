@@ -1,4 +1,3 @@
-HOST ?= $(shell hostname 2>/dev/null || cat /etc/hostname)
 FLAKE := .
 # Every nix call from here (and the ones home-manager makes internally) needs
 # flakes, whichever way nix was installed on the host.
@@ -10,10 +9,10 @@ HM := $(shell command -v home-manager 2>/dev/null || echo "nix run $(FLAKE)\#hom
 .PHONY: help switch dry build check update fmt clean use-ssh
 
 help:
-	@echo "switch      - build and activate homeConfigurations.$(HOST) (HOST=<name> to override)"
+	@echo "switch      - build and activate homeConfigurations.ak"
 	@echo "dry         - show what switch would do"
 	@echo "build       - build without activating"
-	@echo "check       - evaluate every host (nix flake check --no-build)"
+	@echo "check       - evaluate (nix flake check --no-build)"
 	@echo "update      - update flake inputs"
 	@echo "fmt         - format all nix files"
 	@echo "clean       - remove build outputs and collect user-level nix garbage"
@@ -22,13 +21,13 @@ help:
 # On NixOS home-manager is part of the system generation (../setup); a
 # standalone switch would fight the NixOS module over ~/.config.
 switch: guard-nixos
-	$(HM) switch --flake $(FLAKE)#$(HOST) -b hm-bak
+	$(HM) switch --flake $(FLAKE)#ak -b hm-bak
 
 dry: guard-nixos
-	$(HM) switch --flake $(FLAKE)#$(HOST) -b hm-bak -n
+	$(HM) switch --flake $(FLAKE)#ak -b hm-bak -n
 
 build:
-	nix build $(FLAKE)#homeConfigurations.$(HOST).activationPackage
+	nix build $(FLAKE)#homeConfigurations.ak.activationPackage
 
 check:
 	nix flake check --no-build

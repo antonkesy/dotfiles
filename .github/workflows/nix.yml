@@ -14,11 +14,8 @@ jobs:
         with:
           extra_nix_config: |
             experimental-features = nix-command flakes
-      # Evaluation only: building a full desktop closure does not fit in CI.
-      - name: Evaluate every host
-        run: |
-          nix eval --json '.#homeConfigurations' \
-            --apply 'builtins.mapAttrs (_: c: c.activationPackage.drvPath)'
-      # Instantiates the whole wsl closure (every derivation, no downloads).
-      - name: Dry-build the wsl host
-        run: nix build .#homeConfigurations.wsl.activationPackage --dry-run
+      - name: Evaluate
+        run: nix eval --raw '.#homeConfigurations.ak.activationPackage.drvPath'
+      # Instantiates the whole closure (every derivation, no downloads).
+      - name: Dry-build
+        run: nix build .#homeConfigurations.ak.activationPackage --dry-run

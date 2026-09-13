@@ -1,10 +1,12 @@
 # git with signed commits, plus the gpg agent that makes signing work.
-{ config, pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   programs.gpg.enable = true;
   services.gpg-agent = {
     enable = true;
-    pinentry.package = if config.ak.desktop.enable then pkgs.pinentry-gnome3 else pkgs.pinentry-curses;
+    # Terminal default; ../setup's NixOS desktop module overrides this with
+    # pinentry-gnome3 where there is a session.
+    pinentry.package = lib.mkDefault pkgs.pinentry-curses;
   };
 
   programs.git = {
