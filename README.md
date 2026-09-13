@@ -22,6 +22,7 @@ Every path clones this repo into `~/Projects/dotfiles` (load-bearing: home-manag
 `~/.config` into it) and ends in `homeConfigurations.ak`.
 
 **Arch**
+
 ```bash
 # skip this block if connected with Ethernet
 iwctl
@@ -49,8 +50,8 @@ curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Arch
 hyprpm update
 ```
 
-
 **Ubuntu-26.04 on WSL2**
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Ubuntu-26.04-WSL2/bootstrap.sh | bash
 ```
@@ -81,13 +82,13 @@ wsl
 
 ## Targets
 
-| target | what it does |
-| --- | --- |
-| `make home` | build + activate `homeConfigurations.ak` |
-| `make arch` | system half of an Arch machine (ansible, every role) |
-| `make wsl` | system half of Ubuntu on WSL2, then switch (re-runnable) |
-| `make clean` | build outputs, user-level nix garbage, AUR builds |
-| `make use-ssh` | switch origin remote (and submodules) from https to ssh |
+| target         | what it does                                             |
+| -------------- | -------------------------------------------------------- |
+| `make home`    | build + activate `homeConfigurations.ak`                 |
+| `make arch`    | system half of an Arch machine (ansible, every role)     |
+| `make wsl`     | system half of Ubuntu on WSL2, then switch (re-runnable) |
+| `make clean`   | build outputs, user-level nix garbage, AUR builds        |
+| `make use-ssh` | switch origin remote (and submodules) from https to ssh  |
 
 ## Currently used with
 
@@ -118,7 +119,9 @@ home-manager generations          # pick one, run its activate script
 ### WSL Install Not Working
 
 If you get:
+
 ```bash
 E: Release file for http://archive.ubuntu.com/ubuntu/dists/resolute-updates/InRelease is not valid yet (invalid for another 1h 9min 10s). Updates for this repository will not be applied.
 ```
+
 Check if your Windows time is up-to-date and sync if necessary.
