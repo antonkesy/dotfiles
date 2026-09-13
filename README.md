@@ -101,7 +101,7 @@ gpg-agent); `system/Ubuntu-26.04-WSL2/bootstrap.sh` writes it once, then run
 - [LazyVim](http://lazyvim.org/)
 - [Hyprland](https://hyprland.org/) + [DankMaterialShell](https://danklinux.com/)
 
-## Workarounds
+## Workarounds & Possible Fixes
 
 ### `gcr-ssh-agent` spamming processes at 99% CPU
 
@@ -119,3 +119,11 @@ chmod 600 ~/.ssh/<key>
 ```bash
 home-manager generations          # pick one, run its activate script
 ```
+
+### WSL Install Not Working
+
+If you get:
+```bash
+E: Release file for http://archive.ubuntu.com/ubuntu/dists/resolute-updates/InRelease is not valid yet (invalid for another 1h 9min 10s). Updates for this repository will not be applied.
+```
+Check if your Windows time is up-to-date and sync if necessary.
