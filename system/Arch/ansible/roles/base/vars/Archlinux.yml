@@ -1,0 +1,11 @@
+---
+# base-devel: makepkg for the AUR builds; git/curl: bootstrap + nix installer.
+base_packages:
+  - base-devel
+  - git
+  - curl
+  - sudo
+  - zsh
+  - openssh
+  - flatpak
+zsh_path: /usr/bin/zsh

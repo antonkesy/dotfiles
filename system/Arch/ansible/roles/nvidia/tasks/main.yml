@@ -1,0 +1,36 @@
+---
+- name: NVIDIA role is Arch only
+  ansible.builtin.debug:
+    msg: "No NVIDIA role for {{ ansible_facts.distribution }}; install the distro driver by hand."
+  when: ansible_facts.os_family != 'Archlinux'
+
+- name: Arch NVIDIA
+  when: ansible_facts.os_family == 'Archlinux'
+  block:
+    # home/.config/zsh/nvidia.zsh in dotfiles already puts /opt/cuda/bin in PATH.
+    - name: Install driver, container toolkit and CUDA
+      become: true
+      community.general.pacman:
+        name:
+          - nvidia-open
+          - nvidia-utils
+          - lib32-nvidia-utils # steam
+          - nvidia-settings
+          - nvidia-container-toolkit
+          - cuda
+          - nvtop
+        state: present
+
+    - name: Enable nvidia-persistenced
+      become: true
+      ansible.builtin.systemd:
+        name: nvidia-persistenced
+        enabled: true
+      when: not is_container
+
+    - name: Register the nvidia runtime with docker
+      become: true
+      ansible.builtin.command: nvidia-ctk runtime configure --runtime=docker
+      args:
+        creates: /etc/docker/daemon.json
+      when: containers_enabled and not is_container

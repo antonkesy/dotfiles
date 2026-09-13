@@ -1,5 +1,5 @@
 # Docker clients. The daemon, the docker group and nvidia-container-toolkit
-# are system-side (../setup). The cli-plugins links make `docker compose` and
+# are system-side (system/Arch). The cli-plugins links make `docker compose` and
 # `docker buildx` resolve against a distro-installed docker too.
 { pkgs, ... }:
 {

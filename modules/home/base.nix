@@ -1,5 +1,5 @@
 # Always on: every user-level CLI tool, on every distro. Filesystem tools,
-# firmware, daemons and anything that only works as root stay in ../setup.
+# firmware, daemons and anything that only works as root stay in system/Arch (ansible).
 { pkgs, ... }:
 {
   home.packages = with pkgs; [

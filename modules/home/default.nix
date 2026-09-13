@@ -1,6 +1,6 @@
 # Everything under ~ on Arch and WSL: the terminal environment (packages and
 # dotfiles) plus the Hyprland/DMS config. Packages that need root, a daemon or
-# the GPU (drivers, the compositor stack, GUI apps) come from ../setup's
+# the GPU (drivers, the compositor stack, GUI apps) come from system/Arch's
 # ansible.
 { ... }:
 {

@@ -1,6 +1,6 @@
 # The Hyprland + DankMaterialShell config under home/.config, and the
 # user-level session bits that go with it. No packages: the compositor, DMS
-# and every GUI app come from the distro via ../setup's ansible. Applied on
+# and every GUI app come from the distro via system/Arch's ansible. Applied on
 # every machine (WSL too, where it is simply unused) so that all of ~ comes
 # from one place.
 #
@@ -88,6 +88,6 @@ in
   # GTK apps follow the dark scheme.
   dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
 
-  # flutter web; google-chrome comes from the AUR via ../setup.
+  # flutter web; google-chrome comes from the AUR via system/Arch.
   home.sessionVariables.CHROME_EXECUTABLE = "/usr/bin/google-chrome-stable";
 }

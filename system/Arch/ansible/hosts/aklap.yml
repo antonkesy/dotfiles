@@ -1,0 +1,5 @@
+---
+# Dell laptop on Arch.
+desktop_enabled: true
+laptop_enabled: true
+containers_enabled: true

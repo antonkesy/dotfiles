@@ -1,0 +1,25 @@
+---
+# Builds AUR packages with git + makepkg (no yay/paru). Revived from the
+# old Arch-only setup; only DankMaterialShell and a few Dell tools still need it.
+- name: Set build directory
+  ansible.builtin.set_fact:
+    build_dir: "{{ playbook_dir }}/../build"
+  when: build_dir is not defined
+- name: Install base-devel and build dependencies
+  become: true
+  community.general.pacman:
+    name:
+      - base-devel
+      - git
+    state: present
+- name: AUR packages (skipped in check mode)
+  ansible.builtin.debug:
+    var: aur_packages
+  when: ansible_check_mode
+
+- name: Install AUR packages
+  ansible.builtin.include_tasks: install_package.yml
+  loop: "{{ aur_packages }}"
+  loop_control:
+    loop_var: package_name
+  when: not ansible_check_mode

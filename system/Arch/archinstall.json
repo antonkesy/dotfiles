@@ -1,0 +1,41 @@
+{
+  "version": "4.4",
+  "archinstall-language": "English",
+  "hostname": "akdesk",
+  "bootloader_config": {
+    "bootloader": "Grub",
+    "uki": false,
+    "removable": false
+  },
+  "kernels": ["linux"],
+  "locale_config": {
+    "kb_layout": "us",
+    "sys_enc": "UTF-8",
+    "sys_lang": "en_US.UTF-8"
+  },
+  "network_config": {
+    "type": "nm"
+  },
+  "ntp": true,
+  "timezone": "Europe/Berlin",
+  "swap": {
+    "enabled": true,
+    "algorithm": "zstd"
+  },
+  "pacman_config": {
+    "color": true,
+    "parallel_downloads": 5
+  },
+  "profile_config": {
+    "gfx_driver": null,
+    "greeter": null,
+    "profile": {
+      "main": "Minimal",
+      "details": [],
+      "custom_settings": {}
+    }
+  },
+  "packages": ["sudo", "git", "make", "base-devel", "ansible"],
+  "services": [],
+  "custom_commands": []
+}

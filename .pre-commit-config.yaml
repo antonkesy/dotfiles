@@ -39,3 +39,12 @@ repos:
         entry: nix run --inputs-from . nixpkgs#deadnix -- --edit --no-lambda-pattern-names
         language: system
         files: \.nix$
+      - id: ansible-lint
+        name: ansible-lint
+        # From the playbook directory: ansible-lint installs requirements.yml
+        # into ./.ansible and resolves collections relative to the cwd.
+        entry: bash -c 'cd system/Arch/ansible && exec python3 -m ansiblelint --force-color'
+        language: python
+        additional_dependencies: [ansible-lint==25.12.2]
+        pass_filenames: false
+        files: ^system/Arch/ansible/

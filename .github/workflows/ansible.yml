@@ -1,0 +1,21 @@
+name: ansible
+on:
+  pull_request:
+    paths: [system/**, Makefile, .dockerignore, .github/workflows/ansible.yml]
+  push:
+    branches: [main, nixos]
+    paths: [system/**, Makefile, .dockerignore, .github/workflows/ansible.yml]
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ansible/ansible-lint@v25
+        with:
+          working_directory: system/Arch/ansible
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - run: make test-arch

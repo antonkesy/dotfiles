@@ -1,5 +1,5 @@
 # Links the stow-style dotfiles under home/ into ~. The files stay plain
-# dotfiles because other, non-NixOS machines consume the same tree; nothing in
+# dotfiles because every machine consumes the same tree; nothing in
 # here is generated from Nix.
 #
 # Out-of-store symlinks into the live checkout (same mechanism as nvim.nix):
@@ -25,7 +25,7 @@ in
     # the checkout, exactly as with stow.
     "zsh".source = link ".config/zsh";
     # Includes the themes/ submodule that alacritty.toml imports. The alacritty
-    # binary itself comes from ../setup (desktop machines only).
+    # binary itself comes from system/Arch (desktop machines only).
     "alacritty".source = link ".config/alacritty";
     "lazygit/config.yml".source = link ".config/lazygit/config.yml";
   };

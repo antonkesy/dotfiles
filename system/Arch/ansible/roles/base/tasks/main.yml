@@ -1,0 +1,37 @@
+---
+- name: Load per-distro package names
+  ansible.builtin.include_vars: "{{ ansible_facts.os_family }}.yml"
+
+- name: Install base packages
+  become: true
+  ansible.builtin.package:
+    name: "{{ base_packages }}"
+    state: present
+
+- name: Set timezone
+  become: true
+  community.general.timezone:
+    name: Europe/Berlin
+  when: not is_container
+
+- name: Enable en_US.UTF-8 locale
+  become: true
+  community.general.locale_gen:
+    name: en_US.UTF-8
+    state: present
+
+# The distro zsh stays the login shell (no /etc/shells edits, still works if
+# nix is unavailable); it runs the same .zshrc that home-manager links.
+- name: Make zsh the login shell
+  become: true
+  ansible.builtin.user:
+    name: "{{ ansible_facts.user_id }}"
+    shell: "{{ zsh_path }}"
+
+- name: Add Flathub
+  become: true
+  community.general.flatpak_remote:
+    name: flathub
+    flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
+    state: present
+  when: ansible_facts.os_family == 'Archlinux' and not is_container
