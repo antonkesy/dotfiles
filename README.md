@@ -23,37 +23,6 @@ Every path clones this repo into `~/Projects/dotfiles` (load-bearing: home-manag
 
 **Arch**
 ```bash
-# phase 1, on the live ISO
-curl -fsSLO https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Arch/archinstall.json
-archinstall --config archinstall.json
-# phase 2, after the reboot and first login
-curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Arch/bootstrap.sh | bash
-```
-
-**Ubuntu-26.04 on WSL2**
-```bash
-curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Ubuntu-26.04-WSL2/bootstrap.sh | bash
-```
-
-## Arch
-
-Write the install ISO to a USB stick:
-
-```bash
-# 1. download the latest ISO
-curl -LO https://geo.mirror.pkgbuild.com/iso/latest/archlinux-x86_64.iso
-
-# 2. find the stick -- pick the whole disk (e.g. sdX), not a partition (sdX1)
-lsblk -d -o NAME,SIZE,MODEL,TRAN
-
-# 3. make sure it is not mounted, then write the image
-sudo umount /dev/sdX* 2>/dev/null
-sudo dd if=archlinux-x86_64.iso of=/dev/sdX bs=4M status=progress oflag=sync
-```
-
-Boot it, then:
-
-```bash
 # skip this block if connected with Ethernet
 iwctl
 station list                              # if required to find your wifi device
@@ -75,16 +44,40 @@ nmcli device wifi connect "<SSID>" --ask
 
 # phase 2: ansible (system half, every role) then home-manager
 curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Arch/bootstrap.sh | bash
+
+# after reboot final (manual) steps
+hyprpm update
 ```
 
-Roles, the container test and the manual steps (`hyprpm`, fingerprints):
-[`system/Arch/README.md`](system/Arch/README.md).
 
-## WSL
+**Ubuntu-26.04 on WSL2**
+```bash
+curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Ubuntu-26.04-WSL2/bootstrap.sh | bash
+```
 
-WSL needs `[boot] systemd=true` in `/etc/wsl.conf` for the user services (ssh-agent,
-gpg-agent); `system/Ubuntu-26.04-WSL2/bootstrap.sh` writes it once, then run
-`wsl --shutdown` from Windows. Details: [`system/Ubuntu-26.04-WSL2/README.md`](system/Ubuntu-26.04-WSL2/README.md).
+## Perquisites
+
+### Arch
+
+Write the install ISO to a USB stick and boot:
+
+```bash
+# 1. download the latest ISO
+curl -LO https://geo.mirror.pkgbuild.com/iso/latest/archlinux-x86_64.iso
+# 2. find the stick -- pick the whole disk (e.g. sdX), not a partition (sdX1)
+lsblk -d -o NAME,SIZE,MODEL,TRAN
+# 3. make sure it is not mounted, then write the image
+sudo umount /dev/sdX* 2>/dev/null
+sudo dd if=archlinux-x86_64.iso of=/dev/sdX bs=4M status=progress oflag=sync
+```
+
+### WSL
+
+```bash
+wsl --install -d Ubuntu-26.04
+wsl
+# setup user with name `ak`
+```
 
 ## Targets
 
