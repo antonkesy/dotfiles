@@ -27,9 +27,8 @@ make switch
 
 ### Manual Steps
 
-### TMUX
-
-tmux plugins are installed with `prefix + I`.
+tmux plugins install themselves on the first tmux start (needs network); `prefix + I`
+is only needed after adding a plugin to `.tmux.conf`.
 
 #### WSL
 
