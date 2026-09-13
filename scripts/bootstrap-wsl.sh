@@ -1,7 +1,4 @@
 #!/usr/bin/env sh
-# Fresh Ubuntu (WSL2) -> this repo's home-manager config, in one go.
-# Run it without a checkout:
-#   sh -c "$(curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/scripts/bootstrap-wsl.sh)"
 set -eu
 
 # minimal requirements
