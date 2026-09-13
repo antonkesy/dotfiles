@@ -1,7 +1,3 @@
-# GUI applications. Everything that came from the AUR is either a nixpkgs
-# package or a derivation in pkgs/. On non-NixOS these get OpenGL through
-# targets.genericLinux.gpu (options.nix). Steam, waydroid, ollama and
-# gpu-screen-recorder need system integration and live in ../setup.
 {
   config,
   lib,
@@ -17,31 +13,23 @@ lib.mkIf config.ak.desktop.enable {
   home.packages = with pkgs; [
     # --- browsers ---
     google-chrome
-    qutebrowser
 
     # --- editors / IDEs ---
     vscode
-    code-cursor # AUR cursor-bin
-    unityhub
     godot_4
 
     # --- graphics ---
     gimp
-    krita
     pinta
     blender
     drawio
-    flameshot
     obs-studio
 
     # --- documents ---
     kdePackages.okular
-    evince
-    xournalpp
-    pdftk
+    evince # PDF Viewer
     pdfarranger
     pympress
-    zotero
     wpsoffice
     anki
 
@@ -56,19 +44,12 @@ lib.mkIf config.ak.desktop.enable {
 
     # --- system / network ---
     mission-center
-    remmina
+    remmina # Remote Desktop
     nextcloud-client
-    baobab
-    appstream-glib
+    baobab # Disk Usage Analyser
 
-    # --- ai --- (ollama is a system service, see ../setup)
-    lmstudio
-
-    # --- api / dev ---
-    postman
-
-    # --- robotics / automotive / annotation (all from pkgs/) ---
-    screenpen
+    # --- annotation ---
+    screenpen # draw on screen
 
     # --- toolkits several of the above dlopen at runtime ---
     qt5.qtbase
