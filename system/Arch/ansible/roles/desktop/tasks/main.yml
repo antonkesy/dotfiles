@@ -44,6 +44,11 @@
           - hypridle
           - xdg-desktop-portal-hyprland
           - xdg-desktop-portal-gtk
+          - qt5-wayland
+          - qt6-wayland
+          - polkit-kde-agent
+          - cpio # hyprpm plugin builds (manual/hyprpm.sh)
+          - glaze
           - greetd
           - greetd-tuigreet
           # --- audio ---
@@ -67,13 +72,20 @@
           - blueman
           - upower
           - gnome-keyring
+          - kwallet # credentials for the KDE apps (okular, dolphin)
           - dconf # service behind home-manager's dconf.settings
+          # --- media codecs ---
+          - gst-libav
+          - gst-plugins-good
+          - gst-plugins-bad
+          - gst-plugins-ugly
           # --- needs system integration (setuid / setcap / 32-bit) ---
           - steam
           - gpu-screen-recorder
           - ollama
           # --- GPU userspace ---
           - mesa
+          - mesa-utils # eglinfo, flutter doctor
           - intel-media-driver
         state: present
 
@@ -94,6 +106,7 @@
           - pamixer
           - playerctl
           - dunst
+          - cava # DMS audio visualizer
           - waybar
           - wofi
           - rofi
@@ -146,6 +159,7 @@
           - pdfarranger
           - anki
           - vlc
+          - vlc-plugins-all
           - amberol
           - thunderbird
           - discord
@@ -153,6 +167,12 @@
           - remmina
           - nextcloud-client
           - baobab
+          - file-roller
+          - gnome-disk-utility
+          - gnome-calculator
+          - gnome-font-viewer
+          - simple-scan
+          - sushi # nautilus previews
           - qt5-base
           - qt6-base
           - libtiff
