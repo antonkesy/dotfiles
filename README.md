@@ -6,71 +6,46 @@
 _Trying to achieve the best reproducible setup for my personal and professional use_
 
 The terminal environment as a [Home Manager](https://github.com/nix-community/home-manager)
-flake: the same zsh, tmux, nvim, git, CLI tools and language toolchains on NixOS, Arch and
-Ubuntu on WSL2. Everything that depends on the distro -- the system half (drivers, daemons,
-the compositor stack) and the GUI user half (Hyprland + DankMaterialShell config, wayland
-helpers, fonts, GUI apps, alacritty itself) -- lives in the sibling repo
-[`setup`](https://github.com/antonkesy/setup).
+flake: the same `zsh`, `tmux`, `nvim`, `git`, CLI tools and language toolchains `Arch` and
+`Ubuntu(WSL2)`.
+
+Everything system level package (drivers, daemons,
+the compositor stack, GUI) is installed separately from [`setup`](https://github.com/antonkesy/setup).
 
 <img src="./docs/images/preview.png" width="800">
 
-## One configuration
+## TL;DR
 
-There is a single `homeConfigurations.ak`; nothing here differs between machines.
-`ak.nixos` is detected, not configured: as a NixOS module (imported by `setup`) the system
-owns the session; standalone, this flake enables the generic-Linux shims
-(`targets.genericLinux`) instead.
-
-## Fresh machine (Arch, Ubuntu, WSL)
-
-`~/Projects/dotfiles` is load-bearing (`ak.dotfilesDir`): `modules/home/dotfiles.nix`
-and `nvim.nix` symlink the files under `home/` straight into the checkout, so lazy.nvim,
-tpm and zinit can write next to them and edits apply without a rebuild.
-
-```bash
-# 1. nix (multi-user, flakes on) -- or let setup's bootstrap/ansible do all of this
+```
 curl -fsSL https://install.determinate.systems/nix | sh -s -- install
 
-# 2. clone and switch
 mkdir -p ~/Projects && cd ~/Projects
 git clone --recursive https://github.com/antonkesy/dotfiles.git
 cd dotfiles
 make switch
 ```
 
-The first `make switch` runs home-manager from this flake's pinned input; afterwards
-`home-manager` is in `PATH`. Then log out and in once so the session variables apply.
-Two things still finish themselves on first use: the first zsh start clones znap/zinit
-plugins (needs network), and tmux plugins are installed with `prefix + I`.
+### Manual Steps
+
+### TMUX
+
+tmux plugins are installed with `prefix + I`.
+
+#### WSL
 
 WSL needs `[boot] systemd=true` in `/etc/wsl.conf` for the user services (ssh-agent,
 gpg-agent); `setup`'s Ubuntu bootstrap writes it.
 
-On NixOS do **not** `make switch` here (the Makefile refuses): the same module is
-applied as part of the system generation by `make switch` in `setup`.
-
 ## Targets
 
-| target | what it does |
-|---|---|
-| `make switch` | build + activate `homeConfigurations.ak` |
-| `make dry` | show what switch would do |
-| `make build` | build without activating |
-| `make check` | evaluate the flake |
-| `make update` | update flake inputs |
-| `make fmt` | format all nix files |
-| `make clean` | remove build outputs, user-level garbage collection |
-
-## Layout
-
-```
-flake.nix               homeConfigurations.ak, homeModules.default (for setup), packages
-lib/mkHome.nix          homeManagerConfiguration wrapper
-lib/nixpkgs-config.nix  allowUnfree + insecure exceptions, shared with setup
-modules/home/           options (ak.nixos, ak.dotfilesDir), base, terminal, nvim, git,
-                        dotfiles links, development, containers
-home/                   stow-style dotfiles; linked by modules/home/dotfiles.nix
-```
+| target        | what it does                                        |
+| ------------- | --------------------------------------------------- |
+| `make switch` | build + activate `homeConfigurations.ak`            |
+| `make dry`    | show what switch would do                           |
+| `make build`  | build without activating                            |
+| `make check`  | evaluate the flake                                  |
+| `make update` | update flake inputs                                 |
+| `make clean`  | remove build outputs, user-level garbage collection |
 
 ## Currently used with
 
