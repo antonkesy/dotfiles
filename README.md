@@ -11,6 +11,8 @@ Automated setup for my various Linux machines:
 - **Home** (`home/`):
   Uses [Home Manager](https://github.com/nix-community/home-manager) to create me a reproducible terminal for my use on Arch and WSL2.
 - **System** (`system/<Distro>/`): Automatically installs system specific packages.
+  - Arch: [Ansible](https://github.com/ansible/ansible).
+  - Ubuntu-26.04 in WSL2: Shell script.
 
 <img src="./docs/images/preview.png" width="800">
 
