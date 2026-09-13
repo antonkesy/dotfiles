@@ -94,16 +94,14 @@ gpg-agent); `system/Ubuntu-26.04-WSL2/bootstrap.sh` writes it once, then run
 | --- | --- |
 | `make switch` | build + activate `homeConfigurations.ak` |
 | `make dry` | show what switch would do |
-| `make build` | build without activating |
-| `make check` | evaluate the flake |
 | `make update` | update flake inputs |
-| `make clean` | remove build outputs, user-level garbage collection, `system/Arch/build` |
+| `make check` | evaluate the flake, lint the ansible playbook |
+| `make arch` | system half of an Arch machine (ansible, every role) |
+| `make wsl` | system half of Ubuntu on WSL2, then switch (re-runnable) |
+| `make clean` | build outputs, user-level nix garbage, AUR builds |
 | `make use-ssh` | switch origin remote (and submodules) from https to ssh |
-| `make arch` | ansible playbook, every role (host `ak`) |
-| `make ansible-check` | dry run of the playbook on this machine |
-| `make ansible-syntax` / `make lint` | playbook syntax check / ansible-lint |
-| `make test-arch` / `make dev-arch` | `ansible --check` inside the Arch container / a shell in it |
-| `make wsl` | the Ubuntu/WSL2 bootstrap (re-runnable) |
+
+Container test, dry runs and the like: `make -C home help`, `make -C system/Arch help`.
 
 ## Layout
 
