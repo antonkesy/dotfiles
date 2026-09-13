@@ -19,6 +19,7 @@
           - nvidia-container-toolkit
           - cuda
           - nvtop
+          - ollama-cuda # the ollama daemon comes from the desktop role
         state: present
 
     - name: Enable nvidia-persistenced
