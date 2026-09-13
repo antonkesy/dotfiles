@@ -37,7 +37,6 @@
   ];
 
   # Socket $XDG_RUNTIME_DIR/ssh-agent, which home/.config/zsh/path.zsh and
-  # ../setup's hyprland.lua export. On NixOS ../setup disables gcr-ssh-agent and does not
-  # start its own agent, so this unit is the only one.
+  # home/.config/hypr/hyprland.lua export.
   services.ssh-agent.enable = true;
 }

@@ -140,6 +140,6 @@
   ];
 
   # Android Studio's bundled SDK downloads need a writable dir.
-  # (CHROME_EXECUTABLE for flutter web is set by ../setup on desktop machines.)
+  # (CHROME_EXECUTABLE for flutter web is set in desktop.nix.)
   home.sessionVariables.ANDROID_HOME = "$HOME/Android/Sdk";
 }

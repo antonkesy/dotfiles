@@ -1,6 +1,5 @@
-# nixpkgs.config shared by the standalone Home Manager flake here and by the
-# NixOS flake in ../setup (which imports it as inputs.dotfiles.lib.nixpkgsConfig
-# because home-manager.useGlobalPkgs ignores nixpkgs.* set inside HM modules).
+# nixpkgs.config for the Home Manager flake (kept out of the modules so they
+# never set nixpkgs.* themselves, see lib/mkHome.nix).
 {
   allowUnfree = true;
   # dotnet SDK 6 and 7 are past end of life and nixpkgs marks them insecure.

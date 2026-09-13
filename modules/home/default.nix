@@ -1,6 +1,7 @@
-# The terminal environment, identical on NixOS, Arch and WSL. Everything that
-# depends on the distro (GUI apps, fonts, Hyprland/DMS config, drivers, CUDA)
-# lives in ../setup.
+# Everything under ~ on Arch and WSL: the terminal environment (packages and
+# dotfiles) plus the Hyprland/DMS config. Packages that need root, a daemon or
+# the GPU (drivers, the compositor stack, GUI apps) come from ../setup's
+# ansible.
 { ... }:
 {
   imports = [
@@ -8,6 +9,7 @@
     ./base.nix
     ./terminal.nix
     ./dotfiles.nix
+    ./desktop.nix
     ./nvim.nix
     ./git.nix
     ./development.nix

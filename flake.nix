@@ -1,5 +1,5 @@
 {
-  description = "antonkesy terminal environment (Home Manager, any Linux distro)";
+  description = "antonkesy home (Home Manager, any Linux distro)";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -20,24 +20,15 @@
     let
       system = "x86_64-linux";
 
-      nixpkgsConfig = import ./lib/nixpkgs-config.nix;
       pkgs = import nixpkgs {
         inherit system;
-        config = nixpkgsConfig;
+        config = import ./lib/nixpkgs-config.nix;
       };
 
       mkHome = import ./lib/mkHome.nix { inherit inputs pkgs; };
     in
     {
-      # Consumed by ../setup's NixOS flake: nixpkgs.config must be identical on
-      # both sides (useGlobalPkgs), and mkHome for anyone wanting to reuse it.
-      lib = { inherit nixpkgsConfig mkHome; };
-
-      # The whole terminal environment; ../setup imports it into
-      # home-manager.users.ak next to its own GUI modules.
-      homeModules.default = ./modules/home;
-
-      # home-manager switch --flake .#ak (Arch, WSL; on NixOS ../setup applies it)
+      # home-manager switch --flake .#ak (Arch, WSL)
       homeConfigurations.ak = mkHome;
 
       packages.${system} = {
