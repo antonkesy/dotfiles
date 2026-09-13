@@ -108,7 +108,6 @@ home/                            everything under ~, for every distro
   .config/, .zshrc, .tmux/ ...   the plain dotfiles it links into ~ (stow-style)
 system/Arch/                     archinstall.json, install.sh, bootstrap.sh, ansible/, docker/, manual/
 system/Ubuntu-26.04-WSL2/        bootstrap.sh
-scripts/use-ssh-remote.sh        make use-ssh
 ```
 
 ## Currently used with

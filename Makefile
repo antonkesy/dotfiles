@@ -23,6 +23,19 @@ clean:
 	$(MAKE) -C home clean
 	$(MAKE) -C system/Arch clean
 
+# Rewrite origin from https to ssh if it points at github.com/antonkesy/*; run
+# in this repo and, via submodule foreach, in every submodule.
+define use_ssh
+url=$$(git remote get-url origin 2>/dev/null) || exit 0; \
+case "$$url" in \
+https://github.com/antonkesy/*) \
+	repo=$${url#https://github.com/}; repo=$${repo%.git}; new=git@github.com:$$repo.git; \
+	git remote set-url origin "$$new"; echo "$$PWD: origin -> $$new" ;; \
+git@github.com:antonkesy/*) echo "$$PWD: origin already uses SSH" ;; \
+*) echo "$$PWD: origin is not an antonkesy/* GitHub URL: $$url" ;; \
+esac
+endef
+
 use-ssh:
-	@scripts/use-ssh-remote.sh
-	@git submodule foreach --recursive $(CURDIR)/scripts/use-ssh-remote.sh
+	@$(use_ssh)
+	@git submodule foreach --recursive --quiet '$(use_ssh)'
