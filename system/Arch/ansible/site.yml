@@ -33,6 +33,6 @@
       tags: [laptop]
     - role: containers
       tags: [containers]
-    # Last: installs nix, applies homeConfigurations.ak from the repo root (all of ~).
+    # Last: installs nix, applies homeConfigurations.ak from <repo>/home (all of ~).
     - role: nix
       tags: [nix, dotfiles]

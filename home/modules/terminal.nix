@@ -1,7 +1,7 @@
 # CLI/TUI tools. Everything that used to come from `cargo install`,
 # `go install`, `pipx install` or the AUR is a plain nixpkgs package here. The
 # configs (alacritty.toml, lazygit/config.yml, .tmux.conf, .zshrc + zsh
-# fragments) are the dotfiles under home/, linked by modules/home/dotfiles.nix
+# fragments) are the dotfiles under home/, linked by dotfiles.nix
 # -- not programs.* options. The alacritty binary itself is a GUI program and
 # comes from system/Arch on desktop machines.
 { pkgs, ... }:

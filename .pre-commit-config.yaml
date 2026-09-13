@@ -24,19 +24,19 @@ repos:
     rev: v3.13.1-1
     hooks:
       - id: shfmt
-  # Nix tooling comes from the flake itself, so pre-commit and `nix fmt` can
-  # never disagree and nothing gets rebuilt from cabal/cargo.
+  # Nix tooling comes from the flake itself (home/), so pre-commit and `nix fmt`
+  # can never disagree and nothing gets rebuilt from cabal/cargo.
   - repo: local
     hooks:
       - id: nixfmt
         name: nixfmt
-        entry: nix fmt --
+        entry: bash -c 'cd home && exec nix fmt --'
         language: system
         pass_filenames: false
         files: \.nix$
       - id: deadnix
         name: deadnix
-        entry: nix run --inputs-from . nixpkgs#deadnix -- --edit --no-lambda-pattern-names
+        entry: nix run --inputs-from ./home nixpkgs#deadnix -- --edit --no-lambda-pattern-names
         language: system
         files: \.nix$
       - id: ansible-lint

@@ -6,7 +6,7 @@ BECOME_FLAG := $(if $(filter 1,$(IN_DOCKER)),,--ask-become-pass)
 .PHONY: help galaxy arch ansible-check ansible-syntax lint test-arch dev-arch clean
 
 help:
-	@echo "Arch system half via ansible; the nix role ends in home-manager switch from the repo root:"
+	@echo "Arch system half via ansible; the nix role ends in home-manager switch from <repo>/home:"
 	@echo "  arch           - the playbook: every role, host ak"
 	@echo "  ansible-check  - dry run of the playbook on this machine"
 	@echo "  ansible-syntax - syntax-check the playbook"

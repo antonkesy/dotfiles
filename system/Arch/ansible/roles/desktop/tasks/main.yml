@@ -3,7 +3,7 @@
 # daemons behind it (PAM, session, system services, the GPU driver), plus the
 # wayland helpers, fonts and GUI apps that need the distro's GL stack. Nothing
 # here writes under ~: the hypr/DMS config, session variables and dark mode
-# come from the dotfiles flake (modules/home/desktop.nix), applied by the nix
+# come from the dotfiles flake (home/modules/desktop.nix), applied by the nix
 # role.
 
 - name: Desktop role is Arch only
