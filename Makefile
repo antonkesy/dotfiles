@@ -6,7 +6,7 @@ export NIX_CONFIG := experimental-features = nix-command flakes
 # before that, run it straight from this flake's pinned input.
 HM := $(shell command -v home-manager 2>/dev/null || echo "nix run $(FLAKE)\#home-manager --")
 
-.PHONY: help switch dry build check update fmt clean use-ssh
+.PHONY: help switch dry build check update clean use-ssh
 
 help:
 	@echo "switch      - build and activate homeConfigurations.ak"
@@ -14,7 +14,6 @@ help:
 	@echo "build       - build without activating"
 	@echo "check       - evaluate (nix flake check --no-build)"
 	@echo "update      - update flake inputs"
-	@echo "fmt         - format all nix files"
 	@echo "clean       - remove build outputs and collect user-level nix garbage"
 	@echo "use-ssh     - switch origin remote (and submodules) from https to ssh (github.com/antonkesy/*)"
 
@@ -34,9 +33,6 @@ check:
 
 update:
 	nix flake update
-
-fmt:
-	nix fmt
 
 clean:
 	rm -f result
