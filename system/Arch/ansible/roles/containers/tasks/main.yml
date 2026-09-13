@@ -1,5 +1,6 @@
 ---
-# Daemon and group only; docker-compose/buildx/lazydocker come from home-manager.
+# Daemon, group and VirtualBox (kernel modules) only; docker-compose/buildx/
+# lazydocker come from home-manager.
 - name: Install docker
   become: true
   ansible.builtin.package:
@@ -27,3 +28,12 @@
     groups: docker
     append: true
   when: not ansible_check_mode
+
+- name: Install VirtualBox
+  become: true
+  community.general.pacman:
+    name:
+      - virtualbox
+      - virtualbox-host-modules-arch
+    state: present
+  when: ansible_facts.os_family == 'Archlinux' and not is_container
