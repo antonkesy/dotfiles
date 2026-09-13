@@ -1,4 +1,4 @@
-exclude: ^(home/.config/nvim|home/.config/DankMaterialShell)
+exclude: ^home/.config/nvim
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0

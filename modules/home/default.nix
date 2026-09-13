@@ -1,3 +1,6 @@
+# The terminal environment, identical on NixOS, Arch and WSL. Everything that
+# depends on the distro (GUI apps, fonts, Hyprland/DMS config, drivers, CUDA)
+# lives in ../setup.
 { ... }:
 {
   imports = [
@@ -7,13 +10,8 @@
     ./dotfiles.nix
     ./nvim.nix
     ./git.nix
-    ./seed.nix
-    ./desktop.nix
-    ./fonts.nix
-    ./apps.nix
     ./development.nix
     ./containers.nix
-    ./nvidia.nix
   ];
 
   home.username = "ak";
