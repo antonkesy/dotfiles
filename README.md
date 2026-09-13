@@ -22,7 +22,8 @@ Every path clones this repo into `~/Projects/dotfiles` (load-bearing: home-manag
 **Arch**
 ```bash
 # phase 1, on the live ISO
-curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Arch/install.sh | bash
+curl -fsSLO https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Arch/archinstall.json
+archinstall --config archinstall.json
 # phase 2, after the reboot and first login
 curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Arch/bootstrap.sh | bash
 ```
@@ -60,7 +61,8 @@ exit
 # phase 1: archinstall with system/Arch/archinstall.json (GRUB, locale, NetworkManager,
 # zram, the packages phase 2 needs). Set Disk configuration (+ encryption) and
 # Authentication (root password, user ak with sudo) in the menu, then Install.
-curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Arch/install.sh | bash
+curl -fsSLO https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Arch/archinstall.json
+archinstall --config archinstall.json
 
 # reboot, pull the stick, log in as the new user
 

@@ -16,7 +16,8 @@ hashes in git. The hostname is always `ak`.
 
 ```bash
 iwctl station wlan0 connect <SSID>          # wifi, if needed
-curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Arch/install.sh | bash
+curl -fsSLO https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Arch/archinstall.json
+archinstall --config archinstall.json
 ```
 
 In the menu set *Disk configuration* and *Authentication* (root password, user
@@ -71,8 +72,7 @@ running Hyprland). Fingerprints: `fprintd-enroll`.
 ## Layout
 
 ```
-archinstall.json     archinstall answer file (phase 1)
-install.sh           live-ISO wrapper: fetches archinstall.json, runs archinstall --config
+archinstall.json     archinstall answer file (phase 1): download it on the live ISO, archinstall --config
 bootstrap.sh         phase 2: pacman prerequisites, clone this repo, make arch
 ansible/site.yml     one play, every role
 ansible/roles/       base, desktop, nvidia, laptop, containers, nix, aur_build
