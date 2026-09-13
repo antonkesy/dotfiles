@@ -1,5 +1,5 @@
 {
-  # Lives in home/ next to the dotfiles it links; `make switch` at the repo
+  # Lives in home/ next to the dotfiles it links; `make home` at the repo
   # root forwards to home/Makefile.
   description = "antonkesy home (Home Manager, any Linux distro)";
 

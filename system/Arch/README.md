@@ -54,7 +54,7 @@ alacritty, wayland helpers, fonts, GUI apps via pacman/AUR), `nvidia` (driver,
 container toolkit, cuda, nvtop), `laptop` (fprintd + PAM, power management, powertop,
 Dell tools), `containers` (docker daemon + group), and last `nix`: Determinate
 installer, then `nix run ~/Projects/dotfiles/home#home-manager -- switch --flake
-~/Projects/dotfiles/home#ak -b hm-bak` (what `make switch` at the repo root does;
+~/Projects/dotfiles/home#ak -b hm-bak` (what `make home` at the repo root does;
 everything under `~`, hypr/DMS config included).
 
 There is one host, `ak`, and no feature flags: every role runs on every machine

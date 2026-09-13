@@ -2,7 +2,7 @@
 
 The system half is small and needs no ansible: a few apt packages, zsh as the
 login shell and `/etc/wsl.conf`. Nix is installed **single-user** with the
-upstream script, so there is no nix-daemon to run, and `make switch` at the
+upstream script, so there is no nix-daemon to run, and `make home` at the
 repo root (home-manager from `home/`) takes over right after.
 
 ```bash
@@ -18,7 +18,7 @@ curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Ubun
    `wsl --shutdown` from Windows once the script is done
 4. `curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install | sh -s -- --no-daemon`
 5. clone this repo into `~/Projects/dotfiles` (load-bearing path)
-6. `make switch` (`nix run ./home#home-manager -- switch --flake ./home#ak -b hm-bak`)
+6. `make home` (`make -C home switch`: `nix run .#home-manager -- switch --flake .#ak -b hm-bak`)
 
 `make wsl` from the repo root runs the same script; it is safe to re-run. Log out
 and back in once afterwards for the session variables.

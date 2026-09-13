@@ -1,7 +1,7 @@
 #!/bin/bash
 # Ubuntu-26.04-WSL2: the small system half (apt, zsh as login shell,
 # /etc/wsl.conf), single-user nix (--no-daemon: no nix-daemon, no systemd
-# needed), then `make switch` from this repo owns everything under ~.
+# needed), then `make home` from this repo owns everything under ~.
 #
 #   curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Ubuntu-26.04-WSL2/bootstrap.sh | bash
 #   make wsl                                  # from a checkout (re-runnable)
@@ -43,6 +43,6 @@ git -C "$DOTFILES" submodule update --init --recursive
 # The root Makefile forwards to home/Makefile, which exports NIX_CONFIG (flakes)
 # and runs home-manager from the flake's pinned input when it is not on PATH yet.
 cd "$DOTFILES"
-make switch
+make home
 
 echo "Done. Log out and back in once for the session variables."
