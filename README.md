@@ -29,12 +29,25 @@ git clone --recursive https://github.com/antonkesy/dotfiles.git ~/Projects/dotfi
 cd ~/Projects/dotfiles && make switch
 ```
 
-### Manual Steps
+## Prerequisites
 
-tmux plugins install themselves on the first tmux start (needs network); `prefix + I`
-is only needed after adding a plugin to `.tmux.conf`.
+### Arch
 
-#### WSL
+Write the install ISO to a USB stick, boot and install following [TL;DR](#tldr):
+
+```bash
+# 1. download the latest ISO
+curl -LO https://geo.mirror.pkgbuild.com/iso/latest/archlinux-x86_64.iso
+
+# 2. find the stick -- pick the whole disk (e.g. sdX), not a partition (sdX1)
+lsblk -d -o NAME,SIZE,MODEL,TRAN
+
+# 3. make sure it is not mounted, then write the image
+sudo umount /dev/sdX* 2>/dev/null
+sudo dd if=archlinux-x86_64.iso of=/dev/sdX bs=4M status=progress oflag=sync
+```
+
+### WSL
 
 WSL needs `[boot] systemd=true` in `/etc/wsl.conf` for the user services (ssh-agent,
 gpg-agent); `setup`'s Ubuntu bootstrap writes it.
