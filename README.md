@@ -6,17 +6,11 @@
 
 _Trying to achieve the best reproducible setup for my personal and professional use_
 
-One repo, two halves:
+Automated setup for my various Linux machines:
 
-- **Home** (`home/`): everything under `~` as a
-  [Home Manager](https://github.com/nix-community/home-manager) flake -- the same `zsh`,
-  `tmux`, `nvim`, `git`, CLI tools and language toolchains on `Arch` and `Ubuntu(WSL2)`,
-  plus the Hyprland/DankMaterialShell config (linked everywhere, used on the desktops).
-- **System** (`system/<Distro>/`): what needs root. On Arch an `archinstall` answer file
-  and an ansible playbook (packages, drivers, daemons, PAM, the login session, GUI apps --
-  one host, `ak`, everything installed everywhere);
-  on Ubuntu/WSL2 a short bootstrap script (apt, `/etc/wsl.conf`, single-user nix). Both
-  end by running `make switch` from this checkout.
+- **Home** (`home/`):
+  Uses [Home Manager](https://github.com/nix-community/home-manager) to create me a reproducible terminal for my use on Arch and WSL2.
+- **System** (`system/<Distro>/`): Automatically installs system specific packages.
 
 <img src="./docs/images/preview.png" width="800">
 
@@ -98,24 +92,12 @@ gpg-agent); `system/Ubuntu-26.04-WSL2/bootstrap.sh` writes it once, then run
 | `make clean` | build outputs, user-level nix garbage, AUR builds |
 | `make use-ssh` | switch origin remote (and submodules) from https to ssh |
 
-Container test, dry runs and the like: `make -C home help`, `make -C system/Arch help`.
-
-## Layout
-
-```
-home/                            everything under ~, for every distro
-  flake.nix, lib/, modules/      Home Manager flake: homeConfigurations.ak
-  .config/, .zshrc, .tmux/ ...   the plain dotfiles it links into ~ (stow-style)
-system/Arch/                     archinstall.json, install.sh, bootstrap.sh, ansible/, docker/, manual/
-system/Ubuntu-26.04-WSL2/        bootstrap.sh
-```
-
 ## Currently used with
 
 - Arch / Ubuntu on WSL
-- [tmux](https://github.com/tmux/tmux/wiki) + zsh + [powerlevel10k](https://github.com/romkatv/powerlevel10k)
+- [tmux](https://github.com/tmux/tmux/wiki) + [zsh](https://www.zsh.org/) + [powerlevel10k](https://github.com/romkatv/powerlevel10k)
 - [LazyVim](http://lazyvim.org/)
-- [Hyprland](https://hyprland.org/) + [DankMaterialShell](https://danklinux.com/) -- installed by `system/Arch`'s ansible, configured here
+- [Hyprland](https://hyprland.org/) + [DankMaterialShell](https://danklinux.com/)
 
 ## Workarounds
 
