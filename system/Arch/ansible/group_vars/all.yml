@@ -1,13 +1,6 @@
 ---
-# One host, ak, everything on: the roles install packages and the system half
-# (pacman/AUR, systemd, PAM); the nix role then applies everything under ~
-# (homeConfigurations.ak from the flake in <repo>/home, hypr/DMS config
-# included).
-
-# This playbook lives at <repo>/system/Arch/ansible; the flake is <repo>/home.
-# It has to be ~/Projects/dotfiles (ak.dotfilesDir); the nix role asserts it.
+# Must be ~/Projects/dotfiles (ak.dotfilesDir); the nix role asserts it.
 dotfiles_dir: "{{ playbook_dir | dirname | dirname | dirname }}"
 
-# Docker-based tests: no systemd, no kernel modules, no PAM edits.
-# virtualization_type is undefined when no virtualisation is detected.
+# Docker tests: no systemd, no kernel modules, no PAM edits.
 is_container: "{{ (ansible_facts.virtualization_type | default('')) in ['docker', 'container', 'podman'] }}"

@@ -1,5 +1,4 @@
-# Entry points only. home/ (everything under ~, every distro) and
-# system/<Distro> (what needs root) have their own Makefiles for the rest.
+# Entry points only; home/ and system/<Distro> have their own Makefiles.
 .PHONY: help home arch wsl clean use-ssh
 
 help:
@@ -23,8 +22,7 @@ clean:
 	$(MAKE) -C home clean
 	$(MAKE) -C system/Arch clean
 
-# Rewrite origin from https to ssh if it points at github.com/antonkesy/*; run
-# in this repo and, via submodule foreach, in every submodule.
+# https -> ssh for github.com/antonkesy/*, here and in every submodule.
 define use_ssh
 url=$$(git remote get-url origin 2>/dev/null) || exit 0; \
 case "$$url" in \

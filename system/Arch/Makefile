@@ -1,5 +1,5 @@
 REPO_ROOT := $(abspath ../..)
-# ansible-galaxy first: the play needs community.general (requirements.yml).
+# ansible-galaxy first: the play needs community.general.
 PLAYBOOK := cd ansible && ansible-galaxy collection install -r requirements.yml && ansible-playbook site.yml
 BECOME_FLAG := $(if $(filter 1,$(IN_DOCKER)),,--ask-become-pass)
 
@@ -24,8 +24,7 @@ dry:
 lint:
 	cd ansible && ansible-lint
 
-# Build context is the repo root (trimmed by /.dockerignore): the image copies
-# it to ~/Projects/dotfiles and runs `make dry` from this directory.
+# Build context is the repo root; the image copies it to ~/Projects/dotfiles.
 test:
 	docker build -f docker/Arch.Dockerfile --target ci -t dotfiles-test-arch $(REPO_ROOT)
 	docker run --rm dotfiles-test-arch make -C system/Arch dry IN_DOCKER=1
@@ -34,6 +33,6 @@ dev:
 	docker build -f docker/Arch.Dockerfile --target dev -t dotfiles-dev-arch $(REPO_ROOT)
 	docker run --rm -it -v $(REPO_ROOT):/home/ak/Projects/dotfiles dotfiles-dev-arch bash
 
-# AUR builds (roles/aur_build, build_dir = playbook_dir/../build) land here.
+# AUR builds land here.
 clean:
 	rm -rf build

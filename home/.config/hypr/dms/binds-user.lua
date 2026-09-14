@@ -1,4 +1,4 @@
--- Optional user keybind overrides.-- Optional per-user keybind overrides (managed by DMS). Loaded after default binds.
+-- User keybind overrides; loaded after binds.lua.
 ---@module 'hl'
 
 local mod = "SUPER"
@@ -68,10 +68,8 @@ hl.window_rule({
 })
 
 -- === Move compelete workspace to Monitor ===
--- ponytail: still commented out on purpose -- binds.lua already owns
--- SUPER+CTRL+SHIFT+{arrows,HJKL} for "move *window* to monitor". Uncommenting
--- these steals all 8 binds (binds-user loads last) and turns them into
--- "move *workspace* to monitor". Syntax below is correct for 0.56, pick one.
+-- Off on purpose: binds.lua already owns these 8 keys for "move window to
+-- monitor"; enabling this steals them.
 -- for dir, keys in pairs({ l = { "left", "H" }, r = { "right", "L" }, u = { "up", "K" }, d = { "down", "J" } }) do
 --     for _, key in ipairs(keys) do
 --         hl.bind(mod .. " + CTRL + SHIFT + " .. key, hl.dsp.workspace.move({ monitor = dir }))

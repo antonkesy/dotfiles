@@ -112,27 +112,16 @@ chmod 600 ~/.ssh/<key>
 
 ### DMS does not start after login
 
-DankMaterialShell runs as `dms.service`, the user unit that `dms-shell` ships;
-`home/modules/desktop.nix` enables it against `graphical-session.target`, and
-**uwsm** is what brings that target up. So check in this order:
+DMS runs as `dms.service`, which uwsm pulls in via `graphical-session.target`.
 
 ```bash
-systemctl --user is-active graphical-session.target   # must be active
+systemctl --user is-active graphical-session.target   # inactive -> not a uwsm session
 systemctl --user status dms.service
 journalctl --user -u dms.service -b
 ```
 
-If the target is `inactive`, the session did not go through uwsm -- check
-`/etc/greetd/config.toml` and that no session other than the uwsm one was picked
-at the greeter.
-
-On a machine that still has the AUR package `dms` installed (an unrelated UPnP
-DLNA server that this repo used to pull in by mistake), remove it before
-`make arch` -- both own `/usr/bin/dms` and pacman aborts on the file conflict:
-
-```bash
-sudo pacman -Rns dms
-```
+The AUR package `dms` is a DLNA server, not DankMaterialShell, and owns the same
+`/usr/bin/dms`. If it is still installed, `sudo pacman -Rns dms` before `make arch`.
 
 ### Rolling back
 

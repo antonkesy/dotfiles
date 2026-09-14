@@ -1,24 +1,6 @@
-# The Hyprland + DankMaterialShell config under home/.config, and the
-# user-level session bits that go with it. No packages: the compositor, DMS
-# and every GUI app come from the distro via system/Arch's ansible. Applied on
-# every machine (WSL too, where it is simply unused) so that all of ~ comes
-# from one place.
-#
-# Three tiers, because DankMaterialShell rewrites its own config at runtime:
-#   linked  - out-of-store symlinks into the checkout (edits apply with
-#             `hyprctl reload`). ~/.config/hypr is linked file by file on
-#             purpose: the directory must stay a real, writable one so DMS can
-#             generate colors/outputs/layout/cursor/binds.lua next to the
-#             hand-written files.
-#   seeded  - copied once when absent, then owned by DMS/discord. Live state
-#             always wins; delete the file and switch again to re-apply the
-#             repo version.
-#   left alone - machine-specific state (DankMaterialShell/monitors.json,
-#             hypr/dms/{outputs,cursor}.lua, hypr/dms/profiles/), gitignored
-#             under home/.config and never declared here.
-#
-# Plus one systemd enablement symlink (graphical-session.target.wants/dms.service):
-# DMS autostart, replacing the `dms run` that hyprland.lua used to exec.
+# Hyprland + DMS config. Packages come from system/Arch.
+# DMS rewrites its own config, hence: linked (file by file, so ~/.config/hypr
+# stays writable), seeded (copy once, live state wins), or left alone.
 {
   config,
   lib,
@@ -45,8 +27,7 @@ let
     "task-manager-scratchpad"
   ];
 
-  # rel under ~/.config -> source: null = the same rel in the checkout,
-  # otherwise the literal content.
+  # null = same rel in the checkout, else literal content
   seeds = {
     "DankMaterialShell/settings.json" = null;
     "DankMaterialShell/clsettings.json" = null;
@@ -54,12 +35,11 @@ let
     "hypr/dms/binds.lua" = null;
     "hypr/dms/colors.lua" = null;
     "hypr/dms/layout.lua" = null;
-    # Discord rewrites the file itself (window geometry etc.).
+    # discord rewrites this itself
     "discord/settings.json" = ''
       { "SKIP_HOST_UPDATE": true }
     '';
-    # Zero-byte marker: skips the DMS onboarding wizard that would otherwise
-    # sit in front of the seeded settings.
+    # marker: skip the DMS onboarding wizard
     "DankMaterialShell/.firstlaunch" = "";
   };
 
@@ -82,13 +62,8 @@ in
       source = link rel;
     })
     // {
-      # Exactly what `systemctl --user enable dms.service` writes. The unit body
-      # stays the distro's (dms-shell ships /usr/lib/systemd/user/dms.service);
-      # only the enablement is ours. It is WantedBy=graphical-session.target,
-      # which uwsm activates -- hence the uwsm session entry in system/Arch.
-      # mkOutOfStoreSymlink rather than a path literal: nothing under /usr is read
-      # at eval time, so this still evaluates on WSL and in CI, where dms-shell is
-      # not installed.
+      # `systemctl --user enable dms.service`, declaratively. Out-of-store so
+      # /usr is not read at eval time (WSL, CI).
       "systemd/user/graphical-session.target.wants/dms.service".source =
         config.lib.file.mkOutOfStoreSymlink "/usr/lib/systemd/user/dms.service";
     };
@@ -97,18 +72,14 @@ in
     lib.concatStringsSep "\n" (lib.mapAttrsToList seed seeds)
   );
 
-  # environment.d, read by the systemd user manager and therefore by uwsm,
-  # Hyprland and every user unit. dms.service is started by systemd now, so
-  # anything DMS needs belongs here: hl.env() in hyprland.lua only reaches
-  # Hyprland's own children.
+  # environment.d; dms.service needs these, hl.env() would not reach it
   systemd.user.sessionVariables = {
-    GTK_THEME = "Adwaita"; # Ubuntu theme on nautilus
-    DMS_DISABLE_MATUGEN = "1"; # no theme generation from dms
+    GTK_THEME = "Adwaita";
+    DMS_DISABLE_MATUGEN = "1";
   };
 
-  # GTK apps follow the dark scheme.
   dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
 
-  # flutter web; google-chrome comes from the AUR via system/Arch.
+  # flutter web
   home.sessionVariables.CHROME_EXECUTABLE = "/usr/bin/google-chrome-stable";
 }

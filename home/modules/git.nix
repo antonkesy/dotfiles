@@ -1,10 +1,9 @@
-# git with signed commits, plus the gpg agent that makes signing work.
+# git with signed commits + the gpg agent behind it.
 { lib, pkgs, ... }:
 {
   programs.gpg.enable = true;
   services.gpg-agent = {
     enable = true;
-    # Terminal default; works on WSL as well as inside a Hyprland session.
     pinentry.package = lib.mkDefault pkgs.pinentry-curses;
   };
 

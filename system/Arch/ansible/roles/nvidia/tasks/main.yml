@@ -7,7 +7,7 @@
 - name: Arch NVIDIA
   when: ansible_facts.os_family == 'Archlinux'
   block:
-    # home/.config/zsh/nvidia.zsh in dotfiles already puts /opt/cuda/bin in PATH.
+    # zsh/nvidia.zsh already puts /opt/cuda/bin in PATH
     - name: Install driver, container toolkit and CUDA
       become: true
       community.general.pacman:

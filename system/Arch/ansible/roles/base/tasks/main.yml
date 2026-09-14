@@ -20,8 +20,7 @@
     name: en_US.UTF-8
     state: present
 
-# The distro zsh stays the login shell (no /etc/shells edits, still works if
-# nix is unavailable); it runs the same .zshrc that home-manager links.
+# Distro zsh as login shell: works even without nix, same .zshrc.
 - name: Make zsh the login shell
   become: true
   ansible.builtin.user:
@@ -44,8 +43,7 @@
       - debtap
   when: ansible_facts.os_family == 'Archlinux'
 
-# archinstall installs GRUB (archinstall.json: bootloader Grub); this owns its
-# config afterwards. The previous file is kept as a timestamped backup.
+# archinstall installs GRUB; this owns its config afterwards.
 - name: Install /etc/default/grub
   become: true
   ansible.builtin.copy:

@@ -1,10 +1,6 @@
 ---
-# Packages and system configuration only: the compositor stack and the
-# daemons behind it (PAM, session, system services, the GPU driver), plus the
-# wayland helpers, fonts and GUI apps that need the distro's GL stack. Nothing
-# here writes under ~: the hypr/DMS config, session variables and dark mode
-# come from the dotfiles flake (home/modules/desktop.nix), applied by the nix
-# role.
+# Packages and system config only; nothing here writes under ~
+# (that is home/modules/desktop.nix).
 
 - name: Desktop role is Arch only
   ansible.builtin.debug:
@@ -14,7 +10,7 @@
 - name: Arch desktop
   when: ansible_facts.os_family == 'Archlinux'
   block:
-    # steam (and lib32-*) live in multilib, which Arch ships disabled.
+    # steam and lib32-* need multilib, which Arch ships disabled
     - name: Enable the multilib repository
       become: true
       ansible.builtin.blockinfile:
@@ -40,10 +36,8 @@
           - hyprland
           - hyprland-protocols
           - uwsm
-          # DankMaterialShell; in extra since 1.6 (the AUR `dms` is an unrelated
-          # DLNA server that also owns /usr/bin/dms). dms-shell-hyprland satisfies
-          # dms-shell's dms-shell-compositor dep; quickshell comes along as a
-          # dependency. dms.service is enabled from home/modules/desktop.nix.
+          # DankMaterialShell. Not the AUR `dms`: that is a DLNA server.
+          # dms.service is enabled from home/modules/desktop.nix.
           - dms-shell
           - dms-shell-hyprland
           - hyprlock
@@ -95,12 +89,12 @@
           - intel-media-driver
         state: present
 
-    # GUI user half; config for these lives in dotfiles (home/.config).
+    # config for these lives in home/.config
     - name: Install wayland helpers, fonts and GUI apps
       become: true
       community.general.pacman:
         name:
-          # --- terminal emulator (config: home/.config/alacritty in dotfiles) ---
+          # --- terminal emulator ---
           - alacritty
           # --- hyprland ecosystem ---
           - awww
@@ -214,10 +208,8 @@
           vt = 1
 
           [default_session]
-          # --cmd, not --remember-session: the session must be the uwsm-managed
-          # entry every time. uwsm activates graphical-session.target, which is
-          # what starts dms.service (enabled in home/modules/desktop.nix). The
-          # plain "Hyprland" entry stays in tuigreet's menu as an escape hatch.
+          # --cmd, not --remember-session: uwsm activates
+          # graphical-session.target, which starts dms.service.
           command = "tuigreet --time --remember --asterisks --cmd 'uwsm start -e -D Hyprland hyprland.desktop'"
           user = "greeter"
 

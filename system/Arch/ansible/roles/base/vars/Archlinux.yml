@@ -1,7 +1,5 @@
 ---
-# base-devel: makepkg for the AUR builds; git/curl: bootstrap + nix installer.
-# Everything else here only makes sense as root or is kernel/firmware-coupled;
-# user-level CLI tools come from home-manager (home/modules/base.nix).
+# Root-only or kernel/firmware-coupled. CLI tools: home/modules/base.nix.
 base_packages:
   - base-devel
   - git

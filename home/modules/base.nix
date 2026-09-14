@@ -1,5 +1,4 @@
-# Always on: every user-level CLI tool, on every distro. Filesystem tools,
-# firmware, daemons and anything that only works as root stay in system/Arch (ansible).
+# Always on, every distro. Anything needing root is in system/Arch.
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
@@ -36,7 +35,6 @@
     acpi
   ];
 
-  # Socket $XDG_RUNTIME_DIR/ssh-agent, which home/.config/zsh/path.zsh and
-  # home/.config/hypr/hyprland.lua export.
+  # socket $XDG_RUNTIME_DIR/ssh-agent; zsh/path.zsh and hyprland.lua export it
   services.ssh-agent.enable = true;
 }

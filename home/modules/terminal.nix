@@ -1,13 +1,9 @@
-# CLI/TUI tools. Everything that used to come from `cargo install`,
-# `go install`, `pipx install` or the AUR is a plain nixpkgs package here. The
-# configs (alacritty.toml, lazygit/config.yml, .tmux.conf, .zshrc + zsh
-# fragments) are the dotfiles under home/, linked by dotfiles.nix
-# -- not programs.* options. The alacritty binary itself is a GUI program and
-# comes from system/Arch on desktop machines.
+# CLI/TUI tools. Their configs are the dotfiles under home/, linked by
+# dotfiles.nix, not programs.* options.
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    # --- replacements for the cargo-installed tools ---
+    # --- rust ---
     ripgrep
     fd
     procs
@@ -16,7 +12,7 @@
     typos
     lychee
 
-    # --- go install -> nixpkgs ---
+    # --- go ---
     lazygit
 
     # --- cli ---
@@ -32,7 +28,7 @@
     libzint # `zint` throws on eval; this ships the CLI
     claude-code
 
-    # --- pipx -> nixpkgs ---
+    # --- python ---
     gdown
     yt-dlp
     pre-commit

@@ -7,7 +7,7 @@
 - name: Arch laptop
   when: ansible_facts.os_family == 'Archlinux'
   block:
-    # powertop and cctk only work as root, hence pacman rather than home-manager.
+    # root-only, hence pacman
     - name: Install fingerprint and power management
       become: true
       community.general.pacman:

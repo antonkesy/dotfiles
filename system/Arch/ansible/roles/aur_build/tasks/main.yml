@@ -1,7 +1,5 @@
 ---
-# Builds AUR packages with git + makepkg (no yay/paru). Revived from the
-# old Arch-only setup; only proprietary/-bin apps and a few Dell tools still
-# need it.
+# git + makepkg, no yay/paru.
 - name: Set build directory
   ansible.builtin.set_fact:
     build_dir: "{{ playbook_dir }}/../build"

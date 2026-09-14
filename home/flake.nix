@@ -1,6 +1,4 @@
 {
-  # Lives in home/ next to the dotfiles it links; `make home` at the repo
-  # root forwards to home/Makefile.
   description = "antonkesy home (Home Manager, any Linux distro)";
 
   inputs = {
@@ -42,8 +40,7 @@
 
       formatter.${system} = pkgs.nixfmt-tree;
 
-      # `nix flake check` builds the activation package; CI only evaluates and
-      # dry-builds (see ../.github/workflows/nix.yml).
+      # CI only evaluates and dry-builds (../.github/workflows/nix.yml)
       checks.${system}.ak = self.homeConfigurations.ak.activationPackage;
     };
 }

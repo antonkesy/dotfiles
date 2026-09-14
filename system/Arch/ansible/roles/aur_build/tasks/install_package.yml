@@ -23,9 +23,7 @@
   changed_when: false
   when: package_installed.rc != 0
 
-# makepkg -s would call sudo interactively; install repo deps with become
-# instead. Deps that are themselves AUR packages must be listed before this
-# one in aur_packages.
+# makepkg -s would sudo interactively. AUR deps must come earlier in aur_packages.
 - name: Install repo dependencies - {{ package_name }}
   become: true
   community.general.pacman:

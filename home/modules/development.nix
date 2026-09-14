@@ -1,7 +1,4 @@
-# Language toolchains and build tools. Deliberately gone since the ansible
-# days: ghcup, opam init, SDKMAN, rustup's mutable toolchain dir, pipx,
-# `luarocks install` as root, `go install ...@latest` -- nixpkgs pins instead.
-# `perf` is kernel-coupled and stays on the system side.
+# Language toolchains and build tools. `perf` is kernel-coupled: system side.
 { lib, pkgs, ... }:
 {
   home.packages = with pkgs; [
@@ -29,8 +26,7 @@
     (lib.lowPrio gotools) # its bin/bundle loses to ruby's bundler
 
     # --- rust ---
-    # rustup rather than a pinned rustc: `cargo-update` and the old
-    # ~/.cargo/bin workflow both expect a toolchain manager.
+    # rustup, not a pinned rustc: cargo-update expects a toolchain manager
     rustup
     cargo-update
     libgit2
@@ -40,8 +36,7 @@
 
     # --- java ---
     jdk21
-    # buildEnv refuses colliding files (man pages, jstatd...) unless one side
-    # has lower priority; jdk21 wins in PATH, jdk8 is still there for IDEs.
+    # jdk21 wins in PATH, jdk8 stays for IDEs (buildEnv collision)
     (lib.lowPrio jdk8)
     maven
     gradle
@@ -78,8 +73,7 @@
       dotnetCorePackages.sdk_9_0
     ])
 
-    # --- c / c++ --- (gcc is `cc`; clang's ar/ld/c++ wrappers yield to it.
-    # nixpkgs' gcc wrapper already sits at priority 10, so plain lowPrio ties.)
+    # --- c / c++ --- (gcc is `cc`; clang's wrappers yield to it)
     gcc
     (lib.setPrio 20 clang)
     clang-tools
@@ -132,14 +126,12 @@
     android-tools
   ];
 
-  # What NixOS' documentation.dev.enable used to add system-wide: man 3 pages
-  # and developer docs for the libraries above.
+  # man 3 pages and dev docs for the libraries above
   home.extraOutputsToInstall = [
     "devman"
     "devdoc"
   ];
 
-  # Android Studio's bundled SDK downloads need a writable dir.
-  # (CHROME_EXECUTABLE for flutter web is set in desktop.nix.)
+  # Android Studio's SDK downloads need a writable dir
   home.sessionVariables.ANDROID_HOME = "$HOME/Android/Sdk";
 }
