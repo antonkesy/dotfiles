@@ -12,5 +12,5 @@ hyprpm update
 hyprpm list | grep -q dynamic-cursors || yes | hyprpm add https://github.com/virtcode/hypr-dynamic-cursors
 hyprpm enable dynamic-cursors
 if [ -n "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]; then
-    hyprpm reload
+	hyprpm reload
 fi
