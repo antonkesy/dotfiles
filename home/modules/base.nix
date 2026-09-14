@@ -35,6 +35,6 @@
     acpi
   ];
 
-  # socket $XDG_RUNTIME_DIR/ssh-agent; zsh/path.zsh and hyprland.lua export it
-  services.ssh-agent.enable = true;
+  # No services.ssh-agent: gpg-agent serves the ssh socket as well (git.nix),
+  # so one pam_gnupg preset at login unlocks the signing key and the ssh keys.
 }

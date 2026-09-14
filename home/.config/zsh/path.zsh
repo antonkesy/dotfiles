@@ -8,7 +8,10 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/local/bin:$PATH"
 export PATH="$HOME/.nix-profile/bin:$PATH"
 
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent"
+# gpg-agent is the ssh-agent (git.nix), so this is its socket -- the path
+# `gpgconf --list-dirs agent-ssh-socket` prints, hardcoded to keep the shell
+# startup free of a gpg call.
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh"
 
 # pinentry-curses (git.nix) prompts on this tty; without it signing dies with
 # "Inappropriate ioctl for device". updatestartuptty re-points an agent that a
