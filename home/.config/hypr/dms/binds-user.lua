@@ -1,17 +1,19 @@
 -- User keybind overrides; loaded after binds.lua.
+-- Hyprland keeps every hl.bind() for a key, it does not replace, so a key
+-- binds.lua already owns needs hl.unbind() first or both fire.
+-- Nothing here may duplicate a binds.lua default: DMS regenerates that file
+-- on version upgrades and this one must not depend on its contents.
 ---@module 'hl'
 
 local mod = "SUPER"
 
-hl.bind(mod .. " + " .. "T", hl.dsp.exec_cmd("alacritty"))
 hl.bind(mod .. " + " .. "E", hl.dsp.exec_cmd("nautilus"))
 hl.bind(mod .. " + " .. "B", hl.dsp.exec_cmd("google-chrome-stable --ozone-platform=wayland"))
-hl.bind(mod .. " + " .. "P", hl.dsp.exec_cmd("~/.config/hypr/scripts/kill-menu.sh"))
-hl.bind(mod .. " + " .. "space", hl.dsp.exec_cmd("dms ipc call spotlight toggle"))
-hl.bind(mod .. " + " .. "V", hl.dsp.exec_cmd("dms ipc call clipboard toggle"))
-hl.bind(mod .. " + " .. "comma", hl.dsp.exec_cmd("dms ipc call settings focusOrToggle"))
-hl.bind(mod .. " + " .. "N", hl.dsp.exec_cmd("dms ipc call notifications toggle"))
 hl.bind("SUPER" .. " + " .. "D", hl.dsp.exec_cmd("wayscriber --active"))
+
+-- binds.lua: outputs cycleProfile
+hl.unbind(mod .. " + " .. "P")
+hl.bind(mod .. " + " .. "P", hl.dsp.exec_cmd("~/.config/hypr/scripts/kill-menu.sh"))
 
 -- Scratchpad discord
 hl.bind(mod .. " + " .. "SHIFT" .. " + " .. "D", hl.dsp.exec_cmd("~/.config/hypr/scripts/discord-scratchpad.sh"))
@@ -35,6 +37,8 @@ hl.window_rule({
 
 -- Task Manager
 
+-- binds.lua: dpms toggle
+hl.unbind(mod .. " + " .. "SHIFT" .. " + " .. "P")
 hl.bind(mod .. " + " .. "SHIFT" .. " + " .. "P", hl.dsp.exec_cmd("~/.config/hypr/scripts/task-manager-scratchpad.sh"))
 hl.window_rule({
     name  = "workspace_special_mi",
@@ -77,11 +81,9 @@ hl.window_rule({
 -- end
 
 -- === Screenshots ===
+-- binds.lua already owns Print / CTRL+Print / ALT+Print; these are the SUPER aliases
 hl.bind(mod .. " + " .. "S", hl.dsp.exec_cmd("dms screenshot"))
-hl.bind("Print", hl.dsp.exec_cmd("dms screenshot"))
 hl.bind(mod .. " + " .. "SHIFT" .. " + " .. "S", hl.dsp.exec_cmd("dms screenshot full"))
-hl.bind("CTRL" .. " + " .. "Print", hl.dsp.exec_cmd("dms screenshot full"))
-hl.bind("ALT" .. " + " .. "Print", hl.dsp.exec_cmd("dms screenshot window"))
 
 -- === System Controls ===
 hl.bind(mod .. " + " .. "Escape", hl.dsp.exec_cmd("dms ipc call powermenu toggle"))

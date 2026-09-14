@@ -93,9 +93,10 @@ hl.on("hyprland.start", function()
 end)
 
 require("dms.colors")
-require("dms.outputs")
+-- DMS writes these two per machine; gitignored, so absent on a fresh clone
+pcall(require, "dms.outputs")
 require("dms.layout")
-require("dms.cursor")
+pcall(require, "dms.cursor")
 require("dms.binds")
 require("dms.binds-user")
 require("dms.windowrules")

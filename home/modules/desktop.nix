@@ -1,6 +1,7 @@
 # Hyprland + DMS config. Packages come from system/Arch.
-# DMS rewrites its own config, hence: linked (file by file, so ~/.config/hypr
-# stays writable), seeded (copy once, live state wins), or left alone.
+# DMS rewrites its own config and invents files as it goes, so its two dirs are
+# linked whole and their .gitignore keeps the machine-local ones out. ~/.config/hypr
+# itself stays a real dir (DMS drops .dms-backups/ there); seeds are copy-once.
 {
   config,
   lib,
@@ -14,8 +15,10 @@ let
   linked = [
     "hypr/hyprland.lua"
     "hypr/plugins.lua"
-    "hypr/dms/binds-user.lua"
-    "hypr/dms/windowrules.lua"
+    # whole dirs: DMS owns binds/colors/layout/windowrules, writes binds-user
+    # from its settings GUI, and adds files per machine and per version
+    "hypr/dms"
+    "DankMaterialShell"
     "wallpapers"
   ]
   ++ map (s: "hypr/scripts/${s}.sh") [
@@ -27,19 +30,12 @@ let
     "task-manager-scratchpad"
   ];
 
-  # null = same rel in the checkout, else literal content
   seeds = {
-    "DankMaterialShell/settings.json" = null;
-    "DankMaterialShell/clsettings.json" = null;
-    "DankMaterialShell/plugin_settings.json" = null;
-    "hypr/dms/binds.lua" = null;
-    "hypr/dms/colors.lua" = null;
-    "hypr/dms/layout.lua" = null;
     # discord rewrites this itself
     "discord/settings.json" = ''
       { "SKIP_HOST_UPDATE": true }
     '';
-    # marker: skip the DMS onboarding wizard
+    # marker: skip the DMS onboarding wizard; lands in the checkout, gitignored
     "DankMaterialShell/.firstlaunch" = "";
   };
 
@@ -47,7 +43,7 @@ let
     rel: content:
     let
       target = "${config.xdg.configHome}/${rel}";
-      src = if content == null then "${dotfiles}/${rel}" else pkgs.writeText (baseNameOf rel) content;
+      src = pkgs.writeText (baseNameOf rel) content;
     in
     ''
       if [ ! -e "${target}" ]; then
