@@ -2,5 +2,17 @@
   "dockerManager": {
     "enabled": true,
     "groupByCompose": false
+  },
+  "dankTranslate": {
+    "enabled": true
+  },
+  "displayOutput": {
+    "enabled": true
+  },
+  "emojiLauncher": {
+    "enabled": true
+  },
+  "claudeCodeUsage": {
+    "enabled": true
   }
 }

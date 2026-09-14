@@ -97,6 +97,17 @@ wsl
 - [LazyVim](http://lazyvim.org/)
 - [Hyprland](https://hyprland.org/) + [DankMaterialShell](https://danklinux.com/)
 
+## DMS plugins
+
+`home/.config/DankMaterialShell/plugins.lock.json` pins every plugin to a commit and
+is tracked; the clones under `plugins/` are gitignored. `make home` re-clones the
+ones a machine is missing, and `plugin_settings.json` / `settings.json` enable them.
+
+```bash
+dms plugins install <id>   # or the DMS settings GUI; rewrites the lockfile
+dms plugins update         # then commit the lockfile
+```
+
 ## Workarounds & Possible Fixes
 
 ### `gcr-ssh-agent` spamming processes at 99% CPU

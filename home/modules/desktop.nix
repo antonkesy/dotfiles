@@ -68,6 +68,23 @@ in
     lib.concatStringsSep "\n" (lib.mapAttrsToList seed seeds)
   );
 
+  # DMS plugins are git clones under DankMaterialShell/plugins, gitignored; the
+  # tracked plugins.lock.json pins them and DMS rewrites it on install/update.
+  # Re-clone whatever this machine is missing (fresh install), never on a switch
+  # that has them all. plugin_settings.json and settings.json carry "enabled".
+  home.activation.restoreDmsPlugins = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+    dms_dir="${config.xdg.configHome}/DankMaterialShell"
+    if command -v dms > /dev/null && [ -f "$dms_dir/plugins.lock.json" ]; then
+      for id in $(${pkgs.jq}/bin/jq -r '.plugins | keys[]' "$dms_dir/plugins.lock.json"); do
+        if [ ! -d "$dms_dir/plugins/$id" ]; then
+          # network: a machine that is offline here can rerun `make home`
+          run dms plugins restore "$dms_dir/plugins.lock.json" || true
+          break
+        fi
+      done
+    fi
+  '';
+
   # environment.d; dms.service needs these, hl.env() would not reach it
   systemd.user.sessionVariables = {
     GTK_THEME = "Adwaita";

@@ -1,3 +1,5 @@
 .firstlaunch
 .changelog-*
 monitors.json
+# plugin checkouts (nested git clones); plugins.lock.json pins them instead
+plugins/
