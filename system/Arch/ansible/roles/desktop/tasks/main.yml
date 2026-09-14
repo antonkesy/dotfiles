@@ -36,9 +36,7 @@
           - hyprland
           - hyprland-protocols
           - uwsm
-          # DankMaterialShell. Not the AUR `dms`: that is a DLNA server.
-          # dms.service is enabled from home/modules/desktop.nix.
-          - dms-shell
+          - dms-shell-hyprland
           - hyprlock
           - hypridle
           - xdg-desktop-portal-hyprland
