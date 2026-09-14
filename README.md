@@ -150,12 +150,6 @@ yay on its own. Remove it first and let ansible build it again:
 sudo pacman -Rns yay && make arch
 ```
 
-### Rolling back
-
-```bash
-home-manager generations          # pick one, run its activate script
-```
-
 ### WSL Install Not Working
 
 If you get:
