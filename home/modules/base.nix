@@ -34,7 +34,4 @@
     lm_sensors
     acpi
   ];
-
-  # No services.ssh-agent: gpg-agent serves the ssh socket as well (git.nix),
-  # so one pam_gnupg preset at login unlocks the signing key and the ssh keys.
 }

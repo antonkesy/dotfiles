@@ -48,12 +48,10 @@ curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Arch
 
 # after reboot final (manual) steps
 hyprpm update
-
-# hand every ssh key to gpg-agent once, so the login password unlocks it
-# from then on: type the key's own passphrase, then the login password twice
-ssh-add ~/.ssh/github ~/.ssh/tuc_gitlab ~/.ssh/hsoggitlab
-make home   # re-writes ~/.pam-gnupg from the keygrips gpg-agent now knows
 ```
+
+Copy `~/.ssh` and import the gpg key; the first `git push` / signed commit asks
+for each passphrase once, see *Keys unlocked at login*.
 
 **Ubuntu-26.04 on WSL2**
 
@@ -113,16 +111,47 @@ dms plugins install <id>   # or the DMS settings GUI; rewrites the lockfile
 dms plugins update         # then commit the lockfile
 ```
 
+## Keys unlocked at login
+
+gnome-keyring holds the passphrases. `pam_gnome_keyring` (Arch desktop role,
+in `/etc/pam.d/greetd` and `login`) unlocks the *login* keyring with the
+password typed at tuigreet, and `/etc/pam.d/passwd` keeps the two passwords in
+sync. Key passphrases themselves can be anything.
+
+- **ssh**: `gcr-ssh-agent` (gcr-4) is the agent; `home/modules/desktop.nix`
+  enables its socket and `home/.config/zsh/path.zsh` points `SSH_AUTH_SOCK` at
+  `$XDG_RUNTIME_DIR/gcr/ssh`. Every key with a `.pub` next to it in `~/.ssh` is
+  offered; the first use of a key opens a dialog, tick *Automatically unlock
+  this key whenever I'm logged in* and it lands in the login keyring.
+- **gpg**: gpg-agent stays (`home/modules/git.nix`), but with `pinentry-gnome3`,
+  which prompts in a window of its own instead of over the TUI. Its dialog has
+  *Save in password manager*: ticked, the passphrase goes into the login
+  keyring and every later prompt is answered from there.
+
+```bash
+ssh-add -l                                # keys gcr-ssh-agent offers
+systemctl --user status gcr-ssh-agent.socket gnome-keyring-daemon.socket
+seahorse                                  # Login keyring: forget a saved passphrase
+```
+
+Dialogs on every use mean the login keyring is locked or not the default:
+
+```bash
+busctl --user get-property org.freedesktop.secrets /org/freedesktop/secrets/aliases/default \
+  org.freedesktop.Secret.Collection Label   # must say "Login"
+```
+
+If it does not, seahorse: right-click *Login* -> *Set as default*. Prompts
+without a graphical session (tty, WSL) fall back to curses.
+
 ## Workarounds & Possible Fixes
 
 ### `gcr-ssh-agent` spamming processes at 99% CPU
 
-The plain ssh-agent is used everywhere (`services.ssh-agent` here), listening on
-`$XDG_RUNTIME_DIR/ssh-agent`, which is what `home/.config/zsh/path.zsh` and
-`home/.config/hypr/hyprland.lua` point `SSH_AUTH_SOCK` at. If a key is still ignored, its permissions are
-too open:
+A private key it cannot read is retried in a loop. Its permissions are too open:
 
 ```bash
+journalctl --user -u gcr-ssh-agent.service -b
 chmod 600 ~/.ssh/<key>
 ```
 

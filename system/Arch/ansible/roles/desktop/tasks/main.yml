@@ -68,7 +68,8 @@
           - bluez-utils
           - blueman
           - upower
-          - gnome-keyring
+          - gnome-keyring # login keyring unlocked by PAM below; gcr-4 ships its ssh-agent
+          - gcr # gcr-prompter: the passphrase dialog behind pinentry-gnome3 and gcr-ssh-agent
           - kwallet # credentials for the KDE apps (okular, dolphin)
           - dconf # service behind home-manager's dconf.settings
           # --- media codecs ---
@@ -180,7 +181,6 @@
         name: aur_build
       vars:
         aur_packages:
-          - pam-gnupg # unlocks the gpg key with the login password
           - bibata-cursor-theme-bin
           - wlogout
           - tofi
@@ -220,32 +220,49 @@
         create: true
         mode: "0644"
 
+    # greetd is what the graphical session authenticates through; login is
+    # the console/agetty path and what hyprlock includes, so unlocking the
+    # screen also unlocks a keyring that was still locked. The auth line takes
+    # the typed password, the session line unlocks the login keyring with it
+    # (auto_start: through gnome-keyring-daemon.socket, started if needed).
     - name: Unlock the gnome keyring at login (PAM)
       become: true
       ansible.builtin.lineinfile:
-        path: /etc/pam.d/login
-        line: "{{ item }}"
+        path: "/etc/pam.d/{{ item.0 }}"
+        line: "{{ item.1 }}"
         insertafter: EOF
-      loop:
-        - "auth       optional     pam_gnome_keyring.so"
-        - "session    optional     pam_gnome_keyring.so auto_start"
+      loop: "{{ ['greetd', 'login'] | product(pam_gnome_keyring_lines) }}"
+      vars:
+        pam_gnome_keyring_lines:
+          - "auth       optional     pam_gnome_keyring.so"
+          - "session    optional     pam_gnome_keyring.so auto_start"
       when: not is_container
 
-    # greetd, not login: /etc/pam.d/login is the console/agetty path, the
-    # graphical session authenticates through /etc/pam.d/greetd. store-only
-    # stashes the password typed at tuigreet; the session line hands it to
-    # gpg-agent, which presets the keygrips listed in ~/.pam-gnupg.
-    # Only works while the gpg passphrase equals the login password.
-    - name: Unlock the gpg key at login (PAM)
+    # passwd changes the login keyring's password along with the account's,
+    # so the two never drift apart and the keyring keeps unlocking at login.
+    - name: Keep the keyring password in sync with the login password (PAM)
+      become: true
+      ansible.builtin.lineinfile:
+        path: /etc/pam.d/passwd
+        line: "password   optional     pam_gnome_keyring.so"
+        insertafter: EOF
+      when: not is_container
+
+    # pam_gnupg (AUR) fed the login password to gpg-agent until 2026-09; the
+    # keyring does that job now. Machines set up before then still have it.
+    - name: Retire pam_gnupg
       become: true
       ansible.builtin.lineinfile:
         path: /etc/pam.d/greetd
-        line: "{{ item }}"
-        insertafter: EOF
-      loop:
-        - "auth       optional     pam_gnupg.so store-only"
-        - "session    optional     pam_gnupg.so"
+        regexp: 'pam_gnupg\.so'
+        state: absent
       when: not is_container
+
+    - name: Remove pam-gnupg
+      become: true
+      community.general.pacman:
+        name: pam-gnupg
+        state: absent
 
     - name: Enable desktop services
       become: true

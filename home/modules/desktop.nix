@@ -62,6 +62,12 @@ in
       # /usr is not read at eval time (WSL, CI).
       "systemd/user/graphical-session.target.wants/dms.service".source =
         config.lib.file.mkOutOfStoreSymlink "/usr/lib/systemd/user/dms.service";
+      # gnome-keyring's ssh-agent (gcr-4, Arch desktop role): the socket exports
+      # SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh to the systemd user environment,
+      # zsh/path.zsh repeats it. gnome-keyring-daemon.socket itself is enabled
+      # system-wide by the package.
+      "systemd/user/sockets.target.wants/gcr-ssh-agent.socket".source =
+        config.lib.file.mkOutOfStoreSymlink "/usr/lib/systemd/user/gcr-ssh-agent.socket";
     };
 
   home.activation.seedMutableConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] (
