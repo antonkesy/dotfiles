@@ -111,39 +111,6 @@ dms plugins install <id>   # or the DMS settings GUI; rewrites the lockfile
 dms plugins update         # then commit the lockfile
 ```
 
-## Keys unlocked at login
-
-gnome-keyring holds the passphrases. `pam_gnome_keyring` (Arch desktop role,
-in `/etc/pam.d/greetd` and `login`) unlocks the *login* keyring with the
-password typed at tuigreet, and `/etc/pam.d/passwd` keeps the two passwords in
-sync. Key passphrases themselves can be anything.
-
-- **ssh**: `gcr-ssh-agent` (gcr-4) is the agent; `home/modules/desktop.nix`
-  enables its socket and `home/.config/zsh/path.zsh` points `SSH_AUTH_SOCK` at
-  `$XDG_RUNTIME_DIR/gcr/ssh`. Every key with a `.pub` next to it in `~/.ssh` is
-  offered; the first use of a key opens a dialog, tick *Automatically unlock
-  this key whenever I'm logged in* and it lands in the login keyring.
-- **gpg**: gpg-agent stays (`home/modules/git.nix`), but with `pinentry-gnome3`,
-  which prompts in a window of its own instead of over the TUI. Its dialog has
-  *Save in password manager*: ticked, the passphrase goes into the login
-  keyring and every later prompt is answered from there.
-
-```bash
-ssh-add -l                                # keys gcr-ssh-agent offers
-systemctl --user status gcr-ssh-agent.socket gnome-keyring-daemon.socket
-seahorse                                  # Login keyring: forget a saved passphrase
-```
-
-Dialogs on every use mean the login keyring is locked or not the default:
-
-```bash
-busctl --user get-property org.freedesktop.secrets /org/freedesktop/secrets/aliases/default \
-  org.freedesktop.Secret.Collection Label   # must say "Login"
-```
-
-If it does not, seahorse: right-click *Login* -> *Set as default*. Prompts
-without a graphical session (tty, WSL) fall back to curses.
-
 ## Workarounds & Possible Fixes
 
 ### `gcr-ssh-agent` spamming processes at 99% CPU
