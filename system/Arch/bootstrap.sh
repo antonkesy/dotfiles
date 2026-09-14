@@ -15,4 +15,4 @@ git -C "$DOTFILES" submodule update --init --recursive
 cd "$DOTFILES"
 make arch
 
-echo "Done. Reboot, then run system/Arch/manual/hyprpm.sh inside Hyprland."
+echo "Done. Reboot."

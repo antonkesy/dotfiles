@@ -20,5 +20,5 @@ archinstall.json     phase 1, on the live ISO
 bootstrap.sh         phase 2, after the first login
 ansible/             site.yml + roles
 docker/              image for make test / dev
-manual/hyprpm.sh     Hyprland plugins, needs a running Hyprland
+hyprpm.sh            Hyprland plugins, run by make arch after the playbook
 ```

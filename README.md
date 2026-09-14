@@ -45,9 +45,6 @@ nmcli device wifi connect "<SSID>" --ask
 
 # phase 2: ansible (system half, every role) then home-manager
 curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Arch/bootstrap.sh | bash
-
-# after reboot final (manual) steps
-hyprpm update
 ```
 
 Copy `~/.ssh` and import the gpg key; the first `git push` / signed commit asks
