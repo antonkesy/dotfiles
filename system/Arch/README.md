@@ -48,7 +48,8 @@ From this directory (`make arch` also works at the repo root).
 
 Roles, in order: `base` (base-devel, git, curl, sudo, zsh as login shell, openssh,
 Flathub, timezone, locale), `desktop` (Hyprland, uwsm, hyprlock, hypridle, portals,
-greetd + tuigreet, pipewire, DankMaterialShell from the AUR, NetworkManager,
+greetd + tuigreet launching the uwsm-managed Hyprland session, pipewire,
+DankMaterialShell (`dms-shell` + `dms-shell-hyprland`, from extra), NetworkManager,
 cups/avahi/bluetooth/gvfs/udisks2, mesa + intel-media-driver, steam,
 gpu-screen-recorder, ollama, keyring PAM, and the packages behind the GUI user half:
 alacritty, wayland helpers, fonts, GUI apps via pacman/AUR), `nvidia` (driver,

@@ -16,6 +16,9 @@
 #   left alone - machine-specific state (DankMaterialShell/monitors.json,
 #             hypr/dms/{outputs,cursor}.lua, hypr/dms/profiles/), gitignored
 #             under home/.config and never declared here.
+#
+# Plus one systemd enablement symlink (graphical-session.target.wants/dms.service):
+# DMS autostart, replacing the `dms run` that hyprland.lua used to exec.
 {
   config,
   lib,
@@ -74,16 +77,34 @@ let
     '';
 in
 {
-  xdg.configFile = lib.genAttrs linked (rel: {
-    source = link rel;
-  });
+  xdg.configFile =
+    lib.genAttrs linked (rel: {
+      source = link rel;
+    })
+    // {
+      # Exactly what `systemctl --user enable dms.service` writes. The unit body
+      # stays the distro's (dms-shell ships /usr/lib/systemd/user/dms.service);
+      # only the enablement is ours. It is WantedBy=graphical-session.target,
+      # which uwsm activates -- hence the uwsm session entry in system/Arch.
+      # mkOutOfStoreSymlink rather than a path literal: nothing under /usr is read
+      # at eval time, so this still evaluates on WSL and in CI, where dms-shell is
+      # not installed.
+      "systemd/user/graphical-session.target.wants/dms.service".source =
+        config.lib.file.mkOutOfStoreSymlink "/usr/lib/systemd/user/dms.service";
+    };
 
   home.activation.seedMutableConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] (
     lib.concatStringsSep "\n" (lib.mapAttrsToList seed seeds)
   );
 
-  # Ubuntu theme on nautilus; environment.d is what uwsm/Hyprland read.
-  systemd.user.sessionVariables.GTK_THEME = "Adwaita";
+  # environment.d, read by the systemd user manager and therefore by uwsm,
+  # Hyprland and every user unit. dms.service is started by systemd now, so
+  # anything DMS needs belongs here: hl.env() in hyprland.lua only reaches
+  # Hyprland's own children.
+  systemd.user.sessionVariables = {
+    GTK_THEME = "Adwaita"; # Ubuntu theme on nautilus
+    DMS_DISABLE_MATUGEN = "1"; # no theme generation from dms
+  };
 
   # GTK apps follow the dark scheme.
   dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";

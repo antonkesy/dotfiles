@@ -40,6 +40,12 @@
           - hyprland
           - hyprland-protocols
           - uwsm
+          # DankMaterialShell; in extra since 1.6 (the AUR `dms` is an unrelated
+          # DLNA server that also owns /usr/bin/dms). dms-shell-hyprland satisfies
+          # dms-shell's dms-shell-compositor dep; quickshell comes along as a
+          # dependency. dms.service is enabled from home/modules/desktop.nix.
+          - dms-shell
+          - dms-shell-hyprland
           - hyprlock
           - hypridle
           - xdg-desktop-portal-hyprland
@@ -178,12 +184,11 @@
           - libtiff
         state: present
 
-    - name: Install DankMaterialShell, helpers and GUI apps from the AUR
+    - name: Install helpers and GUI apps from the AUR
       ansible.builtin.include_role:
         name: aur_build
       vars:
         aur_packages:
-          - dms # was dms-shell; renamed upstream
           - bibata-cursor-theme-bin
           - wlogout
           - tofi
@@ -209,7 +214,11 @@
           vt = 1
 
           [default_session]
-          command = "tuigreet --time --remember --remember-session --asterisks"
+          # --cmd, not --remember-session: the session must be the uwsm-managed
+          # entry every time. uwsm activates graphical-session.target, which is
+          # what starts dms.service (enabled in home/modules/desktop.nix). The
+          # plain "Hyprland" entry stays in tuigreet's menu as an escape hatch.
+          command = "tuigreet --time --remember --asterisks --cmd 'uwsm start -e -D Hyprland hyprland.desktop'"
           user = "greeter"
 
     - name: Never lock the account after failed logins

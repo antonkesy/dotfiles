@@ -87,11 +87,9 @@ hl.config({
 
 hl.on("hyprland.start", function()
     hl.exec_cmd("hyprpm reload")
-    hl.exec_cmd("dms run")
+    hl.exec_cmd("uwsm finalize")
     hl.exec_cmd("awww-daemon")
     hl.exec_cmd("awww img ~/.config/wallpapers/XPPeepo_M4x_Day.png")
-    hl.exec_cmd("dbus-update-activation-environment --systemd --all")
-    hl.exec_cmd("systemctl --user start hyprland-session.target")
 end)
 
 require("dms.colors")
