@@ -33,10 +33,16 @@
   when: package_installed.rc != 0 and package_deps.stdout | length > 0
   failed_when: false
 
+# PATH is pinned to the system dirs: ~/.nix-profile/bin comes first in an
+# interactive shell, and its gcc/ld/nm shadow the Arch toolchain. The nix gcc
+# does not search /usr/include, so any PKGBUILD compiling against a repo
+# package's headers fails (pam-gnupg: "You are missing PAM headers").
 - name: Build with makepkg - {{ package_name }}
   ansible.builtin.command: makepkg --noconfirm -f --skippgpcheck
   args:
     chdir: "{{ build_dir }}/aur/{{ package_name }}"
+  environment:
+    PATH: /usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/bin:/sbin
   when: package_installed.rc != 0
 
 - name: Install the built package - {{ package_name }}
