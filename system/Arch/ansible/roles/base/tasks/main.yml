@@ -20,7 +20,6 @@
     name: en_US.UTF-8
     state: present
 
-# Distro zsh as login shell: works even without nix, same .zshrc.
 - name: Make zsh the login shell
   become: true
   ansible.builtin.user:
@@ -40,11 +39,10 @@
     name: aur_build
   vars:
     aur_packages:
-      - yay # interactive helper; aur_build itself still uses makepkg
+      - yay
       - debtap
   when: ansible_facts.os_family == 'Archlinux'
 
-# archinstall installs GRUB; this owns its config afterwards.
 - name: Install /etc/default/grub
   become: true
   ansible.builtin.copy:

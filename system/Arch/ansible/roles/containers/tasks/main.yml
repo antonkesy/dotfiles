@@ -1,5 +1,4 @@
 ---
-# Daemon, group, VirtualBox only; the clients come from home-manager.
 - name: Install docker
   become: true
   ansible.builtin.package:
@@ -19,7 +18,6 @@
     name: docker
     state: present
 
-# The group only exists once docker is installed; a dry run never does.
 - name: Add the user to the docker group
   become: true
   ansible.builtin.user:

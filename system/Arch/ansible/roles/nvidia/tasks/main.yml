@@ -7,7 +7,6 @@
 - name: Arch NVIDIA
   when: ansible_facts.os_family == 'Archlinux'
   block:
-    # zsh/nvidia.zsh already puts /opt/cuda/bin in PATH
     - name: Install driver, container toolkit and CUDA
       become: true
       community.general.pacman:
@@ -19,7 +18,7 @@
           - nvidia-container-toolkit
           - cuda
           - nvtop
-          - ollama-cuda # the ollama daemon comes from the desktop role
+          - ollama-cuda
         state: present
 
     - name: Enable nvidia-persistenced

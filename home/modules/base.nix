@@ -1,4 +1,3 @@
-# Always on, every distro. Anything needing root is in system/Arch.
 { pkgs, ... }:
 {
   home.packages = with pkgs; [

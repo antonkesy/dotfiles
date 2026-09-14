@@ -1,6 +1,5 @@
 result
 result-*
-# system/Arch: AUR builds (roles/aur_build), ansible-lint's collection cache
 system/Arch/build/
 .ansible/
 *.retry

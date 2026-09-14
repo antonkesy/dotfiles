@@ -1,6 +1,3 @@
-# Lives next to site.yml so ansible-lint treats this directory as the project
-# root and installs requirements.yml itself (make lint, the CI action and the
-# pre-commit hook all point here).
 profile: moderate
 exclude_paths:
   - ../build/

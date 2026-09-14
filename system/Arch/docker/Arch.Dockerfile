@@ -1,7 +1,4 @@
-# Arch container for `ansible-playbook --check` runs (make test) and an
-# interactive shell (make dev), both from system/Arch; build context is the repo root, trimmed
-# by /.dockerignore. No systemd, no kernel: the playbook's is_container guard
-# skips services, PAM and the nix/home-manager steps.
+# make test / make dev in system/Arch; build context is the repo root
 FROM archlinux:latest AS base
 
 ARG USERNAME=ak
@@ -11,7 +8,7 @@ ARG GID=1000
 ENV LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 
-# multilib as the desktop role would leave it (check mode cannot write pacman.conf)
+# multilib: check mode cannot write pacman.conf
 RUN printf '\n[multilib]\nInclude = /etc/pacman.d/mirrorlist\n' >> /etc/pacman.conf \
   && pacman -Syu --noconfirm \
   && pacman -S --noconfirm --needed sudo git make ansible \

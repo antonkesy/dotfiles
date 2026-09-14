@@ -1,4 +1,3 @@
-# Entry points only; home/ and system/<Distro> have their own Makefiles.
 .PHONY: help home arch wsl clean use-ssh
 
 help:

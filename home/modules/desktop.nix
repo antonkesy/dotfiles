@@ -1,7 +1,4 @@
-# Hyprland + DMS config. Packages come from system/Arch.
-# DMS rewrites its own config and invents files as it goes, so its two dirs are
-# linked whole and their .gitignore keeps the machine-local ones out. ~/.config/hypr
-# itself stays a real dir (DMS drops .dms-backups/ there); seeds are copy-once.
+# Hyprland + DMS config; packages come from system/Arch.
 {
   config,
   lib,
@@ -12,11 +9,10 @@ let
   dotfiles = "${config.ak.dotfilesDir}/home/.config";
   link = rel: config.lib.file.mkOutOfStoreSymlink "${dotfiles}/${rel}";
 
+  # ~/.config/hypr stays a real dir (DMS drops .dms-backups/ there)
   linked = [
     "hypr/hyprland.lua"
     "hypr/plugins.lua"
-    # whole dirs: DMS owns binds/colors/layout/windowrules, writes binds-user
-    # from its settings GUI, and adds files per machine and per version
     "hypr/dms"
     "DankMaterialShell"
     "wallpapers"
@@ -30,12 +26,11 @@ let
     "task-manager-scratchpad"
   ];
 
+  # copy-once, the app rewrites them
   seeds = {
-    # discord rewrites this itself
     "discord/settings.json" = ''
       { "SKIP_HOST_UPDATE": true }
     '';
-    # marker: skip the DMS onboarding wizard; lands in the checkout, gitignored
     "DankMaterialShell/.firstlaunch" = "";
   };
 
@@ -58,14 +53,9 @@ in
       source = link rel;
     })
     // {
-      # `systemctl --user enable dms.service`, declaratively. Out-of-store so
-      # /usr is not read at eval time (WSL, CI).
+      # `systemctl --user enable`, out-of-store so /usr is not read at eval time
       "systemd/user/graphical-session.target.wants/dms.service".source =
         config.lib.file.mkOutOfStoreSymlink "/usr/lib/systemd/user/dms.service";
-      # gnome-keyring's ssh-agent (gcr-4, Arch desktop role): the socket exports
-      # SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh to the systemd user environment,
-      # zsh/path.zsh repeats it. gnome-keyring-daemon.socket itself is enabled
-      # system-wide by the package.
       "systemd/user/sockets.target.wants/gcr-ssh-agent.socket".source =
         config.lib.file.mkOutOfStoreSymlink "/usr/lib/systemd/user/gcr-ssh-agent.socket";
     };
@@ -74,16 +64,12 @@ in
     lib.concatStringsSep "\n" (lib.mapAttrsToList seed seeds)
   );
 
-  # DMS plugins are git clones under DankMaterialShell/plugins, gitignored; the
-  # tracked plugins.lock.json pins them and DMS rewrites it on install/update.
-  # Re-clone whatever this machine is missing (fresh install), never on a switch
-  # that has them all. plugin_settings.json and settings.json carry "enabled".
+  # plugins/ is gitignored; plugins.lock.json pins them
   home.activation.restoreDmsPlugins = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
     dms_dir="${config.xdg.configHome}/DankMaterialShell"
     if command -v dms > /dev/null && [ -f "$dms_dir/plugins.lock.json" ]; then
       for id in $(${pkgs.jq}/bin/jq -r '.plugins | keys[]' "$dms_dir/plugins.lock.json"); do
         if [ ! -d "$dms_dir/plugins/$id" ]; then
-          # network: a machine that is offline here can rerun `make home`
           run dms plugins restore "$dms_dir/plugins.lock.json" || true
           break
         fi
@@ -91,7 +77,7 @@ in
     fi
   '';
 
-  # environment.d; dms.service needs these, hl.env() would not reach it
+  # environment.d, reaches dms.service
   systemd.user.sessionVariables = {
     GTK_THEME = "Adwaita";
     DMS_DISABLE_MATUGEN = "1";
@@ -99,6 +85,6 @@ in
 
   dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
 
-  # for flutter web
+  # flutter web
   home.sessionVariables.CHROME_EXECUTABLE = "/usr/bin/google-chrome-stable";
 }

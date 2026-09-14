@@ -1,9 +1,6 @@
 #!/bin/zsh
-# zmodload zsh/zprof # benchmark 1/2
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
+# p10k instant prompt; keep at the top
 # shellcheck disable=SC2296
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
 	# shellcheck disable=SC2296
@@ -36,11 +33,8 @@ source ${HOME}/.config/zsh/p10k.zsh
 source ${HOME}/.config/zsh/opam.zsh
 source ${HOME}/.config/zsh/rust.zsh
 
-# aliases have to be last to avoid conflicts with OMZ defaults
+# after OMZ so its defaults lose
 source ${HOME}/.config/zsh/alias.zsh
 
-# zprof # benchmark 2/2
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+# sdkman must be last
+source ${HOME}/.config/zsh/sdkman.zsh

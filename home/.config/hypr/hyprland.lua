@@ -19,28 +19,19 @@ hl.config({
         enabled = true,
         force_zero_scaling = true,
     },
-})
-
-hl.config({
     input = {
         kb_layout = "us",
         numlock_by_default = true,
         kb_options = "compose:ralt",
     },
-})
-
-hl.config({
     general = {
         gaps_in = 0,
         gaps_out = 0,
-        border_size = 5, -- thicker borders
+        border_size = 5,
         resize_on_border = true,
         allow_tearing = false,
         layout = "dwindle",
     },
-})
-
-hl.config({
     decoration = {
         rounding = 0,
         active_opacity = 1.0,
@@ -53,35 +44,21 @@ hl.config({
             color = "rgba(00000070)",
         },
     },
-})
-
-hl.config({
     animations = {
         enabled = true,
     },
-})
-
-hl.config({
     dwindle = {
         preserve_split = true,
     },
-})
-
-hl.config({
     master = {
         mfact = 0.5,
     },
-})
-
-
-hl.config({
     misc = {
         disable_hyprland_logo = true,
         disable_splash_rendering = true,
         vrr = 1,
     },
 })
-
 
 hl.on("hyprland.start", function()
     hl.exec_cmd("hyprpm reload")
@@ -91,10 +68,9 @@ hl.on("hyprland.start", function()
 end)
 
 require("dms.colors")
--- DMS writes these two per machine; gitignored, so absent on a fresh clone
-pcall(require, "dms.outputs")
+pcall(require, "dms.outputs") -- gitignored, DMS writes it
 require("dms.layout")
-pcall(require, "dms.cursor")
+pcall(require, "dms.cursor") -- gitignored, DMS writes it
 require("dms.binds")
 require("dms.binds-user")
 require("dms.windowrules")

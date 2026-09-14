@@ -7,7 +7,6 @@
 - name: Arch laptop
   when: ansible_facts.os_family == 'Archlinux'
   block:
-    # root-only, hence pacman
     - name: Install fingerprint and power management
       become: true
       community.general.pacman:
@@ -24,7 +23,7 @@
         name: aur_build
       vars:
         aur_packages:
-          - openssl-1.1 # dell-command-configure dependency
+          - openssl-1.1 # for dell-command-configure
           - dell-command-configure
 
     - name: Fingerprint for sudo and hyprlock (PAM)

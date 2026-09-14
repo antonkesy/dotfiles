@@ -3,7 +3,7 @@ on:
   pull_request:
     paths: [system/**, Makefile, .dockerignore, .github/workflows/ansible.yml]
   push:
-    branches: [main, nixos]
+    branches: [main]
     paths: [system/**, Makefile, .dockerignore, .github/workflows/ansible.yml]
 jobs:
   lint:

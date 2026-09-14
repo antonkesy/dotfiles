@@ -2,7 +2,7 @@ name: nix
 on:
   pull_request:
   push:
-    branches: [main, nixos]
+    branches: [main]
 jobs:
   eval:
     runs-on: ubuntu-latest
@@ -16,6 +16,5 @@ jobs:
             experimental-features = nix-command flakes
       - name: Evaluate
         run: nix eval --raw './home#homeConfigurations.ak.activationPackage.drvPath'
-      # Instantiates the whole closure (every derivation, no downloads).
       - name: Dry-build
         run: nix build ./home#homeConfigurations.ak.activationPackage --dry-run

@@ -1,6 +1,4 @@
 ---
-# Must be ~/Projects/dotfiles (ak.dotfilesDir); the nix role asserts it.
 dotfiles_dir: "{{ playbook_dir | dirname | dirname | dirname }}"
 
-# Docker tests: no systemd, no kernel modules, no PAM edits.
 is_container: "{{ (ansible_facts.virtualization_type | default('')) in ['docker', 'container', 'podman'] }}"

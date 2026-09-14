@@ -23,7 +23,7 @@
   changed_when: false
   when: package_installed.rc != 0
 
-# makepkg -s would sudo interactively. AUR deps must come earlier in aur_packages.
+# AUR deps must come earlier in aur_packages
 - name: Install repo dependencies - {{ package_name }}
   become: true
   community.general.pacman:
@@ -33,10 +33,7 @@
   when: package_installed.rc != 0 and package_deps.stdout | length > 0
   failed_when: false
 
-# PATH is pinned to the system dirs: ~/.nix-profile/bin comes first in an
-# interactive shell, and its gcc/ld/nm shadow the Arch toolchain. The nix gcc
-# does not search /usr/include, so any PKGBUILD compiling against a repo
-# package's headers fails (pam-gnupg: "You are missing PAM headers").
+# system PATH: the nix toolchain must not shadow Arch's
 - name: Build with makepkg - {{ package_name }}
   ansible.builtin.command: makepkg --noconfirm -f --skippgpcheck
   args:

@@ -1,10 +1,9 @@
 ---
-# git + makepkg: never shells out to an AUR helper, even though base
-# installs yay for interactive use.
 - name: Set build directory
   ansible.builtin.set_fact:
     build_dir: "{{ playbook_dir }}/../build"
   when: build_dir is not defined
+
 - name: Install base-devel and build dependencies
   become: true
   community.general.pacman:
@@ -12,6 +11,7 @@
       - base-devel
       - git
     state: present
+
 - name: AUR packages (skipped in check mode)
   ansible.builtin.debug:
     var: aur_packages

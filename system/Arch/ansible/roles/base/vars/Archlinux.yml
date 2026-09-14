@@ -1,5 +1,4 @@
 ---
-# Root-only or kernel/firmware-coupled. CLI tools: home/modules/base.nix.
 base_packages:
   - base-devel
   - git
@@ -8,11 +7,11 @@ base_packages:
   - zsh
   - openssh
   - flatpak
-  - vim # an editor for root/visudo without nix in PATH
+  - vim
   # --- boot ---
   - grub
   - efibootmgr
-  - os-prober # Windows entry for the dual-boot machines
+  - os-prober
   - linux-firmware
   - intel-ucode
   - amd-ucode

@@ -1,6 +1,4 @@
 ---
-# Installs nix, then applies homeConfigurations.ak from <repo>/home.
-# The checkout must be ~/Projects/dotfiles or the symlinks dangle.
 - name: The checkout must be where home-manager links into
   ansible.builtin.assert:
     that: dotfiles_dir == ansible_facts.env.HOME ~ '/Projects/dotfiles'

@@ -1,4 +1,3 @@
-# Everything under ~ on Arch and WSL. Root/daemon/GPU packages: system/Arch.
 { ... }:
 {
   imports = [

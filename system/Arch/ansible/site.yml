@@ -5,7 +5,6 @@
   become: false
 
   pre_tasks:
-    # also in check mode, so package lookups hit a current database
     - name: Refresh the package database
       become: true
       ansible.builtin.package:
@@ -21,7 +20,6 @@
           host ak, all roles, container={{ is_container }}
       tags: always
 
-  # every role, always; the only gate is is_container
   roles:
     - role: base
       tags: [base]
@@ -33,6 +31,5 @@
       tags: [laptop]
     - role: containers
       tags: [containers]
-    # last: nix + homeConfigurations.ak, i.e. all of ~
     - role: nix
       tags: [nix, dotfiles]

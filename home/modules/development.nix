@@ -1,4 +1,3 @@
-# Language toolchains and build tools. `perf` is kernel-coupled: system side.
 { lib, pkgs, ... }:
 {
   home.packages = with pkgs; [
@@ -11,22 +10,21 @@
         numpy
         jupyterlab
         notebook
-        libtmux # tmux-window-name (tpm plugin in home/.tmux.conf) imports it
+        libtmux # tmux-window-name
       ]
     ))
     swig
     uv
 
-    # --- node --- (nodejs ships npm)
+    # --- node ---
     nodejs
 
     # --- go ---
     go
     gopls
-    (lib.lowPrio gotools) # its bin/bundle loses to ruby's bundler
+    (lib.lowPrio gotools) # bin/bundle collides with ruby
 
     # --- rust ---
-    # rustup, not a pinned rustc: cargo-update expects a toolchain manager
     rustup
     cargo-update
     libgit2
@@ -36,8 +34,7 @@
 
     # --- java ---
     jdk21
-    # jdk21 wins in PATH, jdk8 stays for IDEs (buildEnv collision)
-    (lib.lowPrio jdk8)
+    (lib.lowPrio jdk8) # for IDEs
     maven
     gradle
 
@@ -58,7 +55,7 @@
     lua54Packages.luacheck
     stylua
 
-    # --- dart / flutter --- (flutter ships its own dart)
+    # --- dart / flutter ---
     flutter
 
     # --- racket ---
@@ -73,7 +70,7 @@
       dotnetCorePackages.sdk_9_0
     ])
 
-    # --- c / c++ --- (gcc is `cc`; clang's wrappers yield to it)
+    # --- c / c++ ---
     gcc
     (lib.setPrio 20 clang)
     clang-tools
@@ -87,7 +84,7 @@
     bear
     cppcheck
     valgrind
-    gtest # provides gmock too
+    gtest
     boost
     (lib.setPrio 20 pkgsCross.mingwW64.buildPackages.gcc)
 
@@ -113,25 +110,22 @@
     glew
     mmtf-cpp
     libmsym
-    # opencv itself comes with python's opencv4 above
     hdf5
     vtk
 
     # --- latex / docs ---
-    texliveFull # includes biber
+    texliveFull
     plantuml
     pandoc
 
-    # --- android --- (android-studio itself is GUI: system/Arch)
+    # --- android ---
     android-tools
   ];
 
-  # man 3 pages and dev docs for the libraries above
   home.extraOutputsToInstall = [
     "devman"
     "devdoc"
   ];
 
-  # Android Studio's SDK downloads need a writable dir
   home.sessionVariables.ANDROID_HOME = "$HOME/Android/Sdk";
 }

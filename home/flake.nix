@@ -1,5 +1,5 @@
 {
-  description = "antonkesy home (Home Manager, any Linux distro)";
+  description = "antonkesy home (Home Manager)";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -28,19 +28,15 @@
       mkHome = import ./lib/mkHome.nix { inherit inputs pkgs; };
     in
     {
-      # home-manager switch --flake .#ak (Arch, WSL)
       homeConfigurations.ak = mkHome;
 
       packages.${system} = {
-        # First run on a machine without home-manager in PATH:
-        #   nix run .#home-manager -- switch --flake .#ak
         inherit (home-manager.packages.${system}) home-manager;
         default = home-manager.packages.${system}.home-manager;
       };
 
       formatter.${system} = pkgs.nixfmt-tree;
 
-      # CI only evaluates and dry-builds (../.github/workflows/nix.yml)
       checks.${system}.ak = self.homeConfigurations.ak.activationPackage;
     };
 }

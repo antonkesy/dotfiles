@@ -1,7 +1,4 @@
 ---
-# Packages and system config only; nothing here writes under ~
-# (that is home/modules/desktop.nix).
-
 - name: Desktop role is Arch only
   ansible.builtin.debug:
     msg: "Hyprland is not usefully packaged on {{ ansible_facts.distribution }}; skipping the desktop role."
@@ -10,7 +7,6 @@
 - name: Arch desktop
   when: ansible_facts.os_family == 'Archlinux'
   block:
-    # steam and lib32-* need multilib, which Arch ships disabled
     - name: Enable the multilib repository
       become: true
       ansible.builtin.blockinfile:
@@ -44,7 +40,7 @@
           - qt5-wayland
           - qt6-wayland
           - polkit-kde-agent
-          - cpio # hyprpm plugin builds (manual/hyprpm.sh)
+          - cpio # hyprpm
           - glaze
           - greetd
           - greetd-tuigreet
@@ -68,26 +64,25 @@
           - bluez-utils
           - blueman
           - upower
-          - gnome-keyring # login keyring unlocked by PAM below; gcr-4 ships its ssh-agent
-          - gcr # gcr-prompter: the passphrase dialog behind pinentry-gnome3 and gcr-ssh-agent
-          - kwallet # credentials for the KDE apps (okular, dolphin)
-          - dconf # service behind home-manager's dconf.settings
+          - gnome-keyring
+          - gcr # prompter + ssh-agent
+          - kwallet
+          - dconf
           # --- media codecs ---
           - gst-libav
           - gst-plugins-good
           - gst-plugins-bad
           - gst-plugins-ugly
-          # --- needs system integration (setuid / setcap / 32-bit) ---
+          # --- setuid / setcap / 32-bit ---
           - steam
           - gpu-screen-recorder
           - ollama
           # --- GPU userspace ---
           - mesa
-          - mesa-utils # eglinfo, flutter doctor
+          - mesa-utils
           - intel-media-driver
         state: present
 
-    # config for these lives in home/.config
     - name: Install wayland helpers, fonts and GUI apps
       become: true
       community.general.pacman:
@@ -104,7 +99,7 @@
           - pamixer
           - playerctl
           - dunst
-          - cava # DMS audio visualizer
+          - cava
           - waybar
           - wofi
           - rofi
@@ -170,7 +165,7 @@
           - gnome-calculator
           - gnome-font-viewer
           - simple-scan
-          - sushi # nautilus previews
+          - sushi
           - qt5-base
           - qt6-base
           - libtiff
@@ -206,8 +201,6 @@
           vt = 1
 
           [default_session]
-          # --cmd, not --remember-session: uwsm activates
-          # graphical-session.target, which starts dms.service.
           command = "tuigreet --time --remember --asterisks --cmd 'uwsm start -e -D Hyprland hyprland.desktop'"
           user = "greeter"
 
@@ -220,11 +213,7 @@
         create: true
         mode: "0644"
 
-    # greetd is what the graphical session authenticates through; login is
-    # the console/agetty path and what hyprlock includes, so unlocking the
-    # screen also unlocks a keyring that was still locked. The auth line takes
-    # the typed password, the session line unlocks the login keyring with it
-    # (auto_start: through gnome-keyring-daemon.socket, started if needed).
+    # login: tty and hyprlock
     - name: Unlock the gnome keyring at login (PAM)
       become: true
       ansible.builtin.lineinfile:
@@ -238,8 +227,6 @@
           - "session    optional     pam_gnome_keyring.so auto_start"
       when: not is_container
 
-    # passwd changes the login keyring's password along with the account's,
-    # so the two never drift apart and the keyring keeps unlocking at login.
     - name: Keep the keyring password in sync with the login password (PAM)
       become: true
       ansible.builtin.lineinfile:
@@ -248,8 +235,7 @@
         insertafter: EOF
       when: not is_container
 
-    # pam_gnupg (AUR) fed the login password to gpg-agent until 2026-09; the
-    # keyring does that job now. Machines set up before then still have it.
+    # replaced by the keyring in 2026-09
     - name: Retire pam_gnupg
       become: true
       ansible.builtin.lineinfile:

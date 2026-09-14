@@ -1,5 +1,4 @@
-# Docker clients; the daemon is system-side. cli-plugins links let a
-# distro-installed docker find compose/buildx.
+# cli-plugins links: distro docker finds compose/buildx
 { pkgs, ... }:
 {
   home.packages = with pkgs; [

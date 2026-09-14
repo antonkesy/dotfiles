@@ -1,17 +1,10 @@
-# git with signed commits + the gpg agent behind it.
 { pkgs, ... }:
 {
   programs.gpg.enable = true;
   services.gpg-agent = {
     enable = true;
-    # Not the ssh-agent: gnome-keyring's gcr-ssh-agent is (desktop.nix).
     enableSshSupport = false;
-    # Prompts through gcr's system prompter, a window of its own, so a TUI
-    # (lazygit) is never drawn over. The dialog has "Save in password manager":
-    # gpg-agent's allow-external-cache (default on) lets pinentry keep the
-    # passphrase in the login keyring and fetch it silently from then on, so
-    # the agent's own cache ttl no longer matters. Without a prompter (WSL,
-    # tty) it falls back to curses.
+    # prompts in its own window, never over a TUI; curses fallback without a prompter
     pinentry.package = pkgs.pinentry-gnome3;
   };
 

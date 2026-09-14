@@ -2,13 +2,12 @@ name: pre-commit
 on:
   pull_request:
   push:
-    branches: [main, nixos]
+    branches: [main]
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # The nixfmt/deadnix hooks shell out to the flake.
       - uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: |
