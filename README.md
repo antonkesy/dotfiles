@@ -48,6 +48,11 @@ curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Arch
 
 # after reboot final (manual) steps
 hyprpm update
+
+# hand every ssh key to gpg-agent once, so the login password unlocks it
+# from then on: type the key's own passphrase, then the login password twice
+ssh-add ~/.ssh/github ~/.ssh/tuc_gitlab ~/.ssh/hsoggitlab
+make home   # re-writes ~/.pam-gnupg from the keygrips gpg-agent now knows
 ```
 
 **Ubuntu-26.04 on WSL2**
