@@ -34,6 +34,6 @@
   community.general.pacman:
     name:
       - virtualbox
-      - virtualbox-host-modules-arch
+      - virtualbox-host-dkms
     state: present
   when: ansible_facts.os_family == 'Archlinux' and not is_container
