@@ -180,6 +180,7 @@
         name: aur_build
       vars:
         aur_packages:
+          - pam-gnupg # unlocks the gpg key with the login password
           - bibata-cursor-theme-bin
           - wlogout
           - tofi
@@ -228,6 +229,22 @@
       loop:
         - "auth       optional     pam_gnome_keyring.so"
         - "session    optional     pam_gnome_keyring.so auto_start"
+      when: not is_container
+
+    # greetd, not login: /etc/pam.d/login is the console/agetty path, the
+    # graphical session authenticates through /etc/pam.d/greetd. store-only
+    # stashes the password typed at tuigreet; the session line hands it to
+    # gpg-agent, which presets the keygrips listed in ~/.pam-gnupg.
+    # Only works while the gpg passphrase equals the login password.
+    - name: Unlock the gpg key at login (PAM)
+      become: true
+      ansible.builtin.lineinfile:
+        path: /etc/pam.d/greetd
+        line: "{{ item }}"
+        insertafter: EOF
+      loop:
+        - "auth       optional     pam_gnupg.so store-only"
+        - "session    optional     pam_gnupg.so"
       when: not is_container
 
     - name: Enable desktop services
