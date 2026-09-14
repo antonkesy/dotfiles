@@ -14,7 +14,7 @@ help:
 
 arch:
 	$(PLAYBOOK) $(BECOME_FLAG)
-	./hyprpm.sh
+	-./hyprpm.sh
 
 dry:
 	$(PLAYBOOK) $(BECOME_FLAG) --check --diff
