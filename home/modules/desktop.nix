@@ -93,6 +93,6 @@ in
 
   dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
 
-  # flutter web
+  # for flutter web
   home.sessionVariables.CHROME_EXECUTABLE = "/usr/bin/google-chrome-stable";
 }
