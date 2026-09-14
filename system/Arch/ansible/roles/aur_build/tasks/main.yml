@@ -1,5 +1,6 @@
 ---
-# git + makepkg, no yay/paru.
+# git + makepkg: never shells out to an AUR helper, even though base
+# installs yay for interactive use.
 - name: Set build directory
   ansible.builtin.set_fact:
     build_dir: "{{ playbook_dir }}/../build"

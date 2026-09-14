@@ -47,7 +47,7 @@ From this directory (`make arch` also works at the repo root).
 | `make clean` | remove `./build` (AUR builds) |
 
 Roles, in order: `base` (base-devel, git, curl, sudo, zsh as login shell, openssh,
-Flathub, timezone, locale), `desktop` (Hyprland, uwsm, hyprlock, hypridle, portals,
+Flathub, yay + debtap, timezone, locale), `desktop` (Hyprland, uwsm, hyprlock, hypridle, portals,
 greetd + tuigreet starting the uwsm session, pipewire, DankMaterialShell
 (`dms-shell` + `dms-shell-hyprland`), NetworkManager,
 cups/avahi/bluetooth/gvfs/udisks2, mesa + intel-media-driver, steam,

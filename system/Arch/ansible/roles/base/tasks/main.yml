@@ -35,11 +35,12 @@
     state: present
   when: ansible_facts.os_family == 'Archlinux' and not is_container
 
-- name: Install debtap from the AUR (.deb to pacman packages)
+- name: Install the AUR helper and debtap (.deb to pacman packages)
   ansible.builtin.include_role:
     name: aur_build
   vars:
     aur_packages:
+      - yay # interactive helper; aur_build itself still uses makepkg
       - debtap
   when: ansible_facts.os_family == 'Archlinux'
 

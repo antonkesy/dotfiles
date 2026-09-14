@@ -134,6 +134,22 @@ journalctl --user -u dms.service -b
 The AUR package `dms` is a DLNA server, not DankMaterialShell, and owns the same
 `/usr/bin/dms`. If it is still installed, `sudo pacman -Rns dms` before `make arch`.
 
+### `yay` fails with a `libalpm.so` error
+
+`yay` is built from source (the AUR `yay`, not `yay-bin`) against the pacman of
+the day, so a pacman update can leave it stale:
+
+```
+yay: error while loading shared libraries: libalpm.so.XX: cannot open shared object file
+```
+
+`make arch` skips anything `pacman -Q` already reports, so it will not rebuild
+yay on its own. Remove it first and let ansible build it again:
+
+```bash
+sudo pacman -Rns yay && make arch
+```
+
 ### Rolling back
 
 ```bash
