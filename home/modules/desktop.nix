@@ -68,10 +68,10 @@ in
   # plugins/ is gitignored; plugins.lock.json pins them
   home.activation.restoreDmsPlugins = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
     dms_dir="${config.xdg.configHome}/DankMaterialShell"
-    if command -v dms > /dev/null && [ -f "$dms_dir/plugins.lock.json" ]; then
+    if [ -x /usr/bin/dms ] && [ -f "$dms_dir/plugins.lock.json" ]; then
       for id in $(${pkgs.jq}/bin/jq -r '.plugins | keys[]' "$dms_dir/plugins.lock.json"); do
         if [ ! -d "$dms_dir/plugins/$id" ]; then
-          run dms plugins restore "$dms_dir/plugins.lock.json" || true
+          run /usr/bin/dms plugins restore "$dms_dir/plugins.lock.json" || true
           break
         fi
       done
