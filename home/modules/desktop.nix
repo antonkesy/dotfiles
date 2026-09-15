@@ -48,17 +48,18 @@ let
     '';
 in
 {
-  xdg.configFile =
-    lib.genAttrs linked (rel: {
-      source = link rel;
-    })
-    // {
-      # `systemctl --user enable`, out-of-store so /usr is not read at eval time
-      "systemd/user/graphical-session.target.wants/dms.service".source =
-        config.lib.file.mkOutOfStoreSymlink "/usr/lib/systemd/user/dms.service";
-      "systemd/user/sockets.target.wants/gcr-ssh-agent.socket".source =
-        config.lib.file.mkOutOfStoreSymlink "/usr/lib/systemd/user/gcr-ssh-agent.socket";
-    };
+  xdg.configFile = lib.genAttrs linked (rel: {
+    source = link rel;
+  });
+
+  # units ship with the Arch packages; skipped where absent (WSL)
+  home.activation.enableSystemUnits = lib.hm.dag.entryAfter [ "reloadSystemd" ] ''
+    for unit in dms.service gcr-ssh-agent.socket; do
+      if [ -e "/usr/lib/systemd/user/$unit" ]; then
+        run /usr/bin/systemctl --user enable "$unit"
+      fi
+    done
+  '';
 
   home.activation.seedMutableConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] (
     lib.concatStringsSep "\n" (lib.mapAttrsToList seed seeds)
