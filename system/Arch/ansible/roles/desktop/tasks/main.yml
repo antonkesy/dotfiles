@@ -33,7 +33,7 @@
           - hyprland-protocols
           - uwsm
           - dms-shell-hyprland
-          # --- DMS optional deps (niri skipped: Hyprland is the compositor) ---
+          # --- DMS optional deps ---
           - cava # audio visualizer
           - dgop # system telemetry widgets
           - matugen # wallpaper theming (disabled via DMS_DISABLE_MATUGEN, but present)
