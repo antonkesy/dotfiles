@@ -219,21 +219,6 @@
         insertafter: EOF
       when: not is_container
 
-    # replaced by the keyring in 2026-09
-    - name: Retire pam_gnupg
-      become: true
-      ansible.builtin.lineinfile:
-        path: /etc/pam.d/greetd
-        regexp: 'pam_gnupg\.so'
-        state: absent
-      when: not is_container
-
-    - name: Remove pam-gnupg
-      become: true
-      community.general.pacman:
-        name: pam-gnupg
-        state: absent
-
     - name: Enable desktop services
       become: true
       ansible.builtin.systemd:
