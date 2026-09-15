@@ -26,7 +26,7 @@
           - openssl-1.1 # for dell-command-configure
           - dell-command-configure
 
-    - name: Fingerprint for sudo and hyprlock (PAM)
+    - name: Fingerprint for sudo (PAM)
       become: true
       ansible.builtin.lineinfile:
         path: "/etc/pam.d/{{ item }}"
@@ -36,7 +36,6 @@
         mode: "0644"
       loop:
         - sudo
-        - hyprlock
       when: not is_container
 
     - name: Enable laptop services

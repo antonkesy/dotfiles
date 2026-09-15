@@ -33,13 +33,10 @@
           - hyprland-protocols
           - uwsm
           - dms-shell-hyprland
-          - hyprlock
-          - hypridle
           - xdg-desktop-portal-hyprland
           - xdg-desktop-portal-gtk
           - qt5-wayland
           - qt6-wayland
-          - polkit-kde-agent
           - hyprpm
           - glaze
           - greetd
@@ -62,11 +59,9 @@
           - udisks2
           - bluez
           - bluez-utils
-          - blueman
           - upower
           - gnome-keyring
           - gcr # prompter + ssh-agent
-          - kwallet
           - dconf
           # --- media codecs ---
           - gst-libav
@@ -98,26 +93,18 @@
           - brightnessctl
           - pamixer
           - playerctl
-          - dunst
           - cava
-          - waybar
-          - wofi
           - rofi
           - dmenu
           - kitty
           - nautilus
           - adwaita-icon-theme
           - gnome-themes-extra
-          - dolphin
-          - kvantum
-          - kvantum-qt5
           - xdg-utils
           # --- keyring / audio / bluetooth / webcam frontends ---
           - libsecret
           - seahorse
-          - pavucontrol
           - alsa-utils
-          - bluetui
           - guvcview
           - v4l-utils
           - libva-utils
@@ -151,6 +138,7 @@
           - evince
           - pdfarranger
           - anki
+          - gnome-calendar
           - vlc
           - vlc-plugins-all
           - amberol
@@ -177,11 +165,7 @@
       vars:
         aur_packages:
           - bibata-cursor-theme-bin
-          - wlogout
-          - tofi
           - wayscriber-bin
-          - better-control-git
-          - dsearch-bin
           - python-pympress
           - ttf-ms-fonts
           - google-chrome
