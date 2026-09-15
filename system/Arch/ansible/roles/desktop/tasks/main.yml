@@ -33,6 +33,13 @@
           - hyprland-protocols
           - uwsm
           - dms-shell-hyprland
+          # --- DMS optional deps (niri skipped: Hyprland is the compositor) ---
+          - cava # audio visualizer
+          - dgop # system telemetry widgets
+          - matugen # wallpaper theming (disabled via DMS_DISABLE_MATUGEN, but present)
+          - qt6-multimedia # sound feedback
+          - cups-pk-helper # printer management
+          - i2c-tools # external monitor brightness
           - xdg-desktop-portal-hyprland
           - xdg-desktop-portal-gtk
           - qt5-wayland
@@ -93,7 +100,6 @@
           - brightnessctl
           - pamixer
           - playerctl
-          - cava
           - rofi
           - dmenu
           - kitty
@@ -165,6 +171,8 @@
       vars:
         aur_packages:
           - bibata-cursor-theme-bin
+          - dankcalendar-bin # DMS calendar app
+          - dsearch-bin # DMS filesystem search
           - wayscriber-bin
           - python-pympress
           - ttf-ms-fonts
