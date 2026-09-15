@@ -31,5 +31,7 @@
       tags: [laptop]
     - role: containers
       tags: [containers]
+    - role: storage
+      tags: [storage]
     - role: nix
       tags: [nix, dotfiles]

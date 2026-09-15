@@ -1,0 +1,46 @@
+---
+- name: Install the NFS client
+  become: true
+  ansible.builtin.package:
+    name: nfs-utils
+    state: present
+
+- name: Create the NAS mount points
+  become: true
+  ansible.builtin.file:
+    path: "{{ nas_root }}/{{ item.name }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  loop: "{{ nas_exports }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: Mount the NAS exports through systemd automount (fstab)
+  become: true
+  ansible.builtin.blockinfile:
+    path: /etc/fstab
+    marker: "# {mark} ANSIBLE MANAGED BLOCK nas"
+    block: |
+      {% for item in nas_exports %}
+      {{ nas_host }}:{{ item.export }} {{ nas_root }}/{{ item.name }} nfs {{ nas_mount_options | join(',') }} 0 0
+      {% endfor %}
+  register: nas_fstab
+
+- name: Pick up the units the fstab generator writes
+  become: true
+  ansible.builtin.systemd:
+    daemon_reload: true
+  when: nas_fstab.changed and not is_container
+
+# Generated units carry their own local-fs.target wants; only starting is left.
+- name: Start the automount units
+  become: true
+  ansible.builtin.systemd:
+    name: "{{ (nas_root ~ '/' ~ item.name) | regex_replace('^/', '') | regex_replace('/', '-') }}.automount"
+    state: started
+  loop: "{{ nas_exports }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when: not is_container

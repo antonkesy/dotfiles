@@ -1,0 +1,26 @@
+---
+nas_host: 192.168.178.26
+nas_root: /mnt/nas
+
+nas_exports:
+  - { export: /mnt/HD/HD_a2/Music, name: Music }
+  - { export: /mnt/HD/HD_a2/Movies, name: Movies }
+  - { export: /mnt/HD/HD_a2/ak, name: ak }
+
+# Boot never waits for the NAS: the automount unit is what starts at boot, the
+# mount itself happens on first access and is dropped after 10 idle minutes.
+# vers=3/nolock because the NAS speaks NFSv3 and has no lock daemon.
+nas_mount_options:
+  - noauto
+  - x-systemd.automount
+  - x-systemd.idle-timeout=600
+  - x-systemd.mount-timeout=10
+  - _netdev
+  - nofail
+  - vers=3
+  - nolock
+  - soft
+  - timeo=150
+  - retrans=3
+  - rsize=1048576
+  - wsize=1048576
