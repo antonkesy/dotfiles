@@ -1,25 +1,9 @@
 {
   "lockfileVersion": 1,
   "plugins": {
-    "claudeCodeUsage": {
-      "repo": "https://github.com/titeya/dms-claudecode",
-      "commit": "20a936f20c4785647a8317c9f60e7b168ca25b5b"
-    },
-    "dankTranslate": {
-      "repo": "https://github.com/alcxyz/DankTranslate",
-      "commit": "10d88fc770ec54e27da1d7d112bed0b33ce806d7"
-    },
-    "displayOutput": {
-      "repo": "https://github.com/xyzsteven/dms-displayoutput",
-      "commit": "3bee076c67761aaba2b4b129a7c2d2acc8552545"
-    },
     "dockerManager": {
       "repo": "https://github.com/LuckShiba/DmsDockerManager",
       "commit": "9e6a01283e169c46eff7a157202b1b8ab48577b1"
-    },
-    "emojiLauncher": {
-      "repo": "https://github.com/devnullvoid/dms-emoji-launcher",
-      "commit": "8ff394e3ddfcb2fd755ed2e7b4c6f01f3e26e596"
     }
   }
 }

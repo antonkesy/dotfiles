@@ -184,10 +184,6 @@
           "enabled": true
         },
         {
-          "id": "claudeCodeUsage",
-          "enabled": true
-        },
-        {
           "id": "dockerManager",
           "enabled": true
         },
