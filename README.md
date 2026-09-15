@@ -6,20 +6,21 @@
 
 _Trying to achieve the best reproducible setup for my personal and professional use_
 
-Automated setup for my various Linux machines:
+Automated setup for my various machines:
 
 - **Home** (`home/`):
   Uses [Home Manager](https://github.com/nix-community/home-manager) to create me a reproducible terminal for my use on Arch and WSL2.
-- **System** (`system/<Distro>/`): Automatically installs system specific packages.
+- **System** (`system/<System>/`): Automatically installs system specific packages.
   - Arch: [Ansible](https://github.com/ansible/ansible).
   - Ubuntu-26.04 in WSL2: Shell script.
+  - Windows 11: PowerShell script. Games box, no `home/` half.
 
 <img src="./docs/images/preview.png" width="800">
 
 ## TL;DR
 
-Every path clones this repo into `~/Projects/dotfiles` (load-bearing: home-manager links
-`~/.config` into it) and ends in `homeConfigurations.ak`.
+Every Linux path clones this repo into `~/Projects/dotfiles` (load-bearing: home-manager
+links `~/.config` into it) and ends in `homeConfigurations.ak`. Windows does neither.
 
 **Arch**
 
@@ -54,6 +55,13 @@ for each passphrase once, see *Keys unlocked at login*.
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Ubuntu-26.04-WSL2/bootstrap.sh | bash
+```
+
+**Windows 11**
+
+```powershell
+# Win+X > Terminal (Admin)
+irm https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Windows-11/bootstrap.ps1 | iex
 ```
 
 ## Perquisites
