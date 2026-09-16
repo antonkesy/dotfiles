@@ -49,7 +49,8 @@ curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Arch
 ```
 
 Copy `~/.ssh` and import the gpg key; the first `git push` / signed commit asks
-for each passphrase once, see *Keys unlocked at login*.
+for each passphrase once, see *Keys unlocked at login*. Put the NAS Samba
+password in `/etc/nas/credentials`, see *NAS shares*.
 
 **Ubuntu-26.04 on WSL2**
 
@@ -97,6 +98,34 @@ wsl
 | `make wsl`     | system half of Ubuntu on WSL2, then switch (re-runnable) |
 | `make clean`   | build outputs, user-level nix garbage, AUR builds        |
 | `make use-ssh` | switch origin remote (and submodules) from https to ssh  |
+
+## NAS shares
+
+`//192.168.178.26/{Music,Movies,ak}` are SMB3.1.1 mounts at `/mnt/nas/*`. The `storage`
+role writes `noauto,user` entries into `/etc/fstab`, so nothing mounts at boot;
+`nas-mount.service` (`home/modules/nas.nix`) mounts them when `graphical-session.target`
+comes up and unmounts them at logout. The shares only exist while you are logged in.
+
+The password is the one secret this repo does not carry. `make arch` seeds a placeholder:
+
+```bash
+sudoedit /etc/nas/credentials     # username=ak / password=<samba password>
+systemctl --user restart nas-mount.service
+```
+
+`/etc/nas/credentials` is `0600 root:root`. `/usr/bin/mount.cifs` is setuid root and
+raises `CAP_DAC_READ_SEARCH` to read it on your behalf, which is why an unprivileged
+`mount /mnt/nas/ak` works without ever exposing the password to your user. The flip
+side: the `user` fstab flag lets *any* local account trigger that mount -- though
+`file_mode=0600` / `dir_mode=0700` still keep them out of the contents. Single-user
+box, acceptable.
+
+`user` also forces `noexec,nosuid,nodev`, so you cannot run a binary or script
+straight off the share. Copy it locally first.
+
+The NAS still offers the same folders over unauthenticated NFS to the whole LAN; this
+half only stops *this machine* from using it. Turning the NFS server off lives in the
+appliance web UI.
 
 ## Currently used with
 

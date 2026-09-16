@@ -6,6 +6,7 @@
     ./terminal.nix
     ./dotfiles.nix
     ./desktop.nix
+    ./nas.nix
     ./nvim.nix
     ./git.nix
     ./development.nix

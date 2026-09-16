@@ -2,25 +2,44 @@
 nas_host: 192.168.178.26
 nas_root: /mnt/nas
 
-nas_exports:
-  - { export: /mnt/HD/HD_a2/Music, name: Music }
-  - { export: /mnt/HD/HD_a2/Movies, name: Movies }
-  - { export: /mnt/HD/HD_a2/ak, name: ak }
+# SMB share names as the NAS exports them (NFS used filesystem paths, SMB does not).
+nas_shares:
+  - Music
+  - Movies
+  - ak
 
-# Boot never waits for the NAS: the automount unit is what starts at boot, the
-# mount itself happens on first access and is dropped after 10 idle minutes.
-# vers=3/nolock because the NAS speaks NFSv3 and has no lock daemon.
+# Root-only, 0600, filled in by hand -- never in git, see README.md > NAS shares.
+# The directory is 0755 so the unprivileged user unit can test that the file is
+# there; the file itself stays unreadable to anyone but root.
+nas_credentials_file: /etc/nas/credentials
+nas_username: ak
+nas_password_placeholder: CHANGE_ME
+
+# noauto + user: nothing mounts at boot. ak mounts these from nas-mount.service
+# (home/modules/nas.nix) at graphical login and unmounts them at logout.
+# /usr/bin/mount and /usr/bin/mount.cifs are both setuid root, so mount.cifs reads
+# the root-only credentials file on ak's behalf -- the password is never exposed to
+# the user account. `user` also forces noexec,nosuid,nodev, which only stops
+# executing binaries straight off the share.
+# forceuid/forcegid plus the 0600/0700 modes are what make the files ak-owned,
+# writable by him and unreadable to every other local account.
+# nounix/mfsymlinks because the appliance has no SMB3.1.1 POSIX extensions.
+# No `seal`: trusted LAN.
 nas_mount_options:
   - noauto
-  - x-systemd.automount
-  - x-systemd.idle-timeout=600
-  - x-systemd.mount-timeout=10
+  - user
   - _netdev
   - nofail
-  - vers=3
-  - nolock
+  - vers=3.1.1
+  - "credentials={{ nas_credentials_file }}"
+  - "uid={{ ansible_facts.user_uid }}"
+  - "gid={{ ansible_facts.user_gid }}"
+  - forceuid
+  - forcegid
+  - file_mode=0600
+  - dir_mode=0700
+  - iocharset=utf8
+  - nounix
+  - mfsymlinks
   - soft
-  - timeo=150
-  - retrans=3
-  - rsize=1048576
-  - wsize=1048576
+  - actimeo=30

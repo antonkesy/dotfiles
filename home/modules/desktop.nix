@@ -34,7 +34,8 @@ let
     "DankMaterialShell/.firstlaunch" = "";
   };
 
-  # Nautilus sidebar entries for the NFS automounts (system/Arch storage role).
+  # Nautilus sidebar entries for the NAS SMB shares (system/Arch storage role),
+  # mounted per-session by nas-mount.service -- see nas.nix.
   # The file stays mutable, so bookmarks added in the UI survive.
   bookmarks = [
     "file:///mnt/nas/Music NAS Music"
