@@ -10,7 +10,8 @@ $PACKAGES = @(
 	'Ubisoft.Connect',
 	'RockstarGames.Launcher',
 	'Discord.Discord',
-	'Logitech.GHUB'
+	'Logitech.GHUB',
+	'Nextcloud.NextcloudDesktop'
 )
 # fanatec ships nothing to winget; current link on https://www.fanatec.com/us/en/s/download-apps-driver
 $FANATEC_URL = if ($env:FANATEC_URL) { $env:FANATEC_URL } else { 'https://www3.corsair.com/Files/Fanatec/App/FanatecAppInstaller_v1_5_4_2.zip' }
