@@ -11,10 +11,12 @@
         jupyterlab
         notebook
         libtmux # tmux-window-name
+        tox
       ]
     ))
     swig
     uv
+    ruff
 
     # --- node ---
     nodejs
