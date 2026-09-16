@@ -10,7 +10,6 @@
 }:
 let
   mountPoint = "${config.home.homeDirectory}/Nextcloud";
-  mountUri = "file://${mountPoint}";
   secret = "${config.xdg.configHome}/rclone/nextcloud-app-password";
 
   # A SIGKILLed rclone leaves "Transport endpoint is not connected" behind and
@@ -134,25 +133,5 @@ in
         run chmod 0555 "$mp"
       fi
     fi
-  '';
-
-  # The file stays mutable, so bookmarks added in the UI survive.
-  home.activation.nautilusBookmarks = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    file="${config.xdg.configHome}/gtk-3.0/bookmarks"
-    tmp="$(mktemp)"
-    # the sync client left a label-less entry for the same directory; keeping
-    # both would give Nautilus two sidebar rows for it. grep -v exits 1 when
-    # nothing survives, and activation runs under set -e.
-    if [ -e "$file" ]; then
-      grep -vxF -e '${mountUri}' -e '${mountUri}/' "$file" >"$tmp" || true
-    fi
-    for bookmark in ${lib.escapeShellArgs [ "${mountUri} Nextcloud" ]}; do
-      grep -qxF "$bookmark" "$tmp" || printf '%s\n' "$bookmark" >>"$tmp"
-    done
-    if ! cmp -s "$tmp" "$file"; then
-      run mkdir -p "$(dirname "$file")"
-      run install -m644 "$tmp" "$file"
-    fi
-    rm -f "$tmp"
   '';
 }
