@@ -63,6 +63,7 @@ hl.config({
 hl.on("hyprland.start", function()
     hl.exec_cmd("hyprpm reload")
     hl.exec_cmd("uwsm finalize")
+    hl.exec_cmd("pypr")
     hl.exec_cmd("awww-daemon")
     hl.exec_cmd("awww img ~/.config/wallpapers/XPPeepo_M4x_Day.png")
 end)

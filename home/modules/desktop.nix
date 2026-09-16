@@ -14,16 +14,10 @@ let
     "hypr/hyprland.lua"
     "hypr/plugins.lua"
     "hypr/dms"
+    "hypr/scripts/kill-menu.sh"
+    "pypr/config.toml"
     "DankMaterialShell"
     "wallpapers"
-  ]
-  ++ map (s: "hypr/scripts/${s}.sh") [
-    "calendar"
-    "discord-scratchpad"
-    "kill-menu"
-    "mail-scratchpad"
-    "music"
-    "task-manager-scratchpad"
   ];
 
   # copy-once, the app rewrites them

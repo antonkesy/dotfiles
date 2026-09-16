@@ -185,6 +185,7 @@
         name: aur_build
       vars:
         aur_packages:
+          - pyprland # hyprland scratchpads
           - bibata-cursor-theme-bin
           - dankcalendar-bin # DMS calendar app
           - dsearch-bin # DMS filesystem search

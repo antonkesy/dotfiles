@@ -1,0 +1,37 @@
+[pyprland]
+plugins = ["scratchpads"]
+
+[scratchpads.discord]
+animation = "fromTop"
+command = "discord"
+class = "discord"
+size = "80% 85%"
+max_size = "2400px 100%"
+
+[scratchpads.mail]
+animation = "fromTop"
+command = "thunderbird"
+class = "org.mozilla.Thunderbird"
+size = "80% 85%"
+max_size = "2400px 100%"
+
+[scratchpads.missioncenter]
+animation = "fromTop"
+command = "missioncenter"
+class = "io.missioncenter.MissionCenter"
+size = "70% 75%"
+max_size = "2000px 100%"
+
+[scratchpads.calendar]
+animation = "fromRight"
+command = "gnome-calendar"
+class = "org.gnome.Calendar"
+size = "45% 70%"
+max_size = "1400px 100%"
+
+[scratchpads.music]
+animation = "fromBottom"
+command = "amberol"
+class = "io.bassi.Amberol"
+size = "35% 55%"
+max_size = "900px 100%"
