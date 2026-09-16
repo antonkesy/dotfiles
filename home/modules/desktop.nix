@@ -34,15 +34,6 @@ let
     "DankMaterialShell/.firstlaunch" = "";
   };
 
-  # Nautilus sidebar entries for the NAS SMB shares (system/Arch storage role),
-  # mounted per-session by nas-mount.service -- see nas.nix.
-  # The file stays mutable, so bookmarks added in the UI survive.
-  bookmarks = [
-    "file:///mnt/nas/Music NAS Music"
-    "file:///mnt/nas/Movies NAS Movies"
-    "file:///mnt/nas/ak NAS ak"
-  ];
-
   seed =
     rel: content:
     let
@@ -73,20 +64,6 @@ in
   home.activation.seedMutableConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] (
     lib.concatStringsSep "\n" (lib.mapAttrsToList seed seeds)
   );
-
-  home.activation.nautilusBookmarks = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    file="${config.xdg.configHome}/gtk-3.0/bookmarks"
-    tmp="$(mktemp)"
-    [ -e "$file" ] && cat "$file" >"$tmp"
-    for bookmark in ${lib.escapeShellArgs bookmarks}; do
-      grep -qxF "$bookmark" "$tmp" || printf '%s\n' "$bookmark" >>"$tmp"
-    done
-    if ! cmp -s "$tmp" "$file"; then
-      run mkdir -p "$(dirname "$file")"
-      run install -m644 "$tmp" "$file"
-    fi
-    rm -f "$tmp"
-  '';
 
   # plugins/ is gitignored; plugins.lock.json pins them
   home.activation.restoreDmsPlugins = lib.hm.dag.entryAfter [ "linkGeneration" ] ''

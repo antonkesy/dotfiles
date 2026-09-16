@@ -1,19 +1,15 @@
-.PHONY: help home arch wsl clean use-ssh import-keys
+.PHONY: help home arch wsl clean use-ssh
 
 help:
-	@echo "  home        - build and activate home (home/)"
-	@echo "  arch        - system half of an Arch machine (system/Arch)"
-	@echo "  wsl         - system half of Ubuntu on WSL2, then switch (system/Ubuntu-26.04-WSL2)"
-	@echo "  import-keys - ssh/gpg keys from the NAS staging copy into ~ (home/import-keys.sh)"
-	@echo "  clean       - build outputs, nix garbage, AUR builds"
-	@echo "  use-ssh     - origin remote (and submodules) from https to ssh (github.com/antonkesy/*)"
+	@echo "  home    - build and activate home (home/)"
+	@echo "  arch    - system half of an Arch machine (system/Arch)"
+	@echo "  wsl     - system half of Ubuntu on WSL2, then switch (system/Ubuntu-26.04-WSL2)"
+	@echo "  clean   - build outputs, nix garbage, AUR builds"
+	@echo "  use-ssh - origin remote (and submodules) from https to ssh (github.com/antonkesy/*)"
 	@echo "More: make -C home help, make -C system/Arch help"
 
 home:
 	$(MAKE) -C home switch
-
-import-keys:
-	$(MAKE) -C home import-keys
 
 arch:
 	$(MAKE) -C system/Arch arch
