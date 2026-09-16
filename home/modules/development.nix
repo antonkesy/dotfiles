@@ -128,4 +128,10 @@
   ];
 
   home.sessionVariables.ANDROID_HOME = "$HOME/Android/Sdk";
+
+  home.activation.rustupDefaultStable = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    if ! ${pkgs.rustup}/bin/rustup show active-toolchain >/dev/null 2>&1; then
+      run ${pkgs.rustup}/bin/rustup default stable
+    fi
+  '';
 }
