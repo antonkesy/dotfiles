@@ -121,12 +121,7 @@ is on, so a missing signing key only shows up as a failure at the first commit -
 not in this repo, and without it the mount stays skipped:
 
 ```bash
-# Nextcloud > Settings > Security > Create new app password
-install -d -m700 ~/.config/rclone
-rclone obscure - | install -m600 /dev/stdin ~/.config/rclone/nextcloud-app-password
-# paste it, Enter, Ctrl-D -- stdin, so it stays out of the shell history
-make home
-```
+install -d -m700 ~/.config/rclone && read -s "pw?Nextcloud app password: " && echo && rclone obscure "$pw" > ~/.config/rclone/nextcloud-app-password && unset pw && chmod 600 ~/.config/rclone/nextcloud-app-password```
 
 Store it obscured: rclone misreads an app password as already-obscured otherwise.
 
