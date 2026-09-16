@@ -16,15 +16,21 @@ let
   # A SIGKILLed rclone leaves "Transport endpoint is not connected" behind and
   # the next start trips over it, so this runs both on the way in and on the way
   # out. /usr/bin/fusermount3, not ${pkgs.fuse3}: it has to be the setuid one.
+  #
+  # $1 is the mode to leave the *underlying* dir in, and the two callers want
+  # opposite things: fusermount3 refuses to mount on a dir the user cannot write
+  # ("user has no write access to mountpoint"), so the way in must be 0755,
+  # while the way out restores 0555 so a down mount cannot quietly collect files
+  # on the SSD. Once rclone is up the mount covers this dir, so 0755 underneath
+  # is never reachable. Never chmod a non-empty dir: 0555 over the old 38 GB
+  # sync folder would only make it harder to delete.
   reset = pkgs.writeShellScript "nextcloud-reset-mountpoint" ''
     set -u
+    mode="$1"
     /usr/bin/fusermount3 -uz ${mountPoint} 2>/dev/null || true
     ${pkgs.coreutils}/bin/mkdir -p ${mountPoint}
-    # read-only again so a down mount cannot quietly collect files on the SSD --
-    # but never on a non-empty dir: chmod 0555 over the old 38 GB sync folder
-    # would only make it harder to delete.
     if [ -z "$(${pkgs.coreutils}/bin/ls -A ${mountPoint} 2>/dev/null)" ]; then
-      ${pkgs.coreutils}/bin/chmod 0555 ${mountPoint}
+      ${pkgs.coreutils}/bin/chmod "$mode" ${mountPoint}
     fi
   '';
 in
@@ -103,9 +109,9 @@ in
         # mkForce: the module sets this to a bare string, and
         # `either primitive (listOf primitive)` cannot merge a string with a
         # list. `reset` does the mkdir the original did, and more.
-        ExecStartPre = lib.mkForce [ "-${reset}" ];
+        ExecStartPre = lib.mkForce [ "-${reset} 0755" ];
         # runs on a crash too, so a stale endpoint never outlives the unit
-        ExecStopPost = "-${reset}";
+        ExecStopPost = "-${reset} 0555";
       };
     };
   };
@@ -122,7 +128,9 @@ in
   ];
 
   # An unmounted ~/Nextcloud must not quietly collect files on the SSD, so the
-  # dir underneath the mount is left read-only. rclone still mounts over it.
+  # dir underneath the mount is left read-only. The mount unit's ExecStartPre
+  # puts it back to 0755 before mounting -- fusermount3 refuses a mountpoint the
+  # user cannot write -- and ExecStopPost restores 0555 on the way out.
   # Empty-only, so this is safe to run while the old sync folder is still there.
   home.activation.nextcloudMountPoint = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     mp="${mountPoint}"
