@@ -12,7 +12,7 @@ Ansible for what home-manager cannot do: pacman/AUR packages, systemd, PAM. The
 | `make dev`   | shell in that container, repo bind-mounted |
 | `make clean` | remove `./build` (AUR builds)             |
 
-Roles, in order: `base`, `desktop`, `nvidia`, `laptop`, `containers`, `storage`, `nix`.
+Roles, in order: `base`, `desktop`, `nvidia`, `laptop`, `containers`, `nix`.
 Every role runs on every machine; `is_container` skips services and PAM.
 
 ```

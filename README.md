@@ -114,6 +114,22 @@ through `pinentry-gnome3`, in its own window rather than over a TUI. The first
 is on, so a missing signing key only shows up as a failure at the first commit --
 `git config user.signingkey` says which one `git.nix` expects.
 
+## Nextcloud
+
+`~/Nextcloud` is a streamed WebDAV mount of `http://lab:8080`, not a sync folder --
+`home/modules/nextcloud.nix`, no desktop client. Like the keys, the app password is
+not in this repo, and without it the mount stays skipped:
+
+```bash
+# Nextcloud > Settings > Security > Create new app password
+install -d -m700 ~/.config/rclone
+rclone obscure - | install -m600 /dev/stdin ~/.config/rclone/nextcloud-app-password
+# paste it, Enter, Ctrl-D -- stdin, so it stays out of the shell history
+make home
+```
+
+Store it obscured: rclone misreads an app password as already-obscured otherwise.
+
 ## Currently used with
 
 - Arch / Ubuntu on WSL

@@ -152,10 +152,10 @@
           - discord
           - mission-center
           - remmina
-          - nextcloud-client
           - baobab
           - file-roller
           - gnome-disk-utility
+          - fuse3 # fusermount3, for the rclone Nextcloud mount
           - gnome-calculator
           - gnome-font-viewer
           - simple-scan
@@ -164,6 +164,39 @@
           - qt6-base
           - libtiff
         state: present
+
+    - name: Remove packages that were replaced
+      become: true
+      community.general.pacman:
+        name:
+          - nextcloud-client # replaced by the rclone WebDAV mount, see home/modules/nextcloud.nix
+        state: absent
+        extra_args: --recursive
+        # not extra_args: the module reuses those for a --print-format dry
+        # query first, and pacman rejects --nosave together with --print
+        remove_nosave: true
+
+    # pacman does not clean up after the client; this .desktop is what systemd
+    # turns into app-Nextcloud@autostart.service at every login.
+    - name: Drop the Nextcloud client autostart entry
+      ansible.builtin.file:
+        path: "{{ ansible_facts.user_dir }}/.config/autostart/Nextcloud.desktop"
+        state: absent
+
+    - name: Look for the Nextcloud app password
+      ansible.builtin.stat:
+        path: "{{ ansible_facts.user_dir }}/.config/rclone/nextcloud-app-password"
+      register: nextcloud_app_password
+
+    # A warning, not a failure: failing here would abort the play before the nix
+    # role runs home-manager, and the file is deliberately absent in CI.
+    - name: Warn while the Nextcloud app password is missing
+      ansible.builtin.debug:
+        msg: >-
+          {{ ansible_facts.user_dir }}/.config/rclone/nextcloud-app-password is
+          missing, so rclone-config.service and rclone-mount:@nextcloud.service
+          stay skipped and ~/Nextcloud stays empty -- see README.md > Nextcloud.
+      when: not nextcloud_app_password.stat.exists
 
     - name: Install helpers and GUI apps from the AUR
       ansible.builtin.include_role:
