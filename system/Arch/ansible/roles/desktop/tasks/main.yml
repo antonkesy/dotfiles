@@ -165,24 +165,6 @@
           - libtiff
         state: present
 
-    - name: Remove packages that were replaced
-      become: true
-      community.general.pacman:
-        name:
-          - nextcloud-client # replaced by the rclone WebDAV mount, see home/modules/nextcloud.nix
-        state: absent
-        extra_args: --recursive
-        # not extra_args: the module reuses those for a --print-format dry
-        # query first, and pacman rejects --nosave together with --print
-        remove_nosave: true
-
-    # pacman does not clean up after the client; this .desktop is what systemd
-    # turns into app-Nextcloud@autostart.service at every login.
-    - name: Drop the Nextcloud client autostart entry
-      ansible.builtin.file:
-        path: "{{ ansible_facts.user_dir }}/.config/autostart/Nextcloud.desktop"
-        state: absent
-
     - name: Look for the Nextcloud app password
       ansible.builtin.stat:
         path: "{{ ansible_facts.user_dir }}/.config/rclone/nextcloud-app-password"
