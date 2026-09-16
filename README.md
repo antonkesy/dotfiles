@@ -48,9 +48,8 @@ nmcli device wifi connect "<SSID>" --ask
 curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Arch/bootstrap.sh | bash
 ```
 
-Copy `~/.ssh` and import the gpg key; the first `git push` / signed commit asks
-for each passphrase once, see *Keys unlocked at login*. Put the NAS Samba
-password in `/etc/nas/credentials`, see *NAS shares*.
+Put the NAS Samba password in `~/.config/nas/credentials` (see *NAS shares*), then
+`make import-keys` to pull the SSH and GPG keys off the NAS (see *Keys*).
 
 **Ubuntu-26.04 on WSL2**
 
@@ -91,13 +90,14 @@ wsl
 
 ## Targets
 
-| target         | what it does                                             |
-| -------------- | -------------------------------------------------------- |
-| `make home`    | build + activate `homeConfigurations.ak`                 |
-| `make arch`    | system half of an Arch machine (ansible, every role)     |
-| `make wsl`     | system half of Ubuntu on WSL2, then switch (re-runnable) |
-| `make clean`   | build outputs, user-level nix garbage, AUR builds        |
-| `make use-ssh` | switch origin remote (and submodules) from https to ssh  |
+| target             | what it does                                             |
+| ------------------ | -------------------------------------------------------- |
+| `make home`        | build + activate `homeConfigurations.ak`                 |
+| `make arch`        | system half of an Arch machine (ansible, every role)     |
+| `make wsl`         | system half of Ubuntu on WSL2, then switch (re-runnable) |
+| `make import-keys` | ssh/gpg keys from the NAS staging copy into `~`          |
+| `make clean`       | build outputs, user-level nix garbage, AUR builds        |
+| `make use-ssh`     | switch origin remote (and submodules) from https to ssh  |
 
 ## NAS shares
 
@@ -109,16 +109,24 @@ comes up and unmounts them at logout. The shares only exist while you are logged
 The password is the one secret this repo does not carry. `make arch` seeds a placeholder:
 
 ```bash
-sudoedit /etc/nas/credentials     # username=ak / password=<samba password>
+$EDITOR ~/.config/nas/credentials   # username=ak / password=<samba password>
 systemctl --user restart nas-mount.service
 ```
 
-`/etc/nas/credentials` is `0600 root:root`. `/usr/bin/mount.cifs` is setuid root and
-raises `CAP_DAC_READ_SEARCH` to read it on your behalf, which is why an unprivileged
-`mount /mnt/nas/ak` works without ever exposing the password to your user. The flip
-side: the `user` fstab flag lets *any* local account trigger that mount -- though
-`file_mode=0600` / `dir_mode=0700` still keep them out of the contents. Single-user
-box, acceptable.
+`~/.config/nas/credentials` is `0600` and yours, not root's, and that is not an
+oversight. `/usr/bin/mount.cifs` is setuid root, but when a non-root user invokes it
+it forks and the child permanently drops to the caller's real uid *before* it parses
+options and opens the credentials file -- deliberate hardening, so a setuid
+`mount.cifs` cannot be turned into an arbitrary-file-read oracle. A `user` mount can
+therefore only ever use a credentials file you can read yourself; point it at a
+root-only file and every mount dies with
+`error 13 (Permission denied) opening credential file`. Storing it as root bought
+nothing anyway -- you are in `wheel` and can `sudo cat` it.
+
+So the Samba password is readable by anything running as you. The flip side of the
+`user` flag is that *any* local account can trigger the mount, though it will fail at
+the credentials file, and `file_mode=0600` / `dir_mode=0700` keep other accounts out
+of the contents either way. Single-user box, acceptable.
 
 `user` also forces `noexec,nosuid,nodev`, so you cannot run a binary or script
 straight off the share. Copy it locally first.
@@ -126,6 +134,47 @@ straight off the share. Copy it locally first.
 The NAS still offers the same folders over unauthenticated NFS to the whole LAN; this
 half only stops *this machine* from using it. Turning the NFS server off lives in the
 appliance web UI.
+
+## Keys
+
+The SSH and GPG keys are the one thing this repo cannot carry. They live on the NAS
+at `/mnt/nas/ak/setup`, a copy of `~/.ssh` and `~/.gnupg` that you refresh by hand
+whenever a key changes:
+
+```bash
+make import-keys            # needs the NAS mounted, see NAS shares
+```
+
+`home/import-keys.sh` copies each file in `setup/.ssh` to `~/.ssh` and, from
+`setup/.gnupg`, only the key material: `private-keys-v1.d/*.key`,
+`public-keys.d/pubring.db`, `openpgp-revocs.d/*.rev`, `trustdb.gpg`, `common.conf`
+and a legacy `pubring.kbx`. It names what it wants rather than filtering what it does
+not, which keeps three things out on their own:
+
+- `gpg.conf` / `gpg-agent.conf`, symlinks into `/nix/store` that home-manager owns
+  and rewrites on every `make home`,
+- the keyboxd lock files (`pubring.db.lock`, `.#lk*`) that belong to whichever
+  machine made the copy -- a stale one stops gpg from opening the keyring at all,
+- everything machine-local: `random_seed`, `sshcontrol`, `crls.d`.
+
+Nothing is overwritten silently: a file that already matches is left alone, one that
+differs is moved to `<name>.bak.<timestamp>` first. Modes are set on the way in --
+`0700` on the directories, `0600` on private keys, `0644` on `.pub`, `config`,
+`known_hosts` and `authorized_keys` -- which is also what keeps `gcr-ssh-agent` from
+spinning, see *Workarounds*.
+
+`common.conf` holds `use-keyboxd`. Without it gpg ignores `public-keys.d` and finds
+no public keys, so the secret keys it did import look unusable; if the copy is
+missing it, the script writes it.
+
+### Keys unlocked at login
+
+`gpg-agent` (home-manager, `home/modules/git.nix`) caches the passphrase and prompts
+through `pinentry-gnome3`, in its own window rather than over a TUI. The first
+`git push` and the first signed commit after a login ask once each; `commit.gpgsign`
+is on, so an unimported signing key only shows up as a failure at the first commit.
+`make import-keys` warns about that up front by checking `git config user.signingkey`
+against what it imported.
 
 ## Currently used with
 

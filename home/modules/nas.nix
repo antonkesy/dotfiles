@@ -1,8 +1,13 @@
 # NAS shares over SMB. The fstab entries (noauto,user) come from the Arch storage
 # role; this only drives the lifecycle -- mounted with the graphical session, gone
-# at logout. /usr/bin/mount is setuid root, so ak may mount them and mount.cifs
-# reads the root-only credentials file on his behalf.
-{ lib, pkgs, ... }:
+# at logout. /usr/bin/mount is setuid root, so ak may mount them; mount.cifs then
+# drops back to his uid to read the credentials, which is why they sit in ~/.config.
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   host = "192.168.178.26";
   root = "/mnt/nas";
@@ -11,7 +16,7 @@ let
     "Movies"
     "ak"
   ];
-  credentials = "/etc/nas/credentials";
+  credentials = "${config.xdg.configHome}/nas/credentials";
 
   # A dead NAS -- or a laptop on a foreign network -- must never stall the session.
   mountScript = pkgs.writeShellScript "nas-mount" ''
@@ -55,8 +60,8 @@ in
     Unit = {
       Description = "NAS SMB shares for this session";
       Documentation = [ "man:mount.cifs(8)" ];
-      # /etc/nas is 0755 so this stat succeeds as ak; the file itself is 0600.
-      # Also keeps the unit inert where the storage role never ran (WSL).
+      # 0600 and ak's own, so if it is there mount.cifs can read it. Also keeps the
+      # unit inert where the storage role never ran (WSL).
       ConditionPathExists = credentials;
       # PartOf, never Requires: graphical-session.target is RefuseManualStart
       # and StopWhenUnneeded, so a Requires would try to pull it up.

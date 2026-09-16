@@ -18,20 +18,52 @@
   loop: "{{ nas_shares }}"
 
 - name: Create the credentials directory
-  become: true
   ansible.builtin.file:
     path: "{{ nas_credentials_file | dirname }}"
     state: directory
-    owner: root
-    group: root
-    mode: "0755"
+    owner: "{{ ansible_facts.user_uid }}"
+    group: "{{ ansible_facts.user_gid }}"
+    mode: "0700"
 
-- name: Seed the credentials placeholder, never overwriting a real password
+# One-time migration off the root-only location. That design assumed mount.cifs would
+# read /etc/nas/credentials on ak's behalf; it does not, so every unprivileged mount
+# died with "error 13 (Permission denied) opening credential file". remote_src keeps
+# the password out of Ansible's variables on the way across.
+- name: Look for the old root-only credentials file
+  ansible.builtin.stat:
+    path: /etc/nas/credentials
+  register: nas_old_credentials
+
+- name: Look for the credentials in their new home
+  ansible.builtin.stat:
+    path: "{{ nas_credentials_file }}"
+  register: nas_new_credentials
+
+- name: Move the old credentials into ak's home
   become: true
   ansible.builtin.copy:
+    src: /etc/nas/credentials
     dest: "{{ nas_credentials_file }}"
-    owner: root
-    group: root
+    remote_src: true
+    owner: "{{ ansible_facts.user_uid }}"
+    group: "{{ ansible_facts.user_gid }}"
+    mode: "0600"
+  when:
+    - nas_old_credentials.stat.exists
+    - not nas_new_credentials.stat.exists
+
+- name: Drop the old root-only credentials directory
+  become: true
+  ansible.builtin.file:
+    path: /etc/nas
+    state: absent
+  when: nas_old_credentials.stat.exists
+
+- name: Seed the credentials placeholder, never overwriting a real password
+  ansible.builtin.copy:
+    dest: "{{ nas_credentials_file }}"
+    owner: "{{ ansible_facts.user_uid }}"
+    group: "{{ ansible_facts.user_gid }}"
     mode: "0600"
     force: false
     content: |
@@ -40,7 +72,6 @@
       password={{ nas_password_placeholder }}
 
 - name: Read the credentials back
-  become: true
   ansible.builtin.slurp:
     src: "{{ nas_credentials_file }}"
   register: nas_credentials
@@ -53,7 +84,7 @@
   ansible.builtin.debug:
     msg: >-
       {{ nas_credentials_file }} still says password={{ nas_password_placeholder }}.
-      Run `sudoedit {{ nas_credentials_file }}` and put the Samba password of
+      Run `$EDITOR {{ nas_credentials_file }}` and put the Samba password of
       {{ nas_username }}@{{ nas_host }} there; until then nas-mount.service
       mounts nothing.
   when:

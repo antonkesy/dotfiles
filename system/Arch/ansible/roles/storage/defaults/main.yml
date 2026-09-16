@@ -8,18 +8,20 @@ nas_shares:
   - Movies
   - ak
 
-# Root-only, 0600, filled in by hand -- never in git, see README.md > NAS shares.
-# The directory is 0755 so the unprivileged user unit can test that the file is
-# there; the file itself stays unreadable to anyone but root.
-nas_credentials_file: /etc/nas/credentials
+# 0600 in ak's home, filled in by hand -- never in git, see README.md > NAS shares.
+# Not /etc: mount.cifs forks and the child permanently drops to the caller's real uid
+# before it parses options and opens the credentials file, so an unprivileged `mount`
+# can only ever use a file the caller can read himself. Root-only storage bought
+# nothing here anyway -- ak is in wheel and can sudo to it.
+nas_credentials_file: "{{ ansible_facts.user_dir }}/.config/nas/credentials"
 nas_username: ak
 nas_password_placeholder: CHANGE_ME
 
 # noauto + user: nothing mounts at boot. ak mounts these from nas-mount.service
 # (home/modules/nas.nix) at graphical login and unmounts them at logout.
-# /usr/bin/mount and /usr/bin/mount.cifs are both setuid root, so mount.cifs reads
-# the root-only credentials file on ak's behalf -- the password is never exposed to
-# the user account. `user` also forces noexec,nosuid,nodev, which only stops
+# /usr/bin/mount and /usr/bin/mount.cifs are both setuid root, which is what lets ak
+# mount at all -- but mount.cifs reads the credentials as ak, never as root, which is
+# why they live in his home. `user` also forces noexec,nosuid,nodev, which only stops
 # executing binaries straight off the share.
 # forceuid/forcegid plus the 0600/0700 modes are what make the files ak-owned,
 # writable by him and unreadable to every other local account.
