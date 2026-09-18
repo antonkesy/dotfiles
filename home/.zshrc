@@ -38,3 +38,6 @@ source ${HOME}/.config/zsh/alias.zsh
 
 # sdkman must be last
 source ${HOME}/.config/zsh/sdkman.zsh
+
+# nix is the fallback: every nix dir sorts behind the system ones
+path=(${path:#(/nix/*|$HOME/.nix-profile/*)} ${(M)path:#(/nix/*|$HOME/.nix-profile/*)})
