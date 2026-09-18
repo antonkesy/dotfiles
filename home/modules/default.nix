@@ -10,6 +10,7 @@
     ./nvim.nix
     ./git.nix
     ./development.nix
+    ./toolchains.nix
     ./containers.nix
   ];
 

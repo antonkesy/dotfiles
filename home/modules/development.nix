@@ -36,7 +36,6 @@
 
     # --- java ---
     jdk21
-    (lib.lowPrio jdk8) # for IDEs
     maven
     gradle
 
