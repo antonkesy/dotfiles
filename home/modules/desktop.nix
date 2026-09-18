@@ -72,6 +72,18 @@ in
     fi
   '';
 
+  # uwsm parks Hyprland and every app it launches in one cgroup, and systemd's
+  # DefaultOOMPolicy=stop then SIGKILLs the whole unit -- compositor included --
+  # when the kernel OOM-kills any one of them. A runaway compile should die alone.
+  # Not xdg.configFile: sd-switch walks ~/.config/systemd/user and expects every
+  # subdir there to be a .wants one.
+  systemd.user.packages = [
+    (pkgs.writeTextDir "share/systemd/user/wayland-wm@hyprland.desktop.service.d/90-oom-policy.conf" ''
+      [Service]
+      OOMPolicy=continue
+    '')
+  ];
+
   # environment.d, reaches dms.service
   systemd.user.sessionVariables = {
     GTK_THEME = "Adwaita";
