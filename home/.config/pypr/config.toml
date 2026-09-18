@@ -5,6 +5,9 @@ plugins = ["scratchpads"]
 animation = "fromTop"
 command = "discord"
 class = "discord"
+# skip the "Discord Updater" splash, which shares class and pid with the main window
+match_by = "initialTitle"
+initialTitle = "Discord"
 size = "80% 85%"
 max_size = "2400px 100%"
 
