@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-path+=(/bin)
+path+=(/bin /usr/bin)
 
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
