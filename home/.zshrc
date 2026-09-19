@@ -19,7 +19,7 @@ source ${HOME}/.config/zsh/znap.zsh
 source ${HOME}/.config/zsh/zinit.zsh
 source ${HOME}/.config/zsh/path.zsh
 source ${HOME}/.config/zsh/nix.zsh
-# source ${HOME}/.config/zsh/tmux.zsh
+[[ -n $WSL_DISTRO_NAME ]] && source ${HOME}/.config/zsh/tmux.zsh
 source ${HOME}/.config/zsh/android.zsh
 source ${HOME}/.config/zsh/dart.zsh
 source ${HOME}/.config/zsh/flutter.zsh
