@@ -1,0 +1,15 @@
+[files]
+ignore-hidden = false
+extend-exclude = [
+  ".git/",
+  "home/.config/nvim/",
+  "home/.config/alacritty/themes/",
+  "home/.tmux/plugins/",
+  "home/.config/DankMaterialShell/",
+  "home/.config/zsh/p10k.zsh",
+]
+
+[default]
+extend-ignore-re = [
+  "[0-9abcdfghijklmnpqrsvwxyz]{26,}",
+]
