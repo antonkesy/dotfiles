@@ -40,11 +40,25 @@ let
         run install -m644 "${src}" "${target}"
       fi
     '';
+
+  # /etc/xdg/autostart entries from KDE/GNOME packages that only burn IO here
+  hiddenAutostart = [
+    "baloo_file"
+    "localsearch-3"
+    "org.gnome.Evolution-alarm-notify"
+  ];
 in
 {
-  xdg.configFile = lib.genAttrs linked (rel: {
-    source = link rel;
-  });
+  xdg.configFile =
+    lib.genAttrs linked (rel: {
+      source = link rel;
+    })
+    // lib.listToAttrs (
+      map (name: {
+        name = "autostart/${name}.desktop";
+        value.text = "[Desktop Entry]\nHidden=true\n";
+      }) hiddenAutostart
+    );
 
   # units ship with the Arch packages; skipped where absent (WSL)
   home.activation.enableSystemUnits = lib.hm.dag.entryAfter [ "reloadSystemd" ] ''

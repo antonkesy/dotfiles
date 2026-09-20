@@ -8,9 +8,6 @@ fi
 # Source Zinit
 source ~/.zinit/bin/zinit.zsh
 
-# Load oh-my-zsh framework
-zinit light ohmyzsh/ohmyzsh
-
 # zsh theme
 zinit light romkatv/powerlevel10k
 
@@ -26,10 +23,8 @@ ZVM_VI_EDITOR=nvim                 # vv in normal mode -> opens nvim
 autoload -Uz promptinit
 promptinit
 
-# Load a few important annexes, without Turbo
-# (this is currently required for annexes)
-zinit light-mode for \
-	zdharma-continuum/zinit-annex-as-monitor \
-	zdharma-continuum/zinit-annex-bin-gem-node \
-	zdharma-continuum/zinit-annex-patch-dl \
-	zdharma-continuum/zinit-annex-rust
+# completion: one compinit, one dump; -C skips the compaudit (ZSH_DISABLE_COMPFIX)
+[[ -d ${XDG_CACHE_HOME:-$HOME/.cache}/zsh ]] || mkdir -p "${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+autoload -Uz compinit
+compinit -C -d "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/compdump"
+zinit cdreplay -q

@@ -60,3 +60,40 @@
   ansible.builtin.command: grub-mkconfig -o /boot/grub/grub.cfg
   changed_when: true
   when: ansible_facts.os_family == 'Archlinux' and grub_default.changed and not is_container
+
+- name: Create journald drop-in dir
+  become: true
+  ansible.builtin.file:
+    path: /etc/systemd/journald.conf.d
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  when: ansible_facts.os_family == 'Archlinux'
+
+- name: Install zram, sysctl and journald config (zram size applies on next boot)
+  become: true
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: "0644"
+  loop:
+    - { src: zram-generator.conf, dest: /etc/systemd/zram-generator.conf }
+    - { src: 99-zram.sysctl.conf, dest: /etc/sysctl.d/99-zram.conf }
+    - { src: journald-size.conf, dest: /etc/systemd/journald.conf.d/size.conf }
+  loop_control:
+    label: "{{ item.dest }}"
+  notify:
+    - Apply sysctl
+    - Restart journald
+  when: ansible_facts.os_family == 'Archlinux'
+
+- name: Enable weekly pacman cache cleanup
+  become: true
+  ansible.builtin.systemd:
+    name: paccache.timer
+    enabled: true
+    state: started
+  when: ansible_facts.os_family == 'Archlinux' and not is_container

@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+typeset -U path PATH # no duplicates, whatever the files below append
+
 path+=(/bin /usr/bin)
 
 export PATH="$HOME/bin:$PATH"

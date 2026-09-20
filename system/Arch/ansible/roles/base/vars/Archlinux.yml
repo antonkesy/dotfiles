@@ -15,6 +15,9 @@ base_packages:
   - linux-firmware
   - intel-ucode
   - amd-ucode
+  # --- memory / maintenance ---
+  - zram-generator
+  - pacman-contrib # paccache
   # --- filesystems / storage ---
   - dosfstools
   - exfatprogs
