@@ -14,6 +14,14 @@ bindkey "${terminfo[kdch1]:-^[[3~}" delete-char
 
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
+
+# colors, from OMZ's theme-and-appearance.zsh
+# shellcheck disable=SC2154
+(($+commands[dircolors])) && eval "$(dircolors -b)"
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias diff='diff --color=auto'
+
 # shellcheck disable=SC2296
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' use-cache on
