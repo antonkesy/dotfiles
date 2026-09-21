@@ -212,6 +212,24 @@
           command = "tuigreet --time --remember --asterisks --cmd 'uwsm start -e -D Hyprland hyprland.desktop'"
           user = "greeter"
 
+    - name: Create greetd drop-in dir
+      become: true
+      ansible.builtin.file:
+        path: /etc/systemd/system/greetd.service.d
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+
+    - name: Stop boot logs overwriting the greeter (console goes quiet when greetd starts)
+      become: true
+      ansible.builtin.copy:
+        src: greetd-quiet-console.conf
+        dest: /etc/systemd/system/greetd.service.d/quiet-console.conf
+        owner: root
+        group: root
+        mode: "0644"
+
     - name: Never lock the account after failed logins
       become: true
       ansible.builtin.lineinfile:
@@ -248,6 +266,7 @@
       ansible.builtin.systemd:
         name: "{{ item }}"
         enabled: true
+        daemon_reload: true
       loop:
         - greetd
         - NetworkManager
