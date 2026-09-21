@@ -82,6 +82,7 @@
     cmake
     ninja
     meson
+    conan
     bear
     cppcheck
     valgrind
