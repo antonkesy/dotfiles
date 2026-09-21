@@ -158,7 +158,7 @@
           - fuse3 # fusermount3, for the rclone Nextcloud mount
           - gnome-calculator
           - gnome-font-viewer
-          - simple-scan
+          - sane
           - sushi
           - qt5-base
           - qt6-base
@@ -191,6 +191,9 @@
           - dsearch-bin # DMS filesystem search
           - wayscriber-bin
           - python-pympress
+          - bbe # epsonscan2 dep
+          - qt5-singleapplication # provides qt5-singlecoreapplication for epsonscan2
+          - epsonscan2
           - ttf-ms-fonts
           - google-chrome
           - visual-studio-code-bin
@@ -198,6 +201,7 @@
           - wps-office
           - teams-for-linux-bin
           - android-studio
+          - naps2 # scanner UI: https://github.com/cyanfish/naps2
 
     - name: Configure greetd with tuigreet
       become: true
