@@ -52,14 +52,13 @@
     group: root
     mode: "0644"
     backup: true
-  register: grub_default
   when: ansible_facts.os_family == 'Archlinux'
 
-- name: Regenerate grub.cfg
+- name: Regenerate grub.cfg (os-prober picks up other installed OSes)
   become: true
   ansible.builtin.command: grub-mkconfig -o /boot/grub/grub.cfg
   changed_when: true
-  when: ansible_facts.os_family == 'Archlinux' and grub_default.changed and not is_container
+  when: ansible_facts.os_family == 'Archlinux' and not is_container
 
 - name: Create journald drop-in dir
   become: true

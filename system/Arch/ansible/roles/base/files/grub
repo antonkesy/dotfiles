@@ -1,4 +1,4 @@
-# /etc/default/grub, installed by roles/base; `grub-mkconfig` runs when it changes.
+# /etc/default/grub, installed by roles/base; `grub-mkconfig` runs on every play.
 GRUB_TIMEOUT_STYLE=menu
 GRUB_TIMEOUT=10
 GRUB_DISTRIBUTOR="Arch"
