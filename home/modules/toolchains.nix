@@ -61,7 +61,6 @@ in
     (suffixed "26" nodeBins pkgs.nodejs_26)
 
     # --- go ---
-    (suffixed "1.25" [ "go" ] pkgs.go_1_25)
     (suffixed "1.26" [ "go" ] pkgs.go_1_26)
 
     # --- zig ---
