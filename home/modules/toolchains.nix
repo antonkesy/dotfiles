@@ -1,5 +1,10 @@
 # extra compiler majors, suffixed (gcc-14, javac-17); defaults stay in development.nix
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 let
   suffixed =
     suffix: bins: pkg:
@@ -41,6 +46,20 @@ let
     "npx"
   ];
 
+  # pythons removed from nixpkgs, taken from old release pins (flake.nix)
+  oldPkgs =
+    input: insecure:
+    import input {
+      inherit (pkgs.stdenv.hostPlatform) system;
+      config.permittedInsecurePackages = insecure;
+    };
+  py35 = oldPkgs inputs.nixpkgs-py35 [ ];
+  py36 = oldPkgs inputs.nixpkgs-py36 [ ];
+  py27-37 = oldPkgs inputs.nixpkgs-py27-37 [ "python-2.7.18.6" ];
+  py38 = oldPkgs inputs.nixpkgs-py38 [ ];
+  py39 = oldPkgs inputs.nixpkgs-py39 [ ];
+  py310 = oldPkgs inputs.nixpkgs-py310 [ ];
+
   jdks = {
     "8" = pkgs.jdk8;
     "11" = pkgs.jdk11;
@@ -68,8 +87,18 @@ in
     (suffixed "0.14" [ "zig" ] pkgs.zig_0_14)
 
     # --- python / haskell --- already versioned; prios must differ or buildEnv collides
-    (lib.setPrio 11 pkgs.python311)
-    (lib.setPrio 12 pkgs.python312)
+    # (default python3 from development.nix keeps prio 5 and wins python/python3/pip)
+    (lib.setPrio 20 py27-37.python27)
+    (lib.setPrio 21 py35.python35)
+    (lib.setPrio 22 py36.python36)
+    (lib.setPrio 23 py27-37.python37)
+    (lib.setPrio 24 py38.python38)
+    (lib.setPrio 25 py39.python39)
+    (lib.setPrio 26 py310.python310)
+    (lib.setPrio 27 pkgs.python311)
+    (lib.setPrio 28 pkgs.python312)
+    (lib.setPrio 29 pkgs.python313)
+    (lib.setPrio 30 pkgs.python314)
     (lib.setPrio 13 pkgs.haskell.compiler.ghc94)
     (lib.setPrio 14 pkgs.haskell.compiler.ghc96)
     (lib.setPrio 15 pkgs.haskell.compiler.ghc98)
