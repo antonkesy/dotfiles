@@ -3,3 +3,8 @@
 `bootstrap.sh`: apt packages, zsh as login shell, `/etc/wsl.conf` (systemd on,
 Windows PATH off), single-user nix, then `make home`. Re-runnable via `make wsl`.
 Run `wsl --shutdown` once after the first run.
+
+`handbrake-deps.sh`: apt build deps plus rustup/cargo-c (Dolby Vision) for
+cross-compiling HandBrake to Windows: `scripts/mingw-w64-build x86_64`, then
+`./configure --cross=x86_64-w64-mingw32 --launch-jobs=$(nproc) --launch`.
+Run via `make wsl-handbrake`.
