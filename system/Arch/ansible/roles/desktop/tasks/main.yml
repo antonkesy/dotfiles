@@ -32,7 +32,7 @@
           - hyprland
           - hyprland-protocols
           - uwsm
-          - dms-shell-hyprland
+          - dms-shell
           # --- DMS optional deps ---
           - cava # audio visualizer
           - dgop # system telemetry widgets
