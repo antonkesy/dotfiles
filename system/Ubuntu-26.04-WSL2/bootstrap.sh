@@ -32,4 +32,14 @@ git -C "$DOTFILES" submodule update --init --recursive
 cd "$DOTFILES"
 make home
 
+GIT_LOCAL="${XDG_CONFIG_HOME:-$HOME/.config}/git/local"
+if [ ! -e "$GIT_LOCAL" ]; then
+	mkdir -p "$(dirname "$GIT_LOCAL")"
+	cat >"$GIT_LOCAL" <<'EOC'
+[user]
+	email = anton.kesy@intel.com
+EOC
+	echo "wrote $GIT_LOCAL"
+fi
+
 echo "Done. Log out and back in once."

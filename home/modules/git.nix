@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   programs.gpg.enable = true;
   services.gpg-agent = {
@@ -27,6 +27,8 @@
         showUntrackedFiles = true;
       };
     };
+    # per-machine, untracked
+    includes = [ { path = "${config.xdg.configHome}/git/local"; } ];
   };
 
   home.packages = with pkgs; [ gh ];
