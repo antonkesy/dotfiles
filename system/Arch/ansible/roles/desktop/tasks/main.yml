@@ -58,6 +58,7 @@
           # --- daemons ---
           - networkmanager
           - networkmanager-openconnect
+          - tailscale
           - cups
           - cups-pdf
           - avahi
@@ -274,6 +275,7 @@
       loop:
         - greetd
         - NetworkManager
+        - tailscaled
         - cups
         - avahi-daemon
         - bluetooth

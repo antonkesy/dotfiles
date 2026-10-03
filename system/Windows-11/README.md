@@ -2,8 +2,8 @@
 
 `bootstrap.ps1`: winget (bootstrapped via the `Microsoft.WinGet.Client` module if
 App Installer is missing), then Chrome, Steam, Epic, Ubisoft Connect, Rockstar,
-Discord, G HUB and the Nextcloud client, then the Fanatec App from a pinned
-vendor zip because Fanatec ships nothing to winget. Needs an elevated
+Discord, G HUB, the Nextcloud client and Tailscale, then the Fanatec App from a
+pinned vendor zip because Fanatec ships nothing to winget. Needs an elevated
 PowerShell; the Fanatec installer is interactive. Reboot once after the first
 run.
 
