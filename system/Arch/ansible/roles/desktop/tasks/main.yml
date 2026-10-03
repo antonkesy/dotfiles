@@ -192,9 +192,6 @@
           - dsearch-bin # DMS filesystem search
           - wayscriber-bin
           - python-pympress
-          - bbe # epsonscan2 dep
-          - qt5-singleapplication # provides qt5-singlecoreapplication for epsonscan2
-          - epsonscan2
           - ttf-ms-fonts
           - google-chrome
           - visual-studio-code-bin
