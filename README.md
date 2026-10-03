@@ -51,6 +51,12 @@ curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Arch
 Copy `~/.ssh` over and import the gpg key; the first `git push` / signed commit
 asks for each passphrase once, see *Keys*.
 
+`tailscaled` is enabled by ansible; join the tailnet once:
+
+```bash
+sudo tailscale up
+```
+
 **Ubuntu-26.04 on WSL2**
 
 ```bash
