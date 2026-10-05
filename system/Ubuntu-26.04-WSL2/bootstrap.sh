@@ -44,6 +44,15 @@ rustup default stable
 rustup target add x86_64-pc-windows-gnu
 cargo install cargo-c
 
+# Docker engine; compose/buildx/lazydocker come from home/modules/containers.nix
+sudo apt-get install -y docker.io
+getent group docker >/dev/null || sudo groupadd docker
+id -nG "$ME" | grep -qw docker || sudo usermod -aG docker "$ME"
+# systemd is PID 1 only after the first wsl --shutdown; apt enables the unit anyway
+if [ -d /run/systemd/system ]; then
+	sudo systemctl enable --now docker
+fi
+
 cd "$DOTFILES"
 make home
 
@@ -57,4 +66,4 @@ EOC
 	echo "wrote $GIT_LOCAL"
 fi
 
-echo "Done. Log out and back in once."
+echo "Done. Log out and back in once (docker group takes effect in a new session)."
