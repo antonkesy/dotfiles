@@ -7,11 +7,11 @@ identity (`anton.kesy@intel.com`, signing key
 `home/modules/git.nix` includes on every machine if present. Re-runnable via
 `make wsl`. Run `wsl --shutdown` once after the first run.
 
-HandBrake build deps (apt, rustup, cargo-c) are installed too, for cross-compiling
-to Windows: `scripts/mingw-w64-build x86_64`, then
-`./configure --cross=x86_64-w64-mingw32 --launch-jobs=$(nproc) --launch`.
-Native Linux build deps (QSV/VAAPI, NVENC, GTK GUI) as well:
-`./configure --enable-qsv --enable-vce --enable-nvenc --enable-nvdec --launch-jobs=$(nproc) --launch`.
+HandBrake build deps (apt, rustup, cargo-c, clang/llvm) are installed too, for
+cross-compiling to Windows: `scripts/mingw-w64-build x86_64`, then
+`./configure --cross=x86_64-w64-mingw32 --enable-nvdec --launch-jobs=$(nproc) --launch`.
+NVENC is on by default for mingw targets; NVDEC needs `--enable-nvdec` and clang/llvm
+(ffmpeg's CUDA-LLVM filters). No CUDA toolkit or driver is needed at build time.
 
 Docker engine (`docker.io`) is installed, the service enabled, and the user added to
 the `docker` group so `docker` runs without sudo. Takes effect after the one-time

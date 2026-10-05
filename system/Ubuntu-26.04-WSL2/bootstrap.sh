@@ -33,6 +33,7 @@ git -C "$DOTFILES" submodule update --init --recursive
 # https://handbrake.fr/docs/en/latest/developer/install-dependencies-ubuntu.html
 # https://handbrake.fr/docs/en/latest/developer/build-linux.html
 # https://handbrake.fr/docs/en/latest/developer/build-windows.html
+# clang/llvm: NVDEC (ffmpeg --enable-cuda-llvm); NVENC headers come from contrib/nvenc
 sudo apt-get install -y autoconf automake build-essential cmake git libass-dev \
 	libbz2-dev libfontconfig-dev libfreetype-dev libfribidi-dev libharfbuzz-dev \
 	libjansson-dev liblzma-dev libmp3lame-dev libnuma-dev libogg-dev libopus-dev \
