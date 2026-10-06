@@ -120,6 +120,11 @@ through `pinentry-gnome3`, in its own window rather than over a TUI. The first
 is on, so a missing signing key only shows up as a failure at the first commit --
 `git config user.signingkey` says which one `git.nix` expects.
 
+On WSL there is no login password to unlock anything, so the first shell after
+`gpg-agent` starts asks for the passphrase of `git config user.signingkey` once
+(`home/.config/zsh/gpg.zsh`), checks it, and presets it into the agent -- it stays
+cached until `wsl --shutdown` or `gpgconf --kill gpg-agent`. Empty input skips it.
+
 ## Nextcloud
 
 `~/Nextcloud` is a streamed WebDAV mount of `http://lab:8080`, not a sync folder --

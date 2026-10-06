@@ -6,6 +6,8 @@
     enableSshSupport = false;
     # prompts in its own window, never over a TUI; curses fallback without a prompter
     pinentry.package = pkgs.pinentry-gnome3;
+    # gpg.zsh presets the signing key on WSL; preset entries do not expire
+    extraConfig = "allow-preset-passphrase";
   };
 
   programs.git = {
