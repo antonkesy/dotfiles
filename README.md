@@ -198,3 +198,17 @@ E: Release file for http://archive.ubuntu.com/ubuntu/dists/resolute-updates/InRe
 ```
 
 Check if your Windows time is up-to-date and sync if necessary.
+
+### Shift+Enter does not insert a newline in Claude Code (WSL)
+
+Windows Terminal sends a plain Enter for Shift+Enter, so multi-line input in
+Claude Code submits instead. Bind it to send `ESC` + `CR`:
+
+1. Open Windows Terminal, `Ctrl+Shift+,` to open `settings.json`.
+2. Add to the `actions` array:
+
+   ```json
+   { "command": { "action": "sendInput", "input": "\u001b\r" }, "keys": "shift+enter" }
+   ```
+
+3. Save. Windows Terminal reloads the settings on its own.
