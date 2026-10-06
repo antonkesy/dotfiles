@@ -10,6 +10,8 @@ identity (`anton.kesy@intel.com`, signing key
 HandBrake build deps (apt, rustup, cargo-c) are installed too, for cross-compiling
 to Windows: `scripts/mingw-w64-build x86_64`, then
 `./configure --cross=x86_64-w64-mingw32 --launch-jobs=$(nproc) --launch`.
+Native Linux build deps (QSV/VAAPI, NVENC, GTK GUI) as well:
+`./configure --enable-qsv --enable-vce --enable-nvenc --enable-nvdec --launch-jobs=$(nproc) --launch`.
 
 Docker engine (`docker.io`) is installed, the service enabled, and the user added to
 the `docker` group so `docker` runs without sudo. Takes effect after the one-time
