@@ -2,7 +2,8 @@
 
 `bootstrap.sh`: apt packages, zsh as login shell, `/etc/wsl.conf` (systemd on,
 Windows PATH off), single-user nix, then `make home`, then writes the work git
-identity (`anton.kesy@intel.com`) to `~/.config/git/local`, which
+identity (`anton.kesy@intel.com`, signing key
+`2EB6591AC06F0A73C2A2C64B6FE635B16AD26C1C`) to `~/.config/git/local`, which
 `home/modules/git.nix` includes on every machine if present. Re-runnable via
 `make wsl`. Run `wsl --shutdown` once after the first run.
 

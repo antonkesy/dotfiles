@@ -62,6 +62,7 @@ if [ ! -e "$GIT_LOCAL" ]; then
 	cat >"$GIT_LOCAL" <<'EOC'
 [user]
 	email = anton.kesy@intel.com
+	signingkey = 2EB6591AC06F0A73C2A2C64B6FE635B16AD26C1C
 EOC
 	echo "wrote $GIT_LOCAL"
 fi
