@@ -97,7 +97,7 @@
     R
 
     # --- scientific / build deps ---
-    ffmpeg
+    ffmpeg-full
     qt6.qtbase
     bazel
     arduino-cli
