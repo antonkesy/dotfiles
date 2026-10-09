@@ -2,13 +2,13 @@
 
 `bootstrap.ps1`: winget (bootstrapped via the `Microsoft.WinGet.Client` module
 if App Installer is missing), then Chrome, Steam, Epic, Ubisoft Connect,
-Rockstar, Discord, Alacritty, G HUB, the Nextcloud client and Tailscale, then
-the Alacritty config from `home/.config/alacritty` into `~\.config\alacritty`,
-under a `%APPDATA%\alacritty\alacritty.toml` that imports it with window
-decorations (all overwritten on every run), then the Fanatec App from a pinned
-vendor zip because Fanatec ships nothing to winget. Needs an elevated
-PowerShell; the Fanatec installer is interactive. Reboot once after the first
-run.
+Rockstar, Discord, Alacritty, VS Code, G HUB, the Nextcloud client and
+Tailscale, then the Alacritty config from `home/.config/alacritty` into
+`~\.config\alacritty`, under a `%APPDATA%\alacritty\alacritty.toml` that imports
+it with window decorations (all overwritten on every run), then the Fanatec App
+from a pinned vendor zip because Fanatec ships nothing to winget. Needs an
+elevated PowerShell; the Fanatec installer is interactive. Reboot once after the
+first run.
 
 Games box only: unlike the Linux systems this clones nothing and never runs
 `make home`; the Alacritty config comes from `main` on GitHub, its theme from

@@ -5,7 +5,8 @@ $ProgressPreference = 'SilentlyContinue'
 
 $PACKAGES = @(
 	'Google.Chrome',
-	'Alacritty.Alacritty'
+	'Alacritty.Alacritty',
+	'Microsoft.VisualStudioCode'
 )
 
 $ME = [Security.Principal.WindowsIdentity]::GetCurrent()

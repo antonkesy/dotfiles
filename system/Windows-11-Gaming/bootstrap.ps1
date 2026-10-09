@@ -11,6 +11,7 @@ $PACKAGES = @(
 	'RockstarGames.Launcher',
 	'Discord.Discord',
 	'Alacritty.Alacritty',
+	'Microsoft.VisualStudioCode',
 	'Logitech.GHUB',
 	'Nextcloud.NextcloudDesktop',
 	'Tailscale.Tailscale'
