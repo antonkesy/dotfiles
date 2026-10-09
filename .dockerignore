@@ -6,4 +6,4 @@ result
 result-*
 system/Arch/build
 system/Arch/ansible/.ansible
-system/Windows-11
+system/Windows-11-*

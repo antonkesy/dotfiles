@@ -13,7 +13,7 @@ Automated setup for my various machines:
 - **System** (`system/<System>/`): Automatically installs system specific packages.
   - Arch: [Ansible](https://github.com/ansible/ansible).
   - Ubuntu-26.04 in WSL2: Shell script.
-  - Windows 11: PowerShell script. Games box, no `home/` half.
+  - Windows 11: PowerShell script per box (Gaming, Work), no `home/` half.
 
 <img src="./docs/images/preview.png" width="800">
 
@@ -66,8 +66,9 @@ curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Ubun
 **Windows 11**
 
 ```powershell
-# Win+X > Terminal (Admin)
-irm https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Windows-11/bootstrap.ps1 | iex
+# Win+X > Terminal (Admin); Gaming or Work
+irm https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Windows-11-Gaming/bootstrap.ps1 | iex
+irm https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Windows-11-Work/bootstrap.ps1 | iex
 ```
 
 ## Perquisites

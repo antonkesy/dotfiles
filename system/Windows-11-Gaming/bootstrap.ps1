@@ -1,4 +1,4 @@
-# irm https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Windows-11/bootstrap.ps1 | iex
+# irm https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Windows-11-Gaming/bootstrap.ps1 | iex
 Set-StrictMode -Version 1.0
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'

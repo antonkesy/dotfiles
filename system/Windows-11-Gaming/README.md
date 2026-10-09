@@ -1,4 +1,4 @@
-# Windows-11
+# Windows-11-Gaming
 
 `bootstrap.ps1`: winget (bootstrapped via the `Microsoft.WinGet.Client` module
 if App Installer is missing), then Chrome, Steam, Epic, Ubisoft Connect,
