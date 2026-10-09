@@ -10,6 +10,7 @@ $PACKAGES = @(
 	'Ubisoft.Connect',
 	'RockstarGames.Launcher',
 	'Discord.Discord',
+	'Alacritty.Alacritty',
 	'Logitech.GHUB',
 	'Nextcloud.NextcloudDesktop',
 	'Tailscale.Tailscale'
@@ -39,6 +40,18 @@ foreach ($id in $PACKAGES) {
 	if ($LASTEXITCODE -ne 0 -and $LASTEXITCODE -ne -1978335134) {
 		throw "winget install $id failed ($LASTEXITCODE)"
 	}
+}
+
+# alacritty reads %APPDATA%\alacritty on windows; its theme import stays ~/.config/...
+# theme pinned to the home/.config/alacritty/themes submodule commit
+$ALACRITTY_FILES = @{
+	'https://raw.githubusercontent.com/antonkesy/dotfiles/main/home/.config/alacritty/alacritty.toml' = Join-Path $env:APPDATA 'alacritty\alacritty.toml'
+	'https://raw.githubusercontent.com/alacritty/alacritty-theme/f82c742634b5e840731dd7c609e95231917681a5/themes/iterm.toml' = Join-Path $HOME '.config\alacritty\themes\themes\iterm.toml'
+}
+foreach ($url in $ALACRITTY_FILES.Keys) {
+	$dest = $ALACRITTY_FILES[$url]
+	New-Item -ItemType Directory -Path (Split-Path $dest) -Force | Out-Null
+	Invoke-WebRequest -Uri $url -OutFile $dest -UseBasicParsing
 }
 
 $UNINSTALL = @(
