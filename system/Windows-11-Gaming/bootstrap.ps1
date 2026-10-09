@@ -42,10 +42,11 @@ foreach ($id in $PACKAGES) {
 	}
 }
 
-# alacritty reads %APPDATA%\alacritty on windows; its theme import stays ~/.config/...
+# shared config + theme mirror the linux ~/.config layout, so their imports resolve as-is;
+# alacritty only reads %APPDATA%\alacritty on windows, which layers the windows overrides on top
 # theme pinned to the home/.config/alacritty/themes submodule commit
 $ALACRITTY_FILES = @{
-	'https://raw.githubusercontent.com/antonkesy/dotfiles/main/home/.config/alacritty/alacritty.toml' = Join-Path $env:APPDATA 'alacritty\alacritty.toml'
+	'https://raw.githubusercontent.com/antonkesy/dotfiles/main/home/.config/alacritty/alacritty.toml' = Join-Path $HOME '.config\alacritty\alacritty.toml'
 	'https://raw.githubusercontent.com/alacritty/alacritty-theme/f82c742634b5e840731dd7c609e95231917681a5/themes/iterm.toml' = Join-Path $HOME '.config\alacritty\themes\themes\iterm.toml'
 }
 foreach ($url in $ALACRITTY_FILES.Keys) {
@@ -53,6 +54,15 @@ foreach ($url in $ALACRITTY_FILES.Keys) {
 	New-Item -ItemType Directory -Path (Split-Path $dest) -Force | Out-Null
 	Invoke-WebRequest -Uri $url -OutFile $dest -UseBasicParsing
 }
+New-Item -ItemType Directory -Path (Join-Path $env:APPDATA 'alacritty') -Force | Out-Null
+# WriteAllText: windows powershell Set-Content -Encoding UTF8 would prepend a BOM
+[IO.File]::WriteAllText((Join-Path $env:APPDATA 'alacritty\alacritty.toml'), @'
+[general]
+import = ["~/.config/alacritty/alacritty.toml"]
+
+[window]
+decorations = "Full"
+'@)
 
 $UNINSTALL = @(
 	'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*',
