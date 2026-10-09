@@ -5,7 +5,6 @@ $ProgressPreference = 'SilentlyContinue'
 
 $PACKAGES = @(
 	'Google.Chrome',
-	'Discord.Discord',
 	'Alacritty.Alacritty'
 )
 
