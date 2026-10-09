@@ -16,6 +16,7 @@ let
     "hypr/dms"
     "hypr/scripts/kill-menu.sh"
     "pypr/config.toml"
+    "halloy/config.toml"
     "DankMaterialShell"
     "wallpapers"
   ];

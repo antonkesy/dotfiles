@@ -1,0 +1,6 @@
+# https://halloy.chat/configuration/
+
+[servers.libera]
+nickname = "antonkesy"
+server = "irc.libera.chat"
+channels = ["#handbrake", "#handbrake-dev"]
