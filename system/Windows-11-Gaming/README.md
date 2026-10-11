@@ -6,7 +6,13 @@ Rockstar, Discord, Alacritty, VS Code, G HUB, the Nextcloud client and
 Tailscale, then the Alacritty config from `home/.config/alacritty` into
 `~\.config\alacritty`, under a `%APPDATA%\alacritty\alacritty.toml` that imports
 it with window decorations (all overwritten on every run), then the Fanatec App
-from a pinned vendor zip because Fanatec ships nothing to winget. Needs an
+from a pinned vendor zip because Fanatec ships nothing to winget, and last
+Pi-hole on lab (`192.168.178.29`, `$env:PIHOLE` overrides it) as the only DNS
+server of every connected physical adapter, with the IPv6 DNS the Fritz!Box
+hands out (DHCPv6 and router advertisements) cleared, so the `*.antonkesy.de`
+names resolve. Lab down means no DNS here: `Set-DnsClientServerAddress
+-InterfaceIndex <n> -ResetServerAddresses` and `netsh interface ipv6 set
+dnsservers <n> source=dhcp` undo it. Needs an
 elevated PowerShell; the Fanatec installer is interactive. Reboot once after the
 first run.
 

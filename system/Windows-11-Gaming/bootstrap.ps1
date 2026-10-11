@@ -18,6 +18,8 @@ $PACKAGES = @(
 )
 # fanatec ships nothing to winget; current link on https://www.fanatec.com/us/en/s/download-apps-driver
 $FANATEC_URL = if ($env:FANATEC_URL) { $env:FANATEC_URL } else { 'https://www3.corsair.com/Files/Fanatec/App/FanatecAppInstaller_v1_5_4_2.zip' }
+# lab's static lease on the fritz!box
+$PIHOLE = if ($env:PIHOLE) { $env:PIHOLE } else { '192.168.178.29' }
 
 $ME = [Security.Principal.WindowsIdentity]::GetCurrent()
 if (-not ([Security.Principal.WindowsPrincipal]$ME).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
@@ -83,5 +85,18 @@ if (-not (Get-ItemProperty $UNINSTALL -ErrorAction SilentlyContinue | Where-Obje
 	Write-Host 'the fanatec installer is interactive: click through it.'
 	Start-Process -FilePath $installer.FullName -Wait
 }
+
+# pi-hole on lab (antonkesy/home-server) for every lookup: ad blocking, and the *.antonkesy.de
+# names, which public dns does not know. last, so the downloads above still use the old dns
+foreach ($adapter in Get-NetAdapter -Physical | Where-Object Status -eq 'Up') {
+	Set-DnsClientServerAddress -InterfaceIndex $adapter.ifIndex -ServerAddresses $PIHOLE
+	# the fritz!box also hands itself out as an ipv6 dns server, over dhcpv6 and router
+	# advertisements, and windows asks that one first
+	netsh interface ipv6 set dnsservers name=$($adapter.ifIndex) source=static address=none validate=no | Out-Null
+	if ($LASTEXITCODE -ne 0) { throw "clearing the ipv6 dns on $($adapter.Name) failed ($LASTEXITCODE)" }
+	netsh interface ipv6 set interface $($adapter.ifIndex) rabaseddnsconfig=disabled | Out-Null
+	if ($LASTEXITCODE -ne 0) { throw "ignoring router-advertised dns on $($adapter.Name) failed ($LASTEXITCODE)" }
+}
+Clear-DnsClientCache
 
 Write-Host 'Done. Reboot.'
