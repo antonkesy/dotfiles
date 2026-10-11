@@ -25,6 +25,7 @@
     trash-cli
     libzint
     claude-code
+    codex
 
     # --- python ---
     gdown
