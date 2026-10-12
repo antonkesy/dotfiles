@@ -131,6 +131,7 @@
   ];
 
   home.sessionVariables.ANDROID_HOME = "$HOME/Android/Sdk";
+  home.sessionVariables.UV_VENV_SEED = "1";
 
   home.activation.rustupDefaultStable = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     if ! ${pkgs.rustup}/bin/rustup show active-toolchain >/dev/null 2>&1; then
