@@ -4,6 +4,16 @@ $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
 
 $PACKAGES = @(
+	# runtimes first, so the apps below find them
+	'Microsoft.DotNet.DesktopRuntime.10',
+	'Microsoft.DotNet.DesktopRuntime.8',
+	'Microsoft.VCRedist.2015+.x64',
+	'Microsoft.VCRedist.2015+.x86',
+	'Microsoft.EdgeWebView2Runtime',
+
+	'Microsoft.PowerShell',
+	'7zip.7zip',
+	'Microsoft.PowerToys',
 	'Google.Chrome',
 	'Alacritty.Alacritty',
 	'Microsoft.VisualStudioCode'

@@ -1,20 +1,22 @@
 # Windows-11-Gaming
 
 `bootstrap.ps1`: winget (bootstrapped via the `Microsoft.WinGet.Client` module
-if App Installer is missing), then Chrome, Steam, Epic, Ubisoft Connect,
-Rockstar, Discord, Alacritty, VS Code, G HUB, the Nextcloud client and
-Tailscale, then the Alacritty config from `home/.config/alacritty` into
-`~\.config\alacritty`, under a `%APPDATA%\alacritty\alacritty.toml` that imports
-it with window decorations (all overwritten on every run), then the Fanatec App
-from a pinned vendor zip because Fanatec ships nothing to winget, and last
-Pi-hole on lab (`192.168.178.29`, `$env:PIHOLE` overrides it) as the only DNS
-server of every connected physical adapter, with the IPv6 DNS the Fritz!Box
-hands out (DHCPv6 and router advertisements) cleared, so the `*.antonkesy.de`
-names resolve. Lab down means no DNS here: `Set-DnsClientServerAddress
--InterfaceIndex <n> -ResetServerAddresses` and `netsh interface ipv6 set
-dnsservers <n> source=dhcp` undo it. Needs an
-elevated PowerShell; the Fanatec installer is interactive. Reboot once after the
-first run.
+if App Installer is missing), then the .NET 10 and 8 Desktop Runtimes, the VC++
+2015+ and 2013 redists (x64, x86), WebView2, the DirectX June 2010 and XNA 4.0
+runtimes for older games, then PowerShell 7, 7-Zip, PowerToys, Chrome, Steam,
+Epic, Ubisoft Connect, Rockstar, Discord, Alacritty, VS Code, G HUB, the
+Nextcloud client and Tailscale, then the Alacritty config from
+`home/.config/alacritty` into `~\.config\alacritty`, under a
+`%APPDATA%\alacritty\alacritty.toml` that imports it with window decorations
+(all overwritten on every run), then the Fanatec App from a pinned vendor zip
+because Fanatec ships nothing to winget, and last Pi-hole on lab
+(`192.168.178.29`, `$env:PIHOLE` overrides it) as the only DNS server of every
+connected physical adapter, with the IPv6 DNS the Fritz!Box hands out (DHCPv6
+and router advertisements) cleared, so the `*.antonkesy.de` names resolve. Lab
+down means no DNS here: `Set-DnsClientServerAddress -InterfaceIndex <n>
+-ResetServerAddresses` and `netsh interface ipv6 set dnsservers <n> source=dhcp`
+undo it. Needs an elevated PowerShell; the Fanatec installer is interactive.
+Reboot once after the first run.
 
 Games box only: unlike the Linux systems this clones nothing and never runs
 `make home`; the Alacritty config comes from `main` on GitHub, its theme from
