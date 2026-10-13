@@ -116,15 +116,14 @@ rewrites them on every `make home`.
 ### Keys unlocked at login
 
 `gpg-agent` (home-manager, `home/modules/git.nix`) caches the passphrase and prompts
-through `pinentry-gnome3`, in its own window rather than over a TUI. The first
+in its own window rather than over a TUI: `pinentry-gnome3`, or on WSL `pinentry-qt`
+through WSLg (WSL has no gcr prompter, gnome3 would fall back to curses). The first
 `git push` and the first signed commit after a login ask once each; `commit.gpgsign`
 is on, so a missing signing key only shows up as a failure at the first commit --
 `git config user.signingkey` says which one `git.nix` expects.
 
-On WSL there is no login password to unlock anything, so the first shell after
-`gpg-agent` starts asks for the passphrase of `git config user.signingkey` once
-(`home/.config/zsh/gpg.zsh`), checks it, and presets it into the agent -- it stays
-cached until `wsl --shutdown` or `gpgconf --kill gpg-agent`. Empty input skips it.
+The cache lasts as long as the agent: `wsl --shutdown`, `gpgconf --kill gpg-agent`
+or a `make home` that restarts the unit asks again, from whichever client signs next.
 
 ## Nextcloud
 
