@@ -7,8 +7,9 @@ identity (`anton.kesy@intel.com`, signing key
 `home/modules/git.nix` includes on every machine if present. Re-runnable via
 `make wsl`. Run `wsl --shutdown` once after the first run.
 
-HandBrake build deps (apt, rustup, cargo-c, clang/llvm) are installed too, for
-cross-compiling to Windows: `scripts/mingw-w64-build x86_64`, then
+`handbrake.sh` runs at the end of `bootstrap.sh` (or alone:
+`bash system/Ubuntu-26.04-WSL2/handbrake.sh`) and installs HandBrake build deps
+(apt, rustup, cargo-c, clang/llvm), for cross-compiling to Windows: `scripts/mingw-w64-build x86_64`, then
 `./configure --cross=x86_64-w64-mingw32 --enable-nvdec --launch-jobs=$(nproc) --launch`.
 NVENC is on by default for mingw targets; NVDEC needs `--enable-nvdec` and clang/llvm
 (ffmpeg's CUDA-LLVM filters). No CUDA toolkit or driver is needed at build time.
