@@ -83,7 +83,6 @@
           # --- GPU userspace ---
           - mesa
           - mesa-utils
-          - intel-media-driver
         state: present
 
     - name: Install wayland helpers, fonts and GUI apps

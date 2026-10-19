@@ -25,6 +25,8 @@
       tags: [base]
     - role: desktop
       tags: [desktop]
+    - role: intel
+      tags: [intel]
     - role: nvidia
       tags: [nvidia]
     - role: laptop

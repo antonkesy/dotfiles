@@ -1,0 +1,23 @@
+---
+- name: Intel role is Arch only
+  ansible.builtin.debug:
+    msg: "No Intel role for {{ ansible_facts.distribution }}; install the distro driver by hand."
+  when: ansible_facts.os_family != 'Archlinux'
+
+- name: Arch Intel
+  when: ansible_facts.os_family == 'Archlinux'
+  block:
+    - name: Install Vulkan, VA-API, VPL and compute runtime
+      become: true
+      community.general.pacman:
+        name:
+          - mesa
+          - lib32-mesa # steam
+          - vulkan-intel
+          - lib32-vulkan-intel # steam
+          - intel-media-driver # VA-API (iHD)
+          - vpl-gpu-rt # Quick Sync
+          - intel-compute-runtime # OpenCL + Level Zero
+          - intel-gpu-tools # intel_gpu_top
+          - vulkan-tools
+        state: present
