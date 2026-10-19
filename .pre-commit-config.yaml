@@ -39,12 +39,6 @@ repos:
     hooks:
       - id: stylua-github
         files: ^home/.config/hypr/([^/]+|dms/binds-user)\.lua$
-  - repo: https://github.com/lunarmodules/luacheck
-    rev: v1.2.0
-    hooks:
-      - id: luacheck
-        args: ["--config", "home/.config/hypr/.luacheckrc"]
-        files: ^home/.config/hypr/([^/]+|dms/binds-user)\.lua$
   # Nix tooling comes from the flake itself (home/), so pre-commit and `nix fmt`
   # can never disagree and nothing gets rebuilt from cabal/cargo.
   - repo: local
@@ -69,6 +63,12 @@ repos:
         additional_dependencies: [ansible-lint==25.12.2]
         pass_filenames: false
         files: ^system/Arch/ansible/
+      # upstream luacheck hook needs luarocks on the host
+      - id: luacheck
+        name: luacheck
+        entry: nix --extra-experimental-features "nix-command flakes" run --inputs-from ./home nixpkgs#luaPackages.luacheck -- --config home/.config/hypr/.luacheckrc
+        language: system
+        files: ^home/.config/hypr/([^/]+|dms/binds-user)\.lua$
       - id: hadolint
         name: hadolint
         entry: nix --extra-experimental-features "nix-command flakes" run --inputs-from ./home nixpkgs#hadolint --
