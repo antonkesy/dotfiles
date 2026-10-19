@@ -51,13 +51,13 @@ repos:
     hooks:
       - id: nixfmt
         name: nixfmt
-        entry: bash -c 'cd home && exec nix fmt --'
+        entry: bash -c 'cd home && exec nix --extra-experimental-features "nix-command flakes" fmt --'
         language: system
         pass_filenames: false
         files: \.nix$
       - id: deadnix
         name: deadnix
-        entry: nix run --inputs-from ./home nixpkgs#deadnix -- --edit --no-lambda-pattern-names
+        entry: nix --extra-experimental-features "nix-command flakes" run --inputs-from ./home nixpkgs#deadnix -- --edit --no-lambda-pattern-names
         language: system
         files: \.nix$
       - id: ansible-lint
@@ -71,12 +71,12 @@ repos:
         files: ^system/Arch/ansible/
       - id: hadolint
         name: hadolint
-        entry: nix run --inputs-from ./home nixpkgs#hadolint --
+        entry: nix --extra-experimental-features "nix-command flakes" run --inputs-from ./home nixpkgs#hadolint --
         language: system
         files: Dockerfile$
       # shellcheck reads zsh as bash; this catches zsh-only syntax errors.
       - id: zsh-syntax
         name: zsh -n
-        entry: nix shell --inputs-from ./home nixpkgs#zsh -c sh -c 'for f; do zsh -n "$f" || exit 1; done' --
+        entry: nix --extra-experimental-features "nix-command flakes" shell --inputs-from ./home nixpkgs#zsh -c sh -c 'for f; do zsh -n "$f" || exit 1; done' --
         language: system
         files: (\.zsh|\.zshrc)$
