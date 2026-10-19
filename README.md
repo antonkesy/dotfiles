@@ -194,6 +194,21 @@ yay on its own. Remove it first and let ansible build it again:
 sudo pacman -Rns yay && make arch
 ```
 
+### Python CLI not in nixpkgs
+
+Ubuntu's system Python refuses `pip install` (PEP 668), and `pipx` is not
+installed. Use `uv` (from the Nix profile) instead: each tool gets its own venv,
+the CLI is linked into `~/.local/bin`, no `sudo`:
+
+```bash
+uv tool install ffmpeg-quality-metrics
+uv tool upgrade ffmpeg-quality-metrics
+uv tool list
+```
+
+Prefer a nixpkgs package in `home/modules/` when one exists; `uv tool` installs
+are not reproduced by `make home`.
+
 ### WSL Install Not Working
 
 If you get:
