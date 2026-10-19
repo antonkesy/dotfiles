@@ -29,6 +29,22 @@ repos:
     hooks:
       - id: typos
         args: ["--force-exclude"]
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.12
+    hooks:
+      - id: actionlint
+  # Hand-written Hyprland Lua only; the other dms/*.lua are written by DMS.
+  - repo: https://github.com/JohnnyMorganz/StyLua
+    rev: v2.6.0
+    hooks:
+      - id: stylua-github
+        files: ^home/.config/hypr/([^/]+|dms/binds-user)\.lua$
+  - repo: https://github.com/lunarmodules/luacheck
+    rev: v1.2.0
+    hooks:
+      - id: luacheck
+        args: ["--config", "home/.config/hypr/.luacheckrc"]
+        files: ^home/.config/hypr/([^/]+|dms/binds-user)\.lua$
   # Nix tooling comes from the flake itself (home/), so pre-commit and `nix fmt`
   # can never disagree and nothing gets rebuilt from cabal/cargo.
   - repo: local
@@ -53,3 +69,14 @@ repos:
         additional_dependencies: [ansible-lint==25.12.2]
         pass_filenames: false
         files: ^system/Arch/ansible/
+      - id: hadolint
+        name: hadolint
+        entry: nix run --inputs-from ./home nixpkgs#hadolint --
+        language: system
+        files: Dockerfile$
+      # shellcheck reads zsh as bash; this catches zsh-only syntax errors.
+      - id: zsh-syntax
+        name: zsh -n
+        entry: nix shell --inputs-from ./home nixpkgs#zsh -c sh -c 'for f; do zsh -n "$f" || exit 1; done' --
+        language: system
+        files: (\.zsh|\.zshrc)$

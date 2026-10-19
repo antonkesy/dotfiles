@@ -3,6 +3,7 @@
 [![nix](https://github.com/antonkesy/dotfiles/workflows/nix/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/nix.yml)
 [![ansible](https://github.com/antonkesy/dotfiles/workflows/ansible/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/ansible.yml)
 [![Pre-Commit](https://github.com/antonkesy/dotfiles/workflows/pre-commit/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/pre-commit.yml)
+[![powershell](https://github.com/antonkesy/dotfiles/workflows/powershell/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/powershell.yml)
 
 _Trying to achieve the best reproducible setup for my personal and professional use_
 

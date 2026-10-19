@@ -6,10 +6,10 @@
 hl.env("DMS_DISABLE_MATUGEN", 1)
 
 hl.monitor({
-    output   = "",
-    mode     = "preferred",
+    output = "",
+    mode = "preferred",
     position = "auto",
-    scale    = 1.2,
+    scale = 1.2,
 })
 
 -- unscale XWayland

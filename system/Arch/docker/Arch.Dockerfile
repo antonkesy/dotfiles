@@ -5,6 +5,8 @@ ARG USERNAME=ak
 ARG UID=1000
 ARG GID=1000
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 ENV LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 
@@ -19,17 +21,19 @@ RUN printf '\n[multilib]\nInclude = /etc/pacman.d/mirrorlist\n' >> /etc/pacman.c
 RUN (groupdel "$(getent group ${GID} | cut -d: -f1)" 2>/dev/null || true) \
   && (userdel "$(getent passwd ${UID} | cut -d: -f1)" 2>/dev/null || true) \
   && groupadd -g ${GID} ${USERNAME} \
-  && useradd -m -u ${UID} -g ${GID} -s /bin/bash ${USERNAME}
+  && useradd -l -m -u ${UID} -g ${GID} -s /bin/bash ${USERNAME}
 
 FROM base AS ci
-RUN echo "${USERNAME} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${USERNAME}
+RUN echo "${USERNAME} ALL=(ALL) NOPASSWD: ALL" > "/etc/sudoers.d/${USERNAME}"
 COPY --chown=${UID}:${GID} . /home/${USERNAME}/Projects/dotfiles
 USER ${USERNAME}
 WORKDIR /home/${USERNAME}/Projects/dotfiles
 
 FROM base AS dev
+# SHELL (pipefail) is inherited from base; hadolint checks per stage
+# hadolint ignore=DL4006
 RUN echo "${USERNAME}:toor" | chpasswd \
-  && echo "${USERNAME} ALL=(ALL) ALL" > /etc/sudoers.d/${USERNAME}
+  && echo "${USERNAME} ALL=(ALL) ALL" > "/etc/sudoers.d/${USERNAME}"
 USER ${USERNAME}
 WORKDIR /home/${USERNAME}/Projects/dotfiles
 CMD ["bash"]

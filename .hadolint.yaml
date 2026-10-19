@@ -1,0 +1,3 @@
+ignored:
+  # Arch is rolling; the image tracks archlinux:latest on purpose
+  - DL3007

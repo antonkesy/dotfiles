@@ -1,0 +1,19 @@
+name: powershell
+on:
+  pull_request:
+    paths: ["system/Windows-11-*/**", PSScriptAnalyzerSettings.psd1, .github/workflows/powershell.yml]
+  push:
+    branches: [main]
+    paths: ["system/Windows-11-*/**", PSScriptAnalyzerSettings.psd1, .github/workflows/powershell.yml]
+jobs:
+  lint:
+    # static analysis only; pwsh and PSScriptAnalyzer ship with ubuntu-latest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: PSScriptAnalyzer
+        shell: pwsh
+        run: |
+          $r = Invoke-ScriptAnalyzer -Path system -Recurse -Settings ./PSScriptAnalyzerSettings.psd1
+          $r | Format-Table -AutoSize
+          if ($r | Where-Object Severity -in 'Error', 'Warning', 'ParseError') { exit 1 }
