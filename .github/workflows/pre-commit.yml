@@ -16,7 +16,8 @@ jobs:
             experimental-features = nix-command flakes
       - uses: actions/setup-python@v7
         with:
-          python-version: "3.x"
+          # ansible-core supports up to 3.14; "3.x" now resolves to 3.15
+          python-version: "3.14"
       - run: python -m pip install pre-commit
       - uses: actions/cache@v6
         with:
