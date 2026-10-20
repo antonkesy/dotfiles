@@ -2,9 +2,6 @@
 -- Hyprland Configuration
 -- https://wiki.hypr.land/Configuring/
 
--- no theme generation from dms
-hl.env("DMS_DISABLE_MATUGEN", 1)
-
 hl.monitor({
     output = "",
     mode = "preferred",
@@ -27,13 +24,11 @@ hl.config({
     general = {
         gaps_in = 0,
         gaps_out = 0,
-        border_size = 5,
         resize_on_border = true,
         allow_tearing = false,
         layout = "dwindle",
     },
     decoration = {
-        rounding = 0,
         active_opacity = 1.0,
         inactive_opacity = 1.0,
         shadow = {

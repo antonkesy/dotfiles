@@ -12,7 +12,6 @@ let
   # ~/.config/hypr stays a real dir (DMS drops .dms-backups/ there)
   linked = [
     "hypr/hyprland.lua"
-    "hypr/plugins.lua"
     "hypr/dms"
     "hypr/scripts/kill-menu.sh"
     "pypr/config.toml"
@@ -106,7 +105,4 @@ in
   };
 
   dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
-
-  # flutter web
-  home.sessionVariables.CHROME_EXECUTABLE = "/usr/bin/google-chrome-stable";
 }

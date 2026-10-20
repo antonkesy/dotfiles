@@ -13,7 +13,6 @@
     zip
     unzip
     p7zip
-    jq
 
     dnsutils
     iperf3
@@ -24,8 +23,6 @@
     lsof
     psmisc
     htop
-    btop
-    atop
     sysstat
 
     pciutils

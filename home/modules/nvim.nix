@@ -4,21 +4,16 @@ let
 in
 {
   home.packages = with pkgs; [
+    # compilers, rg, fd and node for plugins come from development.nix and terminal.nix
     neovim
-    gcc
-    gnumake
-    cmake
-    ninja
     gettext
-    unzip
-    curl
     tree-sitter
-    ripgrep
-    fd
-    nodejs
   ];
 
-  home.sessionVariables.EDITOR = "nvim";
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+  };
 
   xdg.configFile."nvim".source = liveCheckout;
 }
