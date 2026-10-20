@@ -70,7 +70,7 @@ in
     done
   '';
 
-  home.activation.seedMutableConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] (
+  home.activation.seedMutableConfig = lib.hm.dag.entryAfter [ "linkGeneration" ] (
     lib.concatStringsSep "\n" (lib.mapAttrsToList seed seeds)
   );
 
