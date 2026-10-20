@@ -1,9 +1,11 @@
-.PHONY: help home arch wsl clean use-ssh
+.PHONY: help home arch wsl lint test clean use-ssh
 
 help:
 	@echo "  home    - build and activate home (home/)"
 	@echo "  arch    - system half of an Arch machine (system/Arch)"
 	@echo "  wsl     - system half of Ubuntu on WSL2, then switch (system/Ubuntu-26.04-WSL2)"
+	@echo "  lint    - every pre-commit hook on every file"
+	@echo "  test    - Arch playbook dry run in a container (docker)"
 	@echo "  clean   - build outputs, nix garbage, AUR builds"
 	@echo "  use-ssh - origin remote (and submodules) from https to ssh (github.com/antonkesy/*)"
 	@echo "More: make -C home help, make -C system/Arch help"
@@ -16,6 +18,12 @@ arch:
 
 wsl:
 	bash system/Ubuntu-26.04-WSL2/bootstrap.sh
+
+lint:
+	pre-commit run --all-files
+
+test:
+	$(MAKE) -C system/Arch test
 
 clean:
 	$(MAKE) -C home clean

@@ -1,9 +1,9 @@
 # Dotfiles
 
-[![nix](https://github.com/antonkesy/dotfiles/workflows/nix/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/nix.yml)
-[![ansible](https://github.com/antonkesy/dotfiles/workflows/ansible/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/ansible.yml)
-[![Pre-Commit](https://github.com/antonkesy/dotfiles/workflows/pre-commit/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/pre-commit.yml)
-[![powershell](https://github.com/antonkesy/dotfiles/workflows/powershell/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/powershell.yml)
+[![nix](https://github.com/antonkesy/dotfiles/actions/workflows/nix.yml/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/nix.yml)
+[![ansible](https://github.com/antonkesy/dotfiles/actions/workflows/ansible.yml/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/ansible.yml)
+[![Pre-Commit](https://github.com/antonkesy/dotfiles/actions/workflows/pre-commit.yml/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/pre-commit.yml)
+[![powershell](https://github.com/antonkesy/dotfiles/actions/workflows/powershell.yml/badge.svg)](https://github.com/antonkesy/dotfiles/actions/workflows/powershell.yml)
 
 _Trying to achieve the best reproducible setup for my personal and professional use_
 
@@ -72,7 +72,7 @@ irm https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Windows-11-
 irm https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Windows-11-Work/bootstrap.ps1 | iex
 ```
 
-## Perquisites
+## Prerequisites
 
 ### Arch
 
@@ -103,6 +103,8 @@ wsl
 | `make home`    | build + activate `homeConfigurations.ak`                 |
 | `make arch`    | system half of an Arch machine (ansible, every role)     |
 | `make wsl`     | system half of Ubuntu on WSL2, then switch (re-runnable) |
+| `make lint`    | every pre-commit hook on every file                      |
+| `make test`    | Arch playbook dry run in a container (docker)            |
 | `make clean`   | build outputs, user-level nix garbage, AUR builds        |
 | `make use-ssh` | switch origin remote (and submodules) from https to ssh  |
 
@@ -133,7 +135,8 @@ or a `make home` that restarts the unit asks again, from whichever client signs 
 not in this repo, and without it the mount stays skipped:
 
 ```bash
-install -d -m700 ~/.config/rclone && read -s "pw?Nextcloud app password: " && echo && rclone obscure "$pw" > ~/.config/rclone/nextcloud-app-password && unset pw && chmod 600 ~/.config/rclone/nextcloud-app-password```
+install -d -m700 ~/.config/rclone && read -s "pw?Nextcloud app password: " && echo && rclone obscure "$pw" > ~/.config/rclone/nextcloud-app-password && unset pw && chmod 600 ~/.config/rclone/nextcloud-app-password
+```
 
 Store it obscured: rclone misreads an app password as already-obscured otherwise.
 
