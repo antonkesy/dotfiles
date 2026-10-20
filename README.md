@@ -125,8 +125,9 @@ through WSLg (WSL has no gcr prompter, gnome3 would fall back to curses). The fi
 is on, so a missing signing key only shows up as a failure at the first commit --
 `git config user.signingkey` says which one `git.nix` expects.
 
-The cache lasts as long as the agent: `wsl --shutdown`, `gpgconf --kill gpg-agent`
-or a `make home` that restarts the unit asks again, from whichever client signs next.
+The cache drops a key 8 hours after its last use and 24 hours after the unlock at
+the latest. `wsl --shutdown`, `gpgconf --kill gpg-agent` or a `make home` that
+restarts the unit clears it sooner; whichever client signs next asks again.
 
 ## Nextcloud
 

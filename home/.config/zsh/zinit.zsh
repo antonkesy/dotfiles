@@ -2,7 +2,7 @@
 
 # Install Zinit if not already installed
 if ! [ -f ~/.zinit/bin/zinit.zsh ]; then
-	mkdir -p ~/.zinit && git clone https://github.com/zdharma-continuum/zinit.git ~/.zinit/bin
+	mkdir -p ~/.zinit && git clone --branch v3.17.1 https://github.com/zdharma-continuum/zinit.git ~/.zinit/bin
 fi
 
 # Source Zinit

@@ -5,21 +5,16 @@
     fail_msg: "playbook runs from {{ dotfiles_dir }}, but ak.dotfilesDir is ~/Projects/dotfiles; clone the repo there"
     quiet: true
 
-- name: Check for nix
-  ansible.builtin.stat:
-    path: /nix/var/nix/profiles/default/bin/nix
-  register: nix_bin
-
 - name: Install nix (Determinate installer)
   become: true
   ansible.builtin.shell: >
     set -o pipefail &&
-    curl -fsSL https://install.determinate.systems/nix
+    curl -fsSL https://install.determinate.systems/nix/tag/v3.23.3
     | sh -s -- install {{ 'linux --init none' if ansible_facts.service_mgr != 'systemd' else '' }} --no-confirm
   args:
     executable: /bin/bash
     creates: /nix/var/nix/profiles/default/bin/nix
-  when: not nix_bin.stat.exists and not is_container
+  when: not is_container
 
 - name: Apply homeConfigurations.ak
   ansible.builtin.command:

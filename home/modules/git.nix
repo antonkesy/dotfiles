@@ -17,9 +17,9 @@ in
     enableSshSupport = false;
     # prompts in its own window, never over a TUI; curses fallback without a prompter
     pinentry.package = pinentry-auto;
-    # unlock once per agent lifetime (400 days)
-    defaultCacheTtl = 34560000;
-    maxCacheTtl = 34560000;
+    # 8h after last use, 24h at most
+    defaultCacheTtl = 28800;
+    maxCacheTtl = 86400;
   };
 
   programs.git = {
