@@ -5,6 +5,12 @@
   become: false
 
   pre_tasks:
+    - name: Check the become password
+      become: true
+      ansible.builtin.ping:
+      check_mode: false
+      tags: always
+
     - name: Refresh the package database
       become: true
       ansible.builtin.package:
