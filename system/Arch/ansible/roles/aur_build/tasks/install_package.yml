@@ -5,46 +5,71 @@
   changed_when: false
   failed_when: false
 
-- name: Clone from the AUR - {{ package_name }}
-  ansible.builtin.git:
-    repo: "https://aur.archlinux.org/{{ package_name }}.git"
-    dest: "{{ build_dir }}/aur/{{ package_name }}"
-    version: master
+- name: Build and install - {{ package_name }}
   when: package_installed.rc != 0
+  block:
+    - name: Clone from the AUR - {{ package_name }}
+      ansible.builtin.git:
+        repo: "https://aur.archlinux.org/{{ package_name }}.git"
+        dest: "{{ build_dir }}/aur/{{ package_name }}"
+        version: master
 
-- name: Read PKGBUILD dependencies - {{ package_name }}
-  ansible.builtin.shell: |
-    source PKGBUILD
-    echo "${depends[@]}" "${makedepends[@]}"
-  args:
-    chdir: "{{ build_dir }}/aur/{{ package_name }}"
-    executable: /bin/bash
-  register: package_deps
-  changed_when: false
-  when: package_installed.rc != 0
+    # .SRCINFO also carries the _x86_64 and checkdepends arrays that sourcing PKGBUILD misses
+    - name: Read .SRCINFO - {{ package_name }}
+      ansible.builtin.command: makepkg --printsrcinfo
+      args:
+        chdir: "{{ build_dir }}/aur/{{ package_name }}"
+      register: package_srcinfo
+      changed_when: false
 
-# AUR deps must come earlier in aur_packages
-- name: Install repo dependencies - {{ package_name }}
-  become: true
-  community.general.pacman:
-    name: "{{ item | regex_replace('[<>=].*', '') }}"
-    state: present
-  loop: "{{ package_deps.stdout.split() | select() | list }}"
-  when: package_installed.rc != 0 and package_deps.stdout | length > 0
-  failed_when: false
+    - name: Collect dependencies and signing keys - {{ package_name }}
+      ansible.builtin.set_fact:
+        package_deps: >-
+          {{ package_srcinfo.stdout_lines
+             | select('match', '^\s*(make|check)?depends(_x86_64)? = ')
+             | map('regex_replace', '^[^=]*= ', '')
+             | map('regex_replace', '[<>=].*', '')
+             | unique }}
+        package_pgpkeys: >-
+          {{ package_srcinfo.stdout_lines
+             | select('match', '^\s*validpgpkeys = ')
+             | map('regex_replace', '^[^=]*= ', '')
+             | unique }}
 
-# system PATH: the nix toolchain must not shadow Arch's
-- name: Build with makepkg - {{ package_name }}
-  ansible.builtin.command: makepkg --noconfirm -f --skippgpcheck
-  args:
-    chdir: "{{ build_dir }}/aur/{{ package_name }}"
-  environment:
-    PATH: /usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/bin:/sbin
-  when: package_installed.rc != 0
+    # AUR deps must come earlier in aur_packages
+    - name: Install repo dependencies - {{ package_name }}
+      become: true
+      community.general.pacman:
+        name: "{{ package_deps }}"
+        state: present
+        extra_args: --asdeps
+      when: package_deps | length > 0
 
-- name: Install the built package - {{ package_name }}
-  become: true
-  ansible.builtin.shell: pacman -U --noconfirm ./*.pkg.tar.zst
-  args:
-    chdir: "{{ build_dir }}/aur/{{ package_name }}"
-  when: package_installed.rc != 0
+    - name: Import source signing keys - {{ package_name }}
+      ansible.builtin.command:
+        argv: "{{ ['gpg', '--keyserver', 'hkps://keyserver.ubuntu.com', '--recv-keys'] + package_pgpkeys }}"
+      register: package_gpg
+      changed_when: "package_gpg.stderr is search('imported: [1-9]')"
+      when: package_pgpkeys | length > 0
+
+    # system PATH: the nix toolchain must not shadow Arch's
+    - name: Build with makepkg - {{ package_name }}
+      ansible.builtin.command: makepkg --noconfirm -f
+      args:
+        chdir: "{{ build_dir }}/aur/{{ package_name }}"
+      environment:
+        PATH: /usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/bin:/sbin
+      changed_when: true
+
+    - name: List the built package files - {{ package_name }}
+      ansible.builtin.command: makepkg --packagelist
+      args:
+        chdir: "{{ build_dir }}/aur/{{ package_name }}"
+      register: package_files
+      changed_when: false
+
+    - name: Install the built package - {{ package_name }}
+      become: true
+      community.general.pacman:
+        name: "{{ package_files.stdout_lines | reject('search', '-debug-') | list }}"
+        state: present

@@ -44,7 +44,6 @@
         name: "{{ item }}"
         enabled: true
       loop:
-        - fprintd
         - power-profiles-daemon
         - thermald
       when: not is_container

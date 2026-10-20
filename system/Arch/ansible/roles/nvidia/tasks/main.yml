@@ -28,9 +28,19 @@
         enabled: true
       when: not is_container
 
+    - name: Read the docker daemon config
+      become: true
+      ansible.builtin.slurp:
+        src: /etc/docker/daemon.json
+      register: docker_daemon_json
+      failed_when: false
+      when: not is_container
+
     - name: Register the nvidia runtime with docker
       become: true
       ansible.builtin.command: nvidia-ctk runtime configure --runtime=docker
-      args:
-        creates: /etc/docker/daemon.json
-      when: not is_container
+      changed_when: true
+      notify: Restart docker
+      when: >-
+        not is_container and
+        'nvidia' not in ((docker_daemon_json.content | default('e30=') | b64decode | from_json).runtimes | default({}))

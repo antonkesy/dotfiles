@@ -37,5 +37,5 @@
     PATH: "/nix/var/nix/profiles/default/bin:{{ ansible_facts.env.PATH }}"
     NIX_CONFIG: "experimental-features = nix-command flakes"
   register: hm_switch
-  changed_when: "'Creating profile generation' in hm_switch.stdout"
+  changed_when: "'Creating new profile generation' in hm_switch.stdout"
   when: not is_container

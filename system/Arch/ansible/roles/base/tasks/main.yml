@@ -2,6 +2,25 @@
 - name: Load per-distro package names
   ansible.builtin.include_vars: "{{ ansible_facts.os_family }}.yml"
 
+# before any package install: intel, nvidia and desktop pull lib32-* packages
+- name: Enable the multilib repository
+  become: true
+  ansible.builtin.blockinfile:
+    path: /etc/pacman.conf
+    marker: "# {mark} ANSIBLE MANAGED BLOCK multilib"
+    block: |
+      [multilib]
+      Include = /etc/pacman.d/mirrorlist
+  register: multilib
+  when: ansible_facts.os_family == 'Archlinux'
+
+- name: Refresh the package database after enabling multilib
+  become: true
+  community.general.pacman:
+    update_cache: true
+  when: multilib.changed
+  check_mode: false
+
 - name: Install base packages
   become: true
   ansible.builtin.package:
@@ -52,13 +71,8 @@
     group: root
     mode: "0644"
     backup: true
+  notify: Regenerate grub
   when: ansible_facts.os_family == 'Archlinux'
-
-- name: Regenerate grub.cfg (os-prober picks up other installed OSes)
-  become: true
-  ansible.builtin.command: grub-mkconfig -o /boot/grub/grub.cfg
-  changed_when: true
-  when: ansible_facts.os_family == 'Archlinux' and not is_container
 
 - name: Create journald drop-in dir
   become: true

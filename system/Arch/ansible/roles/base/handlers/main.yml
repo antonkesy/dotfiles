@@ -11,3 +11,9 @@
     name: systemd-journald
     state: restarted
   when: not is_container
+
+- name: Regenerate grub
+  become: true
+  ansible.builtin.command: grub-mkconfig -o /boot/grub/grub.cfg
+  changed_when: true
+  when: not is_container
