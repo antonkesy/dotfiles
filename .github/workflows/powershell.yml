@@ -5,6 +5,8 @@ on:
   push:
     branches: [main]
     paths: ["system/Windows-11-*/**", PSScriptAnalyzerSettings.psd1, .github/workflows/powershell.yml]
+permissions:
+  contents: read
 jobs:
   lint:
     # static analysis only; pwsh and PSScriptAnalyzer ship with ubuntu-latest

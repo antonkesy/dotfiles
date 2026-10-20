@@ -23,11 +23,11 @@ lint:
 	cd ansible && ansible-lint
 
 test:
-	docker build -f docker/Arch.Dockerfile --target ci -t dotfiles-test-arch $(REPO_ROOT)
+	docker build --pull -f docker/Arch.Dockerfile --target ci -t dotfiles-test-arch $(REPO_ROOT)
 	docker run --rm dotfiles-test-arch make -C system/Arch dry IN_DOCKER=1
 
 dev:
-	docker build -f docker/Arch.Dockerfile --target dev -t dotfiles-dev-arch $(REPO_ROOT)
+	docker build --pull -f docker/Arch.Dockerfile --target dev -t dotfiles-dev-arch $(REPO_ROOT)
 	docker run --rm -it -v $(REPO_ROOT):/home/ak/Projects/dotfiles dotfiles-dev-arch bash
 
 clean:

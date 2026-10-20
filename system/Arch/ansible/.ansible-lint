@@ -1,6 +1,5 @@
 profile: moderate
 exclude_paths:
-  - ../build/
   - .ansible/
 skip_list:
   - role-name

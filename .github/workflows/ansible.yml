@@ -1,21 +1,16 @@
 name: ansible
 on:
   pull_request:
-    paths: [system/**, "!system/Windows-11-*/**", Makefile, .dockerignore, .github/workflows/ansible.yml]
+    paths: [system/**, "!system/Windows-11-*/**", "!system/Ubuntu-26.04-WSL2/**", Makefile, .dockerignore, .github/workflows/ansible.yml]
   push:
     branches: [main]
-    paths: [system/**, "!system/Windows-11-*/**", Makefile, .dockerignore, .github/workflows/ansible.yml]
+    paths: [system/**, "!system/Windows-11-*/**", "!system/Ubuntu-26.04-WSL2/**", Makefile, .dockerignore, .github/workflows/ansible.yml]
+permissions:
+  contents: read
+# ansible-lint runs in pre-commit.yml, pinned there
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: ansible/ansible-lint@v25
-        with:
-          working_directory: system/Arch/ansible
   check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: docker/setup-buildx-action@v4
       - run: make -C system/Arch test
