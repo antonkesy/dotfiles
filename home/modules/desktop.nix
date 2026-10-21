@@ -16,7 +16,7 @@ let
     "hypr/scripts/kill-menu.sh"
     "pypr/config.toml"
     "halloy/config.toml"
-    "DankMaterialShell"
+    "dms"
     "wallpapers"
   ];
 
@@ -25,7 +25,7 @@ let
     "discord/settings.json" = ''
       { "SKIP_HOST_UPDATE": true }
     '';
-    "DankMaterialShell/.firstlaunch" = "";
+    "dms/.firstlaunch" = "";
   };
 
   seed =
@@ -53,6 +53,10 @@ in
     lib.genAttrs linked (rel: {
       source = link rel;
     })
+    # pre-2.0 dms (Arch extra) still reads the old dir; 2.x leaves the link alone
+    // {
+      "DankMaterialShell".source = link "dms";
+    }
     // lib.listToAttrs (
       map (name: {
         name = "autostart/${name}.desktop";
@@ -75,7 +79,7 @@ in
 
   # plugins/ is gitignored; plugins.lock.json pins them
   home.activation.restoreDmsPlugins = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
-    dms_dir="${config.xdg.configHome}/DankMaterialShell"
+    dms_dir="${config.xdg.configHome}/dms"
     if [ -x /usr/bin/dms ] && [ -f "$dms_dir/plugins.lock.json" ]; then
       for id in $(${pkgs.jq}/bin/jq -r '.plugins | keys[]' "$dms_dir/plugins.lock.json"); do
         if [ ! -d "$dms_dir/plugins/$id" ]; then

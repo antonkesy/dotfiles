@@ -1,5 +1,5 @@
 # DankMaterialShell rewrites its own JSON; keep the seeds byte-identical to upstream.
-exclude: ^home/.config/(nvim|DankMaterialShell/)
+exclude: ^home/.config/(nvim|dms/)
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0

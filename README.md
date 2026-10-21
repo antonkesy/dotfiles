@@ -146,11 +146,11 @@ Store it obscured: rclone misreads an app password as already-obscured otherwise
 - Arch / Ubuntu on WSL
 - [tmux](https://github.com/tmux/tmux/wiki) + [zsh](https://www.zsh.org/) + [powerlevel10k](https://github.com/romkatv/powerlevel10k)
 - [LazyVim](http://lazyvim.org/)
-- [Hyprland](https://hyprland.org/) + [DankMaterialShell](https://danklinux.com/)
+- [Hyprland](https://hyprland.org/) + [DankMaterialShell](https://github.com/duxlabs-dev/dux-shell) (DMS)
 
 ## DMS plugins
 
-`home/.config/DankMaterialShell/plugins.lock.json` pins every plugin to a commit and
+`home/.config/dms/plugins.lock.json` pins every plugin to a commit and
 is tracked; the clones under `plugins/` are gitignored. `make home` re-clones the
 ones a machine is missing, and `plugin_settings.json` / `settings.json` enable them.
 
@@ -180,7 +180,7 @@ systemctl --user status dms.service
 journalctl --user -u dms.service -b
 ```
 
-The AUR package `dms` is a DLNA server, not DankMaterialShell, and owns the same
+The AUR package `dms` is a DLNA server, not DMS, and owns the same
 `/usr/bin/dms`. If it is still installed, `sudo pacman -Rns dms` before `make arch`.
 
 ### `yay` fails with a `libalpm.so` error
