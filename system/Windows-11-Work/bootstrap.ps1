@@ -16,7 +16,8 @@ $PACKAGES = @(
 	'Microsoft.PowerToys',
 	'Google.Chrome',
 	'Alacritty.Alacritty',
-	'Microsoft.VisualStudioCode'
+	'Microsoft.VisualStudioCode',
+	'MediaArea.MediaInfo.GUI'
 )
 
 $ME = [Security.Principal.WindowsIdentity]::GetCurrent()
