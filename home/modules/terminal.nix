@@ -19,6 +19,7 @@
     tealdeer
     fastfetch
     codespell
+    shellcheck
     tree
     act
     just
