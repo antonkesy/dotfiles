@@ -17,7 +17,8 @@ $PACKAGES = @(
 	'Google.Chrome',
 	'Alacritty.Alacritty',
 	'Microsoft.VisualStudioCode',
-	'MediaArea.MediaInfo.GUI'
+	'MediaArea.MediaInfo.GUI',
+	'GlavSoft.TightVNC'
 )
 
 $ME = [Security.Principal.WindowsIdentity]::GetCurrent()
