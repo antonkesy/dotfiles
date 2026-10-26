@@ -29,6 +29,7 @@
     # --- rust ---
     rustup
     cargo-update
+    cargo-zigbuild
     libgit2
     libssh2
     openssl
@@ -133,9 +134,15 @@
   home.sessionVariables.ANDROID_HOME = "$HOME/Android/Sdk";
   home.sessionVariables.UV_VENV_SEED = "1";
 
-  home.activation.rustupDefaultStable = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  home.activation.rustupToolchain = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     if ! ${pkgs.rustup}/bin/rustup show active-toolchain >/dev/null 2>&1; then
       run ${pkgs.rustup}/bin/rustup default stable
     fi
+    # cross-compile std for Windows and macOS (Apple Silicon); skip when present, add hits the network
+    for target in x86_64-pc-windows-gnu aarch64-apple-darwin; do
+      if ! ${pkgs.rustup}/bin/rustup target list --installed | grep -qx "$target"; then
+        run ${pkgs.rustup}/bin/rustup target add "$target"
+      fi
+    done
   '';
 }
