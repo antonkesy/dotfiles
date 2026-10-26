@@ -1,6 +1,11 @@
 #!/bin/bash
 set -euo pipefail
 
+# apt toolchain only: nix's gcc/pkg-config (on PATH after bootstrap) miss Ubuntu's
+# multiarch headers and .pc files, e.g. openssl-sys can't find openssl.pc
+PATH=$(tr ':' '\n' <<<"$PATH" | grep -v -e '/\.nix-profile/' -e '^/nix/' | paste -sd:)
+export PATH
+
 sudo apt-get update
 
 # HandBrake native Linux build + cross-compile to Windows (x86_64-w64-mingw32)
