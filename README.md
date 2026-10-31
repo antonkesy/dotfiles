@@ -15,13 +15,14 @@ Automated setup for my various machines:
   - Arch: [Ansible](https://github.com/ansible/ansible).
   - Ubuntu-26.04 in WSL2: Shell script.
   - Windows 11: PowerShell script per box (Gaming, Work), no `home/` half.
+  - SteamOS on the Legion Go S: shell script, no `home/` half.
 
 <img src="./docs/images/preview.png" width="800">
 
 ## TL;DR
 
 Every Linux path clones this repo into `~/Projects/dotfiles` (load-bearing: home-manager
-links `~/.config` into it) and ends in `homeConfigurations.ak`. Windows does neither.
+links `~/.config` into it) and ends in `homeConfigurations.ak`. Windows and SteamOS do neither.
 
 **Arch**
 
@@ -72,6 +73,13 @@ irm https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Windows-11-
 irm https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/Windows-11-Work/bootstrap.ps1 | iex
 ```
 
+**SteamOS on Legion Go S**
+
+```bash
+# Desktop Mode > Konsole
+curl -fsSL https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/SteamOS-Legion-Go-S/bootstrap.sh | bash
+```
+
 ## Prerequisites
 
 ### Arch
@@ -94,6 +102,15 @@ sudo dd if=archlinux-x86_64.iso of=/dev/sdX bs=4M status=progress oflag=sync
 wsl --install -d Ubuntu-26.04
 wsl
 # setup user with name `ak`
+```
+
+### SteamOS
+
+The `deck` user has no password and the script needs sudo. Set one once in
+Desktop Mode (Steam > Power > Switch to Desktop), in Konsole:
+
+```bash
+passwd
 ```
 
 ## Targets
