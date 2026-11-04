@@ -184,6 +184,15 @@
           - android-studio
           - naps2 # scanner UI: https://github.com/cyanfish/naps2
 
+    - name: Install GUI apps from Flathub
+      become: true
+      community.general.flatpak:
+        name:
+          - de.bund.ausweisapp.ausweisapp2
+        remote: flathub
+        state: present
+      when: not is_container
+
     - name: Configure greetd with tuigreet
       become: true
       ansible.builtin.copy:
