@@ -17,6 +17,7 @@ $PACKAGES = @(
 	'Google.Chrome',
 	'Alacritty.Alacritty',
 	'Microsoft.VisualStudioCode',
+	'OpenJS.NodeJS.LTS',
 	'MediaArea.MediaInfo.GUI',
 	'GlavSoft.TightVNC'
 )
