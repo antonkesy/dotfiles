@@ -1,6 +1,19 @@
 # https://halloy.chat/configuration/
 
-[servers.libera]
+# soju on lab, which stays on Libera; each of its networks is a server of
+# its own under this one. needs the LAN or the tailnet: the name resolves
+# through lab's Pi-hole only
+[servers.lab]
 nickname = "antonkesy"
-server = "irc.libera.chat"
+server = "irc.antonkesy.de"
+port = 6697
+use_tls = true
+
+# the soju line of `just passwords` on lab; relative to ~/.config/halloy,
+# so outside this repo
+[servers.lab.sasl.plain]
+username = "ak"
+password_file = "soju-password"
+
+[servers.lab.networks.libera]
 channels = ["#handbrake", "#handbrake-dev"]
