@@ -24,6 +24,9 @@ sudo apt-get install -y autoconf automake build-essential cmake git libass-dev \
 sudo apt-get install -y libva-dev libdrm-dev clang llvm \
 	appstream desktop-file-utils gettext gstreamer1.0-libav \
 	gstreamer1.0-plugins-good libgstreamer-plugins-base1.0-dev libgtk-4-dev
+# Vulkan/libplacebo filters, oneVPL (QSV)
+sudo apt-get install -y libplacebo-dev libvulkan-dev libshaderc-dev libvpl-dev \
+	vulkan-tools
 rustup toolchain install stable
 rustup default stable
 rustup target add x86_64-pc-windows-gnu
