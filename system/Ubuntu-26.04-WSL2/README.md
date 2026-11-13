@@ -14,6 +14,12 @@ identity (`anton.kesy@intel.com`, signing key
 NVENC is on by default for mingw targets; NVDEC needs `--enable-nvdec` and clang/llvm
 (ffmpeg's CUDA-LLVM filters). No CUDA toolkit or driver is needed at build time.
 
+The Windows GUI (`win/CS`, WPF on `net10.0-windows`) uses the .NET 10 SDK from
+`home/modules/development.nix`, not apt:
+`dotnet build win/CS/HandBrakeWPF/HandBrakeWPF.csproj -c Release -p:EnableWindowsTargeting=true`,
+then copy `build/libhb/hb.dll` next to `HandBrake.exe` in
+`win/CS/HandBrakeWPF/bin/Release`.
+
 Docker engine (`docker.io`) is installed, the service enabled, and the user added to
 the `docker` group so `docker` runs without sudo. Takes effect after the one-time
 `wsl --shutdown` and a fresh login; compose/buildx/lazydocker come from
