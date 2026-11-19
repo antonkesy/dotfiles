@@ -7,6 +7,7 @@ setopt AUTO_PUSHD PUSHD_IGNORE_DUPS
 setopt INTERACTIVE_COMMENTS
 setopt EXTENDED_HISTORY INC_APPEND_HISTORY SHARE_HISTORY
 setopt HIST_IGNORE_DUPS HIST_IGNORE_SPACE HIST_VERIFY HIST_EXPIRE_DUPS_FIRST
+setopt HIST_FCNTL_LOCK # fcntl locking avoids corrupt history from concurrent writes
 
 bindkey "${terminfo[khome]:-^[[H}" beginning-of-line
 bindkey "${terminfo[kend]:-^[[F}" end-of-line
