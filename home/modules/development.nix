@@ -122,6 +122,7 @@
     texliveFull
     plantuml
     pandoc
+    texi2html
 
     # --- android ---
     android-tools
