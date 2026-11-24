@@ -14,6 +14,7 @@
 | DuckStation     | PS1 emulator                                     | `latest` x64 AppImage from GitHub      | `~/Applications/DuckStation.AppImage`   | yes            |
 | rclone          | talks to Nextcloud for `nextcloud-games`         | downloads.rclone.org, sha256-checked   | `~/.local/bin/rclone`                   | --             |
 | Nextcloud Games | copies new ROMs and BIOS files from Nextcloud    | `nextcloud-games.sh` on `main`         | `~/.local/bin/nextcloud-games`          | yes            |
+| sshd            | `ssh deck@<host>` from the other machines        | ships with SteamOS, enabled            | `sshd` unit, `~/.ssh/authorized_keys`   | --             |
 
 Protontricks gets `/run/media` so it sees SD card libraries. Shortcuts are added
 via `steamos-add-to-steam` on first install only, so re-runs add no duplicates;
@@ -24,6 +25,14 @@ Run it from Konsole in Desktop Mode after setting a password with `passwd` (the
 setup wizard is interactive and installs the other emulators. DuckStation sits
 at the path EmuDeck uses for it, so the wizard configures and updates that copy
 instead of adding a second one; keep it selected there.
+
+## SSH
+
+`sshd` is enabled and started, and every key on
+<https://github.com/antonkesy.keys> is added to `~/.ssh/authorized_keys`; keys
+already there stay, so one removed from GitHub has to be removed here by hand.
+Password login stays on as SteamOS ships it, with the `deck` password from
+`passwd`. Log in as `deck`, not `ak`.
 
 ## Games from Nextcloud
 
@@ -55,6 +64,6 @@ time. EmuDeck updates itself and the emulators, DuckStation included.
 
 Games box only: like Windows-11-Gaming this clones nothing and never runs
 `make home`. The root is read-only, so nothing goes through pacman; everything
-lives in `$HOME` except Decky's `plugin_loader` unit, which SteamOS keeps
-across updates. A SteamOS update can still drop Decky from the Quick Access
+lives in `$HOME` except the enabled `sshd` and Decky's `plugin_loader` unit,
+which SteamOS keeps across updates. A SteamOS update can still drop Decky from the Quick Access
 menu: re-run the script.

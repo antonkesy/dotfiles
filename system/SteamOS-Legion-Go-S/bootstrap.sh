@@ -23,6 +23,8 @@ RCLONE="$HOME/.local/bin/rclone"
 GAMES_SYNC="$HOME/.local/bin/nextcloud-games"
 GAMES_SYNC_URL=https://raw.githubusercontent.com/antonkesy/dotfiles/main/system/SteamOS-Legion-Go-S/nextcloud-games.sh
 GAMES_DESKTOP="$HOME/.local/share/applications/nextcloud-games.desktop"
+SSH_KEYS=https://github.com/antonkesy.keys
+AUTH_KEYS="$HOME/.ssh/authorized_keys"
 FLATPAK_APPS="${XDG_DATA_HOME:-$HOME/.local/share}/flatpak/exports/share/applications"
 
 if ! grep -qx 'ID=steamos' /etc/os-release; then
@@ -65,6 +67,13 @@ if ! systemctl is-active --quiet plugin_loader; then
 	# bash, not sh: the installer needs $SUDO_USER and uses bashisms
 	sudo bash "$TMP/decky.sh" </dev/null
 fi
+
+# github keys added, never removed; password login stays as steamos ships it
+install -d -m700 "$HOME/.ssh"
+[ -e "$AUTH_KEYS" ] || install -m600 /dev/null "$AUTH_KEYS"
+curl -fsSL "$SSH_KEYS" -o "$TMP/keys"
+grep -vxFf "$AUTH_KEYS" "$TMP/keys" >>"$AUTH_KEYS" || true
+sudo systemctl enable --now sshd
 
 read -r PDB_VERSION PDB_HASH < <(curl -fsSL "$DECKY_STORE" |
 	jq -r '.[] | select(.name == "ProtonDB Badges") | .versions[0] | "\(.name) \(.hash)"') ||
