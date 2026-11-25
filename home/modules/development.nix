@@ -77,6 +77,7 @@
     # --- c / c++ ---
     gcc
     (lib.setPrio 20 clang)
+    (lib.setPrio 21 clang_21) # bin/clang collides with clang
     clang-tools
     llvm
     lldb
